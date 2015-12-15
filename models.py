@@ -48,9 +48,10 @@ class Sample(db.Model):
     timeplace = db.relationship('TimePlace',
             backref=db.backref('samples'))
 
-    def __init__(self, scilifelab_code, sample_set):
+    def __init__(self, scilifelab_code, sample_set, timeplace):
         self.scilifelab_code = scilifelab_code
         self.sample_set = sample_set
+        self.timeplace = timeplace
 
     def __repr__(self):
         return '<Sample {}>'.format(self.id)
