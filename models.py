@@ -63,17 +63,17 @@ class SampleProperty(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(), index=True)
     value = db.Column(db.String(), index=True)
-    datatype = db.Column(db.String())
+    unit = db.Column(db.String())
     
     # Sample Property has one sample
     sample_id = db.Column(db.Integer, db.ForeignKey('sample.id'))
     sample = db.relationship("Sample", 
             backref=db.backref("properties"))
 
-    def __init__(self, name, value, datatype, sample):
+    def __init__(self, name, value, unit, sample):
         self.name = name
         self.value = value
-        self.datatype = datatype
+        self.unit = unit
         self.sample = sample
 
     def __repr__(self):
