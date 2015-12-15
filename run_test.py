@@ -11,8 +11,8 @@ if __name__ == "__main__":
     parser.set_defaults(func=run_tests)
     args = parser.parse_args()
 
-    OLD_APP_SETTINGS=os.environ["APP_SETTINGS"]
-    OLD_DATABASE_URL=os.environ["DATABASE_URL"]
+    OLD_APP_SETTINGS=os.environ.get("APP_SETTINGS", None)
+    OLD_DATABASE_URL=os.environ.get("DATABASE_URL", None)
     USER = os.environ["USER"]
 
     try:
@@ -20,6 +20,8 @@ if __name__ == "__main__":
         os.environ["DATABASE_URL"]="postgresql://{}:local_dev_pass@localhost/BARM_web_test".format(USER)
         args.func(args)
     except:
-        os.environ["APP_SETTINGS"] = OLD_APP_SETTINGS
-        os.environ["DATABASE_URL"] = OLD_DATABASE_URL
+        if OLD_APP_SETTINGS:
+            os.environ["APP_SETTINGS"] = OLD_APP_SETTINGS
+        if OLD_DATABASE_URL:
+            os.environ["DATABASE_URL"] = OLD_DATABASE_URL
         raise
