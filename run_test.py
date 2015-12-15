@@ -9,6 +9,7 @@ def run_tests(args):
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(description="Run tests")
     parser.set_defaults(func=run_tests)
+    parser.add_argument("--db", help="Overrule the default database url")
     args = parser.parse_args()
 
     OLD_APP_SETTINGS=os.environ.get("APP_SETTINGS", None)
@@ -17,7 +18,10 @@ if __name__ == "__main__":
 
     try:
         os.environ["APP_SETTINGS"]="config.TestingConfig"
-        os.environ["DATABASE_URL"]="postgresql://{}:local_dev_pass@localhost/BARM_web_test".format(USER)
+        if args.db is None:
+            os.environ["DATABASE_URL"]="postgresql://{}:local_dev_pass@localhost/BARM_web_test".format(USER)
+        else:
+            os.environ["DATABASE_URL"]=args.db
         args.func(args)
     except:
         if OLD_APP_SETTINGS:

@@ -13,4 +13,4 @@ before_script:
 install:
     - pip install -r requirements.txt
 script:
-    - python run_test.py
+    - python run_test.py --db "postgresql://postgres:@localhost/BARM_web_test"
