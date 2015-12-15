@@ -1,13 +1,16 @@
 import unittest
 import app
-from models import Sample
+from models import Sample, SampleSet
+
 
 class SampleTestCase(unittest.TestCase):
     """Test that a sample in the database has the correct relations"""
     def setUp(self):
         
         self.db = app.db
-       
+
+        self.db.create_all()
+
         self.session = self.db.session
 
         self.connection = self.session.connection()
@@ -21,8 +24,10 @@ class SampleTestCase(unittest.TestCase):
         self.trans.rollback()
 
         self.connection.close()
+        
+        self.db.drop_all()
 
-    def test_app(self):
+    def test_sample(self):
         all_samples_before = Sample.query.all()
         assert len(all_samples_before) == 0
         sample = Sample("P1993_101", None)
@@ -31,3 +36,4 @@ class SampleTestCase(unittest.TestCase):
 
         all_samples_after = Sample.query.all()
         assert len(all_samples_after) == 1
+
