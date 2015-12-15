@@ -1,6 +1,6 @@
 import unittest
 import app
-from models import Sample, SampleSet, TimePlace
+from models import Sample, SampleSet, TimePlace, SampleProperty
 import datetime
 
 class SampleTestCase(unittest.TestCase):
@@ -91,3 +91,11 @@ class SampleTestCase(unittest.TestCase):
         assert len(TimePlace.query.first().samples) == 2
         assert sample1 in TimePlace.query.first().samples
         assert sample2 in TimePlace.query.first().samples
+
+    def test_sample_sample_property(self):
+        sample1 = Sample("P1993_101", None, None)
+        sample_prop = SampleProperty(name="Salinity", value="16", unit="PSU", sample=sample1)
+        self.session.add(sample_prop)
+        self.session.commit()
+
+        assert sample_prop in sample1.properties
