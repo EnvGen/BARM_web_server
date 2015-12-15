@@ -9,6 +9,7 @@ class Config(object):
     else:
         raise Exception('The variable BARM_SECRET_KEY is not set')
     SQLALCHEMY_DATABASE_URI = os.environ['DATABASE_URL']
+    SQLALCHEMY_TRACK_MODIFICATIONS = False
 
 class ProductionConfig(Config):
     DEBUG = False
