@@ -9,7 +9,7 @@ services:
 env:
     - BARM_SECRET_KEY="yeahthisiswhatweuseinproduction"
 before_script:
-    - psql -c 'create database BARM_web_test;' -U postgres
+    - createdb BARM_web_test -U postgres --echo
 install:
     - pip install -r requirements.txt
 script:
