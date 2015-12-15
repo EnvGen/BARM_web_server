@@ -6,6 +6,8 @@ app = Flask(__name__)
 app.config.from_object(os.environ['APP_SETTINGS'])
 db = SQLAlchemy(app)
 
+from models import Sample, SampleSet, TimePlace, SampleProperty
+
 @app.route('/')
 def hello():
     return "Hello World!"
