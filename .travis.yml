@@ -7,9 +7,9 @@ addons:
 services:
     - postgresql
 env:
-    - APP_SETTINGS="config.TestingConfig" DATABASE_URL="postgresql://postgres:travis_dev_pass@localhost/travis_ci_test" BARM_SECRET_KEY="yeahthisiswhatweuseinproduction"
+    - BARM_SECRET_KEY="yeahthisiswhatweuseinproduction"
 before_script:
-    - psql -c 'create database travis_ci_test;' -U postgres
+    - psql -c 'create database BARM_web_test;' -U postgres
 install:
     - pip install -r requirements.txt
 script:
