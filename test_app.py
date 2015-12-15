@@ -1,7 +1,7 @@
 import unittest
 import app
-from models import Sample, SampleSet
-
+from models import Sample, SampleSet, TimePlace
+import datetime
 
 class SampleTestCase(unittest.TestCase):
     """Test that a sample in the database has the correct relations"""
@@ -30,7 +30,7 @@ class SampleTestCase(unittest.TestCase):
     def test_sample(self):
         all_samples_before = Sample.query.all()
         assert len(all_samples_before) == 0
-        sample = Sample("P1993_101", None)
+        sample = Sample("P1993_101", None, None)
         self.session.add(sample)
         self.session.commit()
 
@@ -40,7 +40,7 @@ class SampleTestCase(unittest.TestCase):
     def test_sample_sampleset(self):
         #Test that sample and sample set references each other properly
         sample_set = SampleSet("first_sampleset")
-        sample1 = Sample("P1993_101", sample_set)
+        sample1 = Sample("P1993_101", sample_set, None)
 
         self.session.add(sample1)
         self.session.add(sample_set)
@@ -49,8 +49,8 @@ class SampleTestCase(unittest.TestCase):
         assert Sample.query.filter_by(scilifelab_code='P1993_101').first().sample_set is sample_set
 
         sample_set2 = SampleSet("second_sampleset")
-        sample2 = Sample("P1993_102", sample_set2)
-        sample3 = Sample("P1993_103", sample_set)
+        sample2 = Sample("P1993_102", sample_set2, None)
+        sample3 = Sample("P1993_103", sample_set, None)
         self.session.add(sample2)
         self.session.add(sample3)
 
@@ -69,3 +69,25 @@ class SampleTestCase(unittest.TestCase):
         assert sample2 not in sample_set.samples
         assert sample1 in sample_set.samples
         assert sample3 in sample_set.samples
+
+    def test_sample_timeplace(self):
+        sample_set = SampleSet("first_sampleset")
+        sample1 = Sample("P1993_101", sample_set, None)
+        time_place1 = TimePlace(datetime.datetime.now(), "52.3820818", "18.0233369")
+        sample1.timeplace = time_place1
+        self.session.add(sample1)
+        self.session.add(time_place1)
+        # The sample should have the correct time place
+        assert Sample.query.first().timeplace == time_place1
+
+        # One can also add it after sample creation
+        sample2 = Sample("P1993_102", sample_set, None)
+        sample2.timeplace = time_place1
+
+        self.session.add(sample2)
+        self.session.commit()
+
+        # The only existing time place should contain exactly sample1 and sample2
+        assert len(TimePlace.query.first().samples) == 2
+        assert sample1 in TimePlace.query.first().samples
+        assert sample2 in TimePlace.query.first().samples
