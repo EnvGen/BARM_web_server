@@ -79,4 +79,27 @@ class SampleProperty(db.Model):
     def __repr__(self):
         return '<SampleProperty {}>'.format(self.id)
 
+class ReferenceAssembly(db.Model):
+    __tablename__ = 'reference_assembly'
+    
+    id = db.Column(db.Integer, primary_key=True)
 
+    name = db.Column(db.String())
+
+    def __init__(self, name):
+        self.name = name
+
+class Gene(db.Model):
+    __tablename__ = 'gene'
+
+    id = db.Column(db.Integer, primary_key=True)
+
+    name = db.Column(db.String())
+    reference_assemlby_id = db.Column(db.Integer, 
+            db.ForeignKey('reference_assembly.id'))
+    reference_assembly = db.relationship("ReferenceAssembly",
+            backref=db.backref("genes"))
+
+    def __init__(self, name, reference_assembly):
+        self.name = name
+        self.reference_assembly = reference_assembly
