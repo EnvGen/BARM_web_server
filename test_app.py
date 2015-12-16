@@ -1,6 +1,6 @@
 import unittest
 import app
-from models import Sample, SampleSet, TimePlace, SampleProperty
+from models import Sample, SampleSet, TimePlace, SampleProperty, ReferenceAssembly, Gene
 import datetime
 
 class SampleTestCase(unittest.TestCase):
@@ -99,3 +99,33 @@ class SampleTestCase(unittest.TestCase):
         self.session.commit()
 
         assert sample_prop in sample1.properties
+
+    def test_reference_assembly(self):
+        ref_assembly = ReferenceAssembly("Version 1")
+        self.session.add(ref_assembly)
+        self.session.commit()
+
+        assert ReferenceAssembly.query.first() is ref_assembly
+        assert len(ref_assembly.genes) == 0
+
+    def test_gene(self):
+        ref_assembly = ReferenceAssembly("Version 1")
+        gene1 = Gene("gene1", ref_assembly)
+
+        self.session.add(gene1)
+        self.session.commit()
+
+        # Test gene creation
+        assert Gene.query.first() is gene1
+
+        # Test gene reference assembly membership
+        ref_assembly2 = ReferenceAssembly("Version 2")
+        gene2 = Gene("gene1", ref_assembly2)
+        self.session.add(gene2)
+        self.session.commit()
+
+        assert gene1 in ReferenceAssembly.query.filter_by(name="Version 1").first().genes
+        assert len(ReferenceAssembly.query.filter_by(name="Version 1").first().genes) == 1
+
+        assert gene2 in ReferenceAssembly.query.filter_by(name="Version 2").first().genes
+        assert len(ReferenceAssembly.query.filter_by(name="Version 1").first().genes) == 1
