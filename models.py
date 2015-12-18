@@ -103,3 +103,26 @@ class Gene(db.Model):
     def __init__(self, name, reference_assembly):
         self.name = name
         self.reference_assembly = reference_assembly
+
+class GeneCount(db.Model):
+    __tablename__ = 'gene_count'
+    __table_args__ = (
+        db.UniqueConstraint('sample_id', 'gene_id', name='genecount_unique'),
+        )
+    id = db.Column(db.Integer, primary_key=True)
+    sample_id = db.Column(db.Integer, db.ForeignKey('sample.id'),
+            nullable=False)
+    sample = db.relationship('Sample',
+            backref=db.backref('gene_counts'))
+
+    gene_id = db.Column(db.Integer, db.ForeignKey('gene.id'),
+            nullable=False)
+    gene = db.relationship('Gene',
+            backref=db.backref('sample_counts'))
+
+    rpkm = db.Column(db.Float)
+
+    def __init__(self, gene, sample, rpkm):
+        self.gene = gene
+        self.sample = sample
+        self.rpkm = rpkm
