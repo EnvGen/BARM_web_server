@@ -1,7 +1,9 @@
 import unittest
 import app
-from models import Sample, SampleSet, TimePlace, SampleProperty, ReferenceAssembly, Gene
+from models import Sample, SampleSet, TimePlace, SampleProperty, ReferenceAssembly, Gene, \
+    GeneCount
 import datetime
+import sqlalchemy
 
 class SampleTestCase(unittest.TestCase):
     """Test that a sample in the database has the correct relations"""
@@ -129,3 +131,22 @@ class SampleTestCase(unittest.TestCase):
 
         assert gene2 in ReferenceAssembly.query.filter_by(name="Version 2").first().genes
         assert len(ReferenceAssembly.query.filter_by(name="Version 1").first().genes) == 1
+
+    def test_gene_count(self):
+        sample1 = Sample("P1993_101", None, None)
+        reference_assembly = ReferenceAssembly("version 1")
+        gene1 = Gene("gene1", reference_assembly)
+        gene_count1 = GeneCount(gene1, sample1, 0.001)
+
+        self.session.add(gene_count1)
+        self.session.commit()
+
+        assert GeneCount.query.first() is gene_count1
+
+
+        with self.assertRaises(sqlalchemy.exc.IntegrityError):
+            # Only one gene count per gene and sample
+            gene_count2 = GeneCount(gene1, sample1, 0.12)
+            self.session.add(gene_count2)
+            self.session.commit()
+
