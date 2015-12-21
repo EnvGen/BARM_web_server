@@ -1,7 +1,7 @@
 import unittest
 import app
 from models import Sample, SampleSet, TimePlace, SampleProperty, ReferenceAssembly, Gene, \
-    GeneCount
+    GeneCount, AnnotationSource, Annotation
 import datetime
 import sqlalchemy
 
@@ -155,8 +155,8 @@ class SampleTestCase(unittest.TestCase):
         self.session.add(annotation_source)
         self.session.commit()
 
-        assert AnnotationSource.query.first() is annotation_soure
-        assert len(annotation_source.annotation) == 0
+        assert AnnotationSource.query.first() is annotation_source 
+        assert len(annotation_source.annotations) == 0
 
     def test_annotation(self):
         annotation_source = AnnotationSource("Cog", "v1.0", "rpsblast", "e_value=0.000001")
@@ -169,32 +169,32 @@ class SampleTestCase(unittest.TestCase):
 
 
         #Test the many to many relationship
-        reference_assembly = ReferenceAssemby("version 1")
+        reference_assembly = ReferenceAssembly("version 1")
         gene = Gene("gene1", reference_assembly)
         gene2 = Gene("gene2", reference_assembly)
         gene3 = Gene("gene3", reference_assembly)
 
         annotation2 = Annotation("Cog", annotation_source)
         # Test having multiple genes to one annotation
-        annotation.genes.add(gene)
-        annotation.genes.add(gene2)
+        annotation.genes.append(gene)
+        annotation.genes.append(gene2)
        
         self.session.add(annotation)
         self.session.add(gene3)
         self.session.commit()
 
-        assert len(Annotation.query().first().genes) == 2
-        assert gene in Annotation.query().first().genes
-        assert gene2 in Annotation.query().first().genes
-        assert annotation in Gene.query().filter_by(name="gene1").first().annotations
-        assert annotation in Gene.query().filter_by(name="gene2").first().annotations
-        assert len(Gene.query().filter_by(name="gene3").first().annotations) == 0
+        assert len(Annotation.query.first().genes) == 2
+        assert gene in Annotation.query.first().genes
+        assert gene2 in Annotation.query.first().genes
+        assert annotation in Gene.query.filter_by(name="gene1").first().annotations
+        assert annotation in Gene.query.filter_by(name="gene2").first().annotations
+        assert len(Gene.query.filter_by(name="gene3").first().annotations) == 0
 
         # Test having multiple annotations to one gene
-        annotation2.genes.add(gene)
+        annotation2.genes.append(gene)
         self.session.add(annotation2)
         self.session.commit()
 
-        assert len(Gene.query().filter_by(name="gene1").first().annotations) == 2
-        assert annotation in Gene.query().filter_by(name="gene1").first().annotaitons
-        assert annotation2 in Gene.query().filter_by(name="gene1").first().annotaitons
+        assert len(Gene.query.filter_by(name="gene1").first().annotations) == 2
+        assert annotation in Gene.query.filter_by(name="gene1").first().annotations
+        assert annotation2 in Gene.query.filter_by(name="gene1").first().annotations
