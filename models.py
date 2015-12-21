@@ -89,6 +89,11 @@ class ReferenceAssembly(db.Model):
     def __init__(self, name):
         self.name = name
 
+gene_annotation = db.Table('gene_annotation', 
+        db.Column('annotation_id', db.Integer, db.ForeignKey('annotation.id')),
+        db.Column('gene_id', db.Integer, db.ForeignKey('gene.id'))
+    )
+
 class Gene(db.Model):
     __tablename__ = 'gene'
 
@@ -126,3 +131,37 @@ class GeneCount(db.Model):
         self.gene = gene
         self.sample = sample
         self.rpkm = rpkm
+
+class AnnotationSource(db.Model):
+    __tablename__ = 'annotation_source'
+    id = db.Column(db.Integer, primary_key=True)
+    
+    dbname = db.Column(db.String)
+    dbversion = db.Column(db.String)
+    algorithm = db.Column(db.String)
+    algorithm_parameters = db.Column(db.String)
+    
+    def __init__(self, dbname, dbversion, algorithm, algorithm_parameters):
+        self.dbname = dbname
+        self.dbversion = dbversion
+        self.algorithm = algorithm
+        self.algorithm_parameters = algorithm_parameters
+
+
+class Annotation(db.Model):
+    __tablename__ = 'annotation'
+    id = db.Column(db.Integer, primary_key=True)
+
+    source_id = db.Column(db.Integer, db.ForeignKey('annotation_source.id'),
+            nullable=False)
+    source = db.relationship('AnnotationSource',
+            backref=db.backref('annotations'))
+    annotation_type = db.Column(db.String)
+    
+    genes = db.relationship('Gene', secondary=gene_annotation,
+            backref=db.backref('annotations'))
+
+    def __init__(self, annotation_type, annotation_source):
+        self.annotation_type = annotation_type
+        self.source = annotation_source
+
