@@ -143,12 +143,24 @@ class SampleTestCase(unittest.TestCase):
 
         assert GeneCount.query.first() is gene_count1
 
-
         with self.assertRaises(sqlalchemy.exc.IntegrityError):
             # Only one gene count per gene and sample
             gene_count2 = GeneCount(gene1, sample1, 0.12)
             self.session.add(gene_count2)
             self.session.commit()
+
+        self.session.rollback()
+
+
+        # Test sample count retreival
+        sample2 = Sample("P1993_102", None, None)
+        # gene_count2 = GeneCount(gene1, sample2, 0.2)
+        self.session.add(sample2)
+        self.session.commit()
+
+        gene1 = Gene.query.filter_by(name="gene1").first()
+        assert gene1.rpkm == {sample1: 0.001}
+        assert gene1.rpkm == {sample1: 0.001, sample2: 0.2}
 
     def test_annotation_source(self):
         annotation_source = AnnotationSource("Cog", "v1.0", "rpsblast", "e_value=0.000001")
