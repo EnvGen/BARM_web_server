@@ -154,12 +154,16 @@ class SampleTestCase(unittest.TestCase):
 
         # Test sample count retreival
         sample2 = Sample("P1993_102", None, None)
-        # gene_count2 = GeneCount(gene1, sample2, 0.2)
         self.session.add(sample2)
         self.session.commit()
 
         gene1 = Gene.query.filter_by(name="gene1").first()
+        assert len(gene1.sample_counts) == 1
         assert gene1.rpkm == {sample1: 0.001}
+
+        gene_count2 = GeneCount(gene1, sample2, 0.2)
+        self.session.add(gene_count2)
+        self.session.commit()
         assert gene1.rpkm == {sample1: 0.001, sample2: 0.2}
 
     def test_annotation_source(self):

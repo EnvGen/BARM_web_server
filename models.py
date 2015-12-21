@@ -109,6 +109,10 @@ class Gene(db.Model):
         self.name = name
         self.reference_assembly = reference_assembly
 
+    @property
+    def rpkm(self):
+        return { sc.sample: sc.rpkm for sc in self.sample_counts }
+
 class GeneCount(db.Model):
     __tablename__ = 'gene_count'
     __table_args__ = (
