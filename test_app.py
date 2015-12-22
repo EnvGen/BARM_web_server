@@ -236,7 +236,7 @@ class SampleTestCase(unittest.TestCase):
         self.session.add(gene2)
         self.session.commit()
 
-        assert len(annotation1.rpkm.keys) == 2
+        assert len(annotation1.rpkm.keys()) == 2
         assert annotation1.rpkm == { sample1: 0.003, sample2: 0.03 }
         assert annotation2.rpkm == { sample1: 0.001, sample2: 0.01 }
         assert annotation3.rpkm == { sample1: 0.002, sample2: 0.02 }
