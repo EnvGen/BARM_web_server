@@ -214,3 +214,29 @@ class SampleTestCase(unittest.TestCase):
         assert len(Gene.query.filter_by(name="gene1").first().annotations) == 2
         assert annotation in Gene.query.filter_by(name="gene1").first().annotations
         assert annotation2 in Gene.query.filter_by(name="gene1").first().annotations
+
+    def test_annotation_rpkm(self):
+        annotation_source = AnnotationSource("Cog", "v1.0", "rpsblast", "e_value=0.000001")
+        annotation1 = Annotation("Cog", annotation_source, "COG0001")
+        annotation2 = Annotation("Cog", annotation_source, "COG0002")
+        annotation3 = Annotation("Pfam", annotation_source, "Pfam0001")
+        gene1 = Gene("gene1", None)
+        gene2 = Gene("gene2", None)
+        gene1.annotations.append(annotation1)
+        gene2.annotations.append(annotation1)
+        gene1.annotations.append(annotation2)
+        gene2.annotations.append(annotation3)
+        sample1 = Sample("P1993_101", None, None)
+        sample2 = Sample("P1993_102", None, None)
+        gene_count1 = GeneCount(gene1, sample1, 0.001)
+        gene_count2 = GeneCount(gene1, sample2, 0.01)
+        gene_count3 = GeneCount(gene2, sample1, 0.002)
+        gene_count4 = GeneCount(gene2, sample2, 0.02)
+        self.session.add(gene1)
+        self.session.add(gene2)
+        self.session.commit()
+
+        assert len(annotation1.rpkm.keys) == 2
+        assert annotation1.rpkm == { sample1: 0.003, sample2: 0.03 }
+        assert annotation2.rpkm == { sample1: 0.001, sample2: 0.01 }
+        assert annotation3.rpkm == { sample1: 0.002, sample2: 0.02 }
