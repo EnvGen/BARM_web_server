@@ -1,4 +1,5 @@
 from app import db
+import sqlalchemy
 
 ##########
 # Sample #
@@ -166,6 +167,22 @@ class Annotation(db.Model):
             backref=db.backref('annotations'))
 
     type_id = db.Column(db.String, nullable=False)
+
+    @property
+    def rpkm(self):
+        q = db.session.query(Sample, sqlalchemy.func.sum(GeneCount.rpkm)).\
+                join(GeneCount).\
+                filter(Sample.id == GeneCount.sample_id).\
+                join(Gene).\
+                filter(GeneCount.gene_id == Gene.id).\
+                join(gene_annotation).\
+                filter(Gene.id == gene_annotation.c.gene_id).\
+                join(Annotation).\
+                filter(gene_annotation.c.annotation_id == Annotation.id).\
+                filter(Annotation.id == self.id).\
+                group_by(Sample.id)
+
+        return { sample: rpkm_sum for sample, rpkm_sum in q.all() }
 
     def __init__(self, annotation_type, annotation_source, type_id):
         self.annotation_type = annotation_type
