@@ -165,7 +165,10 @@ class Annotation(db.Model):
     genes = db.relationship('Gene', secondary=gene_annotation,
             backref=db.backref('annotations'))
 
-    def __init__(self, annotation_type, annotation_source):
+    type_id = db.Column(db.String, nullable=False)
+
+    def __init__(self, annotation_type, annotation_source, type_id):
         self.annotation_type = annotation_type
         self.source = annotation_source
+        self.type_id = type_id
 
