@@ -1,7 +1,7 @@
 import unittest
 import app
 from models import Sample, SampleSet, TimePlace, SampleProperty, ReferenceAssembly, Gene, \
-    GeneCount, AnnotationSource, Annotation
+    GeneCount, AnnotationSource, Annotation, Cog, Pfam
 import datetime
 import sqlalchemy
 
@@ -176,7 +176,7 @@ class SampleTestCase(unittest.TestCase):
 
     def test_annotation(self):
         annotation_source = AnnotationSource("Cog", "v1.0", "rpsblast", "e_value=0.000001")
-        annotation = Annotation("Cog", annotation_source, "COG0001")
+        annotation = Annotation(annotation_source, "COG0001")
         self.session.add(annotation)
         self.session.commit()
 
@@ -190,7 +190,7 @@ class SampleTestCase(unittest.TestCase):
         gene2 = Gene("gene2", reference_assembly)
         gene3 = Gene("gene3", reference_assembly)
 
-        annotation2 = Annotation("Cog", annotation_source, "COG0001")
+        annotation2 = Annotation(annotation_source, "COG0001")
         # Test having multiple genes to one annotation
         annotation.genes.append(gene)
         annotation.genes.append(gene2)
@@ -214,6 +214,58 @@ class SampleTestCase(unittest.TestCase):
         assert len(Gene.query.filter_by(name="gene1").first().annotations) == 2
         assert annotation in Gene.query.filter_by(name="gene1").first().annotations
         assert annotation2 in Gene.query.filter_by(name="gene1").first().annotations
+
+
+    def test_annotation_type_inheritance(self):
+        annotation_source1 = AnnotationSource("Cog", "v1.0", "rpsblast", "e_value=0.00001")
+        annotation_source2 = AnnotationSource("Pfam", "v1.0", "rpsblast", "e_value=0.00001")
+        annotation2 = Pfam(annotation_source1, "pfam002")
+        annotation = Cog(annotation_source1, "COG0001", "H")
+
+        assert annotation2.annotation_type == 'pfam'
+        assert annotation.annotation_type == 'cog'
+
+        gene = Gene("gene1", None)
+        gene.annotations.append(annotation)
+        self.session.add(gene)
+        self.session.add(annotation2)
+        self.session.commit()
+
+        # category is defined on cog class
+        assert annotation.category == "H"
+        # Genes is defined on the annotation base class
+        assert gene in annotation.genes
+
+        for subclass, type_ident in [(Cog, "COG0001"), (Pfam, "pfam002")]:
+            # The same type identifier can be in the db twice,
+            # if its from a different source
+            if subclass == Cog:
+                annotation = subclass(annotation_source2, type_ident, "G")
+            else:
+                annotation = subclass(annotation_source2, type_ident)
+            self.session.add(annotation)
+            self.session.commit()
+
+            assert len(subclass.query.filter_by(type_identifier=type_ident).all()) == 2
+
+            with self.assertRaises(sqlalchemy.exc.IntegrityError):
+                # Only one cog per type_identifier and annotation source
+                if subclass == Cog:
+                    annotation = subclass(annotation_source1, type_ident, "G")
+                else:
+                    annotation = subclass(annotation_source1, type_ident)
+                self.session.add(annotation)
+                self.session.commit()
+
+            self.session.rollback()
+
+        # A different annotation_type can also be used to
+        # have the same type_identifier twice
+        annotation3 = Pfam(annotation_source1, "COG0001")
+        self.session.add(annotation3)
+        self.session.commit()
+        assert len(Annotation.query.filter_by(type_identifier="COG0001")) == 3
+
 
     def test_annotation_rpkm(self):
         annotation_source = AnnotationSource("Cog", "v1.0", "rpsblast", "e_value=0.000001")
