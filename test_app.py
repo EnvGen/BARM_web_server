@@ -176,7 +176,7 @@ class SampleTestCase(unittest.TestCase):
 
     def test_annotation(self):
         annotation_source = AnnotationSource("Cog", "v1.0", "rpsblast", "e_value=0.000001")
-        annotation = Annotation("Cog", annotation_source)
+        annotation = Annotation("Cog", annotation_source, "COG0001")
         self.session.add(annotation)
         self.session.commit()
 
@@ -190,7 +190,7 @@ class SampleTestCase(unittest.TestCase):
         gene2 = Gene("gene2", reference_assembly)
         gene3 = Gene("gene3", reference_assembly)
 
-        annotation2 = Annotation("Cog", annotation_source)
+        annotation2 = Annotation("Cog", annotation_source, "COG0001")
         # Test having multiple genes to one annotation
         annotation.genes.append(gene)
         annotation.genes.append(gene2)
