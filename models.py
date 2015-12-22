@@ -155,6 +155,9 @@ class AnnotationSource(db.Model):
 
 class Annotation(db.Model):
     __tablename__ = 'annotation'
+    __table_args__ = (
+        db.UniqueConstraint('source_id', 'annotation_type', 'type_identifier', name='annotation_unique'),
+        )
     id = db.Column(db.Integer, primary_key=True)
 
     source_id = db.Column(db.Integer, db.ForeignKey('annotation_source.id'),
@@ -166,7 +169,7 @@ class Annotation(db.Model):
     genes = db.relationship('Gene', secondary=gene_annotation,
             backref=db.backref('annotations'))
 
-    type_id = db.Column(db.String, nullable=False)
+    type_identifier = db.Column(db.String, nullable=False)
 
     @property
     def rpkm(self):
@@ -184,8 +187,35 @@ class Annotation(db.Model):
 
         return { sample: rpkm_sum for sample, rpkm_sum in q.all() }
 
-    def __init__(self, annotation_type, annotation_source, type_id):
-        self.annotation_type = annotation_type
+    __mapper_args__ = {
+            'polymorphic_identity': 'annotation',
+            'polymorphic_on': annotation_type
+        }
+
+    def __init__(self, annotation_source, type_identifier):
         self.source = annotation_source
-        self.type_id = type_id
+        self.type_identifier = type_identifier
+
+class Cog(Annotation):
+    __tablename__ = 'cog'
+    id = db.Column(db.Integer, db.ForeignKey("annotation.id"),
+            primary_key=True)
+    category = db.Column(db.String)
+
+    def __init__(self, annotation_source, type_identifier, category):
+        super().__init__(annotation_source, type_identifier)
+        self.category = category
+
+    __mapper_args__ = {
+            'polymorphic_identity':'cog'
+        }
+
+class Pfam(Annotation):
+    __tablename__ = 'pfam'
+    id = db.Column(db.Integer, db.ForeignKey("annotation.id"),
+            primary_key=True)
+
+    __mapper_args__ = {
+            'polymorphic_identity': 'pfam'
+        }
 
