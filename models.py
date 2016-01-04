@@ -219,3 +219,40 @@ class Pfam(Annotation):
             'polymorphic_identity': 'pfam'
         }
 
+class TigrFam(Annotation):
+    __tablename__ = 'tigrfam'
+    id = db.Column(db.Integer, db.ForeignKey("annotation.id"),
+            primary_key=True)
+
+    __mapper_args__ = {
+            'polymorphic_identity': 'tigrfam'
+        }
+
+class EcNumber(Annotation):
+    __tablename__ = 'ecnumber'
+    id = db.Column(db.Integer, db.ForeignKey("annotation.id"),
+            primary_key=True)
+
+    first_digit = db.Column(db.Integer, index=True)
+    second_digit = db.Column(db.Integer, index=True)
+    third_digit = db.Column(db.Integer, index=True)
+    fourth_digit = db.Column(db.Integer, index=True)
+
+    def __init__(self, annotation_source, type_identifier):
+        super().__init__(annotation_source, type_identifier)
+        ec_digits = self.type_identifier.split('.')
+        digit_translation_d = {
+                0: self.first_digit,
+                1: self.second_digit,
+                2: self.third_digit,
+                3: self.fourth_digit
+                }
+        for i, ec_digit in enumerate(ec_digits):
+            if ec_digit == '-':
+                digit_translation_d[i] = None
+            else:
+                digit_translation_d[i] = int(ec_digit)
+
+    __mapper_args__ = {
+            'polymorphic_identity': 'ecnumber'
+        }
