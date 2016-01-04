@@ -1,7 +1,7 @@
 import unittest
 import app
 from models import Sample, SampleSet, TimePlace, SampleProperty, ReferenceAssembly, Gene, \
-    GeneCount, AnnotationSource, Annotation, Cog, Pfam
+    GeneCount, AnnotationSource, Annotation, Cog, Pfam, TigrFam, EcNumber
 import datetime
 import sqlalchemy
 
@@ -293,29 +293,41 @@ class SampleTestCase(unittest.TestCase):
         assert annotation2.rpkm == { sample1: 0.001, sample2: 0.01 }
         assert annotation3.rpkm == { sample1: 0.002, sample2: 0.02 }
 
-    def test_cog_rpkm(self):
+    def test_annotation_type_rpkm(self):
         # Test rpkm for the subclasses as well
-        annotation_source = AnnotationSource("Cog", "v1.0", "rpsblast", "e_value=0.000001")
-        annotation1 = Cog(annotation_source, "COG0001", "H")
-        annotation2 = Cog(annotation_source, "COG0002", "G")
-        annotation3 = Cog(annotation_source, "COG0003", "E")
-        gene1 = Gene("gene1", None)
-        gene2 = Gene("gene2", None)
-        gene1.annotations.append(annotation1)
-        gene2.annotations.append(annotation1)
-        gene1.annotations.append(annotation2)
-        gene2.annotations.append(annotation3)
-        sample1 = Sample("P1993_101", None, None)
-        sample2 = Sample("P1993_102", None, None)
-        gene_count1 = GeneCount(gene1, sample1, 0.001)
-        gene_count2 = GeneCount(gene1, sample2, 0.01)
-        gene_count3 = GeneCount(gene2, sample1, 0.002)
-        gene_count4 = GeneCount(gene2, sample2, 0.02)
-        self.session.add(gene1)
-        self.session.add(gene2)
-        self.session.commit()
 
-        assert len(annotation1.rpkm.keys()) == 2
-        assert annotation1.rpkm == { sample1: 0.003, sample2: 0.03 }
-        assert annotation2.rpkm == { sample1: 0.001, sample2: 0.01 }
-        assert annotation3.rpkm == { sample1: 0.002, sample2: 0.02 }
+        annotation_types = [("Cog", {'class': Cog}), 
+                ("Pfam", {'class': Pfam}),
+                ("TigrFam", {'class': TigrFam}),
+                ("EcNumber", {'class': EcNumber})]
+        for annotation_type, type_d in annotation_types:
+            annotation_source = AnnotationSource(annotation_type, "v1.0", "rpsblast", "e_value=0.000001")
+            if annotation_type == 'Cog':
+                annotation1 = type_d['class'](annotation_source, annotation_type.upper() + "0001", "H")
+                annotation2 = type_d['class'](annotation_source, annotation_type.upper() + "0002", "G")
+                annotation3 = type_d['class'](annotation_source, annotation_type.upper() + "0003", "E")
+            else:
+                annotation1 = type_d['class'](annotation_source, annotation_type.upper() + "0001")
+                annotation2 = type_d['class'](annotation_source, annotation_type.upper() + "0002")
+                annotation3 = type_d['class'](annotation_source, annotation_type.upper() + "0003")
+
+            gene1 = Gene("gene1", None)
+            gene2 = Gene("gene2", None)
+            gene1.annotations.append(annotation1)
+            gene2.annotations.append(annotation1)
+            gene1.annotations.append(annotation2)
+            gene2.annotations.append(annotation3)
+            sample1 = Sample("P1993_101", None, None)
+            sample2 = Sample("P1993_102", None, None)
+            gene_count1 = GeneCount(gene1, sample1, 0.001)
+            gene_count2 = GeneCount(gene1, sample2, 0.01)
+            gene_count3 = GeneCount(gene2, sample1, 0.002)
+            gene_count4 = GeneCount(gene2, sample2, 0.02)
+            self.session.add(gene1)
+            self.session.add(gene2)
+            self.session.commit()
+
+            assert len(annotation1.rpkm.keys()) == 2
+            assert annotation1.rpkm == { sample1: 0.003, sample2: 0.03 }
+            assert annotation2.rpkm == { sample1: 0.001, sample2: 0.01 }
+            assert annotation3.rpkm == { sample1: 0.002, sample2: 0.02 }
