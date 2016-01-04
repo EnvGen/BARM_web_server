@@ -4,7 +4,7 @@ import subprocess
 import argparse
 
 def run_tests(args):
-    subprocess.check_call(["python", "-m", "unittest", "test_app.py"])
+    subprocess.check_call(["python", "-m", "unittest", "test_unit_model.py"])
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(description="Run tests")
