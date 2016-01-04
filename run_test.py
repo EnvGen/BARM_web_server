@@ -3,11 +3,26 @@ import os
 import subprocess
 import argparse
 
-def run_tests(args):
+def run_integration_tests(args):
+    subprocess.check_call(["python", "-m", "unittest", "test_integration.py"])
+
+def run_unit_tests(args):
     subprocess.check_call(["python", "-m", "unittest", "test_unit_model.py"])
+
+def run_tests(args):
+    run_unit_tests(args)
+    run_integration_tests(args)
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(description="Run tests")
+    subparsers = parser.add_subparsers()
+
+    unit_parser = subparsers.add_parser('unit')
+    unit_parser.set_defaults(func=run_unit_tests)
+
+    integration_parser = subparsers.add_parser('integration')
+    integration_parser.set_defaults(func=run_integration_tests)
+
     parser.set_defaults(func=run_tests)
     parser.add_argument("--db", help="Overrule the default database url")
     args = parser.parse_args()
