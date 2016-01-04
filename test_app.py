@@ -306,6 +306,10 @@ class SampleTestCase(unittest.TestCase):
                 annotation1 = type_d['class'](annotation_source, annotation_type.upper() + "0001", "H")
                 annotation2 = type_d['class'](annotation_source, annotation_type.upper() + "0002", "G")
                 annotation3 = type_d['class'](annotation_source, annotation_type.upper() + "0003", "E")
+            elif annotation_type == 'EcNumber':
+                annotation1 = type_d['class'](annotation_source, "0.0.0.1")
+                annotation2 = type_d['class'](annotation_source, "0.0.0.2")
+                annotation3 = type_d['class'](annotation_source, "0.0.0.3")
             else:
                 annotation1 = type_d['class'](annotation_source, annotation_type.upper() + "0001")
                 annotation2 = type_d['class'](annotation_source, annotation_type.upper() + "0002")
