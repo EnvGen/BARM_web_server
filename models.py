@@ -90,10 +90,22 @@ class ReferenceAssembly(db.Model):
     def __init__(self, name):
         self.name = name
 
-gene_annotation = db.Table('gene_annotation', 
-        db.Column('annotation_id', db.Integer, db.ForeignKey('annotation.id')),
-        db.Column('gene_id', db.Integer, db.ForeignKey('gene.id'))
-    )
+class GeneAnnotation(db.Model):
+    __tablename__ = 'gene_annotation'
+
+    id = db.Column(db.Integer, primary_key=True)
+
+    annotation_id = db.Column('annotation_id', db.Integer, db.ForeignKey('annotation.id'))
+    gene_id = db.Column('gene_id', db.Integer, db.ForeignKey('gene.id'))
+    e_value = db.Column('e_value', db.Float, nullable=True)
+
+    gene = db.relationship("Gene")
+    annotation = db.relationship("Annotation")
+
+    def __init__(self, annotation=None, gene=None, e_value=None):
+        self.annotation = annotation
+        self.gene = gene
+        self.e_value = e_value
 
 class Gene(db.Model):
     __tablename__ = 'gene'
@@ -105,14 +117,31 @@ class Gene(db.Model):
             db.ForeignKey('reference_assembly.id'))
     reference_assembly = db.relationship("ReferenceAssembly",
             backref=db.backref("genes"))
+    gene_annotations = db.relationship("GeneAnnotation")
+
 
     def __init__(self, name, reference_assembly):
         self.name = name
         self.reference_assembly = reference_assembly
 
     @property
+    def annotations(self):
+        q = db.session.query(Annotation).join(GeneAnnotation).\
+                filter(Annotation.id == GeneAnnotation.annotation_id).\
+                filter(GeneAnnotation.gene_id == self.id)
+        return list(q.all())
+
+    @property
     def rpkm(self):
         return { sc.sample: sc.rpkm for sc in self.sample_counts }
+
+    def e_value_for(self, annotation):
+        return self.gene_annotation_for(annotation).e_value
+
+    def gene_annotation_for(self, annotation):
+        return db.session.query(GeneAnnotation).\
+                filter_by(gene = self).\
+                filter_by(annotation = annotation).first()
 
 class GeneCount(db.Model):
     __tablename__ = 'gene_count'
@@ -166,10 +195,16 @@ class Annotation(db.Model):
             backref=db.backref('annotations'))
     annotation_type = db.Column(db.String)
     
-    genes = db.relationship('Gene', secondary=gene_annotation,
-            backref=db.backref('annotations'))
+    gene_annotations = db.relationship('GeneAnnotation')
 
     type_identifier = db.Column(db.String, nullable=False)
+
+    @property
+    def genes(self):
+        q = db.session.query(Gene).join(GeneAnnotation).\
+                filter(Gene.id == GeneAnnotation.gene_id).\
+                filter(GeneAnnotation.annotation_id == self.id)
+        return list(q.all())
 
     @property
     def rpkm(self):
@@ -178,10 +213,10 @@ class Annotation(db.Model):
                 filter(Sample.id == GeneCount.sample_id).\
                 join(Gene).\
                 filter(GeneCount.gene_id == Gene.id).\
-                join(gene_annotation).\
-                filter(Gene.id == gene_annotation.c.gene_id).\
+                join(GeneAnnotation).\
+                filter(Gene.id == GeneAnnotation.gene_id).\
                 join(Annotation).\
-                filter(gene_annotation.c.annotation_id == Annotation.id).\
+                filter(GeneAnnotation.annotation_id == Annotation.id).\
                 filter(Annotation.id == self.id).\
                 group_by(Sample.id)
 
