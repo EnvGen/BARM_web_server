@@ -10,7 +10,7 @@ class SampleSet(db.Model):
 
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String())
-  
+
 
     def __init__(self, name):
         self.name = name
@@ -65,10 +65,10 @@ class SampleProperty(db.Model):
     name = db.Column(db.String(), index=True)
     value = db.Column(db.String(), index=True)
     unit = db.Column(db.String())
-    
+
     # Sample Property has one sample
     sample_id = db.Column(db.Integer, db.ForeignKey('sample.id'))
-    sample = db.relationship("Sample", 
+    sample = db.relationship("Sample",
             backref=db.backref("properties"))
 
     def __init__(self, name, value, unit, sample):
@@ -82,7 +82,7 @@ class SampleProperty(db.Model):
 
 class ReferenceAssembly(db.Model):
     __tablename__ = 'reference_assembly'
-    
+
     id = db.Column(db.Integer, primary_key=True)
 
     name = db.Column(db.String())
@@ -92,19 +92,27 @@ class ReferenceAssembly(db.Model):
 
 class GeneAnnotation(db.Model):
     __tablename__ = 'gene_annotation'
-
+    __table_args__ = (
+        db.UniqueConstraint('gene_id', 'annotation_id', 'annotation_source_id', name='gene_annotation_unique'),
+        )
     id = db.Column(db.Integer, primary_key=True)
 
     annotation_id = db.Column('annotation_id', db.Integer, db.ForeignKey('annotation.id'))
     gene_id = db.Column('gene_id', db.Integer, db.ForeignKey('gene.id'))
     e_value = db.Column('e_value', db.Float, nullable=True)
 
+    annotation_source_id = db.Column(db.Integer, db.ForeignKey('annotation_source.id'),
+            nullable=False)
+
+    annotation_source = db.relationship('AnnotationSource',
+            backref=db.backref('annotations'))
     gene = db.relationship("Gene")
     annotation = db.relationship("Annotation")
 
-    def __init__(self, annotation=None, gene=None, e_value=None):
+    def __init__(self, annotation=None, gene=None, annotation_source=None, e_value=None):
         self.annotation = annotation
         self.gene = gene
+        self.annotation_source = annotation_source
         self.e_value = e_value
 
 class Gene(db.Model):
@@ -113,7 +121,7 @@ class Gene(db.Model):
     id = db.Column(db.Integer, primary_key=True)
 
     name = db.Column(db.String())
-    reference_assemlby_id = db.Column(db.Integer, 
+    reference_assemlby_id = db.Column(db.Integer,
             db.ForeignKey('reference_assembly.id'))
     reference_assembly = db.relationship("ReferenceAssembly",
             backref=db.backref("genes"))
@@ -169,12 +177,12 @@ class GeneCount(db.Model):
 class AnnotationSource(db.Model):
     __tablename__ = 'annotation_source'
     id = db.Column(db.Integer, primary_key=True)
-    
+
     dbname = db.Column(db.String)
     dbversion = db.Column(db.String)
     algorithm = db.Column(db.String)
     algorithm_parameters = db.Column(db.String)
-    
+
     def __init__(self, dbname, dbversion, algorithm, algorithm_parameters):
         self.dbname = dbname
         self.dbversion = dbversion
@@ -185,16 +193,12 @@ class AnnotationSource(db.Model):
 class Annotation(db.Model):
     __tablename__ = 'annotation'
     __table_args__ = (
-        db.UniqueConstraint('source_id', 'annotation_type', 'type_identifier', name='annotation_unique'),
+        db.UniqueConstraint('annotation_type', 'type_identifier', name='annotation_unique'),
         )
     id = db.Column(db.Integer, primary_key=True)
 
-    source_id = db.Column(db.Integer, db.ForeignKey('annotation_source.id'),
-            nullable=False)
-    source = db.relationship('AnnotationSource',
-            backref=db.backref('annotations'))
     annotation_type = db.Column(db.String)
-    
+
     gene_annotations = db.relationship('GeneAnnotation')
 
     type_identifier = db.Column(db.String, nullable=False)
@@ -227,8 +231,7 @@ class Annotation(db.Model):
             'polymorphic_on': annotation_type
         }
 
-    def __init__(self, annotation_source, type_identifier):
-        self.source = annotation_source
+    def __init__(self, type_identifier):
         self.type_identifier = type_identifier
 
 class Cog(Annotation):
@@ -237,8 +240,8 @@ class Cog(Annotation):
             primary_key=True)
     category = db.Column(db.String)
 
-    def __init__(self, annotation_source, type_identifier, category):
-        super().__init__(annotation_source, type_identifier)
+    def __init__(self, type_identifier, category):
+        super().__init__(type_identifier)
         self.category = category
 
     __mapper_args__ = {
@@ -273,8 +276,8 @@ class EcNumber(Annotation):
     third_digit = db.Column(db.Integer, index=True)
     fourth_digit = db.Column(db.Integer, index=True)
 
-    def __init__(self, annotation_source, type_identifier):
-        super().__init__(annotation_source, type_identifier)
+    def __init__(self, type_identifier):
+        super().__init__(type_identifier)
         ec_digits = self.type_identifier.split('.')
         digit_translation_d = {
                 0: self.first_digit,
