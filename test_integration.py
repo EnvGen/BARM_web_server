@@ -17,3 +17,5 @@ class SampleTestCase(unittest.TestCase):
         r = self.client.get('/')
         assert r._status_code == 200
         assert b'Hello World' in r.data
+
+        assert b'Function Classes' in r.data

@@ -1,4 +1,4 @@
-from flask import Flask
+from flask import Flask, render_template
 from flask.ext.sqlalchemy import SQLAlchemy
 import os
 
@@ -9,8 +9,8 @@ db = SQLAlchemy(app)
 from models import Sample, SampleSet, TimePlace, SampleProperty
 
 @app.route('/')
-def hello():
-    return "Hello World!"
+def index():
+    return render_template('index.html')
 
 if __name__ == '__main__':
     app.run()
