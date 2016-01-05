@@ -175,14 +175,11 @@ class SampleTestCase(unittest.TestCase):
         assert len(annotation_source.annotations) == 0
 
     def test_annotation(self):
-        annotation_source = AnnotationSource("Cog", "v1.0", "rpsblast", "e_value=0.000001")
-        annotation = Annotation(annotation_source, "COG0001")
+        annotation = Annotation("COG0001")
         self.session.add(annotation)
         self.session.commit()
 
         assert Annotation.query.first() is annotation
-        assert Annotation.query.first().source is annotation_source
-
 
         #Test the many to many relationship
         reference_assembly = ReferenceAssembly("version 1")
@@ -190,10 +187,11 @@ class SampleTestCase(unittest.TestCase):
         gene2 = Gene("gene2", reference_assembly)
         gene3 = Gene("gene3", reference_assembly)
 
-        annotation2 = Annotation(annotation_source, "COG0002")
+        annotation2 = Annotation("COG0002")
         # Test having multiple genes to one annotation
-        gene_annotation1 = GeneAnnotation(e_value=0.0000001)
-        gene_annotation2 = GeneAnnotation()
+        annotation_source = AnnotationSource("Cog", "v1.0", "rpsblast", "e_value=0.000001")
+        gene_annotation1 = GeneAnnotation(annotation_source = annotation_source, e_value=0.0000001)
+        gene_annotation2 = GeneAnnotation(annotation_source = annotation_source)
 
         gene_annotation1.gene = gene
         gene_annotation2.gene = gene2
@@ -216,7 +214,7 @@ class SampleTestCase(unittest.TestCase):
         assert len(Gene.query.filter_by(name="gene3").first().annotations) == 0
 
         # Test having multiple annotations to one gene
-        gene_annotation3 = GeneAnnotation(annotation2, gene, e_value = 1e-14)
+        gene_annotation3 = GeneAnnotation(annotation2, gene, annotation_source, e_value = 1e-14)
         self.session.add(gene_annotation3)
         self.session.commit()
 
@@ -228,17 +226,19 @@ class SampleTestCase(unittest.TestCase):
         assert gene.e_value_for(annotation) > gene.e_value_for(annotation2)
 
     def test_annotation_type_inheritance(self):
-        annotation_source1 = AnnotationSource("Cog", "v1.0", "rpsblast", "e_value=0.00001")
-        annotation_source2 = AnnotationSource("Pfam", "v1.0", "rpsblast", "e_value=0.00001")
-        annotation2 = Pfam(annotation_source1, "pfam002")
-        annotation = Cog(annotation_source1, "COG0001", "H")
+        annotation2 = Pfam("pfam002")
+        annotation = Cog("COG0001", "H")
 
         assert annotation2.annotation_type == 'pfam'
         assert annotation.annotation_type == 'cog'
 
         gene = Gene("gene1", None)
-        gene_annotation = GeneAnnotation(annotation, gene)
+        annotation_source1 = AnnotationSource("Cog", "v1.0", "rpsblast", "e_value=0.00001")
+        annotation_source2 = AnnotationSource("Pfam", "v1.0", "rpsblast", "e_value=0.00001")
+        gene_annotation = GeneAnnotation(annotation, gene, annotation_source1)
         self.session.add(gene)
+        self.session.add(annotation)
+        self.session.add(annotation2)
         self.session.add(gene_annotation)
         self.session.commit()
 
@@ -248,47 +248,58 @@ class SampleTestCase(unittest.TestCase):
         assert gene in annotation.genes
 
         for subclass, type_ident in [(Cog, "COG0001"), (Pfam, "pfam002")]:
-            # The same type identifier can be in the db twice,
-            # if its from a different source
-            if subclass == Cog:
-                annotation = subclass(annotation_source2, type_ident, "G")
-            else:
-                annotation = subclass(annotation_source2, type_ident)
-            self.session.add(annotation)
-            self.session.commit()
-
-            assert len(subclass.query.filter_by(type_identifier=type_ident).all()) == 2
-
+            # The same type identifier can only be in the db once,
+            # per subcategory
             with self.assertRaises(sqlalchemy.exc.IntegrityError):
-                # Only one cog per type_identifier and annotation source
                 if subclass == Cog:
-                    annotation = subclass(annotation_source1, type_ident, "G")
+                    annotation = subclass(type_ident, "G")
                 else:
-                    annotation = subclass(annotation_source1, type_ident)
+                    annotation = subclass(type_ident)
                 self.session.add(annotation)
                 self.session.commit()
 
             self.session.rollback()
 
+        # Multiple GeneAnnotations for the same subclass is only
+        # possible when different sources are used
+        # Annotation source column values can be identical
+        annotation_source3 = AnnotationSource("Cog", "v1.0", "rpsblast", "e_value=0.00001")
+        annotation = Cog.query.filter_by(type_identifier="COG0001").first()
+        gene_annotation = GeneAnnotation(annotation, gene, annotation_source3)
+        self.session.add(gene_annotation)
+        self.session.commit()
+
+        assert len(GeneAnnotation.query.filter_by(gene = gene,
+            annotation = annotation).all()) == 2
+
+        # Identical connection between genes and annotations are 
+        # not ok
+        with self.assertRaises(sqlalchemy.exc.IntegrityError):
+            gene_annotation_fail = GeneAnnotation(annotation, gene, annotation_source1)
+            self.session.add(gene_annotation_fail)
+            self.session.commit()
+
+        self.session.rollback()
+
         # A different annotation_type can also be used to
         # have the same type_identifier twice
-        annotation3 = Pfam(annotation_source1, "COG0001")
+        annotation3 = Pfam("COG0001")
         self.session.add(annotation3)
         self.session.commit()
-        assert len(Annotation.query.filter_by(type_identifier="COG0001").all()) == 3
+        assert len(Annotation.query.filter_by(type_identifier="COG0001").all()) == 2
 
 
     def test_annotation_rpkm(self):
-        annotation_source = AnnotationSource("Cog", "v1.0", "rpsblast", "e_value=0.000001")
-        annotation1 = Annotation(annotation_source, "COG0001")
-        annotation2 = Annotation(annotation_source, "COG0002")
-        annotation3 = Annotation(annotation_source, "Pfam0001")
+        annotation1 = Annotation("COG0001")
+        annotation2 = Annotation("COG0002")
+        annotation3 = Annotation("Pfam0001")
         gene1 = Gene("gene1", None)
         gene2 = Gene("gene2", None)
-        gene_annotation1 = GeneAnnotation(annotation1, gene1)
-        gene_annotation2 = GeneAnnotation(annotation1, gene2)
-        gene_annotation3 = GeneAnnotation(annotation2, gene1)
-        gene_annotation4 = GeneAnnotation(annotation3, gene2)
+        annotation_source = AnnotationSource("Cog", "v1.0", "rpsblast", "e_value=0.000001")
+        gene_annotation1 = GeneAnnotation(annotation1, gene1, annotation_source)
+        gene_annotation2 = GeneAnnotation(annotation1, gene2, annotation_source)
+        gene_annotation3 = GeneAnnotation(annotation2, gene1, annotation_source)
+        gene_annotation4 = GeneAnnotation(annotation3, gene2, annotation_source)
         sample1 = Sample("P1993_101", None, None)
         sample2 = Sample("P1993_102", None, None)
         gene_count1 = GeneCount(gene1, sample1, 0.001)
@@ -314,27 +325,27 @@ class SampleTestCase(unittest.TestCase):
                 ("TigrFam", {'class': TigrFam}),
                 ("EcNumber", {'class': EcNumber})]
         for annotation_type, type_d in annotation_types:
-            annotation_source = AnnotationSource(annotation_type, "v1.0", "rpsblast", "e_value=0.000001")
             if annotation_type == 'Cog':
-                annotation1 = type_d['class'](annotation_source, annotation_type.upper() + "0001", "H")
-                annotation2 = type_d['class'](annotation_source, annotation_type.upper() + "0002", "G")
-                annotation3 = type_d['class'](annotation_source, annotation_type.upper() + "0003", "E")
+                annotation1 = type_d['class'](annotation_type.upper() + "0001", "H")
+                annotation2 = type_d['class'](annotation_type.upper() + "0002", "G")
+                annotation3 = type_d['class'](annotation_type.upper() + "0003", "E")
             elif annotation_type == 'EcNumber':
-                annotation1 = type_d['class'](annotation_source, "0.0.0.1")
-                annotation2 = type_d['class'](annotation_source, "0.0.0.2")
-                annotation3 = type_d['class'](annotation_source, "0.0.0.3")
+                annotation1 = type_d['class']("0.0.0.1")
+                annotation2 = type_d['class']("0.0.0.2")
+                annotation3 = type_d['class']("0.0.0.3")
             else:
-                annotation1 = type_d['class'](annotation_source, annotation_type.upper() + "0001")
-                annotation2 = type_d['class'](annotation_source, annotation_type.upper() + "0002")
-                annotation3 = type_d['class'](annotation_source, annotation_type.upper() + "0003")
+                annotation1 = type_d['class'](annotation_type.upper() + "0001")
+                annotation2 = type_d['class'](annotation_type.upper() + "0002")
+                annotation3 = type_d['class'](annotation_type.upper() + "0003")
 
             gene1 = Gene("gene1", None)
             gene2 = Gene("gene2", None)
 
-            gene_annotation1 = GeneAnnotation(annotation1, gene1)
-            gene_annotation2 = GeneAnnotation(annotation1, gene2)
-            gene_annotation3 = GeneAnnotation(annotation2, gene1)
-            gene_annotation4 = GeneAnnotation(annotation3, gene2)
+            annotation_source = AnnotationSource(annotation_type, "v1.0", "rpsblast", "e_value=0.000001")
+            gene_annotation1 = GeneAnnotation(annotation1, gene1, annotation_source)
+            gene_annotation2 = GeneAnnotation(annotation1, gene2, annotation_source)
+            gene_annotation3 = GeneAnnotation(annotation2, gene1, annotation_source)
+            gene_annotation4 = GeneAnnotation(annotation3, gene2, annotation_source)
 
             sample1 = Sample("P1993_101", None, None)
             sample2 = Sample("P1993_102", None, None)
