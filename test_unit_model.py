@@ -1,7 +1,7 @@
 import unittest
 import app
 from models import Sample, SampleSet, TimePlace, SampleProperty, ReferenceAssembly, Gene, \
-    GeneCount, AnnotationSource, Annotation, Cog, Pfam, TigrFam, EcNumber
+    GeneCount, AnnotationSource, Annotation, GeneAnnotation, Cog, Pfam, TigrFam, EcNumber
 import datetime
 import sqlalchemy
 
@@ -192,29 +192,40 @@ class SampleTestCase(unittest.TestCase):
 
         annotation2 = Annotation(annotation_source, "COG0002")
         # Test having multiple genes to one annotation
-        annotation.genes.append(gene)
-        annotation.genes.append(gene2)
-       
+        gene_annotation1 = GeneAnnotation(e_value=0.0000001)
+        gene_annotation2 = GeneAnnotation()
+
+        gene_annotation1.gene = gene
+        gene_annotation2.gene = gene2
+
+        gene_annotation1.annotation = annotation
+        gene_annotation2.annotation = annotation
+
         self.session.add(annotation)
         self.session.add(gene3)
+        self.session.add(gene_annotation1)
+        self.session.add(gene_annotation2)
         self.session.commit()
 
-        assert len(Annotation.query.first().genes) == 2
-        assert gene in Annotation.query.first().genes
-        assert gene2 in Annotation.query.first().genes
+        annotation_01 = Annotation.query.filter_by(type_identifier="COG0001").first()
+        assert len(annotation_01.genes) == 2
+        assert gene in annotation_01.genes
+        assert gene2 in annotation_01.genes
         assert annotation in Gene.query.filter_by(name="gene1").first().annotations
         assert annotation in Gene.query.filter_by(name="gene2").first().annotations
         assert len(Gene.query.filter_by(name="gene3").first().annotations) == 0
 
         # Test having multiple annotations to one gene
-        annotation2.genes.append(gene)
-        self.session.add(annotation2)
+        gene_annotation3 = GeneAnnotation(annotation2, gene, e_value = 1e-14)
+        self.session.add(gene_annotation3)
         self.session.commit()
 
         assert len(Gene.query.filter_by(name="gene1").first().annotations) == 2
         assert annotation in Gene.query.filter_by(name="gene1").first().annotations
         assert annotation2 in Gene.query.filter_by(name="gene1").first().annotations
 
+        assert gene_annotation1.e_value > gene_annotation3.e_value
+        assert gene.e_value_for(annotation) > gene.e_value_for(annotation2)
 
     def test_annotation_type_inheritance(self):
         annotation_source1 = AnnotationSource("Cog", "v1.0", "rpsblast", "e_value=0.00001")
@@ -226,9 +237,9 @@ class SampleTestCase(unittest.TestCase):
         assert annotation.annotation_type == 'cog'
 
         gene = Gene("gene1", None)
-        gene.annotations.append(annotation)
+        gene_annotation = GeneAnnotation(annotation, gene)
         self.session.add(gene)
-        self.session.add(annotation2)
+        self.session.add(gene_annotation)
         self.session.commit()
 
         # category is defined on cog class
@@ -274,10 +285,10 @@ class SampleTestCase(unittest.TestCase):
         annotation3 = Annotation(annotation_source, "Pfam0001")
         gene1 = Gene("gene1", None)
         gene2 = Gene("gene2", None)
-        gene1.annotations.append(annotation1)
-        gene2.annotations.append(annotation1)
-        gene1.annotations.append(annotation2)
-        gene2.annotations.append(annotation3)
+        gene_annotation1 = GeneAnnotation(annotation1, gene1)
+        gene_annotation2 = GeneAnnotation(annotation1, gene2)
+        gene_annotation3 = GeneAnnotation(annotation2, gene1)
+        gene_annotation4 = GeneAnnotation(annotation3, gene2)
         sample1 = Sample("P1993_101", None, None)
         sample2 = Sample("P1993_102", None, None)
         gene_count1 = GeneCount(gene1, sample1, 0.001)
@@ -286,6 +297,8 @@ class SampleTestCase(unittest.TestCase):
         gene_count4 = GeneCount(gene2, sample2, 0.02)
         self.session.add(gene1)
         self.session.add(gene2)
+        self.session.add_all([gene_annotation1, gene_annotation2,
+            gene_annotation3, gene_annotation4])
         self.session.commit()
 
         assert len(annotation1.rpkm.keys()) == 2
@@ -317,16 +330,20 @@ class SampleTestCase(unittest.TestCase):
 
             gene1 = Gene("gene1", None)
             gene2 = Gene("gene2", None)
-            gene1.annotations.append(annotation1)
-            gene2.annotations.append(annotation1)
-            gene1.annotations.append(annotation2)
-            gene2.annotations.append(annotation3)
+
+            gene_annotation1 = GeneAnnotation(annotation1, gene1)
+            gene_annotation2 = GeneAnnotation(annotation1, gene2)
+            gene_annotation3 = GeneAnnotation(annotation2, gene1)
+            gene_annotation4 = GeneAnnotation(annotation3, gene2)
+
             sample1 = Sample("P1993_101", None, None)
             sample2 = Sample("P1993_102", None, None)
             gene_count1 = GeneCount(gene1, sample1, 0.001)
             gene_count2 = GeneCount(gene1, sample2, 0.01)
             gene_count3 = GeneCount(gene2, sample1, 0.002)
             gene_count4 = GeneCount(gene2, sample2, 0.02)
+            self.session.add_all([gene_annotation1, gene_annotation2,
+                gene_annotation3, gene_annotation4])
             self.session.add(gene1)
             self.session.add(gene2)
             self.session.commit()
