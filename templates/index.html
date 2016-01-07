@@ -20,5 +20,21 @@
       <li><a href="#">Action</a></li>
     </ul>
   </div>
+  <table class="table">
+    <tr>
+      <td>Type identifier</td>
+      {% for sample in samples %}
+        <td>{{sample.scilifelab_code}}</td>
+      {% endfor %}
+    </tr>
+    {% for annotation, sample_d in table.items() %}
+      <tr>
+        <td>{{annotation.type_identifier}}</td>
+        {% for sample, rpkm in sample_d.items() %}
+          <td>{{rpkm}}</td>
+        {% endfor %}
+      </tr>
+    {% endfor %}
+  </table>
 </body>
 </html>

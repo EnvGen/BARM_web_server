@@ -6,11 +6,12 @@ app = Flask(__name__)
 app.config.from_object(os.environ['APP_SETTINGS'])
 db = SQLAlchemy(app)
 
-from models import Sample, SampleSet, TimePlace, SampleProperty
+from models import Sample, SampleSet, TimePlace, SampleProperty, Annotation
 
 @app.route('/')
 def index():
-    return render_template('index.html')
+    samples, table = Annotation.rpkm_table()
+    return render_template('index.html', table=table, samples=samples)
 
 if __name__ == '__main__':
     app.run()

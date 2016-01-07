@@ -1,6 +1,6 @@
 from app import db
 import sqlalchemy
-
+import collections
 ##########
 # Sample #
 ##########
@@ -202,6 +202,34 @@ class Annotation(db.Model):
     gene_annotations = db.relationship('GeneAnnotation')
 
     type_identifier = db.Column(db.String, nullable=False)
+
+    @classmethod
+    def rpkm_table(limit=20):
+        q = db.session.query(Sample, Annotation, sqlalchemy.func.sum(GeneCount.rpkm)).\
+                join(GeneCount).\
+                filter(Sample.id == GeneCount.sample_id).\
+                join(Gene).\
+                filter(GeneCount.gene_id == Gene.id).\
+                join(GeneAnnotation).\
+                filter(Gene.id == GeneAnnotation.gene_id).\
+                join(Annotation).\
+                filter(GeneAnnotation.annotation_id == Annotation.id).\
+                group_by(Annotation.id, Sample.id).\
+                order_by(Annotation.id, Sample.id).\
+                limit(20)
+
+        # format to have one row per list item
+        rows = collections.OrderedDict()
+        samples = set()
+        for sample, annotation, rpkm_sum in q.all():
+            samples.add(sample)
+            if annotation in rows:
+                rows[annotation][sample] = rpkm_sum
+            else:
+                rows[annotation] = collections.OrderedDict()
+                rows[annotation][sample] = rpkm_sum
+
+        return samples, rows
 
     @property
     def genes(self):
