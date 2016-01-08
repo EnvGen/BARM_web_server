@@ -16,6 +16,6 @@ class SampleTestCase(unittest.TestCase):
     def test_get_base(self):
         r = self.client.get('/')
         assert r._status_code == 200
-        assert b'Hello World' in r.data
+        assert b'Baltic Sea Reference Metagenome' in r.data
 
         assert b'Function Classes' in r.data
