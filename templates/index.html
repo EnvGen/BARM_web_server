@@ -1,40 +1,25 @@
-<!doctype html>
-<html lang="en">
-<head>
-  <title>BARM Web Server</title>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <link rel="stylesheet"href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
-  <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
-</head>
-<body>
-  <h1>Hello World</h1>
-
-  <div class="dropdown">
-    <button class="btn btn-default dropdown-toggle" type="button" id="function_class_choice" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
-      Function Classes
-      <span class="caret"></span>
-    </button>
-    <ul class="dropdown-menu" aria-labelledby="funcion_class_choice">
-      <li><a href="#">Action</a></li>
-    </ul>
-  </div>
-  <table class="table">
-    <tr>
-      <td>Type identifier</td>
-      {% for sample in samples %}
-        <td>{{sample.scilifelab_code}}</td>
-      {% endfor %}
-    </tr>
-    {% for annotation, sample_d in table.items() %}
-      <tr>
-        <td>{{annotation.type_identifier}}</td>
-        {% for sample, rpkm in sample_d.items() %}
-          <td>{{rpkm}}</td>
-        {% endfor %}
-      </tr>
+{% extends "default_base.html" %}
+{% block body %}
+<div class="dropdown">
+  <button class="btn btn-default dropdown-toggle" type="button" id="function_class_choice" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+    Function Classes
+    <span class="caret"></span>
+  </button>
+  <ul class="dropdown-menu" aria-labelledby="funcion_class_choice">
+    {% for function_class in function_classes %}
+    <li><a href="#" class="filter_on_function_class" id="{{'only_{}'.format(function_class)}}">{{function_class}}</a></li>
     {% endfor %}
-  </table>
-</body>
-</html>
+  </ul>
+</div>
+{% include 'function_classes_table.html' %}
+<script type=text/javascript>
+  $(document).ready(function() {
+    $('a.filter_on_function_class').click( function () {
+      $.get( "ajax/function_classes_table.html", { button_id: $(this).attr('id') }, function(data){
+        $('table').replaceWith(data)
+      })
+    })
+  })
+</script>
+{% endblock body %}
+<!-- $(this).attr('id') ) -->

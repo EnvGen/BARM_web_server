@@ -204,7 +204,7 @@ class Annotation(db.Model):
     type_identifier = db.Column(db.String, nullable=False)
 
     @classmethod
-    def rpkm_table(limit=20):
+    def rpkm_table(limit=20, function_class=None):
         q = db.session.query(Sample, Annotation, sqlalchemy.func.sum(GeneCount.rpkm)).\
                 join(GeneCount).\
                 filter(Sample.id == GeneCount.sample_id).\
@@ -213,10 +213,13 @@ class Annotation(db.Model):
                 join(GeneAnnotation).\
                 filter(Gene.id == GeneAnnotation.gene_id).\
                 join(Annotation).\
-                filter(GeneAnnotation.annotation_id == Annotation.id).\
-                group_by(Annotation.id, Sample.id).\
-                order_by(Annotation.id, Sample.id).\
-                limit(20)
+                filter(GeneAnnotation.annotation_id == Annotation.id)
+
+        if function_class is not None:
+            q = q.filter(Annotation.annotation_type == function_class)
+        q = q.group_by(Annotation.id, Sample.id).\
+            order_by(Annotation.id, Sample.id).\
+            limit(20)
 
         # format to have one row per list item
         rows = collections.OrderedDict()

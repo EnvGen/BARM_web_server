@@ -1,0 +1,20 @@
+<table class="table">
+  <thead>
+    <tr>
+      <th>Type identifier</th>
+      {% for sample in samples %}
+        <th>{{sample.scilifelab_code}}</th>
+      {% endfor %}
+    </tr>
+  </thead>
+  <tbody>
+  {% for annotation, sample_d in table.items() %}
+    <tr>
+      <td>{{annotation.type_identifier}}</td>
+      {% for sample, rpkm in sample_d.items() %}
+        <td>{{rpkm}}</td>
+      {% endfor %}
+    </tr>
+  {% endfor %}
+  </tbody>
+</table>
