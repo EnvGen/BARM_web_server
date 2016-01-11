@@ -8,7 +8,7 @@ import sqlalchemy
 class SampleTestCase(unittest.TestCase):
     """Test that a sample in the database has the correct relations"""
     def setUp(self):
-        
+
         self.db = app.db
 
         self.db.create_all()
@@ -26,7 +26,7 @@ class SampleTestCase(unittest.TestCase):
         self.trans.rollback()
 
         self.connection.close()
-        
+
         self.db.drop_all()
 
     def test_sample(self):
@@ -171,7 +171,7 @@ class SampleTestCase(unittest.TestCase):
         self.session.add(annotation_source)
         self.session.commit()
 
-        assert AnnotationSource.query.first() is annotation_source 
+        assert AnnotationSource.query.first() is annotation_source
         assert len(annotation_source.annotations) == 0
 
     def test_annotation(self):
@@ -272,7 +272,7 @@ class SampleTestCase(unittest.TestCase):
         assert len(GeneAnnotation.query.filter_by(gene = gene,
             annotation = annotation).all()) == 2
 
-        # Identical connection between genes and annotations are 
+        # Identical connection between genes and annotations are
         # not ok
         with self.assertRaises(sqlalchemy.exc.IntegrityError):
             gene_annotation_fail = GeneAnnotation(annotation, gene, annotation_source1)
@@ -320,7 +320,7 @@ class SampleTestCase(unittest.TestCase):
     def test_annotation_type_rpkm(self):
         # Test rpkm for the subclasses as well
 
-        annotation_types = [("Cog", {'class': Cog}), 
+        annotation_types = [("Cog", {'class': Cog}),
                 ("Pfam", {'class': Pfam}),
                 ("TigrFam", {'class': TigrFam}),
                 ("EcNumber", {'class': EcNumber})]
