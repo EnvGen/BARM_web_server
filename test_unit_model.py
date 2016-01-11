@@ -2,8 +2,10 @@ import unittest
 import app
 from models import Sample, SampleSet, TimePlace, SampleProperty, ReferenceAssembly, Gene, \
     GeneCount, AnnotationSource, Annotation, GeneAnnotation, Cog, Pfam, TigrFam, EcNumber
-import datetime
 import sqlalchemy
+
+import itertools
+import datetime
 
 class SampleTestCase(unittest.TestCase):
     """Test that a sample in the database has the correct relations"""
@@ -281,12 +283,15 @@ class SampleTestCase(unittest.TestCase):
 
         self.session.rollback()
 
-        # A different annotation_type can also be used to
+        # A different annotation_type is either not sufficient to
         # have the same type_identifier twice
-        annotation3 = Pfam("COG0001")
-        self.session.add(annotation3)
-        self.session.commit()
-        assert len(Annotation.query.filter_by(type_identifier="COG0001").all()) == 2
+        with self.assertRaises(sqlalchemy.exc.IntegrityError):
+            annotation3 = Pfam("COG0001")
+            self.session.add(annotation3)
+            self.session.commit()
+
+        self.session.rollback()
+        assert len(Annotation.query.filter_by(type_identifier="COG0001").all()) == 1
 
 
     def test_annotation_rpkm(self):
@@ -363,3 +368,170 @@ class SampleTestCase(unittest.TestCase):
             assert annotation1.rpkm == { sample1: 0.003, sample2: 0.03 }
             assert annotation2.rpkm == { sample1: 0.001, sample2: 0.01 }
             assert annotation3.rpkm == { sample1: 0.002, sample2: 0.02 }
+
+    def test_annotation_rpkm_table(self):
+        annotation_types = [("Cog", {'class': Cog}),
+                ("Pfam", {'class': Pfam}),
+                ("TigrFam", {'class': TigrFam}),
+                ("EcNumber", {'class': EcNumber})]
+
+        nr_annotation_types = len(annotation_types)
+        annotation_sources = {}
+        for annotation_type, type_d in annotation_types:
+            annotation_sources[annotation_type]= AnnotationSource(
+                    annotation_type,
+                    "v1.0",
+                    "rpsblast",
+                    "e_value=0.000001"
+                )
+
+        sample1 = Sample("P1993_101", None, None)
+        sample2 = Sample("P1993_102", None, None)
+        nr_samples = 2
+        for i in range(50):
+            gene1 = Gene("gene1{}".format(i), None)
+            gene2 = Gene("gene2{}".format(i), None)
+
+            gene_count1 = GeneCount(gene1, sample1, 0.001)
+            gene_count2 = GeneCount(gene1, sample2, 0.01)
+            gene_count3 = GeneCount(gene2, sample1, 0.002)
+            gene_count4 = GeneCount(gene2, sample2, 0.02)
+
+            for annotation_type, type_d in annotation_types:
+                if annotation_type == 'Cog':
+                    type_id = str(i)
+                    type_id = "0"*(4-len(type_id))+type_id
+                    annotation = type_d['class'](annotation_type.upper() + type_id, "H")
+                elif annotation_type == 'EcNumber':
+                    if i > 25:
+                        type_id = "0.0.2.{}".format(i)
+                    else:
+                        type_id = "0.0.0.{}".format(i)
+                    annotation = type_d['class'](type_id)
+                else:
+                    type_id = str(i)
+                    type_id = "0"*(4-len(type_id))+type_id
+                    annotation = type_d['class'](annotation_type.upper() + type_id)
+
+                annotation_mode = i % 3
+                gene_annotations = []
+                if annotation_mode in [0,1]:
+                    gene_annotations.append(GeneAnnotation(
+                            annotation,
+                            gene1,
+                            annotation_sources[annotation_type]
+                        ))
+                if annotation_mode in [1,2]:
+                    gene_annotations.append(GeneAnnotation(
+                            annotation,
+                            gene2,
+                            annotation_sources[annotation_type]
+                        ))
+                self.session.add_all(gene_annotations)
+
+            self.session.add(gene1)
+            self.session.add(gene2)
+        self.session.commit()
+
+        samples, rows = Annotation.rpkm_table()
+        assert len(samples) == 2
+        assert len(rows) == 20 # Default limit
+        samples, rows = Annotation.rpkm_table(limit=100)
+        assert len(samples) == 2
+        assert len(rows) == 100
+        samples, rows = Annotation.rpkm_table(limit=None)
+        assert len(samples) == 2
+        assert len(rows) == nr_annotation_types * 50
+
+        for annotation, sample_d in rows.items():
+            # sample_d should be a ordered dict
+            assert ["P1993_101", "P1993_102"] == [sample.scilifelab_code for sample in sample_d.keys()]
+        rpkms = [[rpkm for sample, rpkm in sample_d.items()] for annotation, sample_d in rows.items()]
+
+        rpkms_flat = []
+        for rpkm_row in rpkms:
+            rpkms_flat += rpkm_row
+
+        assert len(rpkms_flat) == nr_annotation_types * nr_samples * 50
+
+        # Annotations sorted by total rpkm over all samples
+        # and the rpkm values should be summed over all genes for that annotation
+        # there should be roughly equal numbers of the three different counts
+        for i, row in enumerate(rpkms[:67]):
+            assert row == [0.003, 0.03]
+        for row in rpkms[69:130]:
+            assert row == [0.002, 0.02]
+        for row in rpkms[150:200]:
+            assert row == [0.001, 0.01]
+
+        # possible to filter on function classes
+        for annotation_type, type_d in annotation_types:
+            samples, rows = Annotation.rpkm_table(limit=None, function_class=annotation_type.lower())
+            assert len(rows) == 50
+            for key in rows.keys():
+                assert annotation_type[:3].lower() == key.annotation_type[:3]
+
+        # possible to filter on samples
+        for sample in [sample1, sample2]:
+            samples, rows = Annotation.rpkm_table(samples=[sample.scilifelab_code], limit=None)
+            assert len(rows) == 200
+            assert len(samples) == 1
+            assert samples[0] == sample
+            for annotation, sample_d in rows.items():
+                assert list(sample_d.keys()) == [sample]
+
+            rpkms = [[rpkm for sample, rpkm in sample_d.items()] for annotation, sample_d in rows.items()]
+            if sample.scilifelab_code == "P1993_101":
+                for i, row in enumerate(rpkms[:65]):
+                    assert row == [0.003]
+                for row in rpkms[69:130]:
+                    assert row == [0.002]
+                for row in rpkms[150:200]:
+                    assert row == [0.001]
+            else:
+                for row in rpkms[:67]:
+                    assert row == [0.03]
+                for row in rpkms[69:130]:
+                    assert row == [0.02]
+                for row in rpkms[150:200]:
+                    assert row == [0.01]
+
+        # possible to filter on sample and function class at the same time
+        for annotation_type, type_d in annotation_types:
+            for sample in [sample1, sample2]:
+                samples, rows = Annotation.rpkm_table(limit=None, function_class=annotation_type.lower(), samples=[sample.scilifelab_code])
+                assert len(rows) == 50
+                for key in rows.keys():
+                    assert annotation_type.lower()[:3] == key.annotation_type[:3]
+
+                assert len(samples) == 1
+                assert samples[0] == sample
+                for annotation, sample_d in rows.items():
+                    assert list(sample_d.keys()) == [sample]
+
+                rpkms = [[rpkm for sample, rpkm in sample_d.items()] for annotation, sample_d in rows.items()]
+                if sample.scilifelab_code == "P1993_101":
+                    for row in rpkms[:9]:
+                        assert row == [0.003]
+                    for row in rpkms[19:29]:
+                        assert row == [0.002]
+                    for row in rpkms[39:]:
+                        assert row == [0.001]
+                else:
+                    for row in rpkms[:9]:
+                        assert row == [0.03]
+                    for row in rpkms[19:29]:
+                        assert row == [0.02]
+                    for row in rpkms[39:]:
+                        assert row == [0.01]
+
+        # possible to filter on individual annotations
+        annotation_ids = ["COG0001", "TIGRFAM0004", "COG0003", "PFAM0002", "0.0.2.26"]
+
+        for r in range(5):
+            for type_identifiers in itertools.combinations(annotation_ids, r+1):
+
+                samples, rows = Annotation.rpkm_table(limit=None, type_identifiers=list(type_identifiers))
+                assert len(samples) == 2
+                assert len(rows) == len(type_identifiers)
+                assert set([key.type_identifier for key in rows.keys()]) == set(type_identifiers)
