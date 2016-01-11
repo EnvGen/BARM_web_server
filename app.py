@@ -32,7 +32,6 @@ def function_classes_table():
             limit = int(limit)
         except:
             raise Exception
-    print(limit)
     samples, table = Annotation.rpkm_table(limit=limit, function_class=function_class)
     return render_template('function_classes_table.html', table=table, samples=samples, button_id=button_id)
 
