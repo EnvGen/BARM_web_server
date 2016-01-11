@@ -69,7 +69,7 @@ def main(args):
         session.add_all(list(all_annotation_sources.values()))
         all_genes = {}
         all_gene_annotations = []
-       
+
 
         annotation_type_translation = {'COG': 'Cog', 'TIG': 'TigrFam', 'pfa': 'Pfam'}
         print("Adding genes with cog annotations")
