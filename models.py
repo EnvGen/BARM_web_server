@@ -201,10 +201,40 @@ class Annotation(db.Model):
 
     gene_annotations = db.relationship('GeneAnnotation')
 
-    type_identifier = db.Column(db.String, nullable=False)
+    type_identifier = db.Column(db.String, nullable=False, unique=True)
 
     @classmethod
-    def rpkm_table(limit=20, function_class=None):
+    def rpkm_table(self, samples=None, function_class=None, limit=20, type_identifiers=None):
+        # Use only the annotations which has the highest total
+        q_first = db.session.query(Annotation, sqlalchemy.func.sum(GeneCount.rpkm)).\
+                join(GeneAnnotation).\
+                filter(GeneAnnotation.annotation_id == Annotation.id).\
+                join(Gene).\
+                filter(Gene.id == GeneAnnotation.gene_id).\
+                join(GeneCount).\
+                filter(GeneCount.gene_id == Gene.id)
+
+        if function_class is not None:
+            q_first = q_first.filter(Annotation.annotation_type == function_class)
+
+        if type_identifiers is not None:
+            q_first = q_first.filter(Annotation.type_identifier.in_(type_identifiers))
+
+        q_first = q_first.group_by(Annotation.id).\
+                    order_by(sqlalchemy.func.sum(GeneCount.rpkm).desc())
+
+        if limit is not None:
+            q_first = q_first.limit(limit)
+
+        annotation_ids = []
+        annotations = []
+        for annotation, rpkm_sum in q_first.all():
+            annotations.append(annotation)
+            annotation_ids.append(annotation.id)
+
+        if not len(annotation_ids):
+            return [], {}
+
         q = db.session.query(Sample, Annotation, sqlalchemy.func.sum(GeneCount.rpkm)).\
                 join(GeneCount).\
                 filter(Sample.id == GeneCount.sample_id).\
@@ -213,26 +243,32 @@ class Annotation(db.Model):
                 join(GeneAnnotation).\
                 filter(Gene.id == GeneAnnotation.gene_id).\
                 join(Annotation).\
-                filter(GeneAnnotation.annotation_id == Annotation.id)
+                filter(GeneAnnotation.annotation_id == Annotation.id).\
+                filter(Annotation.id.in_(annotation_ids))
 
-        if function_class is not None:
-            q = q.filter(Annotation.annotation_type == function_class)
+        if samples is not None:
+            q = q.filter(Sample.scilifelab_code.in_(samples))
+
         q = q.group_by(Annotation.id, Sample.id).\
-            order_by(Annotation.id, Sample.id).\
-            limit(20)
+            order_by(Annotation.id, Sample.id)
 
         # format to have one row per list item
-        rows = collections.OrderedDict()
+        rows_unordered = {}
         samples = set()
         for sample, annotation, rpkm_sum in q.all():
             samples.add(sample)
-            if annotation in rows:
-                rows[annotation][sample] = rpkm_sum
+            if annotation in rows_unordered:
+                rows_unordered[annotation][sample] = rpkm_sum
             else:
-                rows[annotation] = collections.OrderedDict()
-                rows[annotation][sample] = rpkm_sum
+                rows_unordered[annotation] = collections.OrderedDict()
+                rows_unordered[annotation][sample] = rpkm_sum
 
-        return samples, rows
+        rows = collections.OrderedDict()
+
+        for annotation in annotations:
+            rows[annotation] = rows_unordered[annotation]
+
+        return list(samples), rows
 
     @property
     def genes(self):
