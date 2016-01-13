@@ -310,8 +310,8 @@ class Cog(Annotation):
             primary_key=True)
     category = db.Column(db.String)
 
-    def __init__(self, type_identifier, category):
-        super().__init__(type_identifier)
+    def __init__(self, type_identifier, category, **kwargs):
+        super().__init__(type_identifier, **kwargs)
         self.category = category
 
     __mapper_args__ = {
@@ -346,8 +346,8 @@ class EcNumber(Annotation):
     third_digit = db.Column(db.Integer, index=True)
     fourth_digit = db.Column(db.Integer, index=True)
 
-    def __init__(self, type_identifier):
-        super().__init__(type_identifier)
+    def __init__(self, type_identifier, **kwargs):
+        super().__init__(type_identifier, **kwargs)
         ec_digits = self.type_identifier.split('.')
         digit_translation_d = {
                 0: self.first_digit,
