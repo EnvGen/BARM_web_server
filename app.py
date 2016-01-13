@@ -47,5 +47,15 @@ def index():
             form=form
         )
 
+@app.route('/ajax/search_annotations', methods=['GET'])
+def suggestions():
+    text_input = request.args.get('text_input', '')
+    annotations = []
+    if text_input != '':
+        annotations = Annotation.query.filter(
+                Annotation.type_identifier.contains(text_input)
+                ).limit(10).all()
+    return render_template('search_annotations.html', annotations=annotations)
+
 if __name__ == '__main__':
     app.run()

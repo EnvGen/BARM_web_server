@@ -37,7 +37,7 @@
                   {% endfor %}
                 </ul>
                 <button class="btn btn-default" type="button" id="AddAnotherTypeIdentifier">Add another type identifier</button>
-                <button class="btn btn-default" type="button" id="RemoveLastTypeIdentifier">Remove Last type identifier</button>
+                <button class="btn btn-default" type="button" id="RemoveLastTypeIdentifier">Remove last type identifier</button>
               </div>
             </div>
           </div>
@@ -46,6 +46,10 @@
       </div>
     </div>
   </div>
+</div>
+
+<input id="input_search_annotations"/>
+<div id="search_annotations">
 </div>
 
 {% include 'function_classes_table.html' %}
@@ -87,6 +91,14 @@
         $(selector).remove();
       }
   }
+
+  $('#input_search_annotations').on('input', function(e){
+    var current_input = $('#input_search_annotations').val();
+    $.get( "ajax/search_annotations", { text_input: current_input }, function(data){
+      $('#search_annotations').replaceWith(data);
+
+    });
+  });
 
 </script>
 {% endblock body %}
