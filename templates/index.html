@@ -12,23 +12,81 @@
     </div>
     <div id="collapseOne" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingOne">
       <div class="panel-body">
-        <form action="" method="post" name="filter" class="form-horizontal">
-          {{ form.hidden_tag() }}
-          <p>
-            {{ form.function_class(class="form-control") }}
-          </p>
-          <p>
-            {{ form.limit(class="form-control") }}
-          </p>
-          <p><button type="submit" class="btn btn-default">Filter</button></p>
-      </form>
 
+        <form action="" method="post" name="filter">
+          <div class="row">
+            <div class="col-md-6">
+                {{ form.hidden_tag() }}
+              <div class="form-group">
+                <label for="function_class">Function Class</label>
+                {{ form.function_class(class="form-control") }}
+              </div>
+              <div class="form-group">
+                <label for="limit">Number of rows</label>
+                {{ form.limit(class="form-control") }}
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="form-group" id="type_identifiers">
+                <ul class="list-unstyled">
+                  {% for subfield in form.type_identifiers.entries %}
+                    <li>
+                    <label for={{ subfield.id }}>Type Identifier</label>
+                    {{ subfield(class="form-control") }}
+                    </li>
+                  {% endfor %}
+                </ul>
+                <button class="btn btn-default" type="button" id="AddAnotherTypeIdentifier">Add another type identifier</button>
+                <button class="btn btn-default" type="button" id="RemoveLastTypeIdentifier">Remove Last type identifier</button>
+              </div>
+            </div>
+          </div>
+          <button type="submit" class="btn btn-default">Filter</button>
+        </form>
       </div>
     </div>
   </div>
 </div>
 
 {% include 'function_classes_table.html' %}
+<script type=text/javascript>
+  $(document).ready(function () {
+      $('#AddAnotherTypeIdentifier').click(function () {
+          clone_field_list('.form-group#type_identifiers li:last');
+      });
 
+      $('#RemoveLastTypeIdentifier').click(function () {
+          remove_last_field_list('.form-group#type_identifiers li:last');
+      });
+  });
+
+  function clone_field_list(selector) {
+      var new_element = $(selector).clone(true);
+
+      /* Increment id integer with 1 */
+      var elem_id = new_element.find(':input')[0].id;
+      var elem_num = parseInt(elem_id.replace(/.*-([0-9]+).*/m, '$1')) + 1;
+
+      /* Update all input and label tags within the new element */
+      new_element.find(':input').each(function() {
+          var id = $(this).attr('id').replace('-' + (elem_num - 1), '-' + elem_num);
+          $(this).attr({'name': id, 'id': id}).val('').removeAttr('checked');
+      });
+      new_element.find('label').each(function() {
+          var new_for = $(this).attr('for').replace('-' + (elem_num - 1), '-' + elem_num);
+          $(this).attr('for', new_for);
+      });
+      $(selector).after(new_element);
+  }
+
+  function remove_last_field_list(selector) {
+      var elem_id = $(selector).find(':input')[0].id;
+      var elem_num = parseInt(elem_id.replace(/.*-([0-9]+).*/m, '$1'));
+
+      if (elem_num > 0) {
+        $(selector).remove();
+      }
+  }
+
+</script>
 {% endblock body %}
-<!-- $(this).attr('id') ) -->

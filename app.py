@@ -18,6 +18,7 @@ def index():
                     ('all', 'All')
                 ]
 
+    type_identifiers = []
     if form.validate_on_submit():
         function_class = form.function_class.data
         if function_class == 'all':
@@ -27,11 +28,18 @@ def index():
             limit = None
         else:
             limit = int(limit)
+        for type_identifier in form.type_identifiers.entries:
+            if type_identifier.data != '':
+                type_identifiers.append(type_identifier.data)
     else:
         function_class=None
         limit=20
+        form.type_identifiers.append_entry()
 
-    samples, table = Annotation.rpkm_table(limit=limit, function_class=function_class)
+    if type_identifiers == []:
+        type_identifiers = None
+
+    samples, table = Annotation.rpkm_table(limit=limit, function_class=function_class, type_identifiers=type_identifiers)
 
     return render_template('index.html',
             table=table,
