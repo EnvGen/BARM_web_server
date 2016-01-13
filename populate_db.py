@@ -53,9 +53,9 @@ def main(args):
             assert annotation_in_db is None
             annotation_type = annotation_id[0:3]
             if annotation_type == 'COG':
-                all_annotations[annotation_id] = annotation_models[annotation_type](annotation_id, None)
+                all_annotations[annotation_id] = annotation_models[annotation_type](annotation_id, None, description=row.description)
             else:
-                all_annotations[annotation_id] = annotation_models[annotation_type](annotation_id)
+                all_annotations[annotation_id] = annotation_models[annotation_type](annotation_id, description=row.description)
 
         session.add_all(list(all_annotations.values()))
 
