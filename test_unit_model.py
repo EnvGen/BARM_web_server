@@ -189,7 +189,7 @@ class SampleTestCase(unittest.TestCase):
         gene2 = Gene("gene2", reference_assembly)
         gene3 = Gene("gene3", reference_assembly)
 
-        annotation2 = Annotation("COG0002")
+        annotation2 = Annotation("COG0002", description="This cog is really really good")
         # Test having multiple genes to one annotation
         annotation_source = AnnotationSource("Cog", "v1.0", "rpsblast", "e_value=0.000001")
         gene_annotation1 = GeneAnnotation(annotation_source = annotation_source, e_value=0.0000001)
@@ -214,6 +214,13 @@ class SampleTestCase(unittest.TestCase):
         assert annotation in Gene.query.filter_by(name="gene1").first().annotations
         assert annotation in Gene.query.filter_by(name="gene2").first().annotations
         assert len(Gene.query.filter_by(name="gene3").first().annotations) == 0
+
+        self.session.add(annotation2)
+        self.session.commit()
+        q =  Annotation.query.filter(Annotation.description.contains("good"))
+        annotation_02 = q.all()
+        assert len(annotation_02) == 1
+        assert annotation_02[0] == annotation2
 
         # Test having multiple annotations to one gene
         gene_annotation3 = GeneAnnotation(annotation2, gene, annotation_source, e_value = 1e-14)
