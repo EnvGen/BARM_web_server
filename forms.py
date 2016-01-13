@@ -1,8 +1,8 @@
 from flask.ext.wtf import Form
-from wtforms import SelectField, TextField, FieldList
+from wtforms import SelectField, StringField, FieldList
 
 
 class FunctionClassFilterForm(Form):
     function_class = SelectField(u'Function Classes', default='all')
     limit = SelectField(u'Limit', choices=[('10','10'), ('20', '20'), ('50', '50'), ('100', '100'), ('all', 'Show All')], default='20')
-    type_identifiers = FieldList(TextField(u'Type identifier'))
+    type_identifiers = FieldList(StringField(u'Type identifier'))
