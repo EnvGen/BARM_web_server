@@ -203,6 +203,8 @@ class Annotation(db.Model):
 
     type_identifier = db.Column(db.String, nullable=False, unique=True)
 
+    description = db.Column(db.String(4000))
+
     @classmethod
     def rpkm_table(self, samples=None, function_class=None, limit=20, type_identifiers=None):
         # Use only the annotations which has the highest total
@@ -298,8 +300,9 @@ class Annotation(db.Model):
             'polymorphic_on': annotation_type
         }
 
-    def __init__(self, type_identifier):
+    def __init__(self, type_identifier, description = None):
         self.type_identifier = type_identifier
+        self.description = description
 
 class Cog(Annotation):
     __tablename__ = 'cog'
