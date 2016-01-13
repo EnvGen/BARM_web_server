@@ -12,51 +12,16 @@
     </div>
     <div id="collapseOne" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingOne">
       <div class="panel-body">
-
-        <div class="dropdown">
-          <button class="btn btn-default dropdown-toggle" type="button" id="function_class_choice" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
-            Function Classes
-            <span class="caret"></span>
-          </button>
-          <ul class="dropdown-menu" aria-labelledby="funcion_class_choice">
-            {% for function_class in function_classes %}
-            <li><a href="#" class="filter_on_function_class" id="{{'only_{}'.format(function_class)}}">{{function_class}}</a></li>
-            {% endfor %}
-            <li><a href="#" class="filter_on_function_class" id="all">All</a></li>
-          </ul>
-        </div>
-
-      </div>
-    </div>
-
-    <div class="panel-heading" role="tab" id="headingTwo">
-      <h4 class="panel-title">
-        <a role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseTwo" aria-expanded="true" aria-controls="collapseTwo">
-          Filter Samples
-        </a>
-      </h4>
-    </div>
-    <div id="collapseTwo" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingTwo">
-      <div class="panel-body">
-        {% for sample in samples %}
-        <div class="checkbox">
-          <label>
-            <input type="checkbox" value="on">{{sample.scilifelab_code}}
-          </label>
-        </div>
-        {% endfor %}
-        <div class="dropdown">
-          <button class="btn btn-default dropdown-toggle" type="button" id="function_class_choice" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
-            Samples
-            <span class="caret"></span>
-          </button>
-          <ul class="dropdown-menu" aria-labelledby="funcion_class_choice">
-            {% for sample in samples %}
-            <li><a href="#" class="filter_samples" id="{{'mark_{}'.format(sample)}}">{{sample}}</a></li>
-            {% endfor %}
-            <li><a href="#" class="filter_samples" id="all">All</a></li>
-          </ul>
-        </div>
+        <form action="" method="post" name="filter" class="form-horizontal">
+          {{ form.hidden_tag() }}
+          <p>
+            {{ form.function_class(class="form-control") }}
+          </p>
+          <p>
+            {{ form.limit(class="form-control") }}
+          </p>
+          <p><button type="submit" class="btn btn-default">Filter</button></p>
+      </form>
 
       </div>
     </div>
@@ -64,21 +29,6 @@
 </div>
 
 {% include 'function_classes_table.html' %}
-<script type=text/javascript>
-  $(document).ready(function() {
-    $('a.filter_on_function_class').click( function () {
-      $.get( "ajax/function_classes_table.html", { button_id: $(this).attr('id') }, function(data){
-        $('table').replaceWith(data)
-      })
-    })
-  })
-  $(document).ready(function() {
-    $('a.filter_samples').click( function () {
-      $.get( "ajax/function_classes_table.html", { button_id: $(this).attr('id') }, function(data){
-        $('table').replaceWith(data)
-      })
-    })
-  })
-</script>
+
 {% endblock body %}
 <!-- $(this).attr('id') ) -->

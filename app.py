@@ -1,5 +1,6 @@
 from flask import Flask, render_template, request
 from flask.ext.sqlalchemy import SQLAlchemy
+from forms import FunctionClassFilterForm
 import os
 
 app = Flask(__name__)
@@ -8,32 +9,35 @@ db = SQLAlchemy(app)
 
 from models import Sample, SampleSet, TimePlace, SampleProperty, Annotation
 
-@app.route('/')
+@app.route('/', methods=['GET', 'POST'])
 def index():
-    samples, table = Annotation.rpkm_table()
-    function_classes = ["COG", "PFAM", "TIGRFAM"]
-    return render_template('index.html', table=table, samples=samples, function_classes=function_classes)
+    form = FunctionClassFilterForm()
+    form.function_class.choices = [('cog', 'Cog'),
+                    ('pfam', 'Pfam'),
+                    ('tigrfam', 'TigrFam'),
+                    ('all', 'All')
+                ]
 
-@app.route('/ajax/function_classes_table.html')
-def function_classes_table():
-    button_id = request.args.get('button_id', '')
-    if button_id != '' and button_id.startswith('only_'):
-        function_class = button_id.replace('only_', '')
-        function_class = function_class.lower()
-    else:
-        function_class = None
-    limit = request.args.get('limit', '')
-    if limit == 'all':
-        limit = None
-    elif limit == '':
-        limit = 20
-    else:
-        try:
+    if form.validate_on_submit():
+        function_class = form.function_class.data
+        if function_class == 'all':
+            function_class = None
+        limit = form.limit.data
+        if limit == 'all':
+            limit = None
+        else:
             limit = int(limit)
-        except:
-            raise Exception
+    else:
+        function_class=None
+        limit=20
+
     samples, table = Annotation.rpkm_table(limit=limit, function_class=function_class)
-    return render_template('function_classes_table.html', table=table, samples=samples, button_id=button_id)
+
+    return render_template('index.html',
+            table=table,
+            samples=samples,
+            form=form
+        )
 
 if __name__ == '__main__':
     app.run()
