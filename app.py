@@ -1,6 +1,8 @@
 from flask import Flask, render_template, request
 from flask.ext.sqlalchemy import SQLAlchemy
 from forms import FunctionClassFilterForm
+import sqlalchemy
+
 import os
 
 app = Flask(__name__)
@@ -53,8 +55,11 @@ def suggestions():
     annotations = []
     if text_input != '':
         annotations = Annotation.query.filter(
-                Annotation.type_identifier.contains(text_input)
-                ).limit(10).all()
+                sqlalchemy.or_(
+                    Annotation.type_identifier.contains(text_input),
+                    Annotation.description.contains(text_input)
+                )
+            ).limit(10).all()
     return render_template('search_annotations.html', annotations=annotations)
 
 if __name__ == '__main__':
