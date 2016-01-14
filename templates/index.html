@@ -27,6 +27,23 @@
               </div>
             </div>
             <div class="col-md-6">
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-md-4">
+              {% for subfield in form.filter_alternative %}
+              <div class="radio">
+                <label>
+                  {{ subfield }}
+                  {{ subfield.label.text}}
+                </label>
+              </div>
+              {% endfor %}
+            </div>
+            <div class="col-md-8">
+              {{ form.search_annotations(class="form-control") }}
+              <div id="search_result_annotations">
+              </div>
               <div class="form-group" id="type_identifiers">
                 <ul class="list-unstyled">
                   {% for subfield in form.type_identifiers.entries %}
@@ -40,9 +57,6 @@
                 <button class="btn btn-default" type="button" id="RemoveLastTypeIdentifier">Remove last type identifier</button>
               </div>
             </div>
-          </div>
-          {{ form.search_annotations(class="form-control") }}
-          <div id="search_result_annotations">
           </div>
           <button type="submit" class="btn btn-default">Filter</button>
         </form>
