@@ -14,6 +14,7 @@
       <div class="panel-body">
 
         <form action="" method="post" name="filter">
+
           <div class="row">
             <div class="col-md-6">
                 {{ form.hidden_tag() }}
@@ -29,35 +30,43 @@
             <div class="col-md-6">
             </div>
           </div>
+
           <div class="row">
             <div class="col-md-4">
-              {% for subfield in form.filter_alternative %}
-              <div class="radio">
-                <label>
-                  {{ subfield }}
-                  {{ subfield.label.text}}
-                </label>
+              <div id="filter_alternative_radio">
+                {% for subfield in form.filter_alternative %}
+                <div class="radio">
+                  <label>
+                    {{ subfield }}
+                    {{ subfield.label.text}}
+                  </label>
+                </div>
+                {% endfor %}
               </div>
-              {% endfor %}
             </div>
             <div class="col-md-8">
-              {{ form.search_annotations(class="form-control") }}
-              <div id="search_result_annotations">
-              </div>
-              <div class="form-group" id="type_identifiers">
-                <ul class="list-unstyled">
-                  {% for subfield in form.type_identifiers.entries %}
-                    <li>
-                    <label for={{ subfield.id }}>Type Identifier</label>
-                    {{ subfield(class="form-control") }}
-                    </li>
-                  {% endfor %}
-                </ul>
-                <button class="btn btn-default" type="button" id="AddAnotherTypeIdentifier">Add another type identifier</button>
-                <button class="btn btn-default" type="button" id="RemoveLastTypeIdentifier">Remove last type identifier</button>
-              </div>
+              <fieldset class="filter_with_search">
+                {{ form.search_annotations(class="form-control") }}
+                <div id="search_result_annotations">
+                </div>
+              </fieldset>
+              <fieldset class="filter_with_type_identifiers">
+                <div class="form-group" id="type_identifiers">
+                  <ul class="list-unstyled">
+                    {% for subfield in form.type_identifiers.entries %}
+                      <li>
+                      <label for={{ subfield.id }}>Type Identifier</label>
+                      {{ subfield(class="form-control") }}
+                      </li>
+                    {% endfor %}
+                  </ul>
+                  <button class="btn btn-default" type="button" id="AddAnotherTypeIdentifier">Add another type identifier</button>
+                  <button class="btn btn-default" type="button" id="RemoveLastTypeIdentifier">Remove last type identifier</button>
+                </div>
+              </fieldset>
             </div>
           </div>
+
           <button type="submit" class="btn btn-default">Filter</button>
         </form>
       </div>
@@ -76,6 +85,12 @@
 
       $('#RemoveLastTypeIdentifier').click(function () {
           remove_last_field_list('.form-group#type_identifiers li:last');
+      });
+
+      $('#filter_alternative_radio .radio label input').click(function(event) {
+        selector_to_disable = $("fieldset:not([disabled])")
+        selector_to_enable = $("fieldset.".concat($(this).val()));
+        disable_form_element(selector_to_disable, selector_to_enable);
       });
 
       fetch_search_result();
@@ -112,12 +127,18 @@
   $('#search_annotations').on('input', function(e){
     fetch_search_result()
   });
-  
+
   function fetch_search_result() {
     var current_input = $('#search_annotations').val();
     $.get( "ajax/search_annotations", { text_input: current_input }, function(data){
       $('#search_result_annotations').replaceWith(data);
     });
+  };
+
+
+  function disable_form_element(selector_to_disable, selector_to_enable) {
+    selector_to_disable.prop('disabled', true);
+    selector_to_enable.prop('disabled', false);
   }
 
 </script>
