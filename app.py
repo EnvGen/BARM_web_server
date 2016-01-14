@@ -53,10 +53,15 @@ def index():
         )
 
 def _search_query(search_string):
+    """ adding % signs before and after will create a substring search
+
+    It will be case insensitive but will only match exactly whats in search_string
+    """
+    search_string = '%'+search_string+'%'
     q = Annotation.query.filter(
             sqlalchemy.or_(
-                Annotation.type_identifier.contains(search_string),
-                Annotation.description.contains(search_string)
+                Annotation.type_identifier.ilike(search_string),
+                Annotation.description.ilike(search_string)
             )
         )
     return q
