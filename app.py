@@ -45,9 +45,7 @@ def index():
     if type_identifiers == []:
         type_identifiers = None
 
-    print(type_identifiers)
     samples, table = Annotation.rpkm_table(limit=limit, function_class=function_class, type_identifiers=type_identifiers)
-    print(table)
     return render_template('index.html',
             table=table,
             samples=samples,

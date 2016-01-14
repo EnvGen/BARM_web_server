@@ -230,7 +230,6 @@ class Annotation(db.Model):
 
         annotation_ids = []
         annotations = []
-        print(q_first)
         for annotation, rpkm_sum in q_first.all():
             annotations.append(annotation)
             annotation_ids.append(annotation.id)
