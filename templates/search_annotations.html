@@ -1,5 +1,11 @@
-<div id="search_annotations">
-{% for annotation in annotations %}
-{{annotation.type_identifier}}, {{annotation.description}} </br>
-{% endfor %}
+<div id="search_result_annotations">
+  <dl class="dl-horizontal">
+    {% for annotation in annotations %}
+    <dt>{{annotation.type_identifier}}</dt> <dd>{{annotation.description}}</dd>
+    {% endfor %}
+  </dl>
+
+  {% if nr_annotations_shown %}
+  <h5>Showing {{ nr_annotations_shown }} out of {{nr_annotations_total}} in total</h5>
+  {% endif %}
 </div>

@@ -33,6 +33,10 @@ def index():
         for type_identifier in form.type_identifiers.entries:
             if type_identifier.data != '':
                 type_identifiers.append(type_identifier.data)
+        search_string = form.search_annotations
+        if search_string.data != '':
+            q = _search_query(search_string.data)
+            type_identifiers = [a.type_identifier for a in q.all()]
     else:
         function_class=None
         limit=20
@@ -41,26 +45,34 @@ def index():
     if type_identifiers == []:
         type_identifiers = None
 
+    print(type_identifiers)
     samples, table = Annotation.rpkm_table(limit=limit, function_class=function_class, type_identifiers=type_identifiers)
-
+    print(table)
     return render_template('index.html',
             table=table,
             samples=samples,
             form=form
         )
 
+def _search_query(search_string):
+    q = Annotation.query.filter(
+            sqlalchemy.or_(
+                Annotation.type_identifier.contains(search_string),
+                Annotation.description.contains(search_string)
+            )
+        )
+    return q
+
 @app.route('/ajax/search_annotations', methods=['GET'])
 def suggestions():
     text_input = request.args.get('text_input', '')
     annotations = []
+    nr_annotations_total = 0
     if text_input != '':
-        annotations = Annotation.query.filter(
-                sqlalchemy.or_(
-                    Annotation.type_identifier.contains(text_input),
-                    Annotation.description.contains(text_input)
-                )
-            ).limit(10).all()
-    return render_template('search_annotations.html', annotations=annotations)
+        q = _search_query(text_input)
+        nr_annotations_total = q.count()
+        annotations = q.limit(10).all()
+    return render_template('search_annotations.html', annotations=annotations, nr_annotations_total=nr_annotations_total, nr_annotations_shown = len(annotations))
 
 if __name__ == '__main__':
     app.run()

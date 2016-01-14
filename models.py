@@ -209,11 +209,11 @@ class Annotation(db.Model):
     def rpkm_table(self, samples=None, function_class=None, limit=20, type_identifiers=None):
         # Use only the annotations which has the highest total
         q_first = db.session.query(Annotation, sqlalchemy.func.sum(GeneCount.rpkm)).\
-                join(GeneAnnotation).\
+                outerjoin(GeneAnnotation).\
                 filter(GeneAnnotation.annotation_id == Annotation.id).\
-                join(Gene).\
+                outerjoin(Gene).\
                 filter(Gene.id == GeneAnnotation.gene_id).\
-                join(GeneCount).\
+                outerjoin(GeneCount).\
                 filter(GeneCount.gene_id == Gene.id)
 
         if function_class is not None:
@@ -230,6 +230,7 @@ class Annotation(db.Model):
 
         annotation_ids = []
         annotations = []
+        print(q_first)
         for annotation, rpkm_sum in q_first.all():
             annotations.append(annotation)
             annotation_ids.append(annotation.id)

@@ -41,6 +41,9 @@
               </div>
             </div>
           </div>
+          {{ form.search_annotations(class="form-control") }}
+          <div id="search_result_annotations">
+          </div>
           <button type="submit" class="btn btn-default">Filter</button>
         </form>
       </div>
@@ -48,9 +51,7 @@
   </div>
 </div>
 
-<input id="input_search_annotations"/>
-<div id="search_annotations">
-</div>
+
 
 {% include 'function_classes_table.html' %}
 <script type=text/javascript>
@@ -62,6 +63,8 @@
       $('#RemoveLastTypeIdentifier').click(function () {
           remove_last_field_list('.form-group#type_identifiers li:last');
       });
+
+      fetch_search_result();
   });
 
   function clone_field_list(selector) {
@@ -92,13 +95,16 @@
       }
   }
 
-  $('#input_search_annotations').on('input', function(e){
-    var current_input = $('#input_search_annotations').val();
-    $.get( "ajax/search_annotations", { text_input: current_input }, function(data){
-      $('#search_annotations').replaceWith(data);
-
-    });
+  $('#search_annotations').on('input', function(e){
+    fetch_search_result()
   });
+  
+  function fetch_search_result() {
+    var current_input = $('#search_annotations').val();
+    $.get( "ajax/search_annotations", { text_input: current_input }, function(data){
+      $('#search_result_annotations').replaceWith(data);
+    });
+  }
 
 </script>
 {% endblock body %}
