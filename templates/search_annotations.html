@@ -1,4 +1,7 @@
 <div id="search_result_annotations">
+  {% if annotations  %}
+    <h4>Functional Classes matching current search term</h4>
+  {% endif %}
   <dl class="dl-horizontal">
     {% for annotation in annotations %}
     <dt>{{annotation.type_identifier}}</dt> <dd>{{annotation.description}}</dd>
