@@ -1,74 +1,71 @@
 {% extends "default_base.html" %}
 {% block body %}
+<div class="container">
+  <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
+    <div class="panel panel-default">
+      <div class="panel-heading" role="tab" id="headingOne">
+        <h4 class="panel-title">
+          <a role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+            Filter Function Classes
+          </a>
+        </h4>
+      </div>
+      <div id="collapseOne" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingOne">
+        <div class="panel-body">
 
-<div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
-  <div class="panel panel-default">
-    <div class="panel-heading" role="tab" id="headingOne">
-      <h4 class="panel-title">
-        <a role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
-          Filter Function Classes
-        </a>
-      </h4>
-    </div>
-    <div id="collapseOne" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingOne">
-      <div class="panel-body">
+          <form action="" method="post" id='filter_form' name="filter" class="filter_function">
 
-        <form action="" method="post" name="filter">
-
-          <div class="row">
-            <div class="col-md-6">
-                {{ form.hidden_tag() }}
-              <div class="form-group">
-                <label for="function_class">Function Class</label>
-                {{ form.function_class(class="form-control") }}
-              </div>
-              <div class="form-group">
-                <label for="limit">Number of rows</label>
-                {{ form.limit(class="form-control") }}
-              </div>
-            </div>
-            <div class="col-md-6">
-            </div>
-          </div>
-
-          <div class="row">
-            <div class="col-md-4">
-              <div id="filter_alternative_radio">
-                {% for subfield in form.filter_alternative %}
-                <div class="radio">
-                  <label>
-                    {{ subfield }}
-                    {{ subfield.label.text}}
-                  </label>
+            <h4>General Settings</h4>
+            <div class="row">
+              <div class="col-md-3">
+                  {{ form.hidden_tag() }}
+                <div class="form-group">
+                  <label for="function_class">Function Class</label>
+                  {{ form.function_class(class="form-control") }}
+                  <label for="limit">Number of rows</label>
+                  {{ form.limit(class="form-control") }}
                 </div>
-                {% endfor %}
+              </div>
+
+              <div class="col-md-3 col-md-offset-1">
+                <div id="filter_alternative_radio">
+                  {% for subfield in form.filter_alternative %}
+                  <div class="radio">
+                    <label>
+                      {{ subfield }}
+                      {{ subfield.label.text}}
+                    </label>
+                  </div>
+                  {% endfor %}
+                </div>
+              </div>
+              <div class="col-md-5">
+                <fieldset class="filter_with_search">
+                  <label for={{ "filter_with_search" }}>Start searching by typing here</label>
+                  {{ form.search_annotations(class="form-control") }}
+                </fieldset>
+                <fieldset class="filter_with_type_identifiers">
+                  <div class="form-group" id="type_identifiers">
+                    <ul class="list-unstyled">
+                      {% for subfield in form.type_identifiers.entries %}
+                        <li>
+                        <label for={{ subfield.id }}>Type Identifier</label>
+                        {{ subfield(class="form-control") }}
+                        </li>
+                      {% endfor %}
+                    </ul>
+                    <button class="btn btn-default" type="button" id="AddAnotherTypeIdentifier">Add another type identifier</button>
+                    <button class="btn btn-default" type="button" id="RemoveLastTypeIdentifier">Remove last type identifier</button>
+                  </div>
+                </fieldset>
+              </div>
+              <div id="search_result_annotations">
               </div>
             </div>
-            <div class="col-md-8">
-              <fieldset class="filter_with_search">
-                {{ form.search_annotations(class="form-control") }}
-                <div id="search_result_annotations">
-                </div>
-              </fieldset>
-              <fieldset class="filter_with_type_identifiers">
-                <div class="form-group" id="type_identifiers">
-                  <ul class="list-unstyled">
-                    {% for subfield in form.type_identifiers.entries %}
-                      <li>
-                      <label for={{ subfield.id }}>Type Identifier</label>
-                      {{ subfield(class="form-control") }}
-                      </li>
-                    {% endfor %}
-                  </ul>
-                  <button class="btn btn-default" type="button" id="AddAnotherTypeIdentifier">Add another type identifier</button>
-                  <button class="btn btn-default" type="button" id="RemoveLastTypeIdentifier">Remove last type identifier</button>
-                </div>
-              </fieldset>
-            </div>
-          </div>
 
-          <button type="submit" class="btn btn-default">Filter</button>
-        </form>
+            <button type="submit" class="btn btn-default">Filter</button>
+          </form>
+        </div>
       </div>
     </div>
   </div>
@@ -94,6 +91,10 @@
       });
 
       fetch_search_result();
+
+      selector_to_disable = $("fieldset:not([disabled])")
+      selector_to_enable = $("fieldset.".concat($("#filter_alternative_radio :checked").val()));
+      disable_form_element(selector_to_disable, selector_to_enable);
   });
 
   function clone_field_list(selector) {
