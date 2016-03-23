@@ -33,24 +33,25 @@ def index():
 
         filter_alternative = form.filter_alternative.data
         if filter_alternative == 'filter_with_type_identifiers':
-          for type_identifier in form.type_identifiers.entries:
-              if type_identifier.data != '':
-                  type_identifiers.append(type_identifier.data)
+            for type_identifier in form.type_identifiers.entries:
+                if type_identifier.data != '':
+                    type_identifiers.append(type_identifier.data)
         elif filter_alternative == 'filter_with_search':
-          search_string = form.search_annotations
-          if search_string.data != '':
-              q = _search_query(search_string.data)
-              type_identifiers = [a.type_identifier for a in q.all()]
+            search_string = form.search_annotations
+            if search_string.data != '':
+                q = _search_query(search_string.data)
+                type_identifiers = [a.type_identifier for a in q.all()]
+
 
     else:
         function_class=None
         limit=20
-        if len(form.type_identifiers) == 0:
-          form.type_identifiers.append_entry()
+
+    if len(form.type_identifiers) == 0:
+        form.type_identifiers.append_entry()
 
     if type_identifiers == []:
         type_identifiers = None
-
     samples, table = Annotation.rpkm_table(limit=limit, function_class=function_class, type_identifiers=type_identifiers)
     return render_template('index.html',
             table=table,
