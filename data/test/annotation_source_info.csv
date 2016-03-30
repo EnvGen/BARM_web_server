@@ -1,0 +1,3 @@
+Cog,default,rpsblast,e_value=1e-5
+Pfam,default,rpsblast,e_value=1e-5
+TigrFam,default,rpsblast,e_value=1e-5
