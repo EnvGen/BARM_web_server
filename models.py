@@ -117,11 +117,13 @@ class GeneAnnotation(db.Model):
 
 class Gene(db.Model):
     __tablename__ = 'gene'
-
+    __table_args__ = (
+        db.UniqueConstraint('name', 'reference_assembly_id', name='gene_within_assembly_unique'),
+        )
     id = db.Column(db.Integer, primary_key=True)
 
     name = db.Column(db.String())
-    reference_assemlby_id = db.Column(db.Integer,
+    reference_assembly_id = db.Column(db.Integer,
             db.ForeignKey('reference_assembly.id'))
     reference_assembly = db.relationship("ReferenceAssembly",
             backref=db.backref("genes"))
