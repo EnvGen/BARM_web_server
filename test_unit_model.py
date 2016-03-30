@@ -134,6 +134,12 @@ class SampleTestCase(unittest.TestCase):
         assert gene2 in ReferenceAssembly.query.filter_by(name="Version 2").first().genes
         assert len(ReferenceAssembly.query.filter_by(name="Version 1").first().genes) == 1
 
+        with self.assertRaises(sqlalchemy.exc.IntegrityError):
+            # Only one gene per name and reference assembly
+            gene3 = Gene("gene1", ref_assembly)
+            self.session.add(gene3)
+            self.session.commit()
+
     def test_gene_count(self):
         sample1 = Sample("P1993_101", None, None)
         reference_assembly = ReferenceAssembly("version 1")
