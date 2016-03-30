@@ -78,9 +78,8 @@ def main(args):
         for gene_id, row in cog_gene_annotations.iterrows():
             annotation = all_annotations[row.annotation_id]
             assert annotation is not None
-            gene = Gene.query.filter_by(name=gene_id).all()
-            assert len(gene) == 0
-            all_genes[gene_id] = Gene(gene_id, ref_assembly)
+            if gene_id not in all_genes:
+                all_genes[gene_id] = Gene(gene_id, ref_assembly)
             annotation_type = annotation_type_translation[row.annotation_id[0:3]]
             annotation_source = all_annotation_sources[annotation_type]
             all_gene_annotations.append(GeneAnnotation(annotation, all_genes[gene_id], annotation_source))
@@ -91,9 +90,8 @@ def main(args):
         for gene_id, row in pfam_gene_annotations.iterrows():
             annotation = all_annotations[row.annotation_id]
             assert annotation is not None
-            gene = Gene.query.filter_by(name=gene_id).all()
-            assert len(gene) == 0
-            all_genes[gene_id] = Gene(gene_id, ref_assembly)
+            if gene_id not in all_genes:
+                all_genes[gene_id] = Gene(gene_id, ref_assembly)
             annotation_type = annotation_type_translation[row.annotation_id[0:3]]
             annotation_source = all_annotation_sources[annotation_type]
             all_gene_annotations.append(GeneAnnotation(annotation, all_genes[gene_id], annotation_source))
@@ -105,9 +103,8 @@ def main(args):
         for gene_id, row in tigrfam_gene_annotations.iterrows():
             annotation = all_annotations[row.annotation_id]
             assert annotation is not None
-            gene = Gene.query.filter_by(name=gene_id).all()
-            assert len(gene) == 0
-            all_genes[gene_id] = Gene(gene_id, ref_assembly)
+            if gene_id not in all_genes:
+                all_genes[gene_id] = Gene(gene_id, ref_assembly)
             annotation_type = annotation_type_translation[row.annotation_id[0:3]]
             annotation_source = all_annotation_sources[annotation_type]
             all_gene_annotations.append(GeneAnnotation(annotation, all_genes[gene_id], annotation_source))
@@ -130,7 +127,7 @@ def main(args):
                 else:
                     nr_unannotated += 1
             print("Number of unannotated genes for sample {} is {}".format(sample_id, nr_unannotated))
-        session.add_all(all_gene_counts) 
+        session.add_all(all_gene_counts)
 
     session.commit()
 
