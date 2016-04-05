@@ -92,9 +92,6 @@ class ReferenceAssembly(db.Model):
 
 class GeneAnnotation(db.Model):
     __tablename__ = 'gene_annotation'
-    __table_args__ = (
-        db.UniqueConstraint('gene_id', 'annotation_id', 'annotation_source_id', name='gene_annotation_unique'),
-        )
     id = db.Column(db.Integer, primary_key=True)
 
     annotation_id = db.Column('annotation_id', db.Integer, db.ForeignKey('annotation.id'))
