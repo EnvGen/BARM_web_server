@@ -34,4 +34,4 @@ Recreate all the tables:
 
 Populate the tables:
 
-    time python populate_db.py --sample_info data/stage/samples.csv --all_annotations data/stage/all_annotations.tsv --annotation_source_info data/stage/annotation_source_info.csv --gene_annotations_cog data/stage/megahit_coassembly.0.COG.tsv --gene_annotations_pfam data/stage/megahit_coassembly.0.PFAM.tsv --gene_annotations_tigrfam data/stage/megahit_coassembly.0.TIGR.tsv --reference_assembly "megahit_coassembly.0" --gene_counts data/stage/P2237_101_1.tsv data/stage/P2237_101_2.tsv
+    time python populate_db.py --sample_info data/stage/samples.csv --all_annotations data/stage/all_annotations.tsv --annotation_source_info data/stage/annotation_source_info.csv --gene_annotations_cog data/stage/megahit_coassembly.0.COG.tsv --gene_annotations_pfam data/stage/megahit_coassembly.0.PFAM.tsv --gene_annotations_tigrfam data/stage/megahit_coassembly.0.TIGR.tsv --reference_assembly "megahit_coassembly.0" --gene_counts data/stage/rpkm_table.tsv
