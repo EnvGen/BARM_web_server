@@ -294,6 +294,13 @@ class Annotation(db.Model):
 
         return { sample: rpkm_sum for sample, rpkm_sum in q.all() }
 
+    @property
+    def short_description(self):
+        if len(self.description) > 100:
+            return "{}...".format(self.description[:99])
+        else:
+            return self.description
+
     __mapper_args__ = {
             'polymorphic_identity': 'annotation',
             'polymorphic_on': annotation_type
