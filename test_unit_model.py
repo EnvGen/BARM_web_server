@@ -287,14 +287,13 @@ class SampleTestCase(unittest.TestCase):
         assert len(GeneAnnotation.query.filter_by(gene = gene,
             annotation = annotation).all()) == 2
 
-        # Identical connection between genes and annotations are
-        # not ok
-        with self.assertRaises(sqlalchemy.exc.IntegrityError):
-            gene_annotation_fail = GeneAnnotation(annotation, gene, annotation_source1)
-            self.session.add(gene_annotation_fail)
-            self.session.commit()
+        # Identical connection between genes and annotations is ok
+        gene_annotation_fail = GeneAnnotation(annotation, gene, annotation_source1)
+        self.session.add(gene_annotation_fail)
+        self.session.commit()
 
-        self.session.rollback()
+        assert len(GeneAnnotation.query.filter_by(gene = gene,
+            annotation = annotation).all()) == 3
 
         # A different annotation_type is either not sufficient to
         # have the same type_identifier twice
