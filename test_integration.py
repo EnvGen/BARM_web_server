@@ -84,3 +84,24 @@ class SampleTestCase(unittest.TestCase):
             assert "pfam01027" in browser.find_by_tag('table').first.html
             assert "TIGR03634" in browser.find_by_tag('table').first.html
             assert len(browser.find_by_tag('tr')) == 3
+
+    def test_annotation_information(self):
+        with Browser() as browser:
+            url = "http://localhost:5000/"
+            browser.visit(url)
+
+            browser.find_by_text('pfam02518').first.mouse_over()
+            time.sleep(1)
+            assert browser.is_text_present("Histidine kinase-, DNA gyrase B-, and HSP90-like ATPase.")
+
+            browser.find_by_tag('td').first.mouse_out()
+            time.sleep(1)
+            assert not browser.is_text_present("Histidine kinase-, DNA gyrase B-, and HSP90-like ATPase. ")
+
+            browser.find_by_id('toggle_description_column').click()
+            time.sleep(1)
+            assert browser.is_text_present("Histidine kinase-, DNA gyrase B-, and HSP90-like ATPase.")
+
+            browser.find_by_id('toggle_description_column').click()
+            time.sleep(1)
+            assert not browser.is_text_present("Histidine kinase-, DNA gyrase B-, and HSP90-like ATPase. ")
