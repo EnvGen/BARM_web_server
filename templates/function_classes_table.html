@@ -1,8 +1,10 @@
 <div class="container-fluid">
-<table class="table">
+<button class="btn btn-default" id="toggle_description_column" value='show'>Show description</button>
+<table class="table" id=function_classes_table>
   <thead>
     <tr>
       <th>Type identifier</th>
+      <th class="annotation_description">Annotation Description</th>
       {% for sample in samples %}
       <th><button type="button" class="btn btn-default">{{sample.scilifelab_code}}</button></th>
       {% endfor %}
@@ -11,7 +13,8 @@
   <tbody>
   {% for annotation, sample_d in table.items() %}
     <tr>
-      <td>{{annotation.type_identifier}}</td>
+      <td><a href="#" data-toggle="tooltip" title="{{annotation.description}}" data-placement="top">{{annotation.type_identifier}}</a></td>
+      <td class="annotation_description">{{annotation.short_description}}</td>
       {% for sample, rpkm in sample_d.items() %}
         <td>{{rpkm}}</td>
       {% endfor %}

@@ -73,11 +73,13 @@
       </div>
     </div>
   </div>
+
 </div>
 
 
 
 {% include 'function_classes_table.html' %}
+
 <script type=text/javascript>
   $(document).ready(function () {
       $('#AddAnotherTypeIdentifier').click(function () {
@@ -99,7 +101,34 @@
       selector_to_disable = $("fieldset:not([disabled])")
       selector_to_enable = $("fieldset.".concat($("#filter_alternative_radio :checked").val()));
       disable_form_element(selector_to_disable, selector_to_enable);
+      enable_tooltip();
+      hide_description_column();
+      $('#toggle_description_column').click(function(event) {
+        if ($(this).attr('value') == 'show') {
+           $(this).text("Hide description");
+           $(this).attr('value', 'hide');
+           show_description_column();
+        } else {
+           $(this).text("Show description");
+           $(this).attr('value', 'show');
+           hide_description_column();
+        }
+      });
   });
+
+  function enable_tooltip() {
+    $('[data-toggle="tooltip"]').tooltip();
+  }
+
+  function show_description_column(){
+    $('#function_classes_table thead .annotation_description').show();
+    $('#function_classes_table tbody .annotation_description').show();
+  }
+
+  function hide_description_column(){
+    $('#function_classes_table thead .annotation_description').hide();
+    $('#function_classes_table tbody .annotation_description').hide();
+  }
 
   function clone_field_list(selector) {
       var new_element = $(selector).clone(true);
