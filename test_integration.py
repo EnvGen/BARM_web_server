@@ -11,6 +11,14 @@ import time
 class SampleTestCase(unittest.TestCase):
     """Test that the website shows the proper things"""
     def setUp(self):
+        if "SAUCE_USERNAME" in os.environ:
+            username = os.environ["SAUCE_USERNAME"]
+            access_key = os.environ["SAUCE_ACCESS_KEY"]
+            hub_url = "{}:{}@localhost:4445".format(username, access_key)
+            self.browser_kwargs = {"driver_name": "remote",
+                    "url": hub_url}
+        else:
+            self.browser_kwargs = {}
         self.db = app.db
         self.db.create_all()
         self.client = app.app.test_client()
@@ -27,7 +35,7 @@ class SampleTestCase(unittest.TestCase):
         assert b'Function Classes' in r.data
 
     def test_filtering_search(self):
-        with Browser() as browser:
+        with Browser(**self.browser_kwargs) as browser:
             url = "http://localhost:5000/"
             browser.visit(url)
 
@@ -57,7 +65,7 @@ class SampleTestCase(unittest.TestCase):
             assert len(browser.find_by_tag('tr')) == 3 # only showing the filtered rows
 
     def test_filtering_type_identifier(self):
-        with Browser() as browser:
+        with Browser(**self.browser_kwargs) as browser:
             url = "http://localhost:5000/"
             browser.visit(url)
 
@@ -86,7 +94,7 @@ class SampleTestCase(unittest.TestCase):
             assert len(browser.find_by_tag('tr')) == 3
 
     def test_annotation_information(self):
-        with Browser() as browser:
+        with Browser(**self.browser_kwargs) as browser:
             url = "http://localhost:5000/"
             browser.visit(url)
 
