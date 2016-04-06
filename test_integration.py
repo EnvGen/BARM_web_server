@@ -3,6 +3,7 @@ import urllib
 import app
 import splinter
 from splinter import Browser
+import os
 
 import sys
 
