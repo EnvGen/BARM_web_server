@@ -54,7 +54,7 @@ class SampleTestCase(unittest.TestCase):
             browser.find_by_value("filter_with_search").first.click()
             browser.fill('search_annotations', "octaprenyltransferase")
 
-            browser.execute_script("window.scrollTo(0,1000)")
+            browser.execute_script("window.scrollTo(0,200)")
             time.sleep(4) # wait for search result to load
             assert browser.is_text_present("Showing 4 out of 4 in total")
 
