@@ -13,10 +13,12 @@
   <tbody>
   {% for annotation, sample_d in table.items() %}
     <tr>
-      <td><a href="#" data-toggle="tooltip" title="{{annotation.description}}" data-placement="top">{{annotation.type_identifier}}</a></td>
+      <td><a href="#" data-toggle="tooltip" title="{{annotation.description}}" data-placement="top">{{annotation.type_identifier}}</a>
+        </br> <nobr><a class="external_link_annotation" href="{{annotation.external_link}}">external link</a></nobr>
+      </td>
       <td class="annotation_description">{{annotation.short_description}}</td>
       {% for sample, rpkm in sample_d.items() %}
-        <td>{{rpkm}}</td>
+        <td class="rpkm_value">{{rpkm}}</td>
       {% endfor %}
     </tr>
   {% endfor %}
