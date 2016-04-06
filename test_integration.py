@@ -15,7 +15,7 @@ class SampleTestCase(unittest.TestCase):
         if "SAUCE_USERNAME" in os.environ:
             username = os.environ["SAUCE_USERNAME"]
             access_key = os.environ["SAUCE_ACCESS_KEY"]
-            hub_url = "https://{}:{}@ondemand.saucelabs.com:80/wd/hub".format(username, access_key)
+            hub_url = "http://{}:{}@ondemand.saucelabs.com:80/wd/hub".format(username, access_key)
             self.browser_kwargs = {"driver_name": "remote",
                     "url": hub_url}
         else:
