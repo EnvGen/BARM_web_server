@@ -240,6 +240,15 @@ class SampleTestCase(unittest.TestCase):
         assert gene_annotation1.e_value > gene_annotation3.e_value
         assert gene.e_value_for(annotation) > gene.e_value_for(annotation2)
 
+        annotation3 = Annotation("COG0003", description=("This cog is really really good. I assure you, "
+            "really quite good. Among its capabilities I have to mention that its utterly suitable for "
+            "testing the description string, including the short description."))
+
+        assert len(annotation3.description) > 103
+        assert annotation3.short_description[-3:] == "..."
+        assert len(annotation3.short_description) == 103
+        assert annotation3.description[:100] == annotation3.short_description[:100]
+
     def test_annotation_type_inheritance(self):
         annotation2 = Pfam("pfam002")
         annotation = Cog("COG0001", "H")
