@@ -250,11 +250,13 @@ class SampleTestCase(unittest.TestCase):
         assert annotation3.description[:100] == annotation3.short_description[:100]
 
     def test_annotation_type_inheritance(self):
-        annotation2 = Pfam("pfam002")
+        annotation2 = Pfam("pfam00002")
         annotation = Cog("COG0001", "H")
+        annotation3 = TigrFam("TIGR00004")
 
         assert annotation2.annotation_type == 'pfam'
         assert annotation.annotation_type == 'cog'
+        assert annotation3.annotation_type == 'tigrfam'
 
         gene = Gene("gene1", None)
         annotation_source1 = AnnotationSource("Cog", "v1.0", "rpsblast", "e_value=0.00001")
@@ -271,7 +273,7 @@ class SampleTestCase(unittest.TestCase):
         # Genes is defined on the annotation base class
         assert gene in annotation.genes
 
-        for subclass, type_ident in [(Cog, "COG0001"), (Pfam, "pfam002")]:
+        for subclass, type_ident in [(Cog, "COG0001"), (Pfam, "pfam00002")]:
             # The same type identifier can only be in the db once,
             # per subcategory
             with self.assertRaises(sqlalchemy.exc.IntegrityError):
@@ -307,13 +309,16 @@ class SampleTestCase(unittest.TestCase):
         # A different annotation_type is either not sufficient to
         # have the same type_identifier twice
         with self.assertRaises(sqlalchemy.exc.IntegrityError):
-            annotation3 = Pfam("COG0001")
-            self.session.add(annotation3)
+            annotation4 = Pfam("COG0001")
+            self.session.add(annotation4)
             self.session.commit()
 
         self.session.rollback()
         assert len(Annotation.query.filter_by(type_identifier="COG0001").all()) == 1
 
+        assert annotation.external_link == "http://www.ncbi.nlm.nih.gov/Structure/cdd/cddsrv.cgi?uid=COG0001"
+        assert annotation2.external_link == "http://pfam.xfam.org/family/PF00002"
+        assert annotation3.external_link == "http://www.jcvi.org/cgi-bin/tigrfams/HmmReportPage.cgi?acc=TIGR00004"
 
     def test_annotation_rpkm(self):
         annotation1 = Annotation("COG0001")
