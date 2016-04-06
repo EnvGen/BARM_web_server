@@ -324,6 +324,10 @@ class Cog(Annotation):
             'polymorphic_identity':'cog'
         }
 
+    @property
+    def external_link(self):
+        return "http://www.ncbi.nlm.nih.gov/Structure/cdd/cddsrv.cgi?uid={}".format(self.type_identifier)
+
 class Pfam(Annotation):
     __tablename__ = 'pfam'
     id = db.Column(db.Integer, db.ForeignKey("annotation.id"),
@@ -333,6 +337,11 @@ class Pfam(Annotation):
             'polymorphic_identity': 'pfam'
         }
 
+    @property
+    def external_link(self):
+        external_id = self.type_identifier.replace("pfam", "PF").replace("PFAM", "PF")
+        return "http://pfam.xfam.org/family/{}".format(external_id)
+
 class TigrFam(Annotation):
     __tablename__ = 'tigrfam'
     id = db.Column(db.Integer, db.ForeignKey("annotation.id"),
@@ -341,6 +350,14 @@ class TigrFam(Annotation):
     __mapper_args__ = {
             'polymorphic_identity': 'tigrfam'
         }
+
+    @property
+    def external_link(self):
+        if self.type_identifier[:4] != 'TIGR':
+            external_id = self.type_identifier.replace(self.type_identifier[:4], 'TIGR')
+        else:
+            external_id = self.type_identifier
+        return "http://www.jcvi.org/cgi-bin/tigrfams/HmmReportPage.cgi?acc={}".format(external_id)
 
 class EcNumber(Annotation):
     __tablename__ = 'ecnumber'
