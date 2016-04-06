@@ -297,7 +297,7 @@ class Annotation(db.Model):
     @property
     def short_description(self):
         if len(self.description) > 100:
-            return "{}...".format(self.description[:99])
+            return "{}...".format(self.description[:100])
         else:
             return self.description
 
