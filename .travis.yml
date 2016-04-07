@@ -9,20 +9,21 @@ services:
     - postgresql
 env:
     - BARM_SECRET_KEY="yeahthisiswhatweuseinproduction" DATABASE_URL="postgresql://postgres:@localhost/BARM_web_stage" APP_SETTINGS="config.DevelopmentConfig"
-before_script:
+before_install:
     - wget https://repo.continuum.io/miniconda/Miniconda3-latest-Linux-x86_64.sh -O miniconda.sh
     - chmod +x miniconda.sh
     - ./miniconda.sh -b
     - export PATH=/home/travis/miniconda3/bin:$PATH
     - conda update --yes conda
+install:
     - conda install --yes python=$TRAVIS_PYTHON_VERSION pandas Flask SQLAlchemy splinter
+    - pip install -r requirements.txt
+before_script:
     - createdb BARM_web_test -U postgres --echo
     - createdb BARM_web_stage -U postgres --echo
     - python manage.py db upgrade
     - python populate_db.py --sample_info data/test/samples.csv --all_annotations data/test/all_annotations.tsv --annotation_source_info data/test/annotation_source_info.csv --gene_annotations_cog data/test/megahit_coassembly.0.COG.tsv --gene_annotations_pfam data/test/megahit_coassembly.0.PFAM.tsv --gene_annotations_tigrfam data/test/megahit_coassembly.0.TIGR.tsv --reference_assembly "megahit_coassembly.0" --gene_counts data/test/rpkm_table.tsv
     - python manage.py runserver
     - sleep 3 # give the server some time to do what it needs to do
-install:
-    - pip install -r requirements.txt
 script:
     - python run_test.py --db "postgresql://postgres:@localhost/BARM_web_test"
