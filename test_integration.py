@@ -52,18 +52,18 @@ class SampleTestCase(unittest.TestCase):
 
             # Verify the search term filtering
             browser.find_by_value("filter_with_search").first.click()
-            browser.fill('search_annotations', "octaprenyltransferase")
+            browser.fill('search_annotations', "glycosy")
 
-            browser.execute_script("window.scrollTo(0,200)")
+            browser.execute_script("window.scrollTo(0,400)")
             time.sleep(4) # wait for search result to load
-            assert browser.is_text_present("Showing 4 out of 4 in total")
+            assert browser.is_text_present("Showing 8 out of 8 in total")
 
             browser.find_by_id('submit_filter').click()
 
             time.sleep(2) # wait for page to reload with new result
             # There are only two of these which is present as annotations
             # in the test result
-            assert len(browser.find_by_tag('tr')) == 3 # only showing the filtered rows
+            assert len(browser.find_by_tag('tr')) == 7 # only showing the filtered rows
 
     def test_filtering_type_identifier(self):
         with Browser(**self.browser_kwargs) as browser:
@@ -75,23 +75,23 @@ class SampleTestCase(unittest.TestCase):
 
             # Verify the type identifiers filtering
             browser.find_by_value("filter_with_type_identifiers").click()
-            browser.fill('type_identifiers-0', 'pfam01027')
+            browser.fill('type_identifiers-0', 'pfam00535')
 
             browser.find_by_id('submit_filter').click()
-            assert browser.is_text_present("pfam01027")
+            assert browser.is_text_present("pfam00535")
             assert len(browser.find_by_tag('tr')) == 2
 
             browser.find_by_id("filter_accordion").click()
             time.sleep(1) # The accordion takes some time to unfold
 
             with self.assertRaises(splinter.exceptions.ElementDoesNotExist):
-                browser.fill('type_identifiers-1', 'TIGR01320')
+                browser.fill('type_identifiers-1', 'TIGR01420')
             browser.find_by_id('AddAnotherTypeIdentifier').click()
-            browser.fill('type_identifiers-1', 'TIGR03634')
+            browser.fill('type_identifiers-1', 'TIGR01420')
 
             browser.find_by_id('submit_filter').click()
-            assert "pfam01027" in browser.find_by_tag('table').first.html
-            assert "TIGR03634" in browser.find_by_tag('table').first.html
+            assert "pfam00535" in browser.find_by_tag('table').first.html
+            assert "TIGR01420" in browser.find_by_tag('table').first.html
             assert len(browser.find_by_tag('tr')) == 3
 
     def test_annotation_information(self):
@@ -99,18 +99,18 @@ class SampleTestCase(unittest.TestCase):
             url = "http://localhost:5000/"
             browser.visit(url)
 
-            browser.find_by_text('pfam02518').first.mouse_over()
+            browser.find_by_text('COG0059').first.mouse_over()
             time.sleep(1)
-            assert browser.is_text_present("Histidine kinase-, DNA gyrase B-, and HSP90-like ATPase.")
+            assert browser.is_text_present("Ketol-acid reductoisomerase [Amino acid transport and metabolism")
 
             browser.find_by_tag('td').first.mouse_out()
             time.sleep(1)
-            assert not browser.is_text_present("Histidine kinase-, DNA gyrase B-, and HSP90-like ATPase. ")
+            assert not browser.is_text_present("Ketol-acid reductoisomerase [Amino acid transport and metabolism")
 
             browser.find_by_id('toggle_description_column').click()
             time.sleep(1)
-            assert browser.is_text_present("Histidine kinase-, DNA gyrase B-, and HSP90-like ATPase.")
+            assert browser.is_text_present("Ketol-acid reductoisomerase [Amino acid transport and metabolism")
 
             browser.find_by_id('toggle_description_column').click()
             time.sleep(1)
-            assert not browser.is_text_present("Histidine kinase-, DNA gyrase B-, and HSP90-like ATPase. ")
+            assert not browser.is_text_present("Ketol-acid reductoisomerase [Amino acid transport and metabolism")
