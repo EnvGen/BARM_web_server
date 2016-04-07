@@ -16,7 +16,7 @@ before_install:
     - export PATH=/home/travis/miniconda3/bin:$PATH
     - conda update --yes conda
 install:
-    - conda install --yes python=$TRAVIS_PYTHON_VERSION pandas Flask SQLAlchemy psycopg2
+    - conda install --yes python=$TRAVIS_PYTHON_VERSION pandas Flask SQLAlchemy psycopg2 flask-wtf gunicorn mako werkzeug wheel
     - pip install -r requirements.txt
 before_script:
     - createdb BARM_web_test -U postgres --echo
@@ -26,6 +26,6 @@ before_script:
     - "ls -l"
     - python manage.py db upgrade
     - python populate_db.py --sample_info data/test/samples.csv --all_annotations data/test/all_annotations.tsv --annotation_source_info data/test/annotation_source_info.csv --gene_annotations_cog data/test/megahit_coassembly.0.COG.tsv --gene_annotations_pfam data/test/megahit_coassembly.0.PFAM.tsv --gene_annotations_tigrfam data/test/megahit_coassembly.0.TIGR.tsv --reference_assembly "megahit_coassembly.0" --gene_counts data/test/rpkm_table.tsv
-    - python manage.py runserver &
+    - python manage.py runserver 2> /dev/null &
 script:
     - python run_test.py --db "postgresql://postgres:@localhost/BARM_web_test"
