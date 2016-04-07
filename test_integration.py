@@ -19,6 +19,9 @@ class SampleTestCase(unittest.TestCase):
             command_executor = "http://{}:{}@ondemand.saucelabs.com:80/wd/hub".format(username, access_key)
             capabilities = {}
             capabilities["tunnel-identifier"] = os.environ["TRAVIS_JOB_NUMBER"]
+            capabilities["platform"] = "Mac OS X 10.9"
+            capabilities["browserName"] = "chrome"
+            capabilities["version"] = "48"
             self.driver = webdriver.Remote(desired_capabilities=capabilities, command_executor=command_executor)
             self.action_chains = ActionChains(self.driver)
         else:
