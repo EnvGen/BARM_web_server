@@ -16,7 +16,7 @@ before_install:
     - export PATH=/home/travis/miniconda3/bin:$PATH
     - conda update --yes conda
 install:
-    - conda install --yes python=$TRAVIS_PYTHON_VERSION pandas Flask SQLAlchemy
+    - conda install --yes python=$TRAVIS_PYTHON_VERSION pandas Flask SQLAlchemy psycopg2
     - pip install -r requirements.txt
 before_script:
     - createdb BARM_web_test -U postgres --echo
