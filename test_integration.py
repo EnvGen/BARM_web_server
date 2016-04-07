@@ -17,7 +17,8 @@ class SampleTestCase(unittest.TestCase):
             access_key = os.environ["SAUCE_ACCESS_KEY"]
             hub_url = "http://{}:{}@ondemand.saucelabs.com:80/wd/hub".format(username, access_key)
             self.browser_kwargs = {"driver_name": "remote",
-                    "url": hub_url}
+                    "url": hub_url,
+                    "tunnel-identifier": os.environ["TRAVIS_JOB_NUMBER"]}
         else:
             self.browser_kwargs = {}
         self.db = app.db
