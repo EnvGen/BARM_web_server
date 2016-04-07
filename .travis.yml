@@ -1,6 +1,6 @@
 language: python
 python:
-    - 3.5
+    - 3.4
 sudo: false
 addons:
     postgresql: "9.4"
@@ -21,6 +21,9 @@ install:
 before_script:
     - createdb BARM_web_test -U postgres --echo
     - createdb BARM_web_stage -U postgres --echo
+    - "ls -l"
+    - cd $TRAVIS_BUILD_DIR
+    - "ls -l"
     - python manage.py db upgrade
     - python populate_db.py --sample_info data/test/samples.csv --all_annotations data/test/all_annotations.tsv --annotation_source_info data/test/annotation_source_info.csv --gene_annotations_cog data/test/megahit_coassembly.0.COG.tsv --gene_annotations_pfam data/test/megahit_coassembly.0.PFAM.tsv --gene_annotations_tigrfam data/test/megahit_coassembly.0.TIGR.tsv --reference_assembly "megahit_coassembly.0" --gene_counts data/test/rpkm_table.tsv
     - python manage.py runserver &
