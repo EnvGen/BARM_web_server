@@ -8,8 +8,7 @@ addons:
 services:
     - postgresql
 env:
-    - BARM_SECRET_KEY="yeahthisiswhatweuseinproduction"
-    - DATABASE_URL="postgresql://postgres:@localhost/BARM_web_stage"
+    - BARM_SECRET_KEY="yeahthisiswhatweuseinproduction" DATABASE_URL="postgresql://postgres:@localhost/BARM_web_stage"
 before_script:
     - createdb BARM_web_test -U postgres --echo
     - createdb BARM_web_stage -U postgres --echo
