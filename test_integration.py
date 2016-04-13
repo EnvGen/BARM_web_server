@@ -4,6 +4,7 @@ import app
 from selenium import webdriver
 from selenium.webdriver.common.by import By
 from selenium.common.exceptions import NoSuchElementException
+from selenium.webdriver.support.ui import Select
 from selenium.webdriver.common.action_chains import ActionChains
 
 import sys
@@ -61,7 +62,7 @@ class SampleTestCase(unittest.TestCase):
         assert r._status_code == 200
         assert b'Baltic Sea Reference Metagenome' in r.data
 
-        assert b'Function Classes' in r.data
+        assert b'Filtering Options' in r.data
 
     def test_filtering_search(self):
         url = "http://localhost:5000/"
@@ -138,3 +139,40 @@ class SampleTestCase(unittest.TestCase):
         self.driver.find_element(by=By.ID, value='toggle_description_column').click()
         time.sleep(1)
         assert not self.is_text_present("Ketol-acid reductoisomerase [Amino acid transport and metabolism")
+
+    def test_filter_samples(self):
+        url = "http://localhost:5000/"
+        self.driver.get(url)
+
+        # This sample should disappear after filtering
+        assert self.is_text_present("120813")
+        assert self.is_text_present("P1994_119")
+
+        self.driver.find_element(by=By.ID, value="filter_accordion").click()
+        time.sleep(1) # The accordion takes some time to unfold
+
+        select_sample = Select(self.driver.find_element(by=By.ID, value='select_sample_groups'))
+        select_sample.select_by_visible_text("redox")
+
+        self.driver.find_element(by=By.ID, value='submit_filter').click()
+        assert self.is_text_present("P2236_103")
+        assert self.is_text_present("P2236_104")
+        assert self.is_text_present("P2236_105")
+        assert not self.is_text_present("120813")
+        assert not self.is_text_present("P1994_119")
+
+        self.driver.find_element(by=By.ID, value="filter_accordion").click()
+        time.sleep(1) # The accordion takes some time to unfold
+
+        select_sample = Select(self.driver.find_element(by=By.ID, value='select_sample_groups'))
+
+        # This should not unselect redox
+        select_sample.select_by_visible_text("lmo")
+
+        self.driver.find_element(by=By.ID, value='submit_filter').click()
+        assert self.is_text_present("P2236_103")
+        assert self.is_text_present("P2236_104")
+        assert self.is_text_present("P2236_105")
+        assert self.is_text_present("120813")
+        assert not self.is_text_present("P1994_119")
+
