@@ -74,6 +74,21 @@ class SampleTestCase(unittest.TestCase):
         assert sample1 in sample_set.samples
         assert sample3 in sample_set.samples
 
+        assert len(Sample.all_from_sample_sets(['first_sampleset'])) == 2
+        assert sample1 in Sample.all_from_sample_sets(['first_sampleset'])
+        assert sample3 in Sample.all_from_sample_sets(['first_sampleset'])
+        assert sample2 not in Sample.all_from_sample_sets(['first_sampleset'])
+
+        assert len(Sample.all_from_sample_sets(['second_sampleset'])) == 1
+        assert sample1 not in Sample.all_from_sample_sets(['second_sampleset'])
+        assert sample3 not in Sample.all_from_sample_sets(['second_sampleset'])
+        assert sample2 in Sample.all_from_sample_sets(['second_sampleset'])
+
+        assert len(Sample.all_from_sample_sets(['second_sampleset', 'first_sampleset'])) == 3
+        assert sample1 in Sample.all_from_sample_sets(['second_sampleset', 'first_sampleset'])
+        assert sample3 in Sample.all_from_sample_sets(['second_sampleset', 'first_sampleset'])
+        assert sample2 in Sample.all_from_sample_sets(['second_sampleset', 'first_sampleset'])
+
     def test_sample_timeplace(self):
         sample_set = SampleSet("first_sampleset")
         sample1 = Sample("P1993_101", sample_set, None)
