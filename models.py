@@ -58,6 +58,16 @@ class Sample(db.Model):
         return '<Sample {}>'.format(self.id)
 
 
+    @classmethod
+    def all_from_sample_sets(self, sample_sets):
+        # Use only the annotations which has the highest total
+        q = db.session.query(Sample).\
+                join(SampleSet).\
+                filter(Sample.sample_set_id == SampleSet.id).\
+                filter(SampleSet.name.in_(sample_sets))
+
+        return q.all()
+
 class SampleProperty(db.Model):
     __tablename__ = 'sample_property'
 
