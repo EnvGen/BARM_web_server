@@ -1,5 +1,5 @@
 from flask.ext.wtf import Form
-from wtforms import SelectField, StringField, FieldList, RadioField
+from wtforms import SelectField, SelectMultipleField, StringField, FieldList, RadioField
 
 
 class FunctionClassFilterForm(Form):
@@ -11,3 +11,4 @@ class FunctionClassFilterForm(Form):
       default='filter_with_type_identifiers')
     type_identifiers = FieldList(StringField(u'Type identifier'))
     search_annotations = StringField('Search Annotations')
+    select_sample_groups = SelectMultipleField(u'Sample Groups')

@@ -20,6 +20,8 @@ def index():
                     ('all', 'All')
                 ]
 
+    form.select_sample_groups.choices = [(sample_set.name, sample_set.name) for sample_set in  SampleSet.query.all()]
+
     type_identifiers = []
     if form.validate_on_submit():
         function_class = form.function_class.data
@@ -43,16 +45,22 @@ def index():
                 type_identifiers = [a.type_identifier for a in q.all()]
 
 
+        sample_sets = form.select_sample_groups.data
+        if len(sample_sets) > 0:
+            samples = [sample.scilifelab_code for sample in Sample.all_from_sample_sets(sample_sets)]
+        else:
+            samples = None
     else:
         function_class=None
         limit=20
+        samples = None
 
     if len(form.type_identifiers) == 0:
         form.type_identifiers.append_entry()
 
     if type_identifiers == []:
         type_identifiers = None
-    samples, table = Annotation.rpkm_table(limit=limit, function_class=function_class, type_identifiers=type_identifiers)
+    samples, table = Annotation.rpkm_table(limit=limit, samples=samples, function_class=function_class, type_identifiers=type_identifiers)
     return render_template('index.html',
             table=table,
             samples=samples,
