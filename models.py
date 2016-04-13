@@ -24,13 +24,13 @@ class TimePlace(db.Model):
 
     id = db.Column(db.Integer, primary_key=True)
     time = db.Column(db.DateTime())
-    latitude = db.String()
-    longitude = db.String()
+    latitude = db.Float()
+    longitude = db.Float()
 
     def __init__(self, time, latitude, longitude):
         self.time = time
-        self.latitude = latitude
-        self.longitude = longitude
+        self.latitude = float(latitude)
+        self.longitude = float(longitude)
 
     def __repr__(self):
         return '<TimePlace {}>'.format(self.id)
