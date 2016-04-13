@@ -111,6 +111,21 @@ class SampleTestCase(unittest.TestCase):
         assert sample1 in TimePlace.query.first().samples
         assert sample2 in TimePlace.query.first().samples
 
+        time_place2 = TimePlace(datetime.date(1999,3,21), "42.3820818", "108.0233369")
+
+        sample3 = Sample("P1993_103", sample_set, None)
+        sample3.timeplace = time_place2
+
+        self.session.add(sample3)
+        self.session.add(time_place2)
+        self.session.commit()
+
+        assert len(TimePlace.query.all()) == 2
+        assert sample3.timeplace.latitude < sample2.timeplace.latitude
+        assert sample3.timeplace.longitude > sample2.timeplace.longitude
+
+        assert sample3.timeplace.time < sample2.timeplace.time
+
     def test_sample_sample_property(self):
         sample1 = Sample("P1993_101", None, None)
         sample_prop = SampleProperty(name="Salinity", value="16", unit="PSU", sample=sample1)
