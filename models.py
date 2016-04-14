@@ -24,8 +24,8 @@ class TimePlace(db.Model):
 
     id = db.Column(db.Integer, primary_key=True)
     time = db.Column(db.DateTime())
-    latitude = db.Float()
-    longitude = db.Float()
+    latitude = db.Column(db.Float)
+    longitude = db.Column(db.Float)
 
     def __init__(self, time, latitude, longitude):
         self.time = time
@@ -35,6 +35,8 @@ class TimePlace(db.Model):
     def __repr__(self):
         return '<TimePlace {}>'.format(self.id)
 
+    def date_formatted(self):
+        return self.time.strftime('%Y-%m-%d')
 
 class Sample(db.Model):
     __tablename__ = 'sample'
