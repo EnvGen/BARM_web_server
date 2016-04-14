@@ -126,6 +126,9 @@ class SampleTestCase(unittest.TestCase):
 
         assert sample3.timeplace.time < sample2.timeplace.time
 
+        assert sample3.timeplace.date_formatted() == '1999-03-21'
+
+
     def test_sample_sample_property(self):
         sample1 = Sample("P1993_101", None, None)
         sample_prop = SampleProperty(name="Salinity", value="16", unit="PSU", sample=sample1)
