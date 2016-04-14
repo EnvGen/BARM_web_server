@@ -4,8 +4,16 @@ import pandas as pd
 import argparse
 import os
 import logging
+import datetime
 
 logging.basicConfig(format='%(asctime)s %(message)s', level=logging.INFO)
+
+default_units = {'temperature': 'Celsius',
+        'salinity': 'psu',
+        'depth': 'meter',
+        'oxygen': 'umol/L',
+        'filter_lower': 'um',
+        'filter_upper': 'um'}
 
 def main(args):
     # connect to database
@@ -25,13 +33,43 @@ def main(args):
             sample_sets[sample_id] = sample_set
 
     logging.info("Creating individual samples")
+    sample_properties = []
     all_samples = {}
+    time_places = []
     for sample_id, row in sample_info.iterrows():
         samples_with_code = Sample.query.filter_by(scilifelab_code=sample_id).all()
         assert len(samples_with_code) == 0
-        all_samples[sample_id] = Sample(sample_id, sample_sets[sample_id], None)
 
-    session.add_all(list(sample_sets.values()) + list(all_samples.values()))
+        if 'time' in row:
+            time = datetime.datetime.strptime(str(row['time']), '%H:%M').time()
+        else:
+            time = datetime.datetime.strptime('1200', '%H%M').time()
+
+        if 'date' in row:
+            date = datetime.datetime.strptime(row['date'], '%d/%m/%y')
+        else:
+            date = datetime.datetime.strptime('01/01/00', '%d/%m/%y')
+
+        meta_data = {}
+        meta_categories = ['latitude', 'longitude', 'temperature', 'salinity', 'depth', 'oxygen', 'filter_lower', 'filter_upper']
+        for meta_category in meta_categories:
+            if meta_category in row:
+                meta_data[meta_category] = row[meta_category]
+            else:
+                meta_data[meta_category] = None
+
+        time_place = TimePlace(datetime.datetime.combine(date, time), meta_data['latitude'], meta_data['longitude'])
+        time_places.append(time_place)
+
+        all_samples[sample_id] = Sample(sample_id, sample_sets[sample_id], time_place)
+
+        for meta_category in meta_categories:
+            if meta_category in ['latitude', 'longitude']:
+                continue
+            if meta_data[meta_category] is not None:
+                sample_properties.append(SampleProperty(meta_category, meta_data[meta_category], default_units[meta_category], all_samples[sample_id]))
+
+    session.add_all(list(sample_sets.values()) + list(all_samples.values()) + time_places + sample_properties)
 
     logging.info("Creating the reference assembly")
     # create the reference assembly
