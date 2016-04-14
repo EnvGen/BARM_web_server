@@ -116,13 +116,26 @@
       hide_description_column();
       $('#toggle_description_column').click(function(event) {
         if ($(this).attr('value') == 'show') {
-           $(this).text("Hide description");
+           $(this).text("Hide Annotation Description");
            $(this).attr('value', 'hide');
            show_description_column();
         } else {
-           $(this).text("Show description");
+           $(this).text("Show Annotation Description");
            $(this).attr('value', 'show');
            hide_description_column();
+        }
+      });
+
+      hide_sample_information();
+      $('#toggle_sample_description').click(function(event) {
+        if ($(this).attr('value') == 'show') {
+           $(this).text("Hide Sample Information");
+           $(this).attr('value', 'hide');
+           show_sample_information();
+        } else {
+           $(this).text("Show Sample Information");
+           $(this).attr('value', 'show');
+           hide_sample_information();
         }
       });
   });
@@ -139,6 +152,14 @@
   function hide_description_column(){
     $('#function_classes_table thead .annotation_description').hide();
     $('#function_classes_table tbody .annotation_description').hide();
+  }
+
+  function show_sample_information(){
+    $('#function_classes_table thead .sample_description_in_table').show();
+  }
+
+  function hide_sample_information(){
+    $('#function_classes_table thead .sample_description_in_table').hide();
   }
 
   function clone_field_list(selector) {
