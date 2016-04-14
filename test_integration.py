@@ -90,7 +90,8 @@ class SampleTestCase(unittest.TestCase):
         time.sleep(2) # wait for page to reload with new result
         # There are only six of these which is present as annotations
         # in the test result
-        assert len(self.driver.find_elements(by=By.TAG_NAME, value= 'tr')) == 7 # only showing the filtered rows
+        rpkm_tbody = self.driver.find_elements(by=By.CLASS_NAME, value='rpkm_values_tbody')[0]
+        assert len(rpkm_tbody.find_elements(by=By.TAG_NAME, value= 'tr')) == 6 # only showing the filtered rows
 
     def test_filtering_type_identifier(self):
         url = "http://localhost:5000/"
@@ -105,7 +106,8 @@ class SampleTestCase(unittest.TestCase):
 
         self.driver.find_element(by=By.ID, value='submit_filter').click()
         assert self.is_text_present("pfam00535")
-        assert len(self.driver.find_elements(by=By.TAG_NAME, value='tr')) == 2
+        rpkm_tbody = self.driver.find_elements(by=By.CLASS_NAME, value='rpkm_values_tbody')[0]
+        assert len(rpkm_tbody.find_elements(by=By.TAG_NAME, value='tr')) == 1
 
         self.driver.find_element(by=By.ID, value="filter_accordion").click()
         time.sleep(1) # The accordion takes some time to unfold
@@ -118,7 +120,8 @@ class SampleTestCase(unittest.TestCase):
         self.driver.find_element(by=By.ID, value='submit_filter').click()
         assert "pfam00535" in self.driver.find_elements(by=By.TAG_NAME, value='table')[0].text
         assert "TIGR01420" in self.driver.find_elements(by=By.TAG_NAME, value='table')[0].text
-        assert len(self.driver.find_elements(by=By.TAG_NAME, value='tr')) == 3
+        rpkm_tbody = self.driver.find_elements(by=By.CLASS_NAME, value='rpkm_values_tbody')[0]
+        assert len(rpkm_tbody.find_elements(by=By.TAG_NAME, value='tr')) == 2
 
     def test_annotation_information(self):
         url = "http://localhost:5000/"
@@ -139,6 +142,36 @@ class SampleTestCase(unittest.TestCase):
         self.driver.find_element(by=By.ID, value='toggle_description_column').click()
         time.sleep(1)
         assert not self.is_text_present("Ketol-acid reductoisomerase [Amino acid transport and metabolism")
+
+
+
+    def test_show_sample_information(self):
+        url = "http://localhost:5000/"
+        self.driver.get(url)
+
+        assert not self.is_text_present("2014-06-08")
+        assert not self.is_text_present("16.3665")
+        self.mouse_over(self.driver.find_elements(by=By.LINK_TEXT, value='P1994_119')[0])
+        time.sleep(1)
+        assert self.is_text_present("2014-06-08")
+        assert self.is_text_present("16.3665")
+
+        self.mouse_out()
+        time.sleep(1)
+
+        assert not self.is_text_present("2014-06-08")
+        assert not self.is_text_present("16.3665")
+
+        self.driver.find_element(by=By.ID, value='toggle_sample_description').click()
+        time.sleep(1)
+
+        assert self.is_text_present("2014-06-08")
+        assert self.is_text_present("16.3665")
+
+        self.driver.find_element(by=By.ID, value='toggle_sample_description').click()
+        time.sleep(1)
+        assert not self.is_text_present("2014-06-08")
+        assert not self.is_text_present("16.3665")
 
     def test_filter_samples(self):
         url = "http://localhost:5000/"
