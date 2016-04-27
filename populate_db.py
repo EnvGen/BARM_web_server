@@ -8,13 +8,6 @@ import datetime
 
 logging.basicConfig(format='%(asctime)s %(message)s', level=logging.INFO)
 
-default_units = {'temperature': 'Celsius',
-        'salinity': 'psu',
-        'depth': 'meter',
-        'oxygen': 'umol/L',
-        'filter_lower': 'um',
-        'filter_upper': 'um'}
-
 def main(args):
     # connect to database
     session = app.db.session()
@@ -36,35 +29,36 @@ def main(args):
     sample_properties = []
     all_samples = {}
     time_places = []
+    metadata_reference = pd.read_table(args.metadata_reference, index_col=0)
+    meta_categories = list(metadata_reference.index)
+    default_units = metadata_reference['Unit'].to_dict()
+    default_units['filter_lower'] = 'µm'
+    default_units['filter_upper'] = 'µm'
     for sample_id, row in sample_info.iterrows():
         samples_with_code = Sample.query.filter_by(scilifelab_code=sample_id).all()
         assert len(samples_with_code) == 0
 
-        if 'time' in row:
-            time = datetime.datetime.strptime(str(row['time']), '%H:%M').time()
-        else:
-            time = datetime.datetime.strptime('1200', '%H%M').time()
-
-        if 'date' in row:
-            date = datetime.datetime.strptime(row['date'], '%d/%m/%y')
-        else:
-            date = datetime.datetime.strptime('01/01/00', '%d/%m/%y')
-
         meta_data = {}
-        meta_categories = ['latitude', 'longitude', 'temperature', 'salinity', 'depth', 'oxygen', 'filter_lower', 'filter_upper']
-        for meta_category in meta_categories:
-            if meta_category in row:
-                meta_data[meta_category] = row[meta_category]
-            else:
-                meta_data[meta_category] = None
 
-        time_place = TimePlace(datetime.datetime.combine(date, time), meta_data['latitude'], meta_data['longitude'])
+        for meta_category in meta_categories:
+            if meta_category == 'Collection date':
+                date = datetime.datetime.strptime(row[meta_category], '%d/%m/%y')
+            if meta_category == 'Collection time':
+                time = datetime.datetime.strptime(str(row[meta_category]), '%H:%M').time()
+            else:
+                meta_data[meta_category] = row[meta_category]
+
+        extra_categories = ['filter_lower', 'filter_upper']
+        for meta_category in extra_categories:
+            meta_data[meta_category] = row[meta_category]
+
+        time_place = TimePlace(datetime.datetime.combine(date, time), meta_data['Latitude'], meta_data['Longitude'])
         time_places.append(time_place)
 
         all_samples[sample_id] = Sample(sample_id, sample_sets[sample_id], time_place)
 
         for meta_category in meta_categories:
-            if meta_category in ['latitude', 'longitude']:
+            if meta_category in ['Latitude', 'Longitude', 'Collection date', 'Collection time']:
                 continue
             if meta_data[meta_category] is not None:
                 sample_properties.append(SampleProperty(meta_category, meta_data[meta_category], default_units[meta_category], all_samples[sample_id]))
@@ -84,20 +78,23 @@ def main(args):
 
     logging.info("Adding annotation information")
     # Make sure annotations are present
-    annotation_info = pd.read_table(args.all_annotations, index_col=0, header=None, names=["gene_id", "gene_name", "description"])
+    annotation_info = pd.read_table(args.all_annotations, header=None, names=["type_identifier", "gene_name", "description"])
     annotation_models = {'COG': Cog, 'TIG': TigrFam, 'pfa': Pfam, 'PFA': Pfam}
+    annotation_polymorphic_id = {'COG': 'cog', 'TIG': 'tigrfam', 'pfa': 'pfam', 'PFA': 'pfam'}
 
     all_annotations = {}
-    for annotation_id, row in annotation_info.iterrows():
-        annotation_in_db = Annotation.query.filter_by(type_identifier=annotation_id).first()
-        assert annotation_in_db is None
-        annotation_type = annotation_id[0:3]
-        if annotation_type == 'COG':
-            all_annotations[annotation_id] = annotation_models[annotation_type](annotation_id, None, description=row.description)
+    annotation_info['annotation_type'] = annotation_info['type_identifier'].apply(lambda x: annotation_polymorphic_id[x[0:3]])
+    annotation_info['type_grouping'] = annotation_info['type_identifier'].apply(lambda x: x[0:3])
+    annotation_info['id'] = annotation_info.index
+    annotation_info['category'] = None
+    for type_grouping, annotation_info_subset in annotation_info.groupby('type_grouping'):
+        if type_grouping == 'COG':
+            logging.info("Commiting all COG annotation info")
+            session.bulk_insert_mappings(Cog, annotation_info_subset[['id', 'type_identifier', 'annotation_type', 'category', 'description']].to_dict(orient='index').values())
         else:
-            all_annotations[annotation_id] = annotation_models[annotation_type](annotation_id, description=row.description)
-
-    session.add_all(list(all_annotations.values()))
+            logging.info("Commiting all {} annotation info".format(type_grouping))
+            session.bulk_insert_mappings(annotation_models[type_grouping], annotation_info_subset[['id', 'type_identifier', 'annotation_type', 'description']].to_dict(orient='index').values())
+    all_annotations = dict( (annotation.type_identifier, annotation) for annotation in session.query(Annotation).all() )
 
     logging.info("Adding annotation source")
     # Create annotation source
@@ -107,90 +104,72 @@ def main(args):
         all_annotation_sources[annotation_type] = AnnotationSource(annotation_type, row.db_version, row.algorithm, row.algorithm_parameters)
 
     session.add_all(list(all_annotation_sources.values()))
-    all_genes = {}
-    all_gene_annotations = []
 
 
-    annotation_type_translation = {'COG': 'Cog', 'TIG': 'TigrFam', 'pfa': 'Pfam', 'PFA': 'Pfam'}
-    logging.info("Adding genes with cog annotations")
-    # For each gene present in the annotation file, create gene and annotation
-    cog_gene_annotations = pd.read_table(args.gene_annotations_cog, index_col=0, header=None, names=["gene_id", "annotation_id", "e_value"])
-    for i, gene_row_tuple in enumerate(cog_gene_annotations.iterrows()):
-        gene_id, row = gene_row_tuple
-        if i % 100000 == 0:
-            logging.info("Processed {} genes.".format(i))
-        annotation = all_annotations[row.annotation_id]
-        assert annotation is not None
-        if gene_id not in all_genes:
-            all_genes[gene_id] = Gene(gene_id, ref_assembly)
-        annotation_type = annotation_type_translation[row.annotation_id[0:3]]
-        annotation_source = all_annotation_sources[annotation_type]
-        all_gene_annotations.append(GeneAnnotation(annotation, all_genes[gene_id], annotation_source))
-
-    logging.info("Adding genes with pfam annotations")
-    # For each gene present in the annotation file, create gene and annotation
-    pfam_gene_annotations = pd.read_table(args.gene_annotations_pfam, index_col=0, header=None, names=["gene_id", "annotation_id", "e_value"])
-    for i, gene_row_tuple in enumerate(pfam_gene_annotations.iterrows()):
-        gene_id, row = gene_row_tuple
-        if i % 100000 == 0:
-            logging.info("Processed {} genes".format(i))
-        annotation = all_annotations[row.annotation_id]
-        assert annotation is not None
-        if gene_id not in all_genes:
-            all_genes[gene_id] = Gene(gene_id, ref_assembly)
-        annotation_type = annotation_type_translation[row.annotation_id[0:3]]
-        annotation_source = all_annotation_sources[annotation_type]
-        all_gene_annotations.append(GeneAnnotation(annotation, all_genes[gene_id], annotation_source))
-
-
-    logging.info("Adding genes with tigrfam annotations")
-    # For each gene present in the annotation file, create gene and annotation
-    tigrfam_gene_annotations = pd.read_table(args.gene_annotations_tigrfam, index_col=0, header=None, names=["gene_id", "annotation_id", "e_value"])
-    for i, gene_row_tuple in enumerate(tigrfam_gene_annotations.iterrows()):
-        gene_id, row = gene_row_tuple
-        if i % 100000 == 0:
-            logging.info("Processed {} genes.".format(i))
-        annotation = all_annotations[row.annotation_id]
-        assert annotation is not None
-        if gene_id not in all_genes:
-            all_genes[gene_id] = Gene(gene_id, ref_assembly)
-        annotation_type = annotation_type_translation[row.annotation_id[0:3]]
-        annotation_source = all_annotation_sources[annotation_type]
-        all_gene_annotations.append(GeneAnnotation(annotation, all_genes[gene_id], annotation_source))
-
-    session.add_all(all_gene_annotations)
-
-    logging.info("Commiting everything except gene counts")
+    logging.info("Commiting everything except genes and gene counts")
     session.commit()
+
+    commited_genes = {}
+    def add_genes_with_annotation(annotation_type, gene_annotation_arg, commited_genes, all_annotations, annotation_source):
+        logging.info("Adding genes with {} annotations".format(annotation_type))
+        gene_annotations = pd.read_table(gene_annotation_arg, header=None, names=["name", "type_identifier", "e_value"])
+
+        # Only add genes once
+        new_genes = gene_annotations[ ~ gene_annotations['name'].isin(commited_genes.keys()) ]
+
+        new_genes_uniq = pd.DataFrame([new_genes['name'].unique()])
+        new_genes_uniq = new_genes_uniq.transpose()
+        new_genes_uniq.columns = ['name']
+        new_genes_uniq["reference_assembly_id"] = ref_assembly.id
+
+        logging.info("Commiting all {} genes.".format(annotation_type))
+        session.bulk_insert_mappings(Gene, new_genes_uniq[['name', 'reference_assembly_id']].to_dict(orient='index').values())
+        session.commit()
+
+        commited_genes.update(dict( session.query(Gene.name, Gene.id).all() ))
+
+        gene_annotations['gene_id'] = gene_annotations['name'].apply(lambda x: commited_genes[x])
+        gene_annotations['annotation_id'] = gene_annotations['type_identifier'].apply(lambda x: all_annotations[x].id)
+
+        annotation_source = all_annotation_sources[annotation_type]
+        gene_annotations['annotation_source_id'] = annotation_source.id
+
+        logging.info("Commiting all {} gene anntations".format(annotation_type))
+        session.bulk_insert_mappings(GeneAnnotation, gene_annotations[['gene_id', 'annotation_id', 'annotation_source_id', 'e_value']].to_dict(orient='index').values())
+        session.commit()
+        return commited_genes
+
+    commited_genes = add_genes_with_annotation("Cog", args.gene_annotations_cog, commited_genes, all_annotations, all_annotation_sources["Cog"])
+    commited_genes = add_genes_with_annotation("Pfam", args.gene_annotations_pfam, commited_genes, all_annotations, all_annotation_sources["Pfam"])
+    commited_genes = add_genes_with_annotation("TigrFam", args.gene_annotations_tigrfam, commited_genes, all_annotations, all_annotation_sources["TigrFam"])
+
+    logging.info("Processed {} genes, moving on to gene counts".format(len(commited_genes.keys())))
 
     # Fetch each gene from the gene count file and create the corresponding gene count
     logging.info("Adding gene counts")
     gene_counts = pd.read_table(args.gene_counts, index_col=0)
-    for col in gene_counts.columns:
-        all_gene_counts = []
-        cov_s = gene_counts[col]
-        nr_unannotated = 0
-        sample_id = col
-        sample = all_samples[sample_id]
-        for i, gene_rpkm_tuple in enumerate(cov_s.iteritems()):
-            if i % 1000000 == 0:
-                logging.info("Processed {} genes for sample {}".format(i, col))
-            gene_id, rpkm = gene_rpkm_tuple
-            # Only annotated genes are added
-            if gene_id in all_genes:
-                gene = all_genes[gene_id]
-                all_gene_counts.append(GeneCount(gene, sample, rpkm))
-            else:
-                nr_unannotated += 1
+    total_gene_count_len = len(gene_counts)
+    val_cols = gene_counts.columns
+    nr_columns = len(val_cols)
 
-        session.add_all(all_gene_counts)
+    filtered_gene_counts = gene_counts[ gene_counts.index.isin(commited_genes.keys()) ].copy()
+    filtered_gene_counts['gene_name'] = filtered_gene_counts.index
+    filtered_gene_counts['gene_id'] = filtered_gene_counts['gene_name'].apply(lambda x: commited_genes[x])
+
+    def add_gene_counts(col, filtered_gene_counts, sample_id):
+        tmp_cov_df = filtered_gene_counts[[col, 'gene_id']].copy()
+        tmp_cov_df['rpkm'] = tmp_cov_df[col]
+        tmp_cov_df['sample_id'] = sample_id
+        session.bulk_insert_mappings(GeneCount, tmp_cov_df[['gene_id', 'sample_id', 'rpkm']].to_dict(orient='index').values())
+
+    for i, col in enumerate(val_cols):
+        logging.info("Commiting gene counts for {}. ({}/{})".format(col, i+1, nr_columns))
+        sample = all_samples[col]
+        add_gene_counts(col, filtered_gene_counts, sample.id)
         session.commit()
-        logging.info("Processed all {} genes for sample {}".format(i, col))
-        logging.info("Number of unannotated genes for sample {} is {}".format(sample_id, nr_unannotated))
 
-    logging.info("Commiting the last data")
+    logging.info("{} out of {} are annotated genes".format(len(filtered_gene_counts), total_gene_count_len))
     session.commit()
-
     logging.info("Finished!")
 
 if __name__ == '__main__':
@@ -204,5 +183,6 @@ if __name__ == '__main__':
     parser.add_argument("--gene_annotations_tigrfam", help="A tsv file with all the tigrfam gene annotations")
     parser.add_argument("--reference_assembly", help="Name of the reference assembly that the genes belong to")
     parser.add_argument("--gene_counts", help="A tsv file with each sample as a column containing all the gene counts")
+    parser.add_argument("--metadata_reference", help="A tsv file with which metadata parameters that are supposed to be added")
     args = parser.parse_args()
     main(args)
