@@ -1,18 +1,19 @@
 import unittest
 import app
 from models import Sample, SampleSet, TimePlace, SampleProperty, ReferenceAssembly, Gene, \
-    GeneCount, AnnotationSource, Annotation, GeneAnnotation, Cog, Pfam, TigrFam, EcNumber
+    GeneCount, AnnotationSource, Annotation, GeneAnnotation, Cog, Pfam, TigrFam, EcNumber, \
+    RpkmTable
 import sqlalchemy
 
 import itertools
 import datetime
 
+from materialized_view_factory import refresh_all_mat_views
+
 class SampleTestCase(unittest.TestCase):
     """Test that a sample in the database has the correct relations"""
     def setUp(self):
-
         self.db = app.db
-
         self.db.create_all()
 
         self.session = self.db.session
@@ -491,7 +492,7 @@ class SampleTestCase(unittest.TestCase):
             self.session.add(gene1)
             self.session.add(gene2)
         self.session.commit()
-
+        refresh_all_mat_views()
         samples, rows = Annotation.rpkm_table()
         assert len(samples) == 2
         assert len(rows) == 20 # Default limit

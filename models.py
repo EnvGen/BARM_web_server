@@ -1,5 +1,6 @@
 from app import db
 import sqlalchemy
+from materialized_view_factory import MaterializedView, create_mat_view
 import collections
 ##########
 # Sample #
@@ -50,6 +51,10 @@ class Sample(db.Model):
     timeplace_id = db.Column(db.Integer, db.ForeignKey('time_place.id'))
     timeplace = db.relationship('TimePlace',
             backref=db.backref('samples'))
+
+    rpkm_table_rows = db.relationship('RpkmTable', backref='sample',
+                                primaryjoin='Sample.id==RpkmTable.sample_id',
+                                foreign_keys='RpkmTable.sample_id')
 
     def __init__(self, scilifelab_code, sample_set, timeplace):
         self.scilifelab_code = scilifelab_code
@@ -200,7 +205,6 @@ class AnnotationSource(db.Model):
         self.algorithm = algorithm
         self.algorithm_parameters = algorithm_parameters
 
-
 class Annotation(db.Model):
     __tablename__ = 'annotation'
     __table_args__ = (
@@ -216,60 +220,52 @@ class Annotation(db.Model):
 
     description = db.Column(db.String(4000))
 
+    rpkm_table_rows = db.relationship('RpkmTable', backref='annotation',
+                                primaryjoin='Annotation.id==RpkmTable.annotation_id',
+                                foreign_keys='RpkmTable.annotation_id')
+
     @classmethod
     def rpkm_table(self, samples=None, function_class=None, limit=20, type_identifiers=None):
-        # Use only the annotations which has the highest total
-        q_first = db.session.query(Annotation, sqlalchemy.func.sum(GeneCount.rpkm)).\
-                outerjoin(GeneAnnotation).\
-                filter(GeneAnnotation.annotation_id == Annotation.id).\
-                outerjoin(Gene).\
-                filter(Gene.id == GeneAnnotation.gene_id).\
-                outerjoin(GeneCount).\
-                filter(GeneCount.gene_id == Gene.id)
+        q_first = db.session.query(RpkmTable.annotation_id)
 
         if function_class is not None:
-            q_first = q_first.filter(Annotation.annotation_type == function_class)
+            q_first = q_first.filter(RpkmTable.annotation_type == function_class)
 
         if type_identifiers is not None:
-            q_first = q_first.filter(Annotation.type_identifier.in_(type_identifiers))
+            annotation_ids_from_type_ids = db.session.query(Annotation.id).\
+                        filter(Annotation.type_identifier.in_(type_identifiers)).all()
+            q_first = q_first.\
+                         filter(RpkmTable.annotation_id.in_(annotation_ids_from_type_ids))
 
-        q_first = q_first.group_by(Annotation.id).\
-                    order_by(sqlalchemy.func.sum(GeneCount.rpkm).desc())
+        q_first = q_first.group_by(RpkmTable.annotation_id).\
+                        order_by(sqlalchemy.func.sum(RpkmTable.rpkm).desc())
 
         if limit is not None:
             q_first = q_first.limit(limit)
 
-        annotation_ids = []
-        annotations = []
-        for annotation, rpkm_sum in q_first.all():
-            annotations.append(annotation)
-            annotation_ids.append(annotation.id)
+        annotation_ids = [annotation_id_t[0] for annotation_id_t in q_first.all()]
 
         if not len(annotation_ids):
             return [], {}
 
-        q = db.session.query(Sample, Annotation, sqlalchemy.func.sum(GeneCount.rpkm)).\
-                join(GeneCount).\
-                filter(Sample.id == GeneCount.sample_id).\
-                join(Gene).\
-                filter(GeneCount.gene_id == Gene.id).\
-                join(GeneAnnotation).\
-                filter(Gene.id == GeneAnnotation.gene_id).\
-                join(Annotation).\
-                filter(GeneAnnotation.annotation_id == Annotation.id).\
-                filter(Annotation.id.in_(annotation_ids))
+        q = db.session.query(RpkmTable).\
+                filter(RpkmTable.annotation_id.in_(annotation_ids))
 
         if samples is not None:
-            q = q.filter(Sample.scilifelab_code.in_(samples))
+            q = q.filter(RpkmTable.sample_scilifelab_code.in_(samples))
 
-        q = q.group_by(Annotation.id, Sample.id).\
-            order_by(Annotation.id, Sample.id)
-
+        q = q.order_by(RpkmTable.annotation_id, RpkmTable.sample_id)
         # format to have one row per list item
         rows_unordered = {}
         samples = set()
-        for sample, annotation, rpkm_sum in q.all():
+        fetched_annotations = {}
+        for rpkm_table_row in q.all():
+            sample = rpkm_table_row.sample
+            annotation = rpkm_table_row.annotation
+            rpkm_sum = rpkm_table_row.rpkm
+
             samples.add(sample)
+            fetched_annotations[annotation.id] = annotation
             if annotation in rows_unordered:
                 rows_unordered[annotation][sample] = rpkm_sum
             else:
@@ -278,7 +274,8 @@ class Annotation(db.Model):
 
         rows = collections.OrderedDict()
 
-        for annotation in annotations:
+        for annotation_id in annotation_ids:
+            annotation = fetched_annotations[annotation_id]
             rows[annotation] = rows_unordered[annotation]
 
         return list(samples), rows
@@ -321,6 +318,18 @@ class Annotation(db.Model):
     def __init__(self, type_identifier, description = None):
         self.type_identifier = type_identifier
         self.description = description
+
+class RpkmTable(MaterializedView):
+    # A materialized view that improve the performance
+
+    creation_query = db.select([Annotation.id.label('annotation_id'), Annotation.annotation_type.label('annotation_type'), Sample.id.label('sample_id'), Sample.scilifelab_code.label('sample_scilifelab_code'), sqlalchemy.func.sum(GeneCount.rpkm).label('rpkm')]).\
+                    select_from(db.join(Sample, GeneCount).join(Gene).join(GeneAnnotation).join(Annotation)).\
+                    group_by(Annotation.id, Sample.id)
+
+    __table__ = create_mat_view("rpkm_table", creation_query)
+
+
+db.Index('rpkm_table_mv_id_idx', RpkmTable.annotation_id, RpkmTable.sample_id, unique=True)
 
 class Cog(Annotation):
     __tablename__ = 'cog'
