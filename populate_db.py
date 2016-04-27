@@ -3,12 +3,18 @@ from models import *
 import pandas as pd
 import argparse
 import os
+import sys
 import logging
 import datetime
+
+from materialized_view_factory import refresh_all_mat_views
 
 logging.basicConfig(format='%(asctime)s %(message)s', level=logging.INFO)
 
 def main(args):
+    # Create materialized view that is not created by manage.py
+    app.db.create_all()
+
     # connect to database
     session = app.db.session()
 
@@ -123,10 +129,13 @@ def main(args):
         new_genes_uniq["reference_assembly_id"] = ref_assembly.id
 
         logging.info("Commiting all {} genes.".format(annotation_type))
-        session.bulk_insert_mappings(Gene, new_genes_uniq[['name', 'reference_assembly_id']].to_dict(orient='index').values())
-        session.commit()
+
+        with open(args.tmp_file, 'w') as gene_file:
+            new_genes_uniq[['name', 'reference_assembly_id']].to_csv(gene_file, index=False, header=False)
+        session.execute("COPY gene (name, reference_assembly_id) FROM '{}' WITH CSV;".format(args.tmp_file))
 
         commited_genes.update(dict( session.query(Gene.name, Gene.id).all() ))
+        logging.info("{} genes present in database".format(len(commited_genes.keys())))
 
         gene_annotations['gene_id'] = gene_annotations['name'].apply(lambda x: commited_genes[x])
         gene_annotations['annotation_id'] = gene_annotations['type_identifier'].apply(lambda x: all_annotations[x].id)
@@ -135,7 +144,9 @@ def main(args):
         gene_annotations['annotation_source_id'] = annotation_source.id
 
         logging.info("Commiting all {} gene anntations".format(annotation_type))
-        session.bulk_insert_mappings(GeneAnnotation, gene_annotations[['gene_id', 'annotation_id', 'annotation_source_id', 'e_value']].to_dict(orient='index').values())
+        with open(args.tmp_file, 'w') as gene_file:
+            gene_annotations[['gene_id', 'annotation_id', 'annotation_source_id', 'e_value']].to_csv(gene_file, index=False, header=False)
+        session.execute("COPY gene_annotation (gene_id, annotation_id, annotation_source_id, e_value) FROM '{}' WITH CSV;".format(args.tmp_file))
         session.commit()
         return commited_genes
 
@@ -156,19 +167,24 @@ def main(args):
     filtered_gene_counts['gene_name'] = filtered_gene_counts.index
     filtered_gene_counts['gene_id'] = filtered_gene_counts['gene_name'].apply(lambda x: commited_genes[x])
 
-    def add_gene_counts(col, filtered_gene_counts, sample_id):
+    def add_gene_counts_to_file(col, filtered_gene_counts, sample_id):
         tmp_cov_df = filtered_gene_counts[[col, 'gene_id']].copy()
         tmp_cov_df['rpkm'] = tmp_cov_df[col]
         tmp_cov_df['sample_id'] = sample_id
-        session.bulk_insert_mappings(GeneCount, tmp_cov_df[['gene_id', 'sample_id', 'rpkm']].to_dict(orient='index').values())
+        with open(args.tmp_file, 'w') as gene_counts_file:
+            tmp_cov_df[['gene_id', 'sample_id', 'rpkm']].to_csv(gene_counts_file, index=False, header=False)
 
     for i, col in enumerate(val_cols):
-        logging.info("Commiting gene counts for {}. ({}/{})".format(col, i+1, nr_columns))
+        logging.info("Saving gene counts to file for {}. ({}/{})".format(col, i+1, nr_columns))
         sample = all_samples[col]
-        add_gene_counts(col, filtered_gene_counts, sample.id)
-        session.commit()
+        add_gene_counts_to_file(col, filtered_gene_counts, sample.id)
+        session.execute("COPY gene_count (gene_id, sample_id, rpkm) FROM '{}' WITH CSV;".format(args.tmp_file))
 
     logging.info("{} out of {} are annotated genes".format(len(filtered_gene_counts), total_gene_count_len))
+    session.commit()
+
+    logging.info("Refreshing materialized view")
+    refresh_all_mat_views()
     session.commit()
     logging.info("Finished!")
 
@@ -184,5 +200,7 @@ if __name__ == '__main__':
     parser.add_argument("--reference_assembly", help="Name of the reference assembly that the genes belong to")
     parser.add_argument("--gene_counts", help="A tsv file with each sample as a column containing all the gene counts")
     parser.add_argument("--metadata_reference", help="A tsv file with which metadata parameters that are supposed to be added")
+    parser.add_argument("--tmp_file", help="A file that will be used to import gene counts to postgres")
     args = parser.parse_args()
+
     main(args)
