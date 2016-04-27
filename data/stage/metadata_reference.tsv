@@ -1,0 +1,38 @@
+Parameter	Status	Unit	Obs	Comments
+Latitude	Mandatory	Decimal degrees	WGS84	
+Longitude	Mandatory	Decimal degrees	WGS84	
+Sampling depth	Mandatory	Meters		
+Sampling basin	Mandatory	Ontology	Ontology to be determined	
+Library type	Mandatory	Ontology		
+Molecule	Mandatory	Ontology		
+NO3-	Mandatory	µM		
+NO2-	Mandatory	µM		
+PO42-	Mandatory	µM		
+Salinity	Mandatory	PSU		
+Temperature	Mandatory	°C		
+Organism	Mandatory	Ontology	Write "Metagenomics" or "Metatranscriptomics" or "Enrichment culture" as applicable	
+Collection date	Mandatory	yymmdd		
+Collection time	Mandatory	hhmm		
+Environmental biome	Mandatory	Ontology		
+Environmental feature	Mandatory	Ontology		
+Environmental material	Mandatory	Ontology		
+Sample name	Mandatory	Sample ID assigned by NGI		
+Geolocation_name	Mandatory 	Ontology		
+pH	Mandatory			
+O2	Conditional mandatory	µM	Either O2 or H2S should be indicated	
+H2S	Conditional mandatory	µM		
+Sampling station	Optional	Free text		
+Bacterial count	Optional	cells/L	Specify counting method	
+Turbidity	Optional	unit?	 	
+Chlorophyl a	Optional	µg/L		
+Rates	Optional		Always specify unit and what was measured (not calculation)	
+Other ions and small molecules	Optional	µM 	Write clearly what has been measured	
+DOP	Mandatory	µM 	Write clearly what has been measured	
+DOM	Mandatory	µM 	Write clearly what has been measured	
+DON	Mandatory	µM 	Write clearly what has been measured	
+NH4+	Mandatory	µM 		
+SiO2-	Optional	µM 		
+Sample title	Optional	Free text	This is what your sample is gonna be called in ENA/SRA/Nuccore	
+DOC	Mandatory	µg 		
+Mesozooplankton	Optional		Write clearly what has been measured	
+Microzooplankotn	Optional		Write clearly what has been measured	
