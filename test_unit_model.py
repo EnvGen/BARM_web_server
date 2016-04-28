@@ -256,10 +256,10 @@ class SampleTestCase(unittest.TestCase):
         assert len(Gene.query.filter_by(name="gene3").first().annotations) == 0
 
         # Genes for annotation method
-        genes_for_annotation = Annotation.genes_for_annotations([annotation.id])
+        genes_for_annotation = Annotation.genes_per_annotation([annotation.id])
         assert len(genes_for_annotation) == 2
-        assert gene in genes_for_annotation
-        assert gene2 in genes_for_annotation
+        assert (gene, annotation) in genes_for_annotation
+        assert (gene2, annotation)  in genes_for_annotation
 
         # Add the second annotation
         self.session.add(annotation2)
@@ -286,20 +286,20 @@ class SampleTestCase(unittest.TestCase):
         # gene -> annotation2
 
         # Genes for annotation method
-        genes_for_annotation = Annotation.genes_for_annotations([annotation.id])
+        genes_for_annotation = Annotation.genes_per_annotation([annotation.id])
         assert len(genes_for_annotation) == 2
-        assert gene in genes_for_annotation
-        assert gene2 in genes_for_annotation
+        assert (gene, annotation) in genes_for_annotation
+        assert (gene2, annotation) in genes_for_annotation
 
-        genes_for_annotation = Annotation.genes_for_annotations([annotation2.id])
+        genes_for_annotation = Annotation.genes_per_annotation([annotation2.id])
         assert len(genes_for_annotation) == 1
-        assert gene in genes_for_annotation
+        assert (gene, annotation2) in genes_for_annotation
 
-        genes_for_annotation = Annotation.genes_for_annotations([annotation.id, annotation2.id])
+        genes_for_annotation = Annotation.genes_per_annotation([annotation.id, annotation2.id])
         assert len(genes_for_annotation) == 3
-        assert gene in genes_for_annotation
-        assert gene2 in genes_for_annotation
-        assert genes_for_annotation.count(gene) == 2
+        assert (gene, annotation) in genes_for_annotation
+        assert (gene, annotation2) in genes_for_annotation
+        assert (gene2, annotation) in genes_for_annotation
 
         annotation3 = Annotation("COG0003", description=("This cog is really really good. I assure you, "
             "really quite good. Among its capabilities I have to mention that its utterly suitable for "
