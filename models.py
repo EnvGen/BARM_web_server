@@ -225,6 +225,14 @@ class Annotation(db.Model):
                                 foreign_keys='RpkmTable.annotation_id')
 
     @classmethod
+    def genes_per_annotation(self, annotation_ids):
+        q = db.session.query(Gene, Annotation).\
+                join(GeneAnnotation).\
+                join(Annotation).\
+                filter(GeneAnnotation.annotation_id.in_(annotation_ids))
+        return q.all()
+
+    @classmethod
     def rpkm_table(self, samples=None, function_class=None, limit=20, type_identifiers=None):
         q_first = db.session.query(RpkmTable.annotation_id)
 
