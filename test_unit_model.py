@@ -255,6 +255,13 @@ class SampleTestCase(unittest.TestCase):
         assert annotation in Gene.query.filter_by(name="gene2").first().annotations
         assert len(Gene.query.filter_by(name="gene3").first().annotations) == 0
 
+        # Genes for annotation method
+        genes_for_annotation = Annotation.genes_for_annotations([annotation.id])
+        assert len(genes_for_annotation) == 2
+        assert gene in genes_for_annotation
+        assert gene2 in genes_for_annotation
+
+        # Add the second annotation
         self.session.add(annotation2)
         self.session.commit()
         q =  Annotation.query.filter(Annotation.description.contains("good"))
@@ -274,6 +281,26 @@ class SampleTestCase(unittest.TestCase):
         assert gene_annotation1.e_value > gene_annotation3.e_value
         assert gene.e_value_for(annotation) > gene.e_value_for(annotation2)
 
+        # gene -> annotation
+        # gene2 -> annotation
+        # gene -> annotation2
+
+        # Genes for annotation method
+        genes_for_annotation = Annotation.genes_for_annotations([annotation.id])
+        assert len(genes_for_annotation) == 2
+        assert gene in genes_for_annotation
+        assert gene2 in genes_for_annotation
+
+        genes_for_annotation = Annotation.genes_for_annotations([annotation2.id])
+        assert len(genes_for_annotation) == 1
+        assert gene in genes_for_annotation
+
+        genes_for_annotation = Annotation.genes_for_annotations([annotation.id, annotation2.id])
+        assert len(genes_for_annotation) == 3
+        assert gene in genes_for_annotation
+        assert gene2 in genes_for_annotation
+        assert genes_for_annotation.count(gene) == 2
+
         annotation3 = Annotation("COG0003", description=("This cog is really really good. I assure you, "
             "really quite good. Among its capabilities I have to mention that its utterly suitable for "
             "testing the description string, including the short description."))
@@ -282,6 +309,7 @@ class SampleTestCase(unittest.TestCase):
         assert annotation3.short_description[-3:] == "..."
         assert len(annotation3.short_description) == 103
         assert annotation3.description[:100] == annotation3.short_description[:100]
+
 
     def test_annotation_type_inheritance(self):
         annotation2 = Pfam("pfam00002")
