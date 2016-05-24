@@ -21,8 +21,8 @@
         </br> <nobr><a class="external_link_annotation" href="{{annotation.external_link}}" target="_blank">external link</a></nobr>
       </td>
       <td class="annotation_description">{{annotation.short_description}}</td>
-      {% for sample, rpkm in sample_d.items() %}
-        <td class="rpkm_value">{{rpkm | round(4)}}</td>
+      {% for sample in samples %}
+        <td class="rpkm_value">{{sample_d[sample] | round(4)}}</td>
       {% endfor %}
     </tr>
   {% endfor %}
