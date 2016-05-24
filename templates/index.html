@@ -78,8 +78,17 @@
               <div class="col-md-1">
               </div>
             </div>
-
-            <button type="submit" id="submit_filter" class="btn btn-default">Filter</button>
+            <div class="col-md-8">
+              {{ form.submit_view(class='btn btn-default') }}
+            </div>
+            <div class="col-md-4">
+              <div class="input-group">
+                {{ form.download_select(class="form-control") }}
+                <span class="input-group-btn">
+                  {{ form.submit_download(class='btn btn-default') }}
+                </span>
+              </div>
+            </div>
           </form>
         </div>
       </div>

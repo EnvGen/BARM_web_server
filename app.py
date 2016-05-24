@@ -1,4 +1,4 @@
-from flask import Flask, render_template, request
+from flask import Flask, render_template, request, make_response
 from flask.ext.sqlalchemy import SQLAlchemy
 from forms import FunctionClassFilterForm
 import sqlalchemy
@@ -50,17 +50,37 @@ def index():
             samples = [sample.scilifelab_code for sample in Sample.all_from_sample_sets(sample_sets)]
         else:
             samples = None
+
+        download_action = False
+        if form.submit_download.data:
+            download_action = True
+            download_select = form.download_select.data
     else:
         function_class=None
         limit=20
         samples = None
+        download_action = False
 
     if len(form.type_identifiers) == 0:
         form.type_identifiers.append_entry()
 
     if type_identifiers == []:
         type_identifiers = None
+
     samples, table = Annotation.rpkm_table(limit=limit, samples=samples, function_class=function_class, type_identifiers=type_identifiers)
+    samples = sorted(samples, key=lambda x: x.scilifelab_code)
+    if download_action:
+        if download_select == 'Gene List':
+            # Fetch all contributing genes for all the annotations in the table
+            annotation_ids = [annotation.id for annotation, sample in table.items()]
+            genes_per_annotation = Annotation.genes_per_annotation(annotation_ids)
+            csv_output = '\n'.join(
+                    [','.join([gene.name, annotation.type_identifier]) \
+                            for gene, annotation in genes_per_annotation])
+            r = make_response(csv_output)
+            r.headers["Content-Disposition"] = "attachment; filename=gene_list.csv"
+            r.headers["Content-Type"] = "text/csv"
+            return r
     return render_template('index.html',
             table=table,
             samples=samples,

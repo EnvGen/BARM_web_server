@@ -1,5 +1,5 @@
 from flask.ext.wtf import Form
-from wtforms import SelectField, SelectMultipleField, StringField, FieldList, RadioField
+from wtforms import SelectField, SelectMultipleField, StringField, FieldList, RadioField, SubmitField
 
 
 class FunctionClassFilterForm(Form):
@@ -12,3 +12,6 @@ class FunctionClassFilterForm(Form):
     type_identifiers = FieldList(StringField(u'Type identifier'))
     search_annotations = StringField('Search Annotations')
     select_sample_groups = SelectMultipleField(u'Sample Groups')
+    submit_view = SubmitField(u'View Results')
+    submit_download = SubmitField(u'Download')
+    download_select = SelectField(u'What to download', choices=[('Gene List', 'Gene List'), ('Annotation Counts', 'Annotation Counts')], default='Gene List')
