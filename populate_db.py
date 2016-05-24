@@ -48,7 +48,7 @@ def main(args):
 
         for meta_category in meta_categories:
             if meta_category == 'Collection date':
-                date = datetime.datetime.strptime(row[meta_category], '%d/%m/%y')
+                date = datetime.datetime.strptime(row[meta_category], '%y/%m/%d')
             if meta_category == 'Collection time':
                 time = datetime.datetime.strptime(str(row[meta_category]), '%H:%M').time()
             else:
