@@ -141,6 +141,9 @@ class Gene(db.Model):
             db.ForeignKey('reference_assembly.id'))
     reference_assembly = db.relationship("ReferenceAssembly",
             backref=db.backref("genes"))
+    taxon_id = db.Column(db.Integer, db.ForeignKey('taxon.id'))
+    taxon = db.relationship("Taxon",
+            backref=db.backref("genes"))
     gene_annotations = db.relationship("GeneAnnotation")
 
 
@@ -189,6 +192,27 @@ class GeneCount(db.Model):
         self.gene = gene
         self.sample = sample
         self.rpkm = rpkm
+
+class Taxon(db.Model):
+    __tablename__ = 'taxon'
+    id = db.Column(db.Integer, primary_key=True)
+
+    superkingdom = db.Column(db.String)
+    phylum = db.Column(db.String)
+    taxclass = db.Column(db.String)
+    order = db.Column(db.String)
+    family = db.Column(db.String)
+    genus = db.Column(db.String)
+    species = db.Column(db.String)
+
+    def __init__(self, superkingdom = None, phylum=None, taxclass=None, order=None, family=None, genus=None, species=None):
+        self.superkingdom = superkingdom
+        self.phylum = phylum
+        self.taxclass = taxclass
+        self.order = order
+        self.family = family
+        self.genus = genus
+        self.species = species
 
 class AnnotationSource(db.Model):
     __tablename__ = 'annotation_source'
