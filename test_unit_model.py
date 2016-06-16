@@ -2,7 +2,7 @@ import unittest
 import app
 from models import Sample, SampleSet, TimePlace, SampleProperty, ReferenceAssembly, Gene, \
     GeneCount, AnnotationSource, Annotation, GeneAnnotation, Cog, Pfam, TigrFam, EcNumber, \
-    RpkmTable
+    RpkmTable, Taxon
 import sqlalchemy
 
 import itertools
@@ -207,6 +207,25 @@ class SampleTestCase(unittest.TestCase):
         self.session.add(gene_count2)
         self.session.commit()
         assert gene1.rpkm == {sample1: 0.001, sample2: 0.2}
+
+    def test_taxon(self):
+        ref_assembly = ReferenceAssembly("Version 1")
+        gene1 = Gene("gene1", ref_assembly)
+
+        taxon1 = Taxon(superkingdom="Bacteria", phylum="Proteobacteria")
+        gene1.taxon = taxon1
+        self.session.add(gene1)
+        self.session.add(taxon1)
+        self.session.commit()
+
+        gene1 = Gene.query.first()
+        taxon1 = Taxon.query.first()
+
+        assert gene1.taxon == taxon1
+        assert gene1 in taxon1.genes
+        assert taxon1.superkingdom == 'Bacteria'
+        assert taxon1.phylum == 'Proteobacteria'
+        assert taxon1.taxclass == None
 
     def test_annotation_source(self):
         annotation_source = AnnotationSource("Cog", "v1.0", "rpsblast", "e_value=0.000001")
