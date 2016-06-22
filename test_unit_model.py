@@ -212,10 +212,15 @@ class SampleTestCase(unittest.TestCase):
         ref_assembly = ReferenceAssembly("Version 1")
         gene1 = Gene("gene1", ref_assembly)
 
+        sample1 = Sample("P1993_101", None, None)
+        reference_assembly = ReferenceAssembly("version 1")
+        gene_count1 = GeneCount(gene1, sample1, 0.001)
         taxon1 = Taxon(superkingdom="Bacteria", phylum="Proteobacteria")
         gene1.taxon = taxon1
         self.session.add(gene1)
         self.session.add(taxon1)
+        self.session.add(sample1)
+        self.session.add(gene_count1)
         self.session.commit()
 
         gene1 = Gene.query.first()
@@ -225,7 +230,241 @@ class SampleTestCase(unittest.TestCase):
         assert gene1 in taxon1.genes
         assert taxon1.superkingdom == 'Bacteria'
         assert taxon1.phylum == 'Proteobacteria'
-        assert taxon1.taxclass == None
+        assert taxon1.taxclass == ''
+        assert taxon1.full_taxonomy == 'Bacteria;Proteobacteria;;;;;;'
+
+        # Test sample count retreival
+        sample2 = Sample("P1993_102", None, None)
+        self.session.add(sample2)
+        self.session.commit()
+        assert taxon1.rpkm == {sample1: 0.001}
+
+        gene_count2 = GeneCount(gene1, sample2, 0.2)
+        self.session.add(gene_count2)
+        self.session.commit()
+        assert taxon1.rpkm == {sample1: 0.001, sample2: 0.2}
+
+        gene2 = Gene("gene2", ref_assembly)
+        gene_count3 = GeneCount(gene2, sample2, 0.1)
+
+        self.session.add(gene2)
+        self.session.add(gene_count3)
+        self.session.commit()
+
+        # taxon1.rpkm should still be the same since the new gene is not connected to taxon1
+        assert taxon1.rpkm == {sample1: 0.001, sample2: 0.2}
+
+        taxon2 = Taxon(superkingdom="Eukaryota", phylum="Chlorophyta")
+        gene2.taxon = taxon2
+        self.session.add(taxon2)
+        self.session.add(gene2)
+        self.session.commit()
+
+        # Taxon2 should have gene_count3 stats only
+        assert taxon2.rpkm == {sample2: 0.1}
+
+        gene3 = Gene("gene3", ref_assembly, taxon_id=taxon1.id)
+        gene_count4 = GeneCount(gene3, sample1, 1.0)
+
+        self.session.add(gene3)
+        self.session.add(gene_count4)
+        self.session.commit()
+
+        # Taxon1 should now have the original stats plus gene_count4
+        assert taxon1.rpkm == {sample1: 1.001, sample2: 0.2}
+
+
+        taxon3 = Taxon(superkingdom="Eukaryota", phylum="Unnamed", taxclass="Dinophyceae")
+        self.session.add(taxon3)
+        self.session.commit()
+        gene4 = Gene("gene4", ref_assembly, taxon_id=taxon3.id)
+        gene_count5 = GeneCount(gene4, sample2, 0.003)
+
+        self.session.add(gene4)
+        self.session.add(gene_count5)
+        self.session.commit()
+
+        # theoretical rpkm_table:
+        # samples = [sample1, sample2]
+        # rpkm_table = {"Bacteria": {"P1993_101": 1.001, "P1993_102": 0.2}, "Eukaryota": {"P1993_102": 0.103}}
+        samples, rpkm_table = Taxon.rpkm_table()
+        assert samples == [sample1, sample2]
+        assert [level_val for complete_level_val, level_val in rpkm_table.keys()] == ["Bacteria", "Eukaryota"] # Sorted by summed rpkm
+        assert rpkm_table[("Bacteria", "Bacteria")] == {sample1: 1.001, sample2: 0.2}
+        assert rpkm_table[("Eukaryota", "Eukaryota")] == {sample2: 0.103}
+
+        samples, rpkm_table = Taxon.rpkm_table(level='phylum')
+        assert samples == [sample1, sample2]
+        assert [level_val for complete_level_val, level_val in rpkm_table.keys()] == ["Proteobacteria", "Chlorophyta", "Unnamed"] # Sorted by summed rpkm
+
+        assert rpkm_table[("Bacteria;Proteobacteria", "Proteobacteria")] == {sample1: 1.001, sample2: 0.2}
+        assert rpkm_table[("Eukaryota;Chlorophyta", "Chlorophyta")] == {sample2: 0.1}
+        assert rpkm_table[("Eukaryota;Unnamed","Unnamed")] == {sample2: 0.003}
+
+
+    def test_taxon_large_scale_rpkm_table(self):
+        sample1 = Sample("P1993_101", None, None)
+        sample2 = Sample("P1993_102", None, None)
+        nr_samples = 2
+        taxons = []
+        for euk_i in range(2):
+            for ph_i in range(3):
+                for tc_i in range(20):
+                    taxons.append(Taxon(superkingdom="sk_{}".format(euk_i),
+                        phylum="ph_{}".format(ph_i),
+                        taxclass="tc_{}".format(tc_i)))
+
+        self.session.add_all(taxons)
+        self.session.commit()
+
+        for i,taxon in enumerate(taxons):
+            count_mode = i % 3
+            gene_counts = []
+
+            gene1 = Gene("gene1{}".format(i), None, taxon_id=taxon.id)
+            gene2 = Gene("gene2{}".format(i), None, taxon_id=taxon.id)
+
+            if count_mode in [0,1]:
+                gene_counts.append(GeneCount(gene1, sample1, 0.001))
+                gene_counts.append(GeneCount(gene1, sample2, 0.01))
+            if count_mode in [1,2]:
+                gene_counts.append(GeneCount(gene2, sample1, 0.002))
+                gene_counts.append(GeneCount(gene2, sample2, 0.02))
+
+            self.session.add_all(gene_counts)
+
+            self.session.add(gene1)
+            self.session.add(gene2)
+
+        self.session.commit()
+        samples, rows = Taxon.rpkm_table()
+        assert len(samples) == 2
+        assert len(rows) == 2 # Number of unique superkingdoms
+
+        samples, rows = Taxon.rpkm_table(level="phylum")
+        assert len(samples) == 2
+        assert len(rows) == 6 # Number of unique down to phylum
+
+        samples, rows = Taxon.rpkm_table(level="taxclass")
+        assert len(samples) == 2
+        assert len(rows) == 20 # Default limit
+
+        samples, rows = Taxon.rpkm_table(level="taxclass", limit=None)
+        assert len(samples) == 2
+        assert len(rows) == 120 # Number of unique down to taxclass
+
+        samples, rows = Taxon.rpkm_table(level="taxclass", limit=None)
+
+        for taxon, sample_d in rows.items():
+            # sample_d should be a ordered dict
+            assert ["P1993_101", "P1993_102"] == [sample.scilifelab_code for sample in sample_d.keys()]
+        rpkms = [[rpkm for sample, rpkm in sample_d.items()] for annotation, sample_d in rows.items()]
+
+        rpkms_flat = []
+        for rpkm_row in rpkms:
+            rpkms_flat += rpkm_row
+
+        assert len(rpkms_flat) == 2 * 3 * 20 * nr_samples
+
+        # Annotations sorted by total rpkm over all samples
+        # and the rpkm values should be summed over all genes for that taxon
+        # there should be roughly equal numbers of the three different counts
+        for i, row in enumerate(rpkms[:40]):
+            assert row == [0.003, 0.03]
+        for row in rpkms[40:80]:
+            assert row == [0.002, 0.02]
+        for row in rpkms[80:120]:
+            assert row == [0.001, 0.01]
+
+        # possible to filter on specific level values at superkingdom
+        for level_val in ["sk_0", "sk_1"]:
+            samples, rows = Taxon.rpkm_table(limit=None, top_level_complete_value=level_val, top_level="superkingdom", level="phylum")
+            assert len(rows) == 3
+            level_vals = [level_val for complete_val, level_val in rows.keys()]
+            assert level_vals == ["ph_2", "ph_0", "ph_1"]
+            samples, rows = Taxon.rpkm_table(limit=None, top_level_complete_value=level_val, top_level="superkingdom", level="taxclass")
+            assert len(rows) == 3*20
+
+
+        # possible to filter on specific level values at phylum
+        for sk_level_val in ["sk_0", "sk_1"]:
+            for ph_level_val in ["ph_0", "ph_1", "ph_2"]:
+                top_level_complete_value="{};{}".format(sk_level_val, ph_level_val)
+                samples, rows = Taxon.rpkm_table(limit=None, top_level_complete_value=top_level_complete_value, top_level="phylum", level="phylum")
+                assert len(rows) == 1
+                level_vals = [level_val for complete_val, level_val in rows.keys()]
+                assert level_vals == [ph_level_val]
+                samples, rows = Taxon.rpkm_table(limit=None, top_level_complete_value=top_level_complete_value, top_level="phylum", level="taxclass")
+                assert len(rows) == 20
+
+        # possible to filter on specific level values at taxclass
+        for sk_level_val in ["sk_0", "sk_1"]:
+            for ph_level_val in ["ph_0", "ph_1", "ph_2"]:
+                for tc_level_val in ["tc_{}".format(i) for i in range(20)]:
+                    top_level_complete_value="{};{};{}".format(sk_level_val, ph_level_val, tc_level_val)
+                    samples, rows = Taxon.rpkm_table(limit=None, top_level_complete_value=top_level_complete_value, top_level="taxclass", level="taxclass")
+                    assert len(rows) == 1
+
+        # possible to filter on samples
+        for sample in [sample1, sample2]:
+            samples, rows = Taxon.rpkm_table(samples=[sample.scilifelab_code], level="taxclass", limit=None)
+            assert len(rows) == 120
+            assert len(samples) == 1
+            assert samples[0] == sample
+            for taxon, sample_d in rows.items():
+                assert list(sample_d.keys()) == [sample]
+
+            rpkms = [[rpkm for sample, rpkm in sample_d.items()] for annotation, sample_d in rows.items()]
+            if sample.scilifelab_code == "P1993_101":
+                for i, row in enumerate(rpkms[:40]):
+                    assert row == [0.003]
+                for row in rpkms[40:80]:
+                    assert row == [0.002]
+                for row in rpkms[80:120]:
+                    assert row == [0.001]
+            else:
+                for row in rpkms[:40]:
+                    assert row == [0.03]
+                for row in rpkms[40:80]:
+                    assert row == [0.02]
+                for row in rpkms[80:120]:
+                    assert row == [0.01]
+
+        # possible to filter on sample and taxon at the same time
+        for sample in [sample1, sample2]:
+            for sk_level_val in ["sk_0", "sk_1"]:
+                top_level_complete_value = sk_level_val
+                samples, rows = Taxon.rpkm_table(samples=[sample.scilifelab_code], limit=None, top_level_complete_value=top_level_complete_value, top_level="superkingdom", level="phylum")
+                assert len(samples) == 1
+                assert samples[0] == sample
+                for taxon, sample_d in rows.items():
+                    assert list(sample_d.keys()) == [sample]
+
+                assert len(rows) == 3
+                level_vals = [level_val for complete_val, level_val in rows.keys()]
+                assert level_vals == ["ph_2", "ph_0", "ph_1"]
+                samples, rows = Taxon.rpkm_table(samples=[sample.scilifelab_code], limit=None, top_level_complete_value=top_level_complete_value, top_level="superkingdom", level="taxclass")
+                assert len(rows) == 3*20
+
+
+                rpkms = [[rpkm for sample, rpkm in sample_d.items()] for annotation, sample_d in rows.items()]
+                if sample.scilifelab_code == "P1993_101":
+                    for row in rpkms[:20]:
+                        assert row == [0.003]
+                    for row in rpkms[20:40]:
+                        assert row == [0.002]
+                    for row in rpkms[40:60]:
+                        assert row == [0.001]
+                else:
+                    for row in rpkms[:20]:
+                        assert row == [0.03]
+                    for row in rpkms[20:40]:
+                        assert row == [0.02]
+                    for row in rpkms[40:80]:
+                        assert row == [0.01]
+
+
+
 
     def test_annotation_source(self):
         annotation_source = AnnotationSource("Cog", "v1.0", "rpsblast", "e_value=0.000001")
