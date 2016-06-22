@@ -154,7 +154,69 @@ def main(args):
     commited_genes = add_genes_with_annotation("Pfam", args.gene_annotations_pfam, commited_genes, all_annotations, all_annotation_sources["Pfam"])
     commited_genes = add_genes_with_annotation("TigrFam", args.gene_annotations_tigrfam, commited_genes, all_annotations, all_annotation_sources["TigrFam"])
 
-    logging.info("Processed {} genes, moving on to gene counts".format(len(commited_genes.keys())))
+
+    def add_genes_with_taxonomy(taxonomy_per_gene, commited_genes):
+        gene_annotations = pd.read_table(taxonomy_per_gene, index_col=0)
+
+        gene_annotations['taxclass'] = gene_annotations['class']
+
+        # Only add genes with taxonomy given
+        taxonomy_columns = list(gene_annotations.columns)
+        taxonomy_columns.remove("contig_id")
+        taxonomy_columns.remove("class")
+
+        annotated_genes = gene_annotations[ ~ gene_annotations[taxonomy_columns].isnull().all(axis=1)]
+
+        # Only add genes once
+        new_genes = annotated_genes[ ~ annotated_genes.index.isin(commited_genes.keys()) ]
+
+        new_genes_uniq = pd.DataFrame([list(new_genes.index)])
+        new_genes_uniq = new_genes_uniq.transpose()
+        new_genes_uniq.columns = ['name']
+        new_genes_uniq["reference_assembly_id"] = ref_assembly.id
+
+        logging.info("Commiting all {} genes.".format(annotation_type))
+
+        with open(args.tmp_file, 'w') as gene_file:
+            new_genes_uniq[['name', 'reference_assembly_id']].to_csv(gene_file, index=False, header=False)
+        session.execute("COPY gene (name, reference_assembly_id) FROM '{}' WITH CSV;".format(args.tmp_file))
+
+        commited_genes.update(dict( session.query(Gene.name, Gene.id).all() ))
+        logging.info("{} genes present in database".format(len(commited_genes.keys())))
+
+        def get_taxa_or_create(row, added_taxa, taxonomy_columns):
+            t = tuple([ row[col] for col in taxonomy_columns])
+            if t in added_taxa:
+                return added_taxa[t], added_taxa
+            new_taxa = Taxon(**row[taxonomy_columns].to_dict())
+            session.add(new_taxa)
+            session.commit()
+            added_taxa[t] = new_taxa
+            return new_taxa, added_taxa
+
+        added_taxa = {}
+        gene_to_taxa = {}
+        for gene_name, row in annotated_genes.iterrows():
+            taxa, added_taxa = get_taxa_or_create(row, added_taxa, taxonomy_columns)
+            gene_id = commited_genes[gene_name]
+            gene_to_taxa[gene_id] = taxa
+
+        logging.info("Updating genes with taxon information")
+        genes_to_be_updated = []
+        for gene_id, taxon in gene_to_taxa.items():
+            gene = Gene.query.get(gene_id)
+            gene.taxon = taxon
+            genes_to_be_updated.append(gene)
+        session.add_all(genes_to_be_updated)
+        session.commit()
+
+        return commited_genes
+
+    logging.info("Processed {} genes for annotations, moving on to gene taxonomy".format(len(commited_genes.keys())))
+
+    commited_genes = add_genes_with_taxonomy(args.taxonomy_per_gene, commited_genes)
+
+    logging.info("Processed {} genes in total, moving on to gene counts".format(len(commited_genes.keys())))
 
     # Fetch each gene from the gene count file and create the corresponding gene count
     logging.info("Adding gene counts")
@@ -199,6 +261,7 @@ if __name__ == '__main__':
     parser.add_argument("--gene_annotations_tigrfam", help="A tsv file with all the tigrfam gene annotations")
     parser.add_argument("--reference_assembly", help="Name of the reference assembly that the genes belong to")
     parser.add_argument("--gene_counts", help="A tsv file with each sample as a column containing all the gene counts")
+    parser.add_argument("--taxonomy_per_gene", help="A tsv file with taxonomic annotation per gene")
     parser.add_argument("--metadata_reference", help="A tsv file with which metadata parameters that are supposed to be added")
     parser.add_argument("--tmp_file", help="A file that will be used to import gene counts to postgres")
     args = parser.parse_args()
