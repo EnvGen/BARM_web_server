@@ -147,9 +147,10 @@ class Gene(db.Model):
     gene_annotations = db.relationship("GeneAnnotation")
 
 
-    def __init__(self, name, reference_assembly):
+    def __init__(self, name, reference_assembly, taxon_id=None):
         self.name = name
         self.reference_assembly = reference_assembly
+        self.taxon_id = taxon_id
 
     @property
     def annotations(self):
@@ -197,22 +198,124 @@ class Taxon(db.Model):
     __tablename__ = 'taxon'
     id = db.Column(db.Integer, primary_key=True)
 
-    superkingdom = db.Column(db.String)
-    phylum = db.Column(db.String)
-    taxclass = db.Column(db.String)
-    order = db.Column(db.String)
-    family = db.Column(db.String)
-    genus = db.Column(db.String)
-    species = db.Column(db.String)
+    up_to_superkingdom = db.Column(db.String)
+    up_to_phylum = db.Column(db.String)
+    up_to_taxclass = db.Column(db.String)
+    up_to_order = db.Column(db.String)
+    up_to_family = db.Column(db.String)
+    up_to_genus = db.Column(db.String)
+    up_to_species = db.Column(db.String)
+    full_taxonomy = db.Column(db.String)
 
     def __init__(self, superkingdom = None, phylum=None, taxclass=None, order=None, family=None, genus=None, species=None):
-        self.superkingdom = superkingdom
-        self.phylum = phylum
-        self.taxclass = taxclass
-        self.order = order
-        self.family = family
-        self.genus = genus
-        self.species = species
+        tax_l = [superkingdom, phylum, taxclass, order, family, genus, species]
+
+        full_taxonomy = ""
+        for tax_value in tax_l:
+            if tax_value is not None:
+                full_taxonomy += tax_value
+            full_taxonomy += ";"
+        self.full_taxonomy = full_taxonomy
+        self.up_to_superkingdom = ";".join(full_taxonomy.split(';')[0:1])
+        self.up_to_phylum = ";".join(full_taxonomy.split(';')[0:2])
+        self.up_to_taxclass = ";".join(full_taxonomy.split(';')[0:3])
+        self.up_to_order = ";".join(full_taxonomy.split(';')[0:4])
+        self.up_to_family = ";".join(full_taxonomy.split(';')[0:5])
+        self.up_to_genus = ";".join(full_taxonomy.split(';')[0:6])
+        self.up_to_species = ";".join(full_taxonomy.split(';')[0:7])
+
+    @property
+    def superkingdom(self):
+        return self.up_to_superkingdom
+
+    @property
+    def phylum(self):
+        return self.up_to_phylum.split(';')[-1]
+
+    @property
+    def taxclass(self):
+        return self.up_to_taxclass.split(';')[-1]
+
+    @property
+    def order(self):
+        return self.up_to_order.split(';')[-1]
+
+    @property
+    def family(self):
+        return self.up_to_family.split(';')[-1]
+
+    @property
+    def genus(self):
+        return self.up_to_genus.split(';')[-1]
+
+    @property
+    def species(self):
+        return self.up_to_species.split(';')[-1]
+
+    @classmethod
+    def rpkm_table(self, level="superkingdom", top_level_complete_value=None, top_level=None, samples=None, limit=20):
+        filter_level = "up_to_" + level
+        q_first = db.session.query(getattr(Taxon, filter_level), sqlalchemy.func.sum(GeneCount.rpkm)).\
+            join(Gene).join(GeneCount).\
+            order_by(sqlalchemy.func.sum(GeneCount.rpkm).desc())
+
+        if top_level is not None:
+            filter_top_level = "up_to_" + top_level
+            q_first = q_first.filter(getattr(Taxon, filter_top_level) == top_level_complete_value)
+
+        if samples is not None:
+            q_first = q_first.\
+                        join(Sample).\
+                        filter(Sample.scilifelab_code.in_(samples))
+
+        q_first = q_first.group_by(getattr(Taxon, filter_level)).limit(limit)
+
+        taxon_counts = q_first.all()
+        taxon_level_vals = []
+        for level_val, count in taxon_counts:
+            taxon_level_vals.append(level_val)
+
+        q = db.session.query(Sample, getattr(Taxon, filter_level), sqlalchemy.func.sum(GeneCount.rpkm)).\
+                join(GeneCount).join(Gene).join(Taxon).\
+                filter(getattr(Taxon, filter_level).in_(taxon_level_vals))
+
+        if samples is None:
+            samples = Sample.query.all()
+        else:
+            q = q.filter(Sample.scilifelab_code.in_(samples))
+            samples = Sample.query.filter(Sample.scilifelab_code.in_(samples)).all()
+
+
+        q = q.group_by(getattr(Taxon, filter_level)).\
+                group_by(Sample.id).order_by(sqlalchemy.func.sum(GeneCount.rpkm))
+
+        unsorted_rows = {}
+        for sample, level_val, rpkm in q.all():
+            if level_val in unsorted_rows:
+                unsorted_rows[level_val][sample] = rpkm
+            else:
+                unsorted_rows[level_val] = collections.OrderedDict()
+                unsorted_rows[level_val][sample] = rpkm
+
+        sorted_rows = collections.OrderedDict()
+        for complete_level_val in taxon_level_vals:
+            level_val = complete_level_val.split(';')[-1]
+            sorted_rows[(complete_level_val, level_val)] = unsorted_rows[complete_level_val]
+
+        return samples, sorted_rows
+
+    @property
+    def rpkm(self):
+        q = db.session.query(Sample, sqlalchemy.func.sum(GeneCount.rpkm)).\
+                join(GeneCount).\
+                filter(Sample.id == GeneCount.sample_id).\
+                join(Gene).\
+                filter(GeneCount.gene_id == Gene.id).\
+                join(Taxon).\
+                filter(Taxon.id == self.id).\
+                group_by(Sample.id)
+
+        return { sample: rpkm_sum for sample, rpkm_sum in q.all() }
 
 class AnnotationSource(db.Model):
     __tablename__ = 'annotation_source'
@@ -268,6 +371,10 @@ class Annotation(db.Model):
                         filter(Annotation.type_identifier.in_(type_identifiers)).all()
             q_first = q_first.\
                          filter(RpkmTable.annotation_id.in_(annotation_ids_from_type_ids))
+
+        if samples is not None:
+            q_first = q_first.\
+                        filter(RpkmTable.sample_scilifelab_code.in_(samples))
 
         q_first = q_first.group_by(RpkmTable.annotation_id).\
                         order_by(sqlalchemy.func.sum(RpkmTable.rpkm).desc())
