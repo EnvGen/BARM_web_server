@@ -15,3 +15,10 @@ class FunctionClassFilterForm(Form):
     submit_view = SubmitField(u'View Results')
     submit_download = SubmitField(u'Download')
     download_select = SelectField(u'What to download', choices=[('Gene List', 'Gene List'), ('Annotation Counts', 'Annotation Counts')], default='Gene List')
+
+class TaxonomyTableFilterForm(Form):
+    taxonomy_levels = [("superkingdom", "superkingdom"), ("phylum", "phylum"), ("taxclass", "taxclass"), ("order", "order"), ("family", "family"), ("genus", "genus"), ("species", "species")]
+
+    view_level = SelectField(u'Taxon Levels', 
+        choices=taxonomy_levels, default='superkingdom')
+    submit_update = SubmitField(u'Update')

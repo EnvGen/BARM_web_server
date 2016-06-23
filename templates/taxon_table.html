@@ -1,8 +1,76 @@
 {% extends "default_base.html" %}
+
+
 {% block body %}
 
+<form action="" method="post" id='filter_form' name="filter" class="filter_function">
+
+  <h4>General Settings</h4>
+  <div class="row">
+    <div class="col-md-3">
+        {{ form.hidden_tag() }}
+      <div class="form-group">
+        <label for="function_class">Function Class</label>
+        {{ form.view_level(class="form-control") }}
+      </div>
+    </div>
+    <span class="input-group-btn">
+      {{ form.submit_update(class='btn btn-default') }}
+    </span>
+  </div>
+</form>
 {% include 'taxon_actual_table.html' %}
 
 <script type=text/javascript>
+  $(document).ready(function () {
+      enable_tooltip();
+      hide_full_taxonomy();
+      $('#toggle_full_taxonomy').click(function(event) {
+        if ($(this).attr('value') == 'show') {
+           $(this).text("Hide Full Taxonomy");
+           $(this).attr('value', 'hide');
+           show_full_taxonomy();
+        } else {
+           $(this).text("Show Full Taxonomy");
+           $(this).attr('value', 'show');
+           hide_full_taxonomy();
+        }
+      });
+
+      hide_sample_information();
+      $('#toggle_sample_description').click(function(event) {
+        if ($(this).attr('value') == 'show') {
+           $(this).text("Hide Sample Information");
+           $(this).attr('value', 'hide');
+           show_sample_information();
+        } else {
+           $(this).text("Show Sample Information");
+           $(this).attr('value', 'show');
+           hide_sample_information();
+        }
+      });
+  });
+
+  function enable_tooltip() {
+    $('[data-toggle="tooltip"]').tooltip();
+  }
+
+  function show_full_taxonomy(){
+    $('#taxonomy_table thead .full_taxonomy').show();
+    $('#taxonomy_table tbody .full_taxonomy').show();
+  }
+
+  function hide_full_taxonomy(){
+    $('#taxonomy_table thead .full_taxonomy').hide();
+    $('#taxonomy_table tbody .full_taxonomy').hide();
+  }
+
+  function show_sample_information(){
+    $('#taxonomy_table thead .sample_description_in_table').show();
+  }
+
+  function hide_sample_information(){
+    $('#taxonomy_table thead .sample_description_in_table').hide();
+  }
 </script>
 {% endblock body %}

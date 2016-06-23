@@ -1,6 +1,6 @@
 from flask import Flask, render_template, request, make_response
 from flask.ext.sqlalchemy import SQLAlchemy
-from forms import FunctionClassFilterForm
+from forms import FunctionClassFilterForm, TaxonomyTableFilterForm
 import sqlalchemy
 
 import os
@@ -11,14 +11,20 @@ db = SQLAlchemy(app)
 
 from models import Sample, SampleSet, TimePlace, SampleProperty, Annotation, Taxon
 
-@app.route('/taxonomy', methods=['GET'])
+@app.route('/taxonomy_table', methods=['GET', 'POST'])
 def taxon_table():
-    samples, table, complete_val_to_val = Taxon.rpkm_table(level="phylum")
+    form = TaxonomyTableFilterForm()
+    if form.validate_on_submit():
+        level = form.view_level.data
+    else:
+        level = "superkingdom"
+    samples, table, complete_val_to_val = Taxon.rpkm_table(level=level)
 
     return render_template('taxon_table.html',
             table=table,
             samples=samples,
-            complete_val_to_val=complete_val_to_val
+            complete_val_to_val=complete_val_to_val,
+            form=form
         )
 
 @app.route('/', methods=['GET', 'POST'])
