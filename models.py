@@ -298,11 +298,13 @@ class Taxon(db.Model):
                 unsorted_rows[level_val][sample] = rpkm
 
         sorted_rows = collections.OrderedDict()
+        complete_val_to_val = {}
         for complete_level_val in taxon_level_vals:
             level_val = complete_level_val.split(';')[-1]
-            sorted_rows[(complete_level_val, level_val)] = unsorted_rows[complete_level_val]
+            complete_val_to_val[complete_level_val] = level_val
+            sorted_rows[complete_level_val] = unsorted_rows[complete_level_val]
 
-        return samples, sorted_rows
+        return samples, sorted_rows, complete_val_to_val
 
     @property
     def rpkm(self):
