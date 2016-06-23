@@ -9,7 +9,17 @@ app = Flask(__name__)
 app.config.from_object(os.environ['APP_SETTINGS'])
 db = SQLAlchemy(app)
 
-from models import Sample, SampleSet, TimePlace, SampleProperty, Annotation
+from models import Sample, SampleSet, TimePlace, SampleProperty, Annotation, Taxon
+
+@app.route('/taxonomy', methods=['GET'])
+def taxon_table():
+    samples, table, complete_val_to_val = Taxon.rpkm_table(level="phylum")
+
+    return render_template('taxon_table.html',
+            table=table,
+            samples=samples,
+            complete_val_to_val=complete_val_to_val
+        )
 
 @app.route('/', methods=['GET', 'POST'])
 def index():
