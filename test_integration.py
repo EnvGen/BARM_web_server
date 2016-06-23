@@ -46,7 +46,7 @@ class SampleTestCase(unittest.TestCase):
         # clear the database
         self.db.drop_all()
         self.driver.quit()
-        if "SAUCE_USERNAME" in os.environ:
+        if not "SAUCE_USERNAME" in os.environ:
             self.clear_dir(DOWNLOAD_DIR)
 
     def clear_dir(self, dir_to_clear):
