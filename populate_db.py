@@ -6,6 +6,7 @@ import os
 import sys
 import logging
 import datetime
+import numpy as np
 
 from materialized_view_factory import refresh_all_mat_views
 
@@ -161,9 +162,7 @@ def main(args):
         gene_annotations['taxclass'] = gene_annotations['class']
 
         # Only add genes with taxonomy given
-        taxonomy_columns = list(gene_annotations.columns)
-        taxonomy_columns.remove("contig_id")
-        taxonomy_columns.remove("class")
+        taxonomy_columns = ["superkingdom", "phylum", "taxclass", "order", "family", "genus", "species"]
 
         annotated_genes = gene_annotations[ ~ gene_annotations[taxonomy_columns].isnull().all(axis=1)]
 
@@ -188,6 +187,16 @@ def main(args):
             t = tuple([ row[col] for col in taxonomy_columns])
             if t in added_taxa:
                 return added_taxa[t], added_taxa
+            first = True
+            # We want to make a difference between unnamed phyla and unset phyla
+            for column in reversed(taxonomy_columns):
+                if row[column] is np.nan:
+                    if first:
+                        row[column] = None
+                    else:
+                        row[column] = "Unnamed"
+                else:
+                    first = False
             new_taxa = Taxon(**row[taxonomy_columns].to_dict())
             session.add(new_taxa)
             session.commit()
