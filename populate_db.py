@@ -6,7 +6,6 @@ import os
 import sys
 import logging
 import datetime
-import numpy as np
 
 from materialized_view_factory import refresh_all_mat_views
 
@@ -116,7 +115,85 @@ def main(args):
     logging.info("Commiting everything except genes and gene counts")
     session.commit()
 
+    def add_genes_with_taxonomy(taxonomy_per_gene, commited_genes):
+        gene_annotations = pd.read_table(taxonomy_per_gene, index_col=0)
+
+        gene_annotations['taxclass'] = gene_annotations['class']
+
+        taxonomy_columns = ["superkingdom", "phylum", "taxclass", "order", "family", "genus", "species"]
+
+        # Only add genes with taxonomy given
+        annotated_genes = gene_annotations[ ~ gene_annotations[taxonomy_columns].isnull().all(axis=1)]
+
+
+        def add_taxa(full_taxonomy, taxonomy_columns):
+
+            # We want to make a difference between unnamed phyla and unset phyla
+            first = True
+            rev_new_taxonomy = []
+            for tax_val in reversed(full_taxonomy.split(';')):
+                if tax_val is "":
+                    if first:
+                        tax_val = None
+                    else:
+                        tax_val = "Unnamed"
+                else:
+                    first = False
+                rev_new_taxonomy.append(tax_val)
+
+            new_taxa_d = dict(zip(taxonomy_columns, reversed(rev_new_taxonomy)))
+            new_taxa = Taxon(**new_taxa_d)
+
+            return new_taxa
+
+        added_taxa = {}
+        gene_to_taxa = {}
+        annotated_genes = annotated_genes.fillna("")
+        # The number of taxa is lower than the genes with taxonomic annotation
+        annotated_genes['full_taxonomy'] = annotated_genes["superkingdom"] + ';' + \
+                annotated_genes['phylum'] + ';' + \
+                annotated_genes['taxclass'] + ';' +\
+                annotated_genes['order'] + ';' +\
+                annotated_genes['family'] + ';' +\
+                annotated_genes['genus'] + ';' +\
+                annotated_genes['species'] + ';'
+
+        all_taxas = annotated_genes['full_taxonomy'].unique()
+        all_taxas_to_be_created = {}
+        first_full_taxa_to_real_full_taxa = {}
+        for full_taxonomy in all_taxas:
+            taxa = add_taxa(full_taxonomy, taxonomy_columns)
+            first_full_taxa_to_real_full_taxa[full_taxonomy] = taxa.full_taxonomy
+            all_taxas_to_be_created[taxa.full_taxonomy] = taxa
+
+        annotated_genes['real_full_taxonomy'] = annotated_genes['full_taxonomy'].apply(lambda x: first_full_taxa_to_real_full_taxa[x])
+
+        logging.info("Commiting all taxa")
+        session.add_all(all_taxas_to_be_created.values())
+        session.commit()
+
+        logging.info("Creating genes with taxon information")
+
+        all_created_taxa = dict(session.query(Taxon.full_taxonomy, Taxon.id).all() )
+
+        annotated_genes['taxon_id'] = annotated_genes['real_full_taxonomy'].apply(lambda x: all_created_taxa[x])
+        annotated_genes['name'] = annotated_genes.index
+        annotated_genes["reference_assembly_id"] = ref_assembly.id
+
+        with open(args.tmp_file, 'w') as gene_file:
+            annotated_genes[['name', 'reference_assembly_id', 'taxon_id']].to_csv(gene_file, index=False, header=False)
+        session.execute("COPY gene (name, reference_assembly_id, taxon_id) FROM '{}' WITH CSV;".format(args.tmp_file))
+        commited_genes.update(dict( session.query(Gene.name, Gene.id).all() ))
+        logging.info("{} genes present in database".format(len(commited_genes.keys())))
+
+        return commited_genes
+
+
     commited_genes = {}
+    commited_genes = add_genes_with_taxonomy(args.taxonomy_per_gene, commited_genes)
+
+    logging.info("Processed {} genes for gene taxonomy, moving on to functional annotation".format(len(commited_genes.keys())))
+
     def add_genes_with_annotation(annotation_type, gene_annotation_arg, commited_genes, all_annotations, annotation_source):
         logging.info("Adding genes with {} annotations".format(annotation_type))
         gene_annotations = pd.read_table(gene_annotation_arg, header=None, names=["name", "type_identifier", "e_value"])
@@ -155,80 +232,10 @@ def main(args):
     commited_genes = add_genes_with_annotation("Pfam", args.gene_annotations_pfam, commited_genes, all_annotations, all_annotation_sources["Pfam"])
     commited_genes = add_genes_with_annotation("TigrFam", args.gene_annotations_tigrfam, commited_genes, all_annotations, all_annotation_sources["TigrFam"])
 
-
-    def add_genes_with_taxonomy(taxonomy_per_gene, commited_genes):
-        gene_annotations = pd.read_table(taxonomy_per_gene, index_col=0)
-
-        gene_annotations['taxclass'] = gene_annotations['class']
-
-        # Only add genes with taxonomy given
-        taxonomy_columns = ["superkingdom", "phylum", "taxclass", "order", "family", "genus", "species"]
-
-        annotated_genes = gene_annotations[ ~ gene_annotations[taxonomy_columns].isnull().all(axis=1)]
-
-        # Only add genes once
-        new_genes = annotated_genes[ ~ annotated_genes.index.isin(commited_genes.keys()) ]
-
-        new_genes_uniq = pd.DataFrame([list(new_genes.index)])
-        new_genes_uniq = new_genes_uniq.transpose()
-        new_genes_uniq.columns = ['name']
-        new_genes_uniq["reference_assembly_id"] = ref_assembly.id
-
-        logging.info("Commiting all {} genes.".format(annotation_type))
-
-        with open(args.tmp_file, 'w') as gene_file:
-            new_genes_uniq[['name', 'reference_assembly_id']].to_csv(gene_file, index=False, header=False)
-        session.execute("COPY gene (name, reference_assembly_id) FROM '{}' WITH CSV;".format(args.tmp_file))
-
-        commited_genes.update(dict( session.query(Gene.name, Gene.id).all() ))
-        logging.info("{} genes present in database".format(len(commited_genes.keys())))
-
-        def get_taxa_or_create(row, added_taxa, taxonomy_columns):
-            t = tuple([ row[col] for col in taxonomy_columns])
-            if t in added_taxa:
-                return added_taxa[t], added_taxa
-            first = True
-            # We want to make a difference between unnamed phyla and unset phyla
-            for column in reversed(taxonomy_columns):
-                if row[column] is np.nan:
-                    if first:
-                        row[column] = None
-                    else:
-                        row[column] = "Unnamed"
-                else:
-                    first = False
-            new_taxa = Taxon(**row[taxonomy_columns].to_dict())
-            session.add(new_taxa)
-            session.commit()
-            added_taxa[t] = new_taxa
-            return new_taxa, added_taxa
-
-        added_taxa = {}
-        gene_to_taxa = {}
-        for gene_name, row in annotated_genes.iterrows():
-            taxa, added_taxa = get_taxa_or_create(row, added_taxa, taxonomy_columns)
-            gene_id = commited_genes[gene_name]
-            gene_to_taxa[gene_id] = taxa
-
-        logging.info("Updating genes with taxon information")
-        genes_to_be_updated = []
-        for gene_id, taxon in gene_to_taxa.items():
-            gene = Gene.query.get(gene_id)
-            gene.taxon = taxon
-            genes_to_be_updated.append(gene)
-        session.add_all(genes_to_be_updated)
-        session.commit()
-
-        return commited_genes
-
-    logging.info("Processed {} genes for annotations, moving on to gene taxonomy".format(len(commited_genes.keys())))
-
-    commited_genes = add_genes_with_taxonomy(args.taxonomy_per_gene, commited_genes)
-
     logging.info("Processed {} genes in total, moving on to gene counts".format(len(commited_genes.keys())))
 
     # Fetch each gene from the gene count file and create the corresponding gene count
-    logging.info("Adding gene counts")
+    logging.info("Starting with gene counts")
     gene_counts = pd.read_table(args.gene_counts, index_col=0)
     total_gene_count_len = len(gene_counts)
     val_cols = gene_counts.columns
@@ -245,10 +252,27 @@ def main(args):
         with open(args.tmp_file, 'w') as gene_counts_file:
             tmp_cov_df[['gene_id', 'sample_id', 'rpkm']].to_csv(gene_counts_file, index=False, header=False)
 
-    for i, col in enumerate(val_cols):
-        logging.info("Saving gene counts to file for {}. ({}/{})".format(col, i+1, nr_columns))
-        sample = all_samples[col]
-        add_gene_counts_to_file(col, filtered_gene_counts, sample.id)
+    all_sample_ids = dict((sample_name, sample.id) for sample_name, sample in all_samples.items())
+    filtered_gene_counts.rename(columns=all_sample_ids, inplace=True)
+
+    sample_id_cols = filtered_gene_counts.columns.tolist()
+    sample_id_cols.remove('gene_id')
+    sample_id_cols.remove('gene_name')
+
+    filtered_gene_counts.index = filtered_gene_counts['gene_id']
+    filtered_gene_counts = pd.DataFrame(filtered_gene_counts[sample_id_cols].stack())
+    filtered_gene_counts.reset_index(inplace=True)
+    filtered_gene_counts.columns = ['gene_id', 'sample_id', 'rpkm']
+
+    tot_nr_samples = len(all_samples.values())
+    logging.info("Start adding gene counts")
+
+    for i, sample_t in enumerate(filtered_gene_counts.groupby('sample_id')):
+        sample, sample_df = sample_t
+        with open(args.tmp_file, 'w') as gene_counts_file:
+            sample_df.to_csv(gene_counts_file, index=False, header=False)
+
+        logging.info("Adding gene counts from file. Sample {}/{}".format(i+1, tot_nr_samples))
         session.execute("COPY gene_count (gene_id, sample_id, rpkm) FROM '{}' WITH CSV;".format(args.tmp_file))
 
     logging.info("{} out of {} are annotated genes".format(len(filtered_gene_counts), total_gene_count_len))
