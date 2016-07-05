@@ -1,4 +1,4 @@
-from flask import Flask, render_template, request, make_response
+from flask import Flask, render_template, request, make_response, jsonify
 from flask.ext.sqlalchemy import SQLAlchemy
 from forms import FunctionClassFilterForm, TaxonomyTableFilterForm
 import sqlalchemy
@@ -10,6 +10,12 @@ app.config.from_object(os.environ['APP_SETTINGS'])
 db = SQLAlchemy(app)
 
 from models import Sample, SampleSet, TimePlace, SampleProperty, Annotation, Taxon
+
+@app.route('/ajax/taxon_tree_nodes/<string:parent_level>/<string:parent_value>')
+def taxon_tree_nodes(parent_level, parent_value):
+    child_level, child_values = Taxon.tree_nodes(parent_level, parent_value)
+    return jsonify(node_level=child_level,
+                    node_values=child_values)
 
 @app.route('/taxonomy_table', methods=['GET', 'POST'])
 def taxon_table():

@@ -224,6 +224,8 @@ class Taxon(db.Model):
         self.up_to_genus = ";".join(full_taxonomy.split(';')[0:6])
         self.up_to_species = ";".join(full_taxonomy.split(';')[0:7])
 
+    _level_order = ['superkingdom', 'phylum', 'taxclass', 'order', 'family', 'genus', 'species']
+
     @property
     def superkingdom(self):
         return self.up_to_superkingdom
@@ -251,6 +253,29 @@ class Taxon(db.Model):
     @property
     def species(self):
         return self.up_to_species.split(';')[-1]
+
+    @classmethod
+    def top_entry_taxa(self):
+        return db.session.query(Taxon.up_to_superkingdom).distinct()
+
+    @classmethod
+    def tree_nodes(self, parent_level, parent_value):
+        if parent_level in self._level_order:
+            parent_level_index = self._level_order.index(parent_level)
+            if parent_level_index == len(self._level_order) - 1:
+                # parent is bottom layer
+                return None
+            else:
+                child_level = self._level_order[parent_level_index + 1]
+                filter_level = "up_to_" + parent_level
+                filter_child_level = "up_to_" + child_level
+                children = db.session.query(getattr(Taxon, filter_child_level)).\
+                        filter(getattr(Taxon, filter_level) == parent_value).\
+                        distinct().all()
+                print(children)
+                return child_level, children
+        else:
+            raise ValueError
 
     @classmethod
     def rpkm_table(self, level="superkingdom", top_level_complete_value=None, top_level=None, samples=None, limit=20):
