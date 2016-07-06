@@ -256,7 +256,10 @@ class Taxon(db.Model):
 
     @classmethod
     def top_entry_taxa(self):
-        return db.session.query(Taxon.up_to_superkingdom).distinct()
+        taxa= db.session.query(Taxon.up_to_superkingdom).distinct().all()
+        taxa_names_and_values = [(taxa_t[0].split(';')[-1], taxa_t[0]) for taxa_t in taxa]
+        taxa_names_and_values.sort(key=lambda x: x[0].lower())
+        return taxa_names_and_values
 
     @classmethod
     def tree_nodes(self, parent_level, parent_value):
@@ -272,8 +275,10 @@ class Taxon(db.Model):
                 children = db.session.query(getattr(Taxon, filter_child_level)).\
                         filter(getattr(Taxon, filter_level) == parent_value).\
                         distinct().all()
-                print(children)
-                return child_level, children
+                children_names_and_values = [(child_t[0].split(';')[-1], child_t[0]) for child_t in children]
+
+                children_names_and_values.sort(key=lambda x: x[0].lower())
+                return child_level, children_names_and_values
         else:
             raise ValueError
 

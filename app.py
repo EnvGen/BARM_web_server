@@ -14,8 +14,18 @@ from models import Sample, SampleSet, TimePlace, SampleProperty, Annotation, Tax
 @app.route('/ajax/taxon_tree_nodes/<string:parent_level>/<string:parent_value>')
 def taxon_tree_nodes(parent_level, parent_value):
     child_level, child_values = Taxon.tree_nodes(parent_level, parent_value)
-    return jsonify(node_level=child_level,
+    return render_template('taxon_tree_nodes.html',
+                    node_level=child_level,
                     node_values=child_values)
+
+@app.route('/taxonomy_tree', methods=['GET'])
+def taxonomy_tree():
+    node_level = "superkingdom"
+    node_values= Taxon.top_entry_taxa()
+    return render_template('taxon_tree.html',
+            node_level = node_level,
+            node_values = node_values
+        )
 
 @app.route('/taxonomy_table', methods=['GET', 'POST'])
 def taxon_table():

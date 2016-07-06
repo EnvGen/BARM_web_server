@@ -19,6 +19,6 @@ class FunctionClassFilterForm(Form):
 class TaxonomyTableFilterForm(Form):
     taxonomy_levels = [("superkingdom", "superkingdom"), ("phylum", "phylum"), ("taxclass", "taxclass"), ("order", "order"), ("family", "family"), ("genus", "genus"), ("species", "species")]
 
-    view_level = SelectField(u'Taxon Levels', 
+    view_level = SelectField(u'Taxon Levels',
         choices=taxonomy_levels, default='superkingdom')
     submit_update = SubmitField(u'Update')

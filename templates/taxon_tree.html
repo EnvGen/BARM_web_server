@@ -1,0 +1,46 @@
+{% extends "default_base.html" %}
+
+
+{% block body %}
+
+<div class="row">
+  <h3>Click on plus-sign to expand</h3>
+  <div id="expList">
+    {% include 'taxon_tree_nodes.html' %}
+  </div>
+</div>
+
+<script type=text/javascript>
+  function what_happens_when_clicking(i_tag) {
+      var li_tag = $(i_tag).parent();
+      
+      function get_new_node_list(ul_tag) {
+        var node_taxonomy = $(i_tag).attr("full_taxonomy")
+        var taxonomy_level = $(i_tag).attr("taxonomy_level")
+        $.get("ajax/taxon_tree_nodes/" + taxonomy_level + "/" + node_taxonomy, function(data){
+          $(ul_tag).replaceWith(data);
+          $(li_tag).children("ul").find("i").click(function() {
+            var i_tag = this;
+            what_happens_when_clicking(i_tag)
+          });
+        });
+      };
+      
+      $(i_tag).toggleClass("glyphicon-plus");
+      $(i_tag).toggleClass("glyphicon-minus");
+      if (!$(li_tag).hasClass("expanded")) {
+        get_new_node_list($(li_tag).children("ul"));
+      } else {
+        $(li_tag).children("ul").toggle("medium")
+      }
+      $(li_tag).toggleClass("expanded")
+  }
+
+  $(function() {
+    $("#expList").find("li").find("i").unbind("click").click(function() {
+      var i_tag = this;
+      what_happens_when_clicking(i_tag);
+    });
+  });
+</script>
+{% endblock body %}

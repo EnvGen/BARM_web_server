@@ -16,3 +16,7 @@ body {
 #function_classes_table > tbody > tr > .rpkm_value {
   vertical-align:middle;
 }
+
+#expList ul, li {
+  list-style: none;
+}
