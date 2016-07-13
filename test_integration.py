@@ -36,6 +36,7 @@ class SampleTestCase(unittest.TestCase):
             new_profile.default_preferences['browser.download.folderList'] = 2
             new_profile.default_preferences['browser.helperApps.neverAsk.saveToDisk'] = 'text/csv'
             self.driver = webdriver.Firefox(firefox_profile=new_profile)
+            self.driver.set_window_size(2024,1768)
             self.action_chains = ActionChains(self.driver)
 
         self.db = app.db
@@ -248,6 +249,7 @@ class SampleTestCase(unittest.TestCase):
 
 
 
+    @unittest.skip("Not yet implemented")
     def test_download_annotation_counts(self):
         url = "http://localhost:5000/"
         self.driver.get(url)
@@ -258,7 +260,10 @@ class SampleTestCase(unittest.TestCase):
         select_what_to_download = Select(
                 self.driver.find_element(by=By.ID, value='download_select')
                 )
-        select_sample.select_by_visible_text("Annotation Counts")
+
+        time.sleep(3)
+        select_what_to_download.select_by_visible_text("Annotation Counts")
+        time.sleep(3)
 
         self.driver.find_element(by=By.ID, value="submit_download").click()
         time.sleep(3)
