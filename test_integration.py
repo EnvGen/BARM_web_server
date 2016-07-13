@@ -73,13 +73,6 @@ class SampleTestCase(unittest.TestCase):
         self.action_chains.move_by_offset(5000, 5000)
         self.action_chains.perform()
 
-    def test_get_base(self):
-        r = self.client.get('/')
-        assert r._status_code == 200
-        assert b'Baltic Sea Reference Metagenome' in r.data
-
-        assert b'Filtering Options' in r.data
-
     def test_filtering_search(self):
         url = "http://localhost:5000/"
         self.driver.get(url)
