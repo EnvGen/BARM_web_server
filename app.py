@@ -27,20 +27,36 @@ def taxonomy_tree():
             node_values = node_values
         )
 
+@app.route('/ajax/taxon_table')
+def ajax_taxon_table():
+    taxon_level = request.args.get('taxon_level', 'superkingdom')
+    parent_values = request.args.getlist('parent_values[]', None)
+    parent_level = request.args.get('parent_level', None)
+    taxonomy_levels = Taxon.level_order
+    if taxon_level not in taxonomy_levels:
+        taxon_level = 'superkingdom'
+    if parent_level not in taxonomy_levels:
+        parent_values = None
+    samples, table, complete_val_to_val = Taxon.rpkm_table(level=taxon_level, top_level_complete_values=parent_values, top_level=parent_level)
+    return render_template('taxon_actual_table.html',
+            table=table,
+            samples=samples,
+            complete_val_to_val=complete_val_to_val,
+            current_level=taxon_level
+        )
+
+
 @app.route('/taxonomy_table', methods=['GET', 'POST'])
 def taxon_table():
-    form = TaxonomyTableFilterForm()
-    if form.validate_on_submit():
-        level = form.view_level.data
-    else:
-        level = "superkingdom"
-    samples, table, complete_val_to_val = Taxon.rpkm_table(level=level)
+    taxonomy_levels = Taxon.level_order
 
+    samples, table, complete_val_to_val = Taxon.rpkm_table(level="superkingdom")
     return render_template('taxon_table.html',
             table=table,
             samples=samples,
             complete_val_to_val=complete_val_to_val,
-            form=form
+            taxonomy_levels=taxonomy_levels,
+            current_level="superkingdom"
         )
 
 @app.route('/', methods=['GET', 'POST'])

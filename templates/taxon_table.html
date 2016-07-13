@@ -3,22 +3,25 @@
 
 {% block body %}
 
-<form action="" method="post" id='filter_form' name="filter" class="filter_function">
-
+<div class="filter_taxon_table">
   <h4>General Settings</h4>
   <div class="row">
     <div class="col-md-3">
-        {{ form.hidden_tag() }}
       <div class="form-group">
-        <label for="function_class">Function Class</label>
-        {{ form.view_level(class="form-control") }}
+        <label for="taxon_level_select">Taxonomy Level</label>
+        <select class="form-control" id="taxon_level_select" name="function_class">
+          {% for taxon_level in taxonomy_levels %}
+            <option value="{{taxon_level}}">{{taxon_level}}</option>
+          {% endfor %}
+        </select>
       </div>
     </div>
-    <span class="input-group-btn">
-      {{ form.submit_update(class='btn btn-default') }}
-    </span>
+    <input class="btn btn-default" id="updateTaxonTable" type="button" value="Update" onclick="fetch_new_table_data()"/>
   </div>
 </form>
+<button class="btn btn-default" id="toggle_full_taxonomy" value='show'>Show Full Taxonomy</button>
+<button class="btn btn-default" id="toggle_sample_description" value='show'>Show Sample Information</button>
+
 {% include 'taxon_actual_table.html' %}
 
 <script type=text/javascript>
@@ -50,6 +53,20 @@
         }
       });
   });
+
+  function fetch_new_table_data() {
+    var taxon_level = $( "#taxon_level_select" ).val();
+    var current_level = $( "#taxon_actual_table #taxonomy_table" ).attr("current_taxon_level");
+    var parent_values = new Array();
+    $(".rpkm_values_tbody input:checked").each(function(){
+        parent_values.push($(this).val());
+    });
+    $.get('/ajax/taxon_table', { taxon_level: taxon_level, parent_values: parent_values,  parent_level: current_level }, function(data) {
+        $('#taxon_actual_table').replaceWith(data);
+        hide_full_taxonomy();
+        hide_sample_information();
+    });
+  };
 
   function enable_tooltip() {
     $('[data-toggle="tooltip"]').tooltip();

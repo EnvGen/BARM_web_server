@@ -378,11 +378,11 @@ class SampleTestCase(unittest.TestCase):
 
         # possible to filter on specific level values at superkingdom
         for level_val in ["sk_0", "sk_1"]:
-            samples, rows, complete_val_to_val = Taxon.rpkm_table(limit=None, top_level_complete_value=level_val, top_level="superkingdom", level="phylum")
+            samples, rows, complete_val_to_val = Taxon.rpkm_table(limit=None, top_level_complete_values=[level_val], top_level="superkingdom", level="phylum")
             assert len(rows) == 3
             level_vals = [complete_val_to_val[complete_val] for complete_val in rows.keys()]
             assert level_vals == ["ph_2", "ph_0", "ph_1"]
-            samples, rows, complete_val_to_val = Taxon.rpkm_table(limit=None, top_level_complete_value=level_val, top_level="superkingdom", level="taxclass")
+            samples, rows, complete_val_to_val = Taxon.rpkm_table(limit=None, top_level_complete_values=[level_val], top_level="superkingdom", level="taxclass")
             assert len(rows) == 3*20
 
 
@@ -390,20 +390,43 @@ class SampleTestCase(unittest.TestCase):
         for sk_level_val in ["sk_0", "sk_1"]:
             for ph_level_val in ["ph_0", "ph_1", "ph_2"]:
                 top_level_complete_value="{};{}".format(sk_level_val, ph_level_val)
-                samples, rows, complete_val_to_val = Taxon.rpkm_table(limit=None, top_level_complete_value=top_level_complete_value, top_level="phylum", level="phylum")
+                samples, rows, complete_val_to_val = Taxon.rpkm_table(limit=None, top_level_complete_values=[top_level_complete_value], top_level="phylum", level="phylum")
                 assert len(rows) == 1
                 level_vals = [complete_val_to_val[complete_val] for complete_val in rows.keys()]
                 assert level_vals == [ph_level_val]
-                samples, rows, complete_val_to_val = Taxon.rpkm_table(limit=None, top_level_complete_value=top_level_complete_value, top_level="phylum", level="taxclass")
+                samples, rows, complete_val_to_val = Taxon.rpkm_table(limit=None, top_level_complete_values=[top_level_complete_value], top_level="phylum", level="taxclass")
                 assert len(rows) == 20
+
+        # possible to filter on multiple specific level values at phylum
+        for sk_level_val in ["sk_0", "sk_1"]:
+            for ph_level_vals in itertools.combinations(["ph_0", "ph_1", "ph_2"], 2):
+                top_level_complete_values = []
+                for ph_level_val in ph_level_vals:
+                    top_level_complete_values.append("{};{}".format(sk_level_val, ph_level_val))
+                samples, rows, complete_val_to_val = Taxon.rpkm_table(limit=None, top_level_complete_values=top_level_complete_values, top_level="phylum", level="phylum")
+                assert len(rows) == 2
+                level_vals = [complete_val_to_val[complete_val] for complete_val in rows.keys()]
+                assert sorted(level_vals) == sorted(list(ph_level_vals))
+                samples, rows, complete_val_to_val = Taxon.rpkm_table(limit=None, top_level_complete_values=top_level_complete_values, top_level="phylum", level="taxclass")
+                assert len(rows) == 40
 
         # possible to filter on specific level values at taxclass
         for sk_level_val in ["sk_0", "sk_1"]:
             for ph_level_val in ["ph_0", "ph_1", "ph_2"]:
                 for tc_level_val in ["tc_{}".format(i) for i in range(20)]:
                     top_level_complete_value="{};{};{}".format(sk_level_val, ph_level_val, tc_level_val)
-                    samples, rows, complete_val_to_val = Taxon.rpkm_table(limit=None, top_level_complete_value=top_level_complete_value, top_level="taxclass", level="taxclass")
+                    samples, rows, complete_val_to_val = Taxon.rpkm_table(limit=None, top_level_complete_values=[top_level_complete_value], top_level="taxclass", level="taxclass")
                     assert len(rows) == 1
+
+        # possible to filter on specific level values at taxclass
+        for sk_level_val in ["sk_0", "sk_1"]:
+            for ph_level_val in ["ph_0", "ph_1", "ph_2"]:
+                for tc_level_vals in itertools.combinations(["tc_{}".format(i) for i in range(5)], 4):
+                    top_level_complete_values = []
+                    for tc_level_val in tc_level_vals:
+                        top_level_complete_values.append("{};{};{}".format(sk_level_val, ph_level_val, tc_level_val))
+                    samples, rows, complete_val_to_val = Taxon.rpkm_table(limit=None, top_level_complete_values=top_level_complete_values, top_level="taxclass", level="taxclass")
+                    assert len(rows) == 4
 
         # possible to filter on samples
         for sample in [sample1, sample2]:
@@ -434,7 +457,7 @@ class SampleTestCase(unittest.TestCase):
         for sample in [sample1, sample2]:
             for sk_level_val in ["sk_0", "sk_1"]:
                 top_level_complete_value = sk_level_val
-                samples, rows, complete_val_to_val = Taxon.rpkm_table(samples=[sample.scilifelab_code], limit=None, top_level_complete_value=top_level_complete_value, top_level="superkingdom", level="phylum")
+                samples, rows, complete_val_to_val = Taxon.rpkm_table(samples=[sample.scilifelab_code], limit=None, top_level_complete_values=[top_level_complete_value], top_level="superkingdom", level="phylum")
                 assert len(samples) == 1
                 assert samples[0] == sample
                 for taxon, sample_d in rows.items():
@@ -443,7 +466,7 @@ class SampleTestCase(unittest.TestCase):
                 assert len(rows) == 3
                 level_vals = [complete_val_to_val[complete_val] for complete_val in rows.keys()]
                 assert level_vals == ["ph_2", "ph_0", "ph_1"]
-                samples, rows, complete_val_to_val = Taxon.rpkm_table(samples=[sample.scilifelab_code], limit=None, top_level_complete_value=top_level_complete_value, top_level="superkingdom", level="taxclass")
+                samples, rows, complete_val_to_val = Taxon.rpkm_table(samples=[sample.scilifelab_code], limit=None, top_level_complete_values=[top_level_complete_value], top_level="superkingdom", level="taxclass")
                 assert len(rows) == 3*20
 
 

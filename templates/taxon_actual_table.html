@@ -1,10 +1,8 @@
-<div class="container-fluid">
-<button class="btn btn-default" id="toggle_full_taxonomy" value='show'>Show Full Taxonomy</button>
-<button class="btn btn-default" id="toggle_sample_description" value='show'>Show Sample Information</button>
-<table class="table" id=taxonomy_table>
+<div id="taxon_actual_table" class="container-fluid">
+  <table class="table" id="taxonomy_table" current_taxon_level="{{current_level}}">
   <thead>
     <tr>
-      <th>Type identifier</th>
+      <th> {{ current_level }} </th>
       <th class="full_taxonomy">Full Taxonomy</th>
       {% for sample in samples %}
       <th>
@@ -17,7 +15,12 @@
   <tbody class='rpkm_values_tbody'>
   {% for complete_taxon, sample_d in table.items() %}
     <tr>
-      <td>{{complete_val_to_val[complete_taxon]}}
+      <td>
+        <nobr>
+          <label>
+            <input type="checkbox" name="tax_filter" value="{{complete_taxon}}"> {{complete_val_to_val[complete_taxon]}}
+          </label>
+        </nobr>
       </td>
       <td class="full_taxonomy">{{complete_taxon}}</td>
       {% for sample in samples %}

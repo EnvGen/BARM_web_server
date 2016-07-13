@@ -1,7 +1,9 @@
 from app import db
 import sqlalchemy
+from sqlalchemy import not_
 from materialized_view_factory import MaterializedView, create_mat_view
 import collections
+import re
 ##########
 # Sample #
 ##########
@@ -206,6 +208,7 @@ class Taxon(db.Model):
     up_to_genus = db.Column(db.String)
     up_to_species = db.Column(db.String)
     full_taxonomy = db.Column(db.String)
+    level_order = ['superkingdom', 'phylum', 'taxclass', 'order', 'family', 'genus', 'species']
 
     def __init__(self, superkingdom = None, phylum=None, taxclass=None, order=None, family=None, genus=None, species=None):
         tax_l = [superkingdom, phylum, taxclass, order, family, genus, species]
@@ -224,7 +227,6 @@ class Taxon(db.Model):
         self.up_to_genus = ";".join(full_taxonomy.split(';')[0:6])
         self.up_to_species = ";".join(full_taxonomy.split(';')[0:7])
 
-    _level_order = ['superkingdom', 'phylum', 'taxclass', 'order', 'family', 'genus', 'species']
 
     @property
     def superkingdom(self):
@@ -263,13 +265,13 @@ class Taxon(db.Model):
 
     @classmethod
     def tree_nodes(self, parent_level, parent_value):
-        if parent_level in self._level_order:
-            parent_level_index = self._level_order.index(parent_level)
-            if parent_level_index == len(self._level_order) - 1:
+        if parent_level in self.level_order:
+            parent_level_index = self.level_order.index(parent_level)
+            if parent_level_index == len(self.level_order) - 1:
                 # parent is bottom layer
                 return None
             else:
-                child_level = self._level_order[parent_level_index + 1]
+                child_level = self.level_order[parent_level_index + 1]
                 filter_level = "up_to_" + parent_level
                 filter_child_level = "up_to_" + child_level
                 children = db.session.query(getattr(Taxon, filter_child_level)).\
@@ -283,7 +285,7 @@ class Taxon(db.Model):
             raise ValueError
 
     @classmethod
-    def rpkm_table(self, level="superkingdom", top_level_complete_value=None, top_level=None, samples=None, limit=20):
+    def rpkm_table(self, level="superkingdom", top_level_complete_values=None, top_level=None, samples=None, limit=20):
         filter_level = "up_to_" + level
         q_first = db.session.query(getattr(Taxon, filter_level), sqlalchemy.func.sum(GeneCount.rpkm)).\
             join(Gene).join(GeneCount).\
@@ -291,12 +293,17 @@ class Taxon(db.Model):
 
         if top_level is not None:
             filter_top_level = "up_to_" + top_level
-            q_first = q_first.filter(getattr(Taxon, filter_top_level) == top_level_complete_value)
+            q_first = q_first.filter(getattr(Taxon, filter_top_level).in_(top_level_complete_values))
 
         if samples is not None:
             q_first = q_first.\
                         join(Sample).\
                         filter(Sample.scilifelab_code.in_(samples))
+
+        # We want to filter away taxons only classified
+        # more than one level up
+        q_first = q_first.\
+                filter(not_(getattr(Taxon, filter_level).like("%;;")))
 
         q_first = q_first.group_by(getattr(Taxon, filter_level)).limit(limit)
 
@@ -329,8 +336,14 @@ class Taxon(db.Model):
 
         sorted_rows = collections.OrderedDict()
         complete_val_to_val = {}
+        regex = re.compile('([a-zA-Z0-9_ ]+);+$')
         for complete_level_val in taxon_level_vals:
             level_val = complete_level_val.split(';')[-1]
+            if level_val == '':
+                last_defined_level = regex.search(complete_level_val).group(0)
+                # Taxons with empty vals were not possible to annotate further
+                level_val = "<" + last_defined_level + ">"
+
             complete_val_to_val[complete_level_val] = level_val
             sorted_rows[complete_level_val] = unsorted_rows[complete_level_val]
 
