@@ -18,18 +18,18 @@ def run_tests(args):
     run_integration_tests(args)
 
 if __name__ == "__main__":
-    parser = argparse.ArgumentParser(description="Run tests")
-    subparsers = parser.add_subparsers()
-
-    unit_parser = subparsers.add_parser('unit')
-    unit_parser.set_defaults(func=run_unit_tests)
-
-    integration_parser = subparsers.add_parser('integration')
-    integration_parser.set_defaults(func=run_integration_tests)
-    integration_parser.add_argument('--test', help="Specific test")
-
+    parser = argparse.ArgumentParser(description="Run tests", add_help=False)
     parser.set_defaults(func=run_tests)
     parser.add_argument("--db", help="Overrule the default database url")
+    parser.add_argument('--test', help="Specific test")
+    subparsers = parser.add_subparsers()
+
+    unit_parser = subparsers.add_parser('unit', parents=[parser])
+    unit_parser.set_defaults(func=run_unit_tests)
+
+    integration_parser = subparsers.add_parser('integration', parents=[parser])
+    integration_parser.set_defaults(func=run_integration_tests)
+
     args = parser.parse_args()
 
     OLD_APP_SETTINGS=os.environ.get("APP_SETTINGS", None)
