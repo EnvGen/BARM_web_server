@@ -19,6 +19,7 @@ class SampleTestCase(unittest.TestCase):
     """Test that the website shows the proper things"""
     def setUp(self):
         if "SAUCE_USERNAME" in os.environ:
+            self.on_sauce = True
             username = os.environ["SAUCE_USERNAME"]
             access_key = os.environ["SAUCE_ACCESS_KEY"]
             command_executor = "http://{}:{}@ondemand.saucelabs.com:80/wd/hub".format(username, access_key)
@@ -30,6 +31,7 @@ class SampleTestCase(unittest.TestCase):
             self.driver = webdriver.Remote(desired_capabilities=capabilities, command_executor=command_executor)
             self.action_chains = ActionChains(self.driver)
         else:
+            self.on_sauce = False
             # Reference http://elementalselenium.com/tips/2-download-a-file
             new_profile = FirefoxProfile()
             new_profile.default_preferences['browser.download.dir'] = DOWNLOAD_DIR
@@ -39,13 +41,10 @@ class SampleTestCase(unittest.TestCase):
             self.driver.set_window_size(2024,1768)
             self.action_chains = ActionChains(self.driver)
 
-        self.db = app.db
-        self.db.create_all()
         self.client = app.app.test_client()
 
     def tearDown(self):
         # clear the database
-        self.db.drop_all()
         self.driver.quit()
         if not "SAUCE_USERNAME" in os.environ:
             self.clear_dir(DOWNLOAD_DIR)
@@ -234,18 +233,21 @@ class SampleTestCase(unittest.TestCase):
         self.driver.find_element(by=By.ID, value="filter_accordion").click()
         time.sleep(1) # The accordion takes some time to unfold
 
-        
-        self.driver.find_element(by=By.ID, value="submit_download").click()
-        time.sleep(3)
 
-        gene_list = os.path.join(DOWNLOAD_DIR, 'gene_list.csv')
-        assert os.path.isfile(gene_list)
-        df = pandas.read_table(gene_list, sep=',', header=None, names=['gene_name', 'type_identifier'])
-        assert len(df) == 24
-        assert len(df.columns) == 2
-        assert len(df['type_identifier'].unique()) == 20
-        assert df.ix[0]['gene_name'] == 'PROKKA_MOD_PART0_00096'
-        assert df.ix[0]['type_identifier'] == 'COG0059'
+        self.driver.find_element(by=By.ID, value="submit_download").click()
+        # Don't know how to reach files located on the sauce machine
+        # This test will only verify that the button exists on sauce.
+        if not self.on_sauce:
+            time.sleep(3)
+
+            gene_list = os.path.join(DOWNLOAD_DIR, 'gene_list.csv')
+            assert os.path.isfile(gene_list)
+            df = pandas.read_table(gene_list, sep=',', header=None, names=['gene_name', 'type_identifier'])
+            assert len(df) == 24
+            assert len(df.columns) == 2
+            assert len(df['type_identifier'].unique()) == 20
+            assert df.ix[0]['gene_name'] == 'PROKKA_MOD_PART0_00096'
+            assert df.ix[0]['type_identifier'] == 'COG0059'
 
 
 
