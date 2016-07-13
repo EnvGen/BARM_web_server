@@ -4,7 +4,11 @@ import subprocess
 import argparse
 
 def run_integration_tests(args):
-    subprocess.check_call(["python", "-m", "unittest", "test_integration.py"])
+    cmd = ["python", "-m", "unittest", "test_integration.py"]
+    if args.test:
+        cmd[-1] = cmd[-1].split('.')[0] + '.SampleTestCase.' + args.test
+
+    subprocess.check_call(cmd)
 
 def run_unit_tests(args):
     subprocess.check_call(["python", "-m", "unittest", "test_unit_model.py"])
@@ -22,6 +26,7 @@ if __name__ == "__main__":
 
     integration_parser = subparsers.add_parser('integration')
     integration_parser.set_defaults(func=run_integration_tests)
+    integration_parser.add_argument('--test', help="Specific test")
 
     parser.set_defaults(func=run_tests)
     parser.add_argument("--db", help="Overrule the default database url")
