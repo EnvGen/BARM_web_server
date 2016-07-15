@@ -28,6 +28,9 @@
   $(document).ready(function () {
       enable_tooltip();
       hide_full_taxonomy();
+      $( "#taxon_level_select option[value='{{current_level}}']" ).each(function() {
+        $(this).prop('selected', true);
+      });
       $('#toggle_full_taxonomy').click(function(event) {
         if ($(this).attr('value') == 'show') {
            $(this).text("Hide Full Taxonomy");
@@ -61,11 +64,8 @@
     $(".rpkm_values_tbody input:checked").each(function(){
         parent_values.push($(this).val());
     });
-    $.get('/ajax/taxon_table', { taxon_level: taxon_level, parent_values: parent_values,  parent_level: current_level }, function(data) {
-        $('#taxon_actual_table').replaceWith(data);
-        hide_full_taxonomy();
-        hide_sample_information();
-    });
+    var url = "/taxonomy_table?" + $.param( { taxon_level: taxon_level, parent_values: parent_values,  parent_level: current_level } );
+    window.location = url;
   };
 
   function enable_tooltip() {
