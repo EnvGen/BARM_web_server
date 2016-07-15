@@ -305,7 +305,8 @@ class Taxon(db.Model):
         q_first = q_first.\
                 filter(not_(getattr(Taxon, filter_level).like("%;;")))
 
-        q_first = q_first.group_by(getattr(Taxon, filter_level)).limit(limit)
+        if limit:
+            q_first = q_first.group_by(getattr(Taxon, filter_level)).limit(limit)
 
         taxon_counts = q_first.all()
         taxon_level_vals = []

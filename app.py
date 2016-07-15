@@ -34,19 +34,30 @@ def taxon_table():
     taxon_level = request.args.get('taxon_level', 'superkingdom')
     parent_values = request.args.getlist('parent_values[]', None)
     parent_level = request.args.get('parent_level', None)
+    row_limit = request.args.get('row_limit', 20)
 
     if taxon_level not in taxonomy_levels:
         taxon_level = 'superkingdom'
     if parent_level not in taxonomy_levels:
         parent_values = None
-    samples, table, complete_val_to_val = Taxon.rpkm_table(level=taxon_level, top_level_complete_values=parent_values, top_level=parent_level)
+    if row_limit not in ['20', '50', '100', 'all']:
+        row_limit = 20
+
+    # Translate to model language
+    if row_limit == 'all':
+        limit = None
+    else:
+        limit = row_limit
+
+    samples, table, complete_val_to_val = Taxon.rpkm_table(level=taxon_level, top_level_complete_values=parent_values, top_level=parent_level, limit=limit)
 
     return render_template('taxon_table.html',
             table=table,
             samples=samples,
             complete_val_to_val=complete_val_to_val,
             taxonomy_levels=taxonomy_levels,
-            current_level=taxon_level
+            current_level=taxon_level,
+            row_limit=row_limit
         )
 
 @app.route('/', methods=['GET', 'POST'])

@@ -15,6 +15,15 @@
           {% endfor %}
         </select>
       </div>
+      <div class="form-group">
+        <label for="row_limit_select">Number of rows</label>
+        <select class="form-control" id="row_limit_select" name="row_limit_select">
+          <option value="20">20</option>
+          <option value="50">50</option>
+          <option value="100">100</option>
+          <option value="all">Show All</option>
+        </select>
+      </div>
     </div>
     <input class="btn btn-default" id="updateTaxonTable" type="button" value="Update" onclick="fetch_new_table_data()"/>
   </div>
@@ -29,6 +38,9 @@
       enable_tooltip();
       hide_full_taxonomy();
       $( "#taxon_level_select option[value='{{current_level}}']" ).each(function() {
+        $(this).prop('selected', true);
+      });
+      $( "#row_limit_select option[value='{{row_limit}}']" ).each(function() {
         $(this).prop('selected', true);
       });
       $('#toggle_full_taxonomy').click(function(event) {
@@ -60,11 +72,12 @@
   function fetch_new_table_data() {
     var taxon_level = $( "#taxon_level_select" ).val();
     var current_level = $( "#taxon_actual_table #taxonomy_table" ).attr("current_taxon_level");
+    var row_limit = $( "#row_limit_select" ).val();
     var parent_values = new Array();
     $(".rpkm_values_tbody input:checked").each(function(){
         parent_values.push($(this).val());
     });
-    var url = "/taxonomy_table?" + $.param( { taxon_level: taxon_level, parent_values: parent_values,  parent_level: current_level } );
+    var url = "/taxonomy_table?" + $.param( { taxon_level: taxon_level, parent_values: parent_values,  parent_level: current_level, row_limit: row_limit } );
     window.location = url;
   };
 
