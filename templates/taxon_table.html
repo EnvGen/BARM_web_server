@@ -30,6 +30,7 @@
 </form>
 <button class="btn btn-default" id="toggle_full_taxonomy" value='show'>Show Full Taxonomy</button>
 <button class="btn btn-default" id="toggle_sample_description" value='show'>Show Sample Information</button>
+<button class="btn btn-default" id="toggle_select_all" value='select'>Select All</button>
 
 {% include 'taxon_actual_table.html' %}
 
@@ -56,6 +57,18 @@
       });
 
       hide_sample_information();
+      $('#toggle_select_all').click(function(event) {
+        if ($(this).attr('value') == 'select') {
+          $(this).text("Unselect All");
+          $(this).attr('value', 'unselect');
+          select_all_taxa();
+        } else {
+          $(this).text("Select All");
+          $(this).attr('value', 'select');
+          unselect_all_taxa();
+        }
+      });
+
       $('#toggle_sample_description').click(function(event) {
         if ($(this).attr('value') == 'show') {
            $(this).text("Hide Sample Information");
@@ -83,6 +96,18 @@
 
   function enable_tooltip() {
     $('[data-toggle="tooltip"]').tooltip();
+  }
+
+  function select_all_taxa(){
+    $(".rpkm_values_tbody input:not(:checked)").each(function(){
+      $(this).prop('checked', true);
+    });
+  }
+
+  function unselect_all_taxa(){
+    $(".rpkm_values_tbody input:checked").each(function(){
+      $(this).prop('checked', false);
+    });
   }
 
   function show_full_taxonomy(){
