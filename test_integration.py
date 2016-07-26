@@ -271,3 +271,36 @@ class SampleTestCase(unittest.TestCase):
         assert len(df['type_identifier'].uniq) == 20
         assert df.ix[0]['gene_name'] == 'PROKKA_MOD_PART0_00096'
         assert df.ix[0]['type_identifier'] == 'COG0059'
+
+    def test_taxonomy_table_row_limit(self):
+        url = "http://localhost:5000/taxonomy_table"
+        self.driver.get(url)
+
+        rpkm_tbody = self.driver.find_elements(by=By.CLASS_NAME, value='rpkm_values_tbody')[0]
+        assert len(rpkm_tbody.find_elements(by=By.TAG_NAME, value= 'tr')) == 4 # only showing the superkingdoms
+
+        row_limit_and_result = [("20", 20), ("50", 50), ("100", 72), ("Show All", 72)]
+        for row_limit, result in row_limit_and_result:
+            self.driver.get(url)
+            self.driver.find_element(by=By.ID, value="toggle_select_all").click()
+            time.sleep(0.1)
+
+            select_level = Select(
+                    self.driver.find_element(by=By.ID, value="taxon_level_select")
+                    )
+            select_level.select_by_visible_text("species")
+            if row_limit != "20": # 20 is the default row limit
+                select_row_limit = Select(
+                        self.driver.find_element(by=By.ID, value="row_limit_select")
+                        )
+                select_row_limit.select_by_visible_text(row_limit)
+
+                self.driver.execute_script("window.scrollTo(0,0)")
+
+            self.driver.find_element(by=By.ID, value='updateTaxonTable').click()
+            time.sleep(1)
+
+            rpkm_tbody = self.driver.find_elements(by=By.CLASS_NAME, value='rpkm_values_tbody')[0]
+            assert len(rpkm_tbody.find_elements(by=By.TAG_NAME, value= 'tr')) == result # showing all allowed by the row limit
+
+

@@ -1,100 +1,100 @@
 gene_id	contig_id	superkingdom	phylum	class	order	family	genus	species
-PROKKA_MOD_PART0_00001	k99_1000001	Bacteria	Proteobacteria	Betaproteobacteria				Betaproteobacteria bacterium MOLA814
-PROKKA_MOD_PART0_00002	k99_1000001	Bacteria	Proteobacteria	Betaproteobacteria				Betaproteobacteria bacterium MOLA814
-PROKKA_MOD_PART0_00003	k99_1000008	Bacteria	Cyanobacteria					
-PROKKA_MOD_PART0_00004	k99_1000015	Bacteria						
-PROKKA_MOD_PART0_00005	k99_1000015	Bacteria						
-PROKKA_MOD_PART0_00006	k99_1000021							
-PROKKA_MOD_PART0_00007	k99_100003	Bacteria	Proteobacteria	Gammaproteobacteria	Pseudomonadales	Pseudomonadaceae	Pseudomonas	
-PROKKA_MOD_PART0_00008	k99_100003	Bacteria	Proteobacteria	Gammaproteobacteria	Pseudomonadales	Pseudomonadaceae	Pseudomonas	
-PROKKA_MOD_PART0_00009	k99_100003	Bacteria	Proteobacteria	Gammaproteobacteria	Pseudomonadales	Pseudomonadaceae	Pseudomonas	
-PROKKA_MOD_PART0_00010	k99_100003	Bacteria	Proteobacteria	Gammaproteobacteria	Pseudomonadales	Pseudomonadaceae	Pseudomonas	
-PROKKA_MOD_PART0_00011	k99_100003	Bacteria	Proteobacteria	Gammaproteobacteria	Pseudomonadales	Pseudomonadaceae	Pseudomonas	
-PROKKA_MOD_PART0_00012	k99_1000031	Eukaryota	Chlorophyta	Mamiellophyceae	Mamiellales	Bathycoccaceae	Ostreococcus	
-PROKKA_MOD_PART0_00013	k99_1000031	Eukaryota	Chlorophyta	Mamiellophyceae	Mamiellales	Bathycoccaceae	Ostreococcus	
-PROKKA_MOD_PART0_00014	k99_1000056	Bacteria						
-PROKKA_MOD_PART0_00015	k99_1000056	Bacteria						
-PROKKA_MOD_PART0_00016	k99_1000059	Eukaryota		Dinophyceae	Gonyaulacales	Gonyaulacaceae	Alexandrium	Alexandrium fundyense
-PROKKA_MOD_PART0_00017	k99_1000059	Eukaryota		Dinophyceae	Gonyaulacales	Gonyaulacaceae	Alexandrium	Alexandrium fundyense
-PROKKA_MOD_PART0_00018	k99_1000059	Eukaryota		Dinophyceae	Gonyaulacales	Gonyaulacaceae	Alexandrium	Alexandrium fundyense
-PROKKA_MOD_PART0_00019	k99_1000059	Eukaryota		Dinophyceae	Gonyaulacales	Gonyaulacaceae	Alexandrium	Alexandrium fundyense
-PROKKA_MOD_PART0_00020	k99_1000080	Bacteria						
-PROKKA_MOD_PART0_00021	k99_1000080	Bacteria						
-PROKKA_MOD_PART0_00022	k99_1000081	Archaea	Euryarchaeota					
-PROKKA_MOD_PART0_00023	k99_1000084	Bacteria	Proteobacteria					
-PROKKA_MOD_PART0_00024	k99_1000084	Bacteria	Proteobacteria					
-PROKKA_MOD_PART0_00025	k99_1000084	Bacteria	Proteobacteria					
-PROKKA_MOD_PART0_00026	k99_1000084	Bacteria	Proteobacteria					
-PROKKA_MOD_PART0_00027	k99_1000084	Bacteria	Proteobacteria					
-PROKKA_MOD_PART0_00028	k99_1000084	Bacteria	Proteobacteria					
-PROKKA_MOD_PART0_00029	k99_1000084	Bacteria	Proteobacteria					
-PROKKA_MOD_PART0_00030	k99_1000090	Bacteria						
-PROKKA_MOD_PART0_00031	k99_1000090	Bacteria						
-PROKKA_MOD_PART0_00032	k99_1000090	Bacteria						
-PROKKA_MOD_PART0_00033	k99_100010	Bacteria	Proteobacteria	Gammaproteobacteria				SAR86 cluster bacterium SAR86B
-PROKKA_MOD_PART0_00034	k99_100010	Bacteria	Proteobacteria	Gammaproteobacteria				SAR86 cluster bacterium SAR86B
-PROKKA_MOD_PART0_00035	k99_1000124	Bacteria	Proteobacteria					
-PROKKA_MOD_PART0_00036	k99_1000124	Bacteria	Proteobacteria					
-PROKKA_MOD_PART0_00037	k99_100014							
-PROKKA_MOD_PART0_00038	k99_1000142	Bacteria	Proteobacteria	Alphaproteobacteria	Caulobacterales	Caulobacteraceae	Brevundimonas	Brevundimonas nasdae
-PROKKA_MOD_PART0_00039	k99_1000142	Bacteria	Proteobacteria	Alphaproteobacteria	Caulobacterales	Caulobacteraceae	Brevundimonas	Brevundimonas nasdae
-PROKKA_MOD_PART0_00040	k99_1000148							
-PROKKA_MOD_PART0_00041	k99_1000148							
-PROKKA_MOD_PART0_00042	k99_1000151							
-PROKKA_MOD_PART0_00043	k99_1000151							
-PROKKA_MOD_PART0_00044	k99_1000151							
-PROKKA_MOD_PART0_00045	k99_1000151							
-PROKKA_MOD_PART0_00046	k99_1000151							
-PROKKA_MOD_PART0_00047	k99_1000151							
-PROKKA_MOD_PART0_00048	k99_100016	Bacteria	Proteobacteria	Alphaproteobacteria				
-PROKKA_MOD_PART0_00049	k99_100016	Bacteria	Proteobacteria	Alphaproteobacteria				
-PROKKA_MOD_PART0_00050	k99_1000197	Bacteria	Proteobacteria	Alphaproteobacteria	Rhodobacterales	Rhodobacteraceae		
-PROKKA_MOD_PART0_00051	k99_1000197	Bacteria	Proteobacteria	Alphaproteobacteria	Rhodobacterales	Rhodobacteraceae		
-PROKKA_MOD_PART0_00052	k99_1000203	Bacteria	Bacteroidetes	Flavobacteriia	Flavobacteriales	Flavobacteriaceae		
-PROKKA_MOD_PART0_00053	k99_1000203	Bacteria	Bacteroidetes	Flavobacteriia	Flavobacteriales	Flavobacteriaceae		
-PROKKA_MOD_PART0_00054	k99_1000203	Bacteria	Bacteroidetes	Flavobacteriia	Flavobacteriales	Flavobacteriaceae		
-PROKKA_MOD_PART0_00055	k99_1000203	Bacteria	Bacteroidetes	Flavobacteriia	Flavobacteriales	Flavobacteriaceae		
-PROKKA_MOD_PART0_00056	k99_1000203	Bacteria	Bacteroidetes	Flavobacteriia	Flavobacteriales	Flavobacteriaceae		
-PROKKA_MOD_PART0_00057	k99_1000203	Bacteria	Bacteroidetes	Flavobacteriia	Flavobacteriales	Flavobacteriaceae		
-PROKKA_MOD_PART0_00058	k99_1000203	Bacteria	Bacteroidetes	Flavobacteriia	Flavobacteriales	Flavobacteriaceae		
-PROKKA_MOD_PART0_00059	k99_1000203	Bacteria	Bacteroidetes	Flavobacteriia	Flavobacteriales	Flavobacteriaceae		
-PROKKA_MOD_PART0_00060	k99_1000203	Bacteria	Bacteroidetes	Flavobacteriia	Flavobacteriales	Flavobacteriaceae		
-PROKKA_MOD_PART0_00061	k99_1000212	Bacteria	Proteobacteria	Alphaproteobacteria	Rhodobacterales	Rhodobacteraceae	Sulfitobacter	
-PROKKA_MOD_PART0_00062	k99_1000212	Bacteria	Proteobacteria	Alphaproteobacteria	Rhodobacterales	Rhodobacteraceae	Sulfitobacter	
-PROKKA_MOD_PART0_00063	k99_1000212	Bacteria	Proteobacteria	Alphaproteobacteria	Rhodobacterales	Rhodobacteraceae	Sulfitobacter	
-PROKKA_MOD_PART0_00064	k99_1000212	Bacteria	Proteobacteria	Alphaproteobacteria	Rhodobacterales	Rhodobacteraceae	Sulfitobacter	
-PROKKA_MOD_PART0_00065	k99_1000212	Bacteria	Proteobacteria	Alphaproteobacteria	Rhodobacterales	Rhodobacteraceae	Sulfitobacter	
-PROKKA_MOD_PART0_00066	k99_1000224							
-PROKKA_MOD_PART0_00067	k99_1000226	Archaea	Euryarchaeota					
-PROKKA_MOD_PART0_00068	k99_1000226	Archaea	Euryarchaeota					
-PROKKA_MOD_PART0_00069	k99_1000226	Archaea	Euryarchaeota					
-PROKKA_MOD_PART0_00070	k99_1000226	Archaea	Euryarchaeota					
-PROKKA_MOD_PART0_00071	k99_1000296	Bacteria						
-PROKKA_MOD_PART0_00072	k99_1000296	Bacteria						
-PROKKA_MOD_PART0_00073	k99_1000296	Bacteria						
-PROKKA_MOD_PART0_00074	k99_1000296	Bacteria						
-PROKKA_MOD_PART0_00075	k99_1000344	Eukaryota	Chlorophyta	Mamiellophyceae	Mamiellales	Bathycoccaceae	Bathycoccus	Bathycoccus prasinos
-PROKKA_MOD_PART0_00076	k99_1000344	Eukaryota	Chlorophyta	Mamiellophyceae	Mamiellales	Bathycoccaceae	Bathycoccus	Bathycoccus prasinos
-PROKKA_MOD_PART0_00077	k99_1000367	Archaea						
-PROKKA_MOD_PART0_00078	k99_1000367	Archaea						
-PROKKA_MOD_PART0_00079	k99_1000382	Bacteria	Cyanobacteria					
-PROKKA_MOD_PART0_00080	k99_1000382	Bacteria	Cyanobacteria					
-PROKKA_MOD_PART0_00081	k99_1000383	Bacteria	Bacteroidetes	Cytophagia	Cytophagales	Cytophagaceae	Pontibacter	Pontibacter sp. BAB1700
-PROKKA_MOD_PART0_00082	k99_1000401	Bacteria						
-PROKKA_MOD_PART0_00083	k99_1000401	Bacteria						
-PROKKA_MOD_PART0_00084	k99_1000401	Bacteria						
-PROKKA_MOD_PART0_00085	k99_1000401	Bacteria						
-PROKKA_MOD_PART0_00086	k99_1000401	Bacteria						
-PROKKA_MOD_PART0_00087	k99_1000401	Bacteria						
-PROKKA_MOD_PART0_00088	k99_1000412	Bacteria	Proteobacteria	Gammaproteobacteria				
-PROKKA_MOD_PART0_00089	k99_1000412	Bacteria	Proteobacteria	Gammaproteobacteria				
-PROKKA_MOD_PART0_00090	k99_1000412	Bacteria	Proteobacteria	Gammaproteobacteria				
-PROKKA_MOD_PART0_00091	k99_1000412	Bacteria	Proteobacteria	Gammaproteobacteria				
-PROKKA_MOD_PART0_00092	k99_1000412	Bacteria	Proteobacteria	Gammaproteobacteria				
-PROKKA_MOD_PART0_00093	k99_1000412	Bacteria	Proteobacteria	Gammaproteobacteria				
-PROKKA_MOD_PART0_00094	k99_1000417							
-PROKKA_MOD_PART0_00095	k99_1000442							
-PROKKA_MOD_PART0_00096	k99_1000442							
-PROKKA_MOD_PART0_00097	k99_1000455							
-PROKKA_MOD_PART0_00098	k99_1000455							
-PROKKA_MOD_PART0_00099	k99_1000473	Bacteria						
+PROKKA_MOD_PART0_00001	k99_1000001	Viruses			Caudovirales			
+PROKKA_MOD_PART0_00002	k99_1000001	Bacteria	Proteobacteria	Epsilonproteobacteria	Campylobacterales			
+PROKKA_MOD_PART0_00003	k99_1000008	Bacteria	Proteobacteria	Alphaproteobacteria	Rhodospirillales		Reyranella	Reyranella massiliensis
+PROKKA_MOD_PART0_00004	k99_1000015	Bacteria	Proteobacteria	Betaproteobacteria	Methylophilales			
+PROKKA_MOD_PART0_00005	k99_1000015	Viruses			Caudovirales	Podoviridae		Cellulophaga phage phi14:2
+PROKKA_MOD_PART0_00006	k99_1000021	Bacteria	Proteobacteria	Zetaproteobacteria	Mariprofundales	Mariprofundaceae	Mariprofundus	Mariprofundus ferrooxydans
+PROKKA_MOD_PART0_00007	k99_100003	Bacteria	Bacteroidetes	Flavobacteriia				
+PROKKA_MOD_PART0_00008	k99_100003	Bacteria	Proteobacteria	Betaproteobacteria	Methylophilales	Methylophilaceae	Methylotenera	Methylotenera versatilis
+PROKKA_MOD_PART0_00009	k99_100003	Bacteria	Chloroflexi	Dehalococcoidia			Dehalogenimonas	Dehalogenimonas lykanthroporepellens
+PROKKA_MOD_PART0_00010	k99_100003	Bacteria	Proteobacteria	Gammaproteobacteria	Pseudomonadales	Pseudomonadaceae		
+PROKKA_MOD_PART0_00011	k99_100003	Bacteria	Bacteroidetes	Cytophagia	Cytophagales	Cyclobacteriaceae	Cecembia	Cecembia lonarensis
+PROKKA_MOD_PART0_00012	k99_1000031	Bacteria	Firmicutes	Clostridia	Clostridiales		Intestinimonas	Intestinimonas butyriciproducens
+PROKKA_MOD_PART0_00013	k99_1000031	Archaea	Euryarchaeota					uncultured marine group II/III euryarchaeote KM3_67_D09
+PROKKA_MOD_PART0_00014	k99_1000056	Bacteria	Verrucomicrobia	Opitutae				
+PROKKA_MOD_PART0_00015	k99_1000056	Bacteria	Bacteroidetes	Flavobacteriia				uncultured Flavobacteriia bacterium
+PROKKA_MOD_PART0_00016	k99_1000059	Viruses				Phycodnaviridae	Prasinovirus	Bathycoccus sp. RCC1105 virus BpV
+PROKKA_MOD_PART0_00017	k99_1000059	Bacteria	Cyanobacteria		Chroococcales		Synechococcus	Synechococcus sp. WH 8102
+PROKKA_MOD_PART0_00018	k99_1000059	Bacteria	Cyanobacteria		Chroococcales		Synechococcus	
+PROKKA_MOD_PART0_00019	k99_1000059	Bacteria	Proteobacteria	Alphaproteobacteria	Rhodobacterales	Rhodobacteraceae	Octadecabacter	Octadecabacter antarcticus
+PROKKA_MOD_PART0_00020	k99_1000080	Bacteria	Actinobacteria <phylum>	Actinobacteria	Actinomycetales	Streptosporangiaceae	Streptosporangium	Streptosporangium roseum
+PROKKA_MOD_PART0_00021	k99_1000080	Bacteria	Proteobacteria	Betaproteobacteria	Burkholderiales	Comamonadaceae	Variovorax	Variovorax sp. URHB0020
+PROKKA_MOD_PART0_00022	k99_1000081	Bacteria	Verrucomicrobia	Spartobacteria			Chthoniobacter	Chthoniobacter flavus
+PROKKA_MOD_PART0_00023	k99_1000084	Eukaryota	Streptophyta					
+PROKKA_MOD_PART0_00024	k99_1000084	Eukaryota			Choanoflagellida	Salpingoecidae	Salpingoeca	Salpingoeca rosetta
+PROKKA_MOD_PART0_00025	k99_1000084	Bacteria	Actinobacteria <phylum>	Actinobacteria	Acidimicrobiales	Acidimicrobiaceae	Ilumatobacter	
+PROKKA_MOD_PART0_00026	k99_1000084	Bacteria	Tenericutes	Mollicutes				
+PROKKA_MOD_PART0_00027	k99_1000084	Bacteria	Bacteroidetes	Cytophagia	Cytophagales	Cytophagaceae	Spirosoma	Spirosoma luteum
+PROKKA_MOD_PART0_00028	k99_1000084	Bacteria	Bacteroidetes	Bacteroidia	Bacteroidales	Prolixibacteraceae	Prolixibacter	Prolixibacter bellariivorans
+PROKKA_MOD_PART0_00029	k99_1000084	Bacteria	Proteobacteria	Alphaproteobacteria	Rhodobacterales	Rhodobacteraceae	Octadecabacter	
+PROKKA_MOD_PART0_00030	k99_1000090	Bacteria	Proteobacteria	Alphaproteobacteria	Sphingomonadales	Erythrobacteraceae	Erythrobacter	Erythrobacter litoralis
+PROKKA_MOD_PART0_00031	k99_1000090	Eukaryota			Isochrysidales	Noelaerhabdaceae	Emiliania	Emiliania huxleyi
+PROKKA_MOD_PART0_00032	k99_1000090	Eukaryota	Cryptomycota				Rozella	Rozella allomycis
+PROKKA_MOD_PART0_00033	k99_100010	Bacteria	Verrucomicrobia	Verrucomicrobiae	Verrucomicrobiales			Verrucomicrobiae bacterium DG1235
+PROKKA_MOD_PART0_00034	k99_100010	Bacteria	Actinobacteria <phylum>	Actinobacteria	Actinomycetales	Nocardioidaceae	Nocardioides	
+PROKKA_MOD_PART0_00035	k99_1000124	Bacteria	Proteobacteria	Deltaproteobacteria				SAR324 cluster bacterium SCGC AAA240-J09
+PROKKA_MOD_PART0_00036	k99_1000124	Bacteria	Proteobacteria	Alphaproteobacteria	SAR11 cluster		Candidatus Pelagibacter	Candidatus Pelagibacter sp. IMCC9063
+PROKKA_MOD_PART0_00037	k99_100014	Bacteria	Cyanobacteria		Chroococcales		Synechococcus	Synechococcus sp. RS9917
+PROKKA_MOD_PART0_00038	k99_1000142	Bacteria	Actinobacteria <phylum>	Actinobacteria	Actinomycetales	Gordoniaceae	Gordonia	
+PROKKA_MOD_PART0_00039	k99_1000142	Bacteria	Proteobacteria	Alphaproteobacteria				
+PROKKA_MOD_PART0_00040	k99_1000148	Bacteria	Bacteroidetes	Flavobacteriia	Flavobacteriales	Flavobacteriaceae	Winogradskyella	Winogradskyella psychrotolerans
+PROKKA_MOD_PART0_00041	k99_1000148	Bacteria	Proteobacteria	Alphaproteobacteria				alpha proteobacterium BAL199
+PROKKA_MOD_PART0_00042	k99_1000151	Bacteria	Proteobacteria	Deltaproteobacteria	Desulfuromonadales	Geobacteraceae	Geopsychrobacter	Geopsychrobacter electrodiphilus
+PROKKA_MOD_PART0_00043	k99_1000151	Archaea						
+PROKKA_MOD_PART0_00044	k99_1000151	Bacteria	Proteobacteria	Betaproteobacteria			Candidatus Accumulibacter	
+PROKKA_MOD_PART0_00045	k99_1000151	Eukaryota	Cnidaria	Anthozoa	Actiniaria	Edwardsiidae	Nematostella	Nematostella vectensis
+PROKKA_MOD_PART0_00046	k99_1000151	Bacteria	Planctomycetes	Planctomycetia	Planctomycetales	Planctomycetaceae	Planctomyces	
+PROKKA_MOD_PART0_00047	k99_1000151	Bacteria	Proteobacteria	Betaproteobacteria	Burkholderiales	Sutterellaceae	Sutterella	Sutterella wadsworthensis
+PROKKA_MOD_PART0_00048	k99_100016	Bacteria	Firmicutes	Bacilli	Bacillales	Paenibacillaceae	Cohnella	Cohnella thermotolerans
+PROKKA_MOD_PART0_00049	k99_100016	Bacteria	Proteobacteria	Betaproteobacteria				
+PROKKA_MOD_PART0_00050	k99_1000197	Bacteria	Gemmatimonadetes	Gemmatimonadetes <class>				
+PROKKA_MOD_PART0_00051	k99_1000197	Bacteria	Proteobacteria	Gammaproteobacteria	Alteromonadales	Alteromonadaceae	Microbulbifer	Microbulbifer variabilis
+PROKKA_MOD_PART0_00052	k99_1000203	Bacteria	Proteobacteria	Gammaproteobacteria	Pseudomonadales	Moraxellaceae	Psychrobacter	
+PROKKA_MOD_PART0_00053	k99_1000203	Bacteria	Bacteroidetes	Bacteroidia	Bacteroidales			
+PROKKA_MOD_PART0_00054	k99_1000203	Bacteria	Planctomycetes	Planctomycetia	Planctomycetales	Planctomycetaceae	Planctomyces	Planctomyces limnophilus
+PROKKA_MOD_PART0_00055	k99_1000203	Viruses			Caudovirales	Podoviridae		Pelagibacter phage HTVC019P
+PROKKA_MOD_PART0_00056	k99_1000203	Bacteria	Firmicutes	Clostridia	Clostridiales	Peptostreptococcaceae		Peptostreptococcaceae bacterium VA2
+PROKKA_MOD_PART0_00057	k99_1000203	Bacteria	Proteobacteria	Alphaproteobacteria	SAR11 cluster			alpha proteobacterium HIMB59
+PROKKA_MOD_PART0_00058	k99_1000203	Bacteria	Cyanobacteria		Chroococcales			
+PROKKA_MOD_PART0_00059	k99_1000203	Eukaryota	Chlorophyta	Mamiellophyceae	Mamiellales	Mamiellaceae	Micromonas	Micromonas sp. RCC299
+PROKKA_MOD_PART0_00060	k99_1000203	Bacteria	Proteobacteria	Epsilonproteobacteria				
+PROKKA_MOD_PART0_00061	k99_1000212	Bacteria	Bacteroidetes	Bacteroidia	Bacteroidales	Marinilabiliaceae	Anaerophaga	Anaerophaga thermohalophila
+PROKKA_MOD_PART0_00062	k99_1000212	Bacteria	Proteobacteria	Alphaproteobacteria	Rhodospirillales	Acetobacteraceae		
+PROKKA_MOD_PART0_00063	k99_1000212	Bacteria	Bacteroidetes	Flavobacteriia	Flavobacteriales	Flavobacteriaceae	Flavobacterium	Flavobacterium filum
+PROKKA_MOD_PART0_00064	k99_1000212	Archaea	Thaumarchaeota					uncultured marine thaumarchaeote KM3_84_A09
+PROKKA_MOD_PART0_00065	k99_1000212	Bacteria	Proteobacteria	Betaproteobacteria	Burkholderiales		Rubrivivax	Rubrivivax gelatinosus
+PROKKA_MOD_PART0_00066	k99_1000224	Bacteria	Bacteroidetes	Cytophagia	Cytophagales	Cytophagaceae	Cytophaga	Cytophaga aurantiaca
+PROKKA_MOD_PART0_00067	k99_1000226	Eukaryota	Chlorophyta	Trebouxiophyceae		Coccomyxaceae	Coccomyxa	Coccomyxa subellipsoidea
+PROKKA_MOD_PART0_00068	k99_1000226	Bacteria	Nitrospinae	Nitrospinia	Nitrospinales	Nitrospinaceae	Nitrospina	Nitrospina gracilis
+PROKKA_MOD_PART0_00069	k99_1000226	Viruses			Caudovirales	Myoviridae		uncultured Myoviridae
+PROKKA_MOD_PART0_00070	k99_1000226	Eukaryota	Streptophyta		Malvales	Malvaceae	Theobroma	Theobroma cacao
+PROKKA_MOD_PART0_00071	k99_1000296	Bacteria						uncultured bacterium W4-39b
+PROKKA_MOD_PART0_00072	k99_1000296	Eukaryota		Spirotrichea	Sporadotrichida	Oxytrichidae	Oxytricha	Oxytricha trifallax
+PROKKA_MOD_PART0_00073	k99_1000296	Bacteria	Bacteroidetes	Flavobacteriia	Flavobacteriales			
+PROKKA_MOD_PART0_00074	k99_1000296	Bacteria	Actinobacteria <phylum>	Actinobacteria	Acidimicrobiales	Acidimicrobiaceae	Ilumatobacter	Ilumatobacter coccineus
+PROKKA_MOD_PART0_00075	k99_1000344	Bacteria	Cyanobacteria					
+PROKKA_MOD_PART0_00076	k99_1000344	Bacteria	Proteobacteria	Alphaproteobacteria	Rhodobacterales	Rhodobacteraceae		
+PROKKA_MOD_PART0_00077	k99_1000367	Bacteria	Actinobacteria <phylum>	Actinobacteria	Actinomycetales	Streptomycetaceae	Streptomyces	
+PROKKA_MOD_PART0_00078	k99_1000367	Bacteria	Proteobacteria	Betaproteobacteria	Burkholderiales	Burkholderiaceae	Pandoraea	
+PROKKA_MOD_PART0_00079	k99_1000382	Eukaryota		Spirotrichea	Sporadotrichida	Oxytrichidae		
+PROKKA_MOD_PART0_00080	k99_1000382	Bacteria						
+PROKKA_MOD_PART0_00081	k99_1000383	Eukaryota	Chlorophyta	Trebouxiophyceae	Chlorellales	Chlorellaceae	Marvania	Marvania geminata
+PROKKA_MOD_PART0_00082	k99_1000401	Bacteria	Proteobacteria	Alphaproteobacteria			Geminicoccus	Geminicoccus roseus
+PROKKA_MOD_PART0_00083	k99_1000401	Bacteria	Bacteroidetes	Cytophagia	Cytophagales			
+PROKKA_MOD_PART0_00084	k99_1000401	Bacteria	Proteobacteria	Deltaproteobacteria	Myxococcales			
+PROKKA_MOD_PART0_00085	k99_1000401	Eukaryota		Oomycetes	Saprolegniales	Saprolegniaceae		
+PROKKA_MOD_PART0_00086	k99_1000401	Eukaryota	Chlorophyta					
+PROKKA_MOD_PART0_00087	k99_1000401	Bacteria	Proteobacteria	Betaproteobacteria	Rhodocyclales	Rhodocyclaceae	Sulfuritalea	Sulfuritalea hydrogenivorans
+PROKKA_MOD_PART0_00088	k99_1000412	Bacteria	Proteobacteria	Alphaproteobacteria	Rhodobacterales	Rhodobacteraceae		Rhodobacteraceae bacterium HTCC2150
+PROKKA_MOD_PART0_00089	k99_1000412	Bacteria	Proteobacteria	Gammaproteobacteria	Vibrionales	Vibrionaceae		
+PROKKA_MOD_PART0_00090	k99_1000412	Bacteria	Proteobacteria	Gammaproteobacteria			Luminiphilus	Luminiphilus syltensis
+PROKKA_MOD_PART0_00091	k99_1000412	Eukaryota	Chordata	Actinopteri	Cichliformes	Cichlidae	Oreochromis	Oreochromis niloticus
+PROKKA_MOD_PART0_00092	k99_1000412	Bacteria	Proteobacteria	Deltaproteobacteria	Bdellovibrionales	Bacteriovoracaceae	Bacteriovorax	
+PROKKA_MOD_PART0_00093	k99_1000412	Bacteria	Proteobacteria	Alphaproteobacteria	Rhizobiales	Bradyrhizobiaceae	Bradyrhizobium	Bradyrhizobium sp. CCBAU 15544
+PROKKA_MOD_PART0_00094	k99_1000417	Bacteria	Actinobacteria <phylum>	Actinobacteria	Actinomycetales	Nocardiopsaceae	Nocardiopsis	Nocardiopsis potens
+PROKKA_MOD_PART0_00095	k99_1000442	Bacteria	Proteobacteria	Deltaproteobacteria	Myxococcales	Anaeromyxobacteraceae	Anaeromyxobacter	
+PROKKA_MOD_PART0_00096	k99_1000442	Bacteria	Bacteroidetes	Flavobacteriia	Flavobacteriales	Cryomorphaceae		
+PROKKA_MOD_PART0_00097	k99_1000455	Bacteria	Bacteroidetes	Flavobacteriia				Flavobacteria bacterium MS024-2A
+PROKKA_MOD_PART0_00098	k99_1000455	Bacteria	Proteobacteria	Betaproteobacteria				Betaproteobacteria bacterium MOLA814
+PROKKA_MOD_PART0_00099	k99_1000473	Bacteria	Bacteroidetes	Sphingobacteriia	Sphingobacteriales	Saprospiraceae	Lewinella	Lewinella cohaerens
