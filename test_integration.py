@@ -303,4 +303,3 @@ class SampleTestCase(unittest.TestCase):
             rpkm_tbody = self.driver.find_elements(by=By.CLASS_NAME, value='rpkm_values_tbody')[0]
             assert len(rpkm_tbody.find_elements(by=By.TAG_NAME, value= 'tr')) == result # showing all allowed by the row limit
 
-

@@ -2,7 +2,7 @@ import unittest
 import app
 from models import Sample, SampleSet, TimePlace, SampleProperty, ReferenceAssembly, Gene, \
     GeneCount, AnnotationSource, Annotation, GeneAnnotation, Cog, Pfam, TigrFam, EcNumber, \
-    RpkmTable, Taxon
+    RpkmTable, Taxon, TaxonRpkmTable
 import sqlalchemy
 
 import itertools
@@ -232,16 +232,19 @@ class SampleTestCase(unittest.TestCase):
         assert taxon1.phylum == 'Proteobacteria'
         assert taxon1.taxclass == ''
         assert taxon1.full_taxonomy == 'Bacteria;Proteobacteria;;;;;;'
+        refresh_all_mat_views()
 
         # Test sample count retreival
         sample2 = Sample("P1993_102", None, None)
         self.session.add(sample2)
         self.session.commit()
+        refresh_all_mat_views()
         assert taxon1.rpkm == {sample1: 0.001}
 
         gene_count2 = GeneCount(gene1, sample2, 0.2)
         self.session.add(gene_count2)
         self.session.commit()
+        refresh_all_mat_views()
         assert taxon1.rpkm == {sample1: 0.001, sample2: 0.2}
 
         gene2 = Gene("gene2", ref_assembly)
@@ -250,6 +253,7 @@ class SampleTestCase(unittest.TestCase):
         self.session.add(gene2)
         self.session.add(gene_count3)
         self.session.commit()
+        refresh_all_mat_views()
 
         # taxon1.rpkm should still be the same since the new gene is not connected to taxon1
         assert taxon1.rpkm == {sample1: 0.001, sample2: 0.2}
@@ -259,6 +263,7 @@ class SampleTestCase(unittest.TestCase):
         self.session.add(taxon2)
         self.session.add(gene2)
         self.session.commit()
+        refresh_all_mat_views()
 
         # Taxon2 should have gene_count3 stats only
         assert taxon2.rpkm == {sample2: 0.1}
@@ -283,6 +288,7 @@ class SampleTestCase(unittest.TestCase):
         self.session.add(gene4)
         self.session.add(gene_count5)
         self.session.commit()
+        refresh_all_mat_views()
 
         # theoretical rpkm_table:
         # samples = [sample1, sample2]
@@ -316,6 +322,7 @@ class SampleTestCase(unittest.TestCase):
 
         self.session.add_all(taxons)
         self.session.commit()
+        refresh_all_mat_views()
 
         for i,taxon in enumerate(taxons):
             count_mode = i % 3
@@ -337,6 +344,8 @@ class SampleTestCase(unittest.TestCase):
             self.session.add(gene2)
 
         self.session.commit()
+        refresh_all_mat_views()
+
         samples, rows, complete_val_to_val = Taxon.rpkm_table()
         assert len(samples) == 2
         assert len(rows) == 2 # Number of unique superkingdoms

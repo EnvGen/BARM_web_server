@@ -4,6 +4,7 @@ from sqlalchemy import not_
 from materialized_view_factory import MaterializedView, create_mat_view
 import collections
 import re
+
 ##########
 # Sample #
 ##########
@@ -13,6 +14,7 @@ class SampleSet(db.Model):
 
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String())
+
 
 
     def __init__(self, name):
@@ -57,6 +59,10 @@ class Sample(db.Model):
     rpkm_table_rows = db.relationship('RpkmTable', backref='sample',
                                 primaryjoin='Sample.id==RpkmTable.sample_id',
                                 foreign_keys='RpkmTable.sample_id')
+
+    taxon_rpkm_table_rows = db.relationship('TaxonRpkmTable', backref='sample',
+                                primaryjoin='Sample.id==TaxonRpkmTable.sample_id',
+                                foreign_keys='TaxonRpkmTable.sample_id')
 
     def __init__(self, scilifelab_code, sample_set, timeplace):
         self.scilifelab_code = scilifelab_code
@@ -143,7 +149,7 @@ class Gene(db.Model):
             db.ForeignKey('reference_assembly.id'))
     reference_assembly = db.relationship("ReferenceAssembly",
             backref=db.backref("genes"))
-    taxon_id = db.Column(db.Integer, db.ForeignKey('taxon.id'))
+    taxon_id = db.Column(db.Integer, db.ForeignKey('taxon.id'), index=True)
     taxon = db.relationship("Taxon",
             backref=db.backref("genes"))
     gene_annotations = db.relationship("GeneAnnotation")
@@ -180,12 +186,12 @@ class GeneCount(db.Model):
         )
     id = db.Column(db.Integer, primary_key=True)
     sample_id = db.Column(db.Integer, db.ForeignKey('sample.id'),
-            nullable=False)
+            nullable=False, index=True)
     sample = db.relationship('Sample',
             backref=db.backref('gene_counts'))
 
     gene_id = db.Column(db.Integer, db.ForeignKey('gene.id'),
-            nullable=False)
+            nullable=False, index=True)
     gene = db.relationship('Gene',
             backref=db.backref('sample_counts'))
 
@@ -198,16 +204,21 @@ class GeneCount(db.Model):
 
 class Taxon(db.Model):
     __tablename__ = 'taxon'
-    id = db.Column(db.Integer, primary_key=True)
+    id = db.Column(db.Integer, primary_key=True, index=True)
 
-    up_to_superkingdom = db.Column(db.String)
-    up_to_phylum = db.Column(db.String)
-    up_to_taxclass = db.Column(db.String)
-    up_to_order = db.Column(db.String)
-    up_to_family = db.Column(db.String)
-    up_to_genus = db.Column(db.String)
-    up_to_species = db.Column(db.String)
-    full_taxonomy = db.Column(db.String)
+    up_to_superkingdom = db.Column(db.String, index=True)
+    up_to_phylum = db.Column(db.String, index=True)
+    up_to_taxclass = db.Column(db.String, index=True)
+    up_to_order = db.Column(db.String, index=True)
+    up_to_family = db.Column(db.String, index=True)
+    up_to_genus = db.Column(db.String, index=True)
+    up_to_species = db.Column(db.String, index=True)
+    full_taxonomy = db.Column(db.String, index=True)
+
+    rpkm_table_rows = db.relationship('TaxonRpkmTable', backref='taxon',
+                                primaryjoin='Taxon.id==TaxonRpkmTable.taxon_id',
+                                foreign_keys='TaxonRpkmTable.taxon_id')
+
     level_order = ['superkingdom', 'phylum', 'taxclass', 'order', 'family', 'genus', 'species']
 
     def __init__(self, superkingdom = None, phylum=None, taxclass=None, order=None, family=None, genus=None, species=None):
@@ -287,9 +298,10 @@ class Taxon(db.Model):
     @classmethod
     def rpkm_table(self, level="superkingdom", top_level_complete_values=None, top_level=None, samples=None, limit=20):
         filter_level = "up_to_" + level
-        q_first = db.session.query(getattr(Taxon, filter_level), sqlalchemy.func.sum(GeneCount.rpkm)).\
-            join(Gene).join(GeneCount).\
-            order_by(sqlalchemy.func.sum(GeneCount.rpkm).desc())
+        q_first = db.session.query(getattr(Taxon, filter_level), sqlalchemy.func.sum(TaxonRpkmTable.rpkm)).\
+                filter(TaxonRpkmTable.taxon_id == Taxon.id).\
+                group_by(getattr(Taxon, filter_level)).\
+                order_by(sqlalchemy.func.sum(TaxonRpkmTable.rpkm).desc())
 
         if top_level is not None:
             filter_top_level = "up_to_" + top_level
@@ -297,8 +309,7 @@ class Taxon(db.Model):
 
         if samples is not None:
             q_first = q_first.\
-                        join(Sample).\
-                        filter(Sample.scilifelab_code.in_(samples))
+                        filter(TaxonRpkmTable.sample_scilifelab_code.in_(samples))
 
         # We want to filter away taxons only classified
         # more than one level up
@@ -314,9 +325,14 @@ class Taxon(db.Model):
         for level_val, count in taxon_counts:
             taxon_level_vals.append(level_val)
 
-        q = db.session.query(Sample, getattr(Taxon, filter_level), sqlalchemy.func.sum(GeneCount.rpkm)).\
-                join(GeneCount).join(Gene).join(Taxon).\
-                filter(getattr(Taxon, filter_level).in_(taxon_level_vals))
+        wanted_taxa = db.session.query(Taxon.id).filter(getattr(Taxon, filter_level).in_(taxon_level_vals))
+
+        q = db.session.query(Sample, getattr(Taxon, filter_level), sqlalchemy.func.sum(TaxonRpkmTable.rpkm)).\
+                group_by(Sample).\
+                filter(TaxonRpkmTable.taxon_id == Taxon.id).\
+                filter(TaxonRpkmTable.sample_id == Sample.id).\
+                filter(TaxonRpkmTable.taxon_id.in_(wanted_taxa)).\
+                group_by(getattr(Taxon, filter_level))
 
         if samples is None:
             samples = Sample.query.all()
@@ -324,9 +340,7 @@ class Taxon(db.Model):
             q = q.filter(Sample.scilifelab_code.in_(samples))
             samples = Sample.query.filter(Sample.scilifelab_code.in_(samples)).all()
 
-
-        q = q.group_by(getattr(Taxon, filter_level)).\
-                group_by(Sample.id).order_by(sqlalchemy.func.sum(GeneCount.rpkm))
+        q = q.order_by(sqlalchemy.func.sum(TaxonRpkmTable.rpkm))
 
         unsorted_rows = {}
         for sample, level_val, rpkm in q.all():
@@ -363,6 +377,17 @@ class Taxon(db.Model):
                 group_by(Sample.id)
 
         return { sample: rpkm_sum for sample, rpkm_sum in q.all() }
+
+class TaxonRpkmTable(MaterializedView):
+    # A materialized view that improve the performance
+
+    creation_query = db.select([Taxon.id.label('taxon_id'), Sample.id.label('sample_id'), Sample.scilifelab_code.label('sample_scilifelab_code'), sqlalchemy.func.sum(GeneCount.rpkm).label('rpkm')]).\
+                    select_from(db.join(Sample, GeneCount).join(Gene).join(Taxon)).\
+                    group_by(Taxon.id, Sample.id)
+
+    __table__ = create_mat_view("taxon_rpkm_table", creation_query)
+
+db.Index('taxon_rpkm_table_mv_id_idx', TaxonRpkmTable.taxon_id, TaxonRpkmTable.sample_id, unique=True)
 
 class AnnotationSource(db.Model):
     __tablename__ = 'annotation_source'
