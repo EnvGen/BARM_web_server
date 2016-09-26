@@ -49,7 +49,11 @@ def taxon_table():
     else:
         limit = row_limit
 
-    samples, table, complete_val_to_val = Taxon.rpkm_table(level=taxon_level, top_level_complete_values=parent_values, top_level=parent_level, limit=limit)
+    ### Manual limit to only lmo ###
+    sample_set = SampleSet.query.filter(SampleSet.name == 'lmo')[0]
+    samples = [s.scilifelab_code for s in sample_set.samples]
+
+    samples, table, complete_val_to_val = Taxon.rpkm_table(level=taxon_level, top_level_complete_values=parent_values, top_level=parent_level, samples=samples, limit=limit)
 
     return render_template('taxon_table.html',
             table=table,
