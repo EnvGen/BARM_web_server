@@ -65,7 +65,7 @@ def taxon_table():
         )
 
 @app.route('/functional_table', methods=['GET', 'POST'])
-def index():
+def functional_table():
     form = FunctionClassFilterForm()
     form.function_class.choices = [('cog', 'Cog'),
                     ('pfam', 'Pfam'),
@@ -134,7 +134,7 @@ def index():
             r.headers["Content-Disposition"] = "attachment; filename=gene_list.csv"
             r.headers["Content-Type"] = "text/csv"
             return r
-    return render_template('index.html',
+    return render_template('functional_table.html',
             table=table,
             samples=samples,
             form=form
