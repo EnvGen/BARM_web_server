@@ -11,6 +11,10 @@ db = SQLAlchemy(app)
 
 from models import Sample, SampleSet, TimePlace, SampleProperty, Annotation, Taxon
 
+@app.route('/')
+def index():
+    return render_template('index.html')
+
 @app.route('/ajax/taxon_tree_nodes/<string:parent_level>/<string:parent_value>')
 def taxon_tree_nodes(parent_level, parent_value):
     child_level, child_values = Taxon.tree_nodes(parent_level, parent_value)

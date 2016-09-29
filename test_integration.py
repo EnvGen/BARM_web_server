@@ -73,6 +73,23 @@ class SampleTestCase(unittest.TestCase):
         self.action_chains.move_by_offset(5000, 5000)
         self.action_chains.perform()
 
+    def test_front_page(self):
+        url = "http://localhost:5000/"
+        self.driver.get(url)
+        assert self.driver.current_url == url
+
+        assert self.is_text_present("Functional")
+        self.driver.find_element(by=By.ID, value='link_to_functional').click()
+        assert self.driver.current_url == url + 'functional_table'
+
+
+        self.driver.get(url)
+        assert self.driver.current_url == url
+
+        assert self.is_text_present("Taxonomy")
+        self.driver.find_element(by=By.ID, value='link_to_taxonomic').click()
+        assert self.driver.current_url == url + 'taxonomy_table'
+
     def test_filtering_search(self):
         url = "http://localhost:5000/functional_table"
         self.driver.get(url)

@@ -18,9 +18,29 @@
       </div>
     </div>
   </nav>
-    <div class="main-content">
-      {% block body %}
-      {% endblock body %}
-    </div>
+  <div class="main-content">
+    {% block body %}
+    {% endblock body %}
+  </div>
+
+  <div class="container">
+  <hr>
+
+  <footer>
+    <p>
+      <div class="row">
+        <div class="col-md-8">
+          <p>&copy; 2016 Johannes Alneberg, Anders F. Andersson and the <a href="http://blueprint-project.org/">BLUEPRINT Project</a>
+        </div>
+        <div class="col-md-4">
+          <img src="{{ url_for('static', filename='images/eu.png') }}" class="rectangle">
+          <img src="{{ url_for('static', filename='images/bonus.png') }}" class="rectangle">
+          <img src="{{ url_for('static', filename='images/kth.png') }}" class="square">
+          <img src="{{ url_for('static', filename='images/scilifelab.png') }}" class="rectangle">
+        </div>
+      </div>
+    </p>
+  </footer>
+  </div>
 </body>
 </html>
