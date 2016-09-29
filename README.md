@@ -35,3 +35,24 @@ Recreate all the tables:
 Populate the tables:
 
     time python populate_db.py --sample_info data/stage/samples.csv --all_annotations data/stage/all_annotations.tsv --annotation_source_info data/stage/annotation_source_info.csv --gene_annotations_cog data/stage/megahit_coassembly.0.COG.tsv --gene_annotations_pfam data/stage/megahit_coassembly.0.PFAM.tsv --gene_annotations_tigrfam data/stage/megahit_coassembly.0.TIGR.tsv --reference_assembly "megahit_coassembly.0" --gene_counts data/stage/rpkm_table.tsv --metadata_reference data/stage/metadata_reference.tsv --tmp_file /Users/johannesalneberg/repos/BARM_web_server/data/stage/tmp_file.csv
+
+
+Export database to the server:
+
+    pg_dump dbname >file.sql
+
+    scp file.sql username.login@barm.scilifelab.se:~/
+
+### On the actual server
+Loading in a new databse:
+
+    createdb -U db_user -O db_owner barm_web_prod -T template0
+    psql -U db_user -d barm_web_prod -f file.sql
+
+Start running the server manually:
+
+    cd BARM_web_server
+    source ../barm_web_dev_virtualenv/bin/activate
+    source local_variables.sh
+    python manage.py runserver
+
