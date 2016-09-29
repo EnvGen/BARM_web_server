@@ -64,7 +64,7 @@ def taxon_table():
             row_limit=row_limit
         )
 
-@app.route('/', methods=['GET', 'POST'])
+@app.route('/functional_table', methods=['GET', 'POST'])
 def index():
     form = FunctionClassFilterForm()
     form.function_class.choices = [('cog', 'Cog'),

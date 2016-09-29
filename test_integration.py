@@ -74,7 +74,7 @@ class SampleTestCase(unittest.TestCase):
         self.action_chains.perform()
 
     def test_filtering_search(self):
-        url = "http://localhost:5000/"
+        url = "http://localhost:5000/functional_table"
         self.driver.get(url)
 
         # Verify the accordion unfolding
@@ -103,7 +103,7 @@ class SampleTestCase(unittest.TestCase):
         assert len(rpkm_tbody.find_elements(by=By.TAG_NAME, value= 'tr')) == 6 # only showing the filtered rows
 
     def test_filtering_type_identifier(self):
-        url = "http://localhost:5000/"
+        url = "http://localhost:5000/functional_table"
         self.driver.get(url)
 
         self.driver.find_element(by=By.ID, value="filter_accordion").click()
@@ -133,7 +133,7 @@ class SampleTestCase(unittest.TestCase):
         assert len(rpkm_tbody.find_elements(by=By.TAG_NAME, value='tr')) == 2
 
     def test_annotation_information(self):
-        url = "http://localhost:5000/"
+        url = "http://localhost:5000/functional_table"
         self.driver.get(url)
 
         self.mouse_over(self.driver.find_elements(by=By.LINK_TEXT, value='COG0059')[0])
@@ -155,7 +155,7 @@ class SampleTestCase(unittest.TestCase):
 
 
     def test_show_sample_information(self):
-        url = "http://localhost:5000/"
+        url = "http://localhost:5000/functional_table"
         self.driver.get(url)
 
         assert not self.is_text_present("2014-06-08")
@@ -183,7 +183,7 @@ class SampleTestCase(unittest.TestCase):
         assert not self.is_text_present("16.3665")
 
     def test_filter_samples(self):
-        url = "http://localhost:5000/"
+        url = "http://localhost:5000/functional_table"
         self.driver.get(url)
 
         # This sample should disappear after filtering
@@ -220,7 +220,7 @@ class SampleTestCase(unittest.TestCase):
 
 
     def test_download_gene_list(self):
-        url = "http://localhost:5000/"
+        url = "http://localhost:5000/functional_table"
         self.driver.get(url)
 
         self.driver.find_element(by=By.ID, value="filter_accordion").click()
@@ -246,7 +246,7 @@ class SampleTestCase(unittest.TestCase):
 
     @unittest.skip("Not yet implemented")
     def test_download_annotation_counts(self):
-        url = "http://localhost:5000/"
+        url = "http://localhost:5000/functional_table"
         self.driver.get(url)
 
         self.driver.find_element(by=By.ID, value="filter_accordion").click()
