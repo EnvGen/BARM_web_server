@@ -1,3 +1,9 @@
+# Data directories
+data/real/*
+data/only_lmo/*
+data/*/tmp_file.csv
+data/bp_presentation/*
+
 # Vim temporary files
 *.swp
 
