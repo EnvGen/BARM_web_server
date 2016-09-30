@@ -11,6 +11,10 @@ db = SQLAlchemy(app)
 
 from models import Sample, SampleSet, TimePlace, SampleProperty, Annotation, Taxon
 
+@app.route('/highcharts')
+def highcharts():
+    return render_template('highcharts.html')
+
 @app.route('/')
 def index():
     return render_template('index.html')
