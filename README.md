@@ -49,10 +49,11 @@ Loading in a new databse:
     createdb -U db_user -O db_owner barm_web_prod -T template0
     psql -U db_user -d barm_web_prod -f file.sql
 
+Shutdown current process:
+
+    pkill -f runserver
+
 Start running the server manually:
 
-    cd BARM_web_server
-    source ../barm_web_dev_virtualenv/bin/activate
-    source local_variables.sh
-    python manage.py runserver
+    bash /home/<user>/starta_barm.sh  >>  /var/log/barm.log  2>&1 &
 
