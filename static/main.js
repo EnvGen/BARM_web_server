@@ -1,44 +1,4 @@
-<div id="container" style="width:100%; height:400px;"></div>
-<div id="result"></div>
-<table id="table-sparkline">
-    <thead>
-        <tr>
-            <th>State</th>
-            <th>Income</th>
-            <th>Income per quarter</th>
-            <th>Costs</th>
-            <th>Costs per quarter</th>
-            <th>Result</th>
-            <th>Result per quarter</th>
-        </tr>
-    </thead>
-    <tbody id="tbody-sparkline">
-        <tr>
-            <th>Alabama</th>
-            <td>254</td>
-            <td data-sparkline="71, 78, 39, 66 "/>
-            <td>296</td>
-            <td data-sparkline="68, 52, 80, 96 "/>
-            <td>-42</td>
-            <td data-sparkline="3, 26, -41, -30 ; column"/>
-        </tr>
-        <tr>
-            <th>Alaska</th>
-            <td>246</td>
-            <td data-sparkline="87, 44, 74, 41 "/>
-            <td>181</td>
-            <td data-sparkline="29, 54, 73, 25 "/>
-            <td>65</td>
-            <td data-sparkline="58, -10, 1, 16 ; column"/>
-        </tr>
-    </tbody>
-</table>
-
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.2/jquery.min.js"></script>
-<script src="{{ url_for('static', filename='third_party/js/highcharts.js') }}"></script>
-
-<script>
-$(function () {
+function generate_sparkline() {
     /**
      * Create a constructor for sparklines that takes some sensible defaults and merges in the individual
      * chart options. This function is also available from the jQuery plugin as $(element).highcharts('SparkLine').
@@ -53,8 +13,8 @@ $(function () {
                     borderWidth: 0,
                     type: 'area',
                     margin: [2, 0, 2, 0],
-                    width: 120,
-                    height: 20,
+                    width: 700,
+                    height: 80,
                     style: {
                         overflow: 'visible'
                     },
@@ -153,7 +113,8 @@ $(function () {
             stringdata,
             arr,
             data,
-            chart;
+            chart,
+            sample_name;
 
         for (i = 0; i < len; i += 1) {
             $td = $($tds[i]);
@@ -171,8 +132,11 @@ $(function () {
                     pointStart: 1
                 }],
                 tooltip: {
-                    headerFormat: '<span style="font-size: 10px">' + $td.parent().find('th').html() + ', Q{point.x}:</span><br/>',
-                    pointFormat: '<b>{point.y}.000</b> USD'
+                  formatter: function() {
+                    x_coordinate = parseInt(this.x) + 2;
+                    sample_name = $("thead tr th:eq(" + x_coordinate + ") a").html();
+                    return '<span style="font-size: 10px"><b> Sample: ' + sample_name + '<br/>' + this.y + '</b></span>';
+                  }
                 },
                 chart: chart
             });
@@ -194,31 +158,4 @@ $(function () {
     }
     doChunk();
 
-});
-  
-$(function () { 
-      var myChart = Highcharts.chart('container', {
-          chart: {
-              type: 'bar'
-          },
-          title: {
-              text: 'Fruit Consumption'
-          },
-          xAxis: {
-              categories: ['Apples', 'Bananas', 'Oranges']
-          },
-          yAxis: {
-              title: {
-                  text: 'Fruit eaten'
-              }
-          },
-          series: [{
-              name: 'Jane',
-              data: [1, 0, 4]
-          }, {
-              name: 'John',
-              data: [5, 7, 3]
-          }]
-      });
-  });
-</script>
+};
