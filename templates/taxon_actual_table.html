@@ -32,7 +32,9 @@
   {% endfor %}
   </tbody>
 </table>
-
+<script>
+$("thead tr td:eq(point.x)").html()
+</script>
 <div id="result"></div>
 <script>
 $(function () {
@@ -50,8 +52,8 @@ $(function () {
                     borderWidth: 0,
                     type: 'area',
                     margin: [2, 0, 2, 0],
-                    width: 400,
-                    height: 60,
+                    width: 700,
+                    height: 80,
                     style: {
                         overflow: 'visible'
                     },
@@ -150,7 +152,8 @@ $(function () {
             stringdata,
             arr,
             data,
-            chart;
+            chart,
+            sample_name;
 
         for (i = 0; i < len; i += 1) {
             $td = $($tds[i]);
@@ -168,8 +171,11 @@ $(function () {
                     pointStart: 1
                 }],
                 tooltip: {
-                    headerFormat: '<span style="font-size: 10px">' + $td.parent().find('th').html() + ', Q{point.x}:</span><br/>',
-                    pointFormat: '<b>{point.y}.000</b>'
+                  formatter: function() {
+                    x_coordinate = parseInt(this.x) + 2;
+                    sample_name = $("thead tr th:eq(" + x_coordinate + ") a").html();
+                    return '<span style="font-size: 10px"><b> Sample: ' + sample_name + '<br/>' + this.y + '</b></span>';
+                  }
                 },
                 chart: chart
             });
