@@ -17,6 +17,14 @@ body {
   vertical-align:middle;
 }
 
+#table_diagram_tabs {
+  margin-top: 15px;
+}
+
+#toggle_sample_description {
+  margin-top: 15px;
+}
+
 #expList ul, li {
   list-style: none;
 }
