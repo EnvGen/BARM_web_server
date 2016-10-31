@@ -3,6 +3,7 @@ from flask.ext.sqlalchemy import SQLAlchemy
 from forms import FunctionClassFilterForm, TaxonomyTableFilterForm
 import sqlalchemy
 
+import json
 import os
 
 app = Flask(__name__)
@@ -59,13 +60,14 @@ def taxon_table():
 
     ### Manual limit to only lmo ###
     sample_set = SampleSet.query.filter(SampleSet.name == 'lmo')[0]
-    samples = [s.scilifelab_code for s in sample_set.samples]
+    sample_scilifelab_codes = [s.scilifelab_code for s in sample_set.samples]
 
-    samples, table, complete_val_to_val = Taxon.rpkm_table(level=taxon_level, top_level_complete_values=parent_values, top_level=parent_level, samples=samples, limit=limit)
+    samples, table, complete_val_to_val = Taxon.rpkm_table(level=taxon_level, top_level_complete_values=parent_values, top_level=parent_level, samples=sample_scilifelab_codes, limit=limit)
 
     return render_template('taxon_table.html',
             table=table,
             samples=samples,
+            sample_scilifelab_codes = sample_scilifelab_codes,
             complete_val_to_val=complete_val_to_val,
             taxonomy_levels=taxonomy_levels,
             current_level=taxon_level,

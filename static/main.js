@@ -133,8 +133,8 @@ function generate_sparkline() {
                 }],
                 tooltip: {
                   formatter: function() {
-                    x_coordinate = parseInt(this.x) + 2;
-                    sample_name = $("thead tr th:eq(" + x_coordinate + ") a").html();
+                    x_coordinate = parseInt(this.x) -1;
+                    sample_name = $("#taxon_diagram").data('sample_names')[x_coordinate];
                     return '<span style="font-size: 10px"><b> Sample: ' + sample_name + '<br/>' + this.y + '</b></span>';
                   }
                 },

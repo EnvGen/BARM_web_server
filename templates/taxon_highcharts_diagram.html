@@ -1,15 +1,11 @@
-<div id="taxon_actual_table" class="container-fluid">
+<div id="taxon_diagram" class="container-fluid" data-sample_names='{{ sample_scilifelab_codes|tojson|safe }}'>
   <table class="table" id="taxonomy_table" current_taxon_level="{{current_level}}">
   <thead>
     <tr>
       <th> {{ current_level }} </th>
       <th class="full_taxonomy">Full Taxonomy</th>
-      {% for sample in samples %}
-      <th>
-        <a href="#" data-toggle="tooltip" data-title="{% include 'sample_info_tooltip.html' %}" data-html="true">{{sample.scilifelab_code}}</a>
-        <span class='sample_description_in_table'>{% include 'sample_info_tooltip.html' %}</span>
+      <th>Sparkline</th>
       </th>
-      {% endfor %}
     </tr>
   </thead>
   <tbody class='rpkm_values_tbody'>
@@ -22,10 +18,8 @@
           </label>
         </nobr>
       </td>
+      <td data-sparkline="{% for sample in samples %} {{sample_d[sample] | round(4)}}, {% endfor %}"></td>
       <td class="full_taxonomy">{{complete_taxon}}</td>
-      {% for sample in samples %}
-        <td class="rpkm_value">{{sample_d[sample] | round(4)}}</td>
-      {% endfor %}
     </tr>
   {% endfor %}
   </tbody>
