@@ -1,0 +1,26 @@
+<div id="sparkline_diagram" class="container-fluid" data-sample_names='{{ sample_scilifelab_codes|tojson|safe }}'>
+  <table class="table" id="function_classes_diagram_table" current_taxon_level="{{current_level}}">
+  <thead>
+    <tr>
+      <th>Type identifier</th>
+      <th class="hideable_annotation_description">Annotation Description</th>
+      <th>Sparkline</th>
+    </tr>
+  </thead>
+    <tbody class='rpkm_values_tbody'>
+    {% for annotation, sample_d in table.items() %}
+    <tr>
+      <td><a href="#" data-toggle="tooltip" title="{{annotation.description}}" data-placement="top">{{annotation.type_identifier}}</a>
+        </br> <nobr><a class="external_link_annotation" href="{{annotation.external_link}}" target="_blank">external link</a></nobr>
+      </td>
+      <td class="hideable_annotation_description">{{annotation.short_description}}</td>
+      <td data-sparkline="{% for sample in samples %} {{sample_d[sample] | round(4)}}, {% endfor %}"></td>
+    </tr>
+  {% endfor %}
+  </tbody>
+</table>
+<div id="result"></div>
+</div>
+<script>
+  generate_sparkline();
+</script>

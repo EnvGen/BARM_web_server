@@ -96,12 +96,29 @@
   </div>
 </div>
 
+<button class="btn btn-default" id="toggle_description_column" value='show'>Show Annotation Description</button>
 
+<ul class="nav nav-tabs" id="table_diagram_tabs">
+  <li role="presentation" class="active"><a href="#sparkline_tab" aria-controls="sparkline_tab" role="tab" data-toggle="tab">Diagram</a></li>
+  <li role="presentation"><a href="#table_tab" aria-controls="table_tab" role="tab">Table</a></li>
+</ul>
 
-{% include 'function_classes_table.html' %}
+<div class="tab-content">
+  <div role="tabpanel" class="tab-pane active" id="sparkline_tab">
+    {% include 'function_classes_diagram.html' %}
+  </div>
+  <div role="tabpanel" class="tab-pane" id="table_tab">
+    {% include 'function_classes_table.html' %}
+  </div>
+</div>
+
 
 <script type=text/javascript>
   $(document).ready(function () {
+      $('#table_diagram_tabs a').click(function (e) {
+          e.preventDefault()
+          $(this).tab('show')
+      });
       $('#AddAnotherTypeIdentifier').click(function () {
           clone_field_list('.form-group#type_identifiers li:last');
       });
@@ -154,13 +171,13 @@
   }
 
   function show_description_column(){
-    $('#function_classes_table thead .annotation_description').show();
-    $('#function_classes_table tbody .annotation_description').show();
+    $('thead .hideable_annotation_description').show();
+    $('tbody .hideable_annotation_description').show();
   }
 
   function hide_description_column(){
-    $('#function_classes_table thead .annotation_description').hide();
-    $('#function_classes_table tbody .annotation_description').hide();
+    $('thead .hideable_annotation_description').hide();
+    $('tbody .hideable_annotation_description').hide();
   }
 
   function show_sample_information(){

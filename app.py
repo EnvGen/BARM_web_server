@@ -132,6 +132,7 @@ def functional_table():
 
     samples, table = Annotation.rpkm_table(limit=limit, samples=samples, function_class=function_class, type_identifiers=type_identifiers)
     samples = sorted(samples, key=lambda x: x.scilifelab_code)
+    sample_scilifelab_codes = [sample.scilifelab_code for sample in samples]
     if download_action:
         if download_select == 'Gene List':
             # Fetch all contributing genes for all the annotations in the table
@@ -147,6 +148,7 @@ def functional_table():
     return render_template('functional_table.html',
             table=table,
             samples=samples,
+            sample_scilifelab_codes = sample_scilifelab_codes,
             form=form
         )
 

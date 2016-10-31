@@ -133,8 +133,8 @@ function generate_sparkline() {
                 }],
                 tooltip: {
                   formatter: function() {
-                    x_coordinate = parseInt(this.x) -1;
-                    sample_name = $("#taxon_diagram").data('sample_names')[x_coordinate];
+                    x_coordinate = parseInt(this.x) - 1;
+                    sample_name = $("#sparkline_diagram").data('sample_names')[x_coordinate];
                     return '<span style="font-size: 10px"><b> Sample: ' + sample_name + '<br/>' + this.y + '</b></span>';
                   }
                 },
@@ -148,11 +148,6 @@ function generate_sparkline() {
                 $tds.splice(0, i + 1);
                 setTimeout(doChunk, 0);
                 break;
-            }
-
-            // Print a feedback on the performance
-            if (n === fullLen) {
-                $('#result').html('Generated ' + fullLen + ' sparklines in ' + (new Date() - start) + ' ms');
             }
         }
     }
