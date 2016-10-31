@@ -61,7 +61,8 @@ function generate_sparkline() {
                     padding: 0,
                     positioner: function (w, h, point) {
                         return { x: point.plotX - w / 2, y: point.plotY - h };
-                    }
+                    },
+                    overflow: 'visible'
                 },
                 plotOptions: {
                     series: {

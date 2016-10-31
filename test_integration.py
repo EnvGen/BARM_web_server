@@ -174,6 +174,7 @@ class SampleTestCase(unittest.TestCase):
     def test_show_sample_information(self):
         url = "http://localhost:5000/functional_table"
         self.driver.get(url)
+        self.driver.find_elements(by=By.LINK_TEXT, value="Table")[0].click()
 
         assert not self.is_text_present("2014-06-08")
         assert not self.is_text_present("16.3665")
@@ -203,6 +204,8 @@ class SampleTestCase(unittest.TestCase):
         url = "http://localhost:5000/functional_table"
         self.driver.get(url)
 
+        self.driver.find_elements(by=By.LINK_TEXT, value="Table")[0].click()
+
         # This sample should disappear after filtering
         assert self.is_text_present("120813")
         assert self.is_text_present("P1994_119")
@@ -214,6 +217,7 @@ class SampleTestCase(unittest.TestCase):
         select_sample.select_by_visible_text("redox")
 
         self.driver.find_element(by=By.ID, value='submit_view').click()
+        self.driver.find_elements(by=By.LINK_TEXT, value="Table")[0].click()
         assert self.is_text_present("P2236_103")
         assert self.is_text_present("P2236_104")
         assert self.is_text_present("P2236_105")
@@ -229,6 +233,7 @@ class SampleTestCase(unittest.TestCase):
         select_sample.select_by_visible_text("lmo")
 
         self.driver.find_element(by=By.ID, value='submit_view').click()
+        self.driver.find_elements(by=By.LINK_TEXT, value="Table")[0].click()
         assert self.is_text_present("P2236_103")
         assert self.is_text_present("P2236_104")
         assert self.is_text_present("P2236_105")
@@ -299,6 +304,7 @@ class SampleTestCase(unittest.TestCase):
         row_limit_and_result = [("20", 20), ("50", 50), ("100", 72), ("Show All", 72)]
         for row_limit, result in row_limit_and_result:
             self.driver.get(url)
+            self.driver.find_elements(by=By.LINK_TEXT, value="Table")[0].click()
             self.driver.find_element(by=By.ID, value="toggle_select_all").click()
             time.sleep(0.1)
 
