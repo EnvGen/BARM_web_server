@@ -5,6 +5,7 @@ import sqlalchemy
 
 import json
 import os
+from collections import OrderedDict
 
 app = Flask(__name__)
 app.config.from_object(os.environ['APP_SETTINGS'])
@@ -63,10 +64,17 @@ def taxon_table():
     sample_scilifelab_codes = [s.scilifelab_code for s in sample_set.samples]
 
     samples, table, complete_val_to_val = Taxon.rpkm_table(level=taxon_level, top_level_complete_values=parent_values, top_level=parent_level, samples=sample_scilifelab_codes, limit=limit)
+    sorted_table = OrderedDict()
+    for complete_taxon, sample_d in table.items():
+        new_sample_data = []
+        for sample in samples:
+            new_sample_data.append(sample_d[sample])
+        sorted_table[complete_taxon] = new_sample_data
 
     return render_template('taxon_table.html',
             table=table,
             samples=samples,
+            sorted_table=sorted_table,
             sample_scilifelab_codes = sample_scilifelab_codes,
             complete_val_to_val=complete_val_to_val,
             taxonomy_levels=taxonomy_levels,

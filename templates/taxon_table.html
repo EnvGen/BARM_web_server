@@ -34,6 +34,7 @@
 <ul class="nav nav-tabs" id="table_diagram_tabs">
   <li role="presentation" class="active"><a href="#sparkline_tab" aria-controls="sparkline_tab" role="tab" data-toggle="tab">Diagram</a></li>
   <li role="presentation"><a href="#table_tab" aria-controls="table_tab" role="tab">Table</a></li>
+  <li role="presentation"><a href="#stacked_bar_tab" aria-controls="stacked_bar_tab" role="tab">Stacked Bar</a></li>
 </ul>
 
 <div class="tab-content">
@@ -42,6 +43,9 @@
   </div>
   <div role="tabpanel" class="tab-pane" id="table_tab">
     {% include 'taxon_actual_table.html' %}
+  </div>
+  <div role="tabpanel" class="tab-pane" id="stacked_bar_tab">
+    {% include 'taxon_highcharts_stacked_bar.html' %}
   </div>
 </div>
 
