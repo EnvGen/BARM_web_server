@@ -657,3 +657,8 @@ class EcNumber(Annotation):
     __mapper_args__ = {
             'polymorphic_identity': 'ecnumber'
         }
+
+    @property
+    def external_link(self):
+        return "http://enzyme.expasy.org/"
+
