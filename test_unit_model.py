@@ -615,12 +615,13 @@ class SampleTestCase(unittest.TestCase):
         annotation3 = TigrFam("TIGR00004")
         annotation4 = EggNOG("ENOG410ZWUW", [])
         annotation5 = EggNOG("COG0006", [eggnog_category_H, eggnog_category_G]) # Cogs are a subset of EggNOG
-
+        annotation6 = EcNumber("2.1.1.206")
         assert annotation.annotation_type == 'cog'
         assert annotation2.annotation_type == 'pfam'
         assert annotation3.annotation_type == 'tigrfam'
         assert annotation4.annotation_type == 'eggnog'
         assert annotation5.annotation_type == 'eggnog'
+        assert annotation6.annotation_type == 'ecnumber'
 
         gene = Gene("gene1", None)
         annotation_source1 = AnnotationSource("Cog", "v1.0", "rpsblast", "e_value=0.00001")
@@ -679,8 +680,8 @@ class SampleTestCase(unittest.TestCase):
         # A different annotation_type is either not sufficient to
         # have the same type_identifier twice
         with self.assertRaises(sqlalchemy.exc.IntegrityError):
-            annotation6 = Pfam("COG0001")
-            self.session.add(annotation6)
+            annotation7 = Pfam("COG0001")
+            self.session.add(annotation7)
             self.session.commit()
 
         self.session.rollback()
@@ -690,6 +691,7 @@ class SampleTestCase(unittest.TestCase):
         assert annotation2.external_link == "http://pfam.xfam.org/family/PF00002"
         assert annotation3.external_link == "http://www.jcvi.org/cgi-bin/tigrfams/HmmReportPage.cgi?acc=TIGR00004"
         assert annotation4.external_link == "http://eggnogdb.embl.de/#/app/home"
+        assert annotation6.external_link == "http://enzyme.expasy.org/"
 
     def test_annotation_rpkm(self):
         annotation1 = Annotation("COG0001")
