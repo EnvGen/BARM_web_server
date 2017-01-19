@@ -522,6 +522,7 @@ class Annotation(db.Model):
             return self.description
 
     __mapper_args__ = {
+
             'polymorphic_identity': 'annotation',
             'polymorphic_on': annotation_type
         }
@@ -541,6 +542,43 @@ class RpkmTable(MaterializedView):
 
 
 db.Index('rpkm_table_mv_id_idx', RpkmTable.annotation_id, RpkmTable.sample_id, unique=True)
+
+eggnog_to_category = db.Table('eggnog_to_category',
+    db.Column('eggnog_category_id', db.Integer, db.ForeignKey('eggnog_category.id')),
+    db.Column('eggnog_id', db.Integer, db.ForeignKey('eggnog.id'))
+)
+
+class EggNOGCategory(db.Model):
+    __tablename__ = 'eggnog_category'
+    __table_args__ = (
+        db.UniqueConstraint('category', name='eggnog_category_unique'),
+    )
+    id = db.Column(db.Integer, primary_key=True)
+
+    category = db.Column(db.String)
+    description = db.Column(db.String(4000))
+
+    def __init__(self, category, description):
+        self.category = category
+        self.description = description
+
+class EggNOG(Annotation):
+    __tablename__ = 'eggnog'
+    id = db.Column(db.Integer, db.ForeignKey("annotation.id"),
+            primary_key=True)
+    categories = db.relationship('EggNOGCategory', secondary=eggnog_to_category)
+
+    def __init__(self, type_identifier, categories, **kwargs):
+        super().__init__(type_identifier, **kwargs)
+        self.categories = categories
+
+    __mapper_args__ = {
+            'polymorphic_identity':'eggnog'
+        }
+
+    @property
+    def external_link(self):
+        return "http://eggnogdb.embl.de/#/app/home"
 
 class Cog(Annotation):
     __tablename__ = 'cog'
