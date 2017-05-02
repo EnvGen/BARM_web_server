@@ -41,7 +41,7 @@ def main(args):
     default_units['filter_lower'] = 'µm'
     default_units['filter_upper'] = 'µm'
     for sample_id, row in sample_info.iterrows():
-        samples_with_code = Sample.query.filter_by(scilifelab_code=sample_id).all()
+        samples_with_code = Sample.query.filter_by(scilifelab_code=str(sample_id)).all()
         assert len(samples_with_code) == 0
 
         meta_data = {}
@@ -61,19 +61,19 @@ def main(args):
         time_place = TimePlace(datetime.datetime.combine(date, time), meta_data['Latitude'], meta_data['Longitude'])
         time_places.append(time_place)
 
-        all_samples[sample_id] = Sample(sample_id, sample_sets[sample_id], time_place)
+        all_samples[str(sample_id)] = Sample(str(sample_id), sample_sets[sample_id], time_place)
 
         for meta_category in meta_categories:
             if meta_category in ['Latitude', 'Longitude', 'Collection date', 'Collection time']:
                 continue
             if meta_data[meta_category] is not None:
-                sample_properties.append(SampleProperty(meta_category, meta_data[meta_category], default_units[meta_category], all_samples[sample_id]))
+                sample_properties.append(SampleProperty(meta_category, meta_data[meta_category], default_units[meta_category], all_samples[str(sample_id)]))
 
     session.add_all(list(sample_sets.values()) + list(all_samples.values()) + time_places + sample_properties)
 
     logging.info("Creating the reference assembly")
     # create the reference assembly
-    ref_assemblies = ReferenceAssembly.query.filter_by(name=args.reference_assembly).all()
+    ref_assemblies = ReferenceAssembly.query.filter_by(name=str(args.reference_assembly)).all()
     if len(ref_assemblies) == 0:
         ref_assembly = ReferenceAssembly(args.reference_assembly)
     else:
@@ -88,7 +88,7 @@ def main(args):
     annotations = []
     if args.pfam_annotation_info:
         # Columns:Id,Name,Description
-        annotation_info = pd.read_table(args.pfam_annotation_info, header=True)
+        annotation_info = pd.read_table(args.pfam_annotation_info, index_col=0)
 
         for ix, row in annotation_info.iterrows():
             new_object = Pfam(type_identifier=ix, description=row['Description'])
@@ -113,11 +113,11 @@ def main(args):
     annotations = []
     if args.eggnog_annotation_info:
         # Id,Categories,Description
-        annotation_info = pd.read_table(args.eggnog_annotation_info, header=True)
+        annotation_info = pd.read_table(args.eggnog_annotation_info, index_col=0)
 
         for ix, row in annotation_info.iterrows():
             categories = [eggnog_categories[category] for category in row['Categories']]
-            new_object = EggNOG(type_identifier=ix, categories=categories, description=row['Description'])
+            new_object = EggNOG(type_identifier=str(ix), categories=categories, description=row['Description'])
             annotations.append(new_object)
 
         logging.info("Commiting all EggNOG annotation info")
@@ -134,46 +134,15 @@ def main(args):
                 return_list.append(number)
         return tuple(return_list)
 
-    ec_info = {}
-    if args.ec_annotation_info:
-        annotation_info = pd.read_table(args.base_ec_annotation_info, header=True, index_col=0)
-
-        for ix, row in annotation_info.iterrows():
-            first, second, third, fourth = parse_ec_number(fix)
-
-            prepend_string = ""
-
-            if second is None:
-                ec_info["{}.-.-.-".format(first)] = description
-                continue
-            else:
-                prepend_string += ec_info["{}.-.-.-".format(first)]
-
-            if third is None:
-                ec_info["{}.{}.-.-".format(first, second)] = prepend_string + ' ' + description
-                continue
-            else:
-                prepend_string += ' ' + ec_info["{}.{}.-.-".format(first, second)]
-
-            if fourth is None:
-                ec_info["{}.{}.{}.-".format(first, second, third)] = prepend_string + ' ' + description
-                continue
-            else:
-                prepend_string += ' ' + ec_info["{}.{}.{}.-".format(first, second, third)]
-
-            ec_info["{}.{}.{}.{}".format(first, second, third, fourth)] = prepend_string + ' ' + description
-
-
-
     annotations = []
     if args.ec_annotation_info:
         # Columns:Id,Name,Description
-        annotation_info = pd.read_table(args.ec_annotation_info, header=True, index_col=0)
+        annotation_info = pd.read_table(args.ec_annotation_info, index_col=0)
 
         for ix, row in annotation_info.iterrows():
-            first, second, third, fourth = parse_ec_number(ix)
-            description = ec_info[ix]
-            new_object = EcNumber(type_identifier=ix, first_digit=first, second_digit=second, third_digit=third, fourth_digit=fourth, description=description)
+            first, second, third, fourth = parse_ec_numbers(ix)
+            description = row.Description
+            new_object = EcNumber(type_identifier=str(ix), first_digit=first, second_digit=second, third_digit=third, fourth_digit=fourth, description=description)
             annotations.append(new_object)
 
         logging.info("Commiting all EC annotation info")
@@ -181,25 +150,12 @@ def main(args):
         session.commit()
 
     annotations = []
-    if args.cog_annotation_info:
-        # Columns:Id,Name,Description
-        annotation_info = pd.read_table(args.cog_annotation_info, header=True)
-
-        for ix, row in annotation_info.iterrows():
-            new_object = Cog(type_identifier=ix, description= row['Description'])
-            annotations.append(new_object)
-
-        logging.info("Commiting all Cog annotation info")
-        session.add_all(annotations)
-        session.commit()
-
-    annotations = []
     if args.tigrfam_annotation_info:
         # Columns:Id,Name,Description
-        annotation_info = pd.read_table(args.tigrfam_annotation_info, header=True)
+        annotation_info = pd.read_table(args.tigrfam_annotation_info)
 
         for ix, row in annotation_info.iterrows():
-            new_object = TigrFam(type_identifier=ix, description= row['Description'])
+            new_object = TigrFam(type_identifier=str(ix), description= row['Description'])
             annotations.append(new_object)
 
         logging.info("Commiting all TigrFam annotation info")
@@ -287,7 +243,7 @@ def main(args):
         annotated_genes["reference_assembly_id"] = ref_assembly.id
 
         with open(args.tmp_file, 'w') as gene_file:
-            annotated_genes[['name', 'reference_assembly_id', 'taxon_id']].to_csv(gene_file, index=False, header=False)
+            annotated_genes[['name', 'reference_assembly_id', 'taxon_id']].to_csv(gene_file, index=False, header=None)
         session.execute("COPY gene (name, reference_assembly_id, taxon_id) FROM '{}' WITH CSV;".format(args.tmp_file))
         commited_genes.update(dict( session.query(Gene.name, Gene.id).all() ))
         logging.info("{} genes present in database".format(len(commited_genes.keys())))
@@ -302,7 +258,7 @@ def main(args):
 
     def add_genes_with_annotation(annotation_type, gene_annotation_arg, commited_genes, all_annotations, annotation_source):
         logging.info("Adding genes with {} annotations".format(annotation_type))
-        gene_annotations = pd.read_table(gene_annotation_arg, header=None, names=["name", "type_identifier", "e_value"])
+        gene_annotations = pd.read_table(gene_annotation_arg, header=None, names=["name", "type_identifier", "e_value", "score"])
 
         # Only add genes once
         new_genes = gene_annotations[ ~ gene_annotations['name'].isin(commited_genes.keys()) ]
@@ -315,7 +271,7 @@ def main(args):
         logging.info("Commiting all {} genes.".format(annotation_type))
 
         with open(args.tmp_file, 'w') as gene_file:
-            new_genes_uniq[['name', 'reference_assembly_id']].to_csv(gene_file, index=False, header=False)
+            new_genes_uniq[['name', 'reference_assembly_id']].to_csv(gene_file, index=False, header=None)
         session.execute("COPY gene (name, reference_assembly_id) FROM '{}' WITH CSV;".format(args.tmp_file))
 
         commited_genes.update(dict( session.query(Gene.name, Gene.id).all() ))
@@ -329,7 +285,7 @@ def main(args):
 
         logging.info("Commiting all {} gene anntations".format(annotation_type))
         with open(args.tmp_file, 'w') as gene_file:
-            gene_annotations[['gene_id', 'annotation_id', 'annotation_source_id', 'e_value']].to_csv(gene_file, index=False, header=False)
+            gene_annotations[['gene_id', 'annotation_id', 'annotation_source_id', 'e_value']].to_csv(gene_file, index=False, header=None)
         session.execute("COPY gene_annotation (gene_id, annotation_id, annotation_source_id, e_value) FROM '{}' WITH CSV;".format(args.tmp_file))
         session.commit()
         return commited_genes
@@ -338,7 +294,7 @@ def main(args):
         commited_genes = add_genes_with_annotation("Cog", args.gene_annotations_cog, commited_genes, all_annotations, all_annotation_sources["Cog"])
     if args.gene_annotations_pfam:
         commited_genes = add_genes_with_annotation("Pfam", args.gene_annotations_pfam, commited_genes, all_annotations, all_annotation_sources["Pfam"])
-    if args.gene_annotations_tigr:
+    if args.gene_annotations_tigrfam:
         commited_genes = add_genes_with_annotation("TigrFam", args.gene_annotations_tigrfam, commited_genes, all_annotations, all_annotation_sources["TigrFam"])
     if args.gene_annotations_eggnog:
         commited_genes = add_genes_with_annotation("EggNOG", args.gene_annotations_eggnog, commited_genes, all_annotations, all_annotation_sources["EggNOG"])
@@ -359,19 +315,13 @@ def main(args):
     filtered_gene_counts['gene_name'] = filtered_gene_counts.index
     filtered_gene_counts['gene_id'] = filtered_gene_counts['gene_name'].apply(lambda x: commited_genes[x])
 
-    def add_gene_counts_to_file(col, filtered_gene_counts, sample_id):
-        tmp_cov_df = filtered_gene_counts[[col, 'gene_id']].copy()
-        tmp_cov_df['rpkm'] = tmp_cov_df[col]
-        tmp_cov_df['sample_id'] = sample_id
-        with open(args.tmp_file, 'w') as gene_counts_file:
-            tmp_cov_df[['gene_id', 'sample_id', 'rpkm']].to_csv(gene_counts_file, index=False, header=False)
-
     all_sample_ids = dict((sample_name, sample.id) for sample_name, sample in all_samples.items())
     filtered_gene_counts.rename(columns=all_sample_ids, inplace=True)
 
     sample_id_cols = filtered_gene_counts.columns.tolist()
     sample_id_cols.remove('gene_id')
     sample_id_cols.remove('gene_name')
+    sample_id_cols.remove('gene_length')
 
     filtered_gene_counts.index = filtered_gene_counts['gene_id']
     filtered_gene_counts = pd.DataFrame(filtered_gene_counts[sample_id_cols].stack())
@@ -384,9 +334,9 @@ def main(args):
     for i, sample_t in enumerate(filtered_gene_counts.groupby('sample_id')):
         sample, sample_df = sample_t
         with open(args.tmp_file, 'w') as gene_counts_file:
-            sample_df.to_csv(gene_counts_file, index=False, header=False)
+            sample_df.to_csv(gene_counts_file, index=False, header=None)
 
-        logging.info("Adding gene counts from file. Sample {}/{}".format(i+1, tot_nr_samples))
+        logging.info("Adding gene counts from file. Sample {} ({}/{})".format(sample, i+1, tot_nr_samples))
         session.execute("COPY gene_count (gene_id, sample_id, rpkm) FROM '{}' WITH CSV;".format(args.tmp_file))
 
     logging.info("{} out of {} are annotated genes".format(len(filtered_gene_counts), total_gene_count_len))
@@ -405,7 +355,7 @@ if __name__ == '__main__':
     parser.add_argument("--eggnog_category_info", help=("A tsv file with all the possible eggnog categories."))
     parser.add_argument("--pfam_annotation_info", help=("A tsv file with all the possible pfam annotations."))
     parser.add_argument("--dbcan_annotation_info", help=("A tsv file with all the possible dbCAN annotations."))
-    parser.add_argument("--cog_annotation_info", help=("A tsv file with all the possible cog annotations."))
+    parser.add_argument("--tigrfam_annotation_info", help=("A tsv file with all the possible tigrfam annotations."))
     parser.add_argument("--annotation_source_info", help="A csv file with all the annotation source info.")
     parser.add_argument("--gene_annotations_cog", help="A tsv file with all the gene annotations")
     parser.add_argument("--gene_annotations_pfam", help="A tsv file with all the pfam gene annotations")

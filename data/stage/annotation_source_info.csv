@@ -1,3 +1,5 @@
-Cog,default,rpsblast,e_value=1e-5
-Pfam,default,rpsblast,e_value=1e-5
+Pfam,30.0,rpsblast,e_value=1e-5
 TigrFam,default,rpsblast,e_value=1e-5
+EggNOG,4.5,hmmsearch,e_value=1e-4
+EC,default,via_EC,default
+dbCAN,5,hmmscan,hmmscan-parser.sh

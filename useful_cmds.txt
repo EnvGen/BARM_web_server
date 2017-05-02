@@ -1,6 +1,6 @@
 time python populate_db.py --sample_info data/stage/lmo/sample_info.csv \
     --pfam_annotation_info data/stage/annotation_info/all_pfam_annotation_info.tsv \
-    --eggnog_category_info data/stage/annotation_info/EggNOG_functional_categories.tsv \
+    --eggnog_category_info data/stage/annotation_info/eggnog_categories.tsv \
     --eggnog_annotation_info data/stage/annotation_info/all_EggNOG_annotation_info.tsv \
     --ec_annotation_info data/stage/annotation_info/all_EC_annotation_info.tsv \
     --dbcan_annotation_info data/stage/annotation_info/all_dbCAN_annotation_info.tsv \
