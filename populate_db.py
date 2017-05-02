@@ -83,23 +83,129 @@ def main(args):
     session.add(ref_assembly)
 
     logging.info("Adding annotation information")
-    # Make sure annotations are present
-    annotation_info = pd.read_table(args.all_annotations, header=None, names=["type_identifier", "gene_name", "description"])
-    annotation_models = {'COG': Cog, 'TIG': TigrFam, 'pfa': Pfam, 'PFA': Pfam}
-    annotation_polymorphic_id = {'COG': 'cog', 'TIG': 'tigrfam', 'pfa': 'pfam', 'PFA': 'pfam'}
 
     all_annotations = {}
-    annotation_info['annotation_type'] = annotation_info['type_identifier'].apply(lambda x: annotation_polymorphic_id[x[0:3]])
-    annotation_info['type_grouping'] = annotation_info['type_identifier'].apply(lambda x: x[0:3])
-    annotation_info['id'] = annotation_info.index
-    annotation_info['category'] = None
-    for type_grouping, annotation_info_subset in annotation_info.groupby('type_grouping'):
-        if type_grouping == 'COG':
-            logging.info("Commiting all COG annotation info")
-            session.bulk_insert_mappings(Cog, annotation_info_subset[['id', 'type_identifier', 'annotation_type', 'category', 'description']].to_dict(orient='index').values())
-        else:
-            logging.info("Commiting all {} annotation info".format(type_grouping))
-            session.bulk_insert_mappings(annotation_models[type_grouping], annotation_info_subset[['id', 'type_identifier', 'annotation_type', 'description']].to_dict(orient='index').values())
+    annotations = []
+    if args.pfam_annotation_info:
+        # Columns:Id,Name,Description
+        annotation_info = pd.read_table(args.pfam_annotation_info, header=True)
+
+        for ix, row in annotation_info.iterrows():
+            new_object = Pfam(type_identifier=ix, description=row['Description'])
+            annotations.append(new_object)
+
+        logging.info("Commiting all PFAM annotation info")
+        session.add_all(annotations)
+        session.commit()
+
+    categories = []
+    if args.eggnog_category_info:
+        categories_df = pd.read_table(args.eggnog_category_info, names=['category', 'description'])
+        for ix, row in categories_df.iterrows():
+            new_object = EggNOGCategory(row['category'], row['description'])
+            categories.append(new_object)
+        logging.info("Committing all EggNOG category info")
+        session.add_all(categories)
+        session.commit()
+
+    eggnog_categories = dict( (category.category, category) for category in session.query(EggNOGCategory).all() )
+
+    annotations = []
+    if args.eggnog_annotation_info:
+        # Id,Categories,Description
+        annotation_info = pd.read_table(args.eggnog_annotation_info, header=True)
+
+        for ix, row in annotation_info.iterrows():
+            categories = [eggnog_categories[category] for category in row['Categories']]
+            new_object = EggNOG(type_identifier=ix, categories=categories, description=row['Description'])
+            annotations.append(new_object)
+
+        logging.info("Commiting all EggNOG annotation info")
+        session.add_all(annotations)
+        session.commit()
+
+    def parse_ec_numbers(ecnumber):
+        assert len(ecnumber.split(".")) == 4
+        return_list = []
+        for number in ecnumber.split("."):
+            if number == '-':
+                return_list.append(None)
+            else:
+                return_list.append(number)
+        return tuple(return_list)
+
+    ec_info = {}
+    if args.ec_annotation_info:
+        annotation_info = pd.read_table(args.base_ec_annotation_info, header=True, index_col=0)
+
+        for ix, row in annotation_info.iterrows():
+            first, second, third, fourth = parse_ec_number(fix)
+
+            prepend_string = ""
+
+            if second is None:
+                ec_info["{}.-.-.-".format(first)] = description
+                continue
+            else:
+                prepend_string += ec_info["{}.-.-.-".format(first)]
+
+            if third is None:
+                ec_info["{}.{}.-.-".format(first, second)] = prepend_string + ' ' + description
+                continue
+            else:
+                prepend_string += ' ' + ec_info["{}.{}.-.-".format(first, second)]
+
+            if fourth is None:
+                ec_info["{}.{}.{}.-".format(first, second, third)] = prepend_string + ' ' + description
+                continue
+            else:
+                prepend_string += ' ' + ec_info["{}.{}.{}.-".format(first, second, third)]
+
+            ec_info["{}.{}.{}.{}".format(first, second, third, fourth)] = prepend_string + ' ' + description
+
+
+
+    annotations = []
+    if args.ec_annotation_info:
+        # Columns:Id,Name,Description
+        annotation_info = pd.read_table(args.ec_annotation_info, header=True, index_col=0)
+
+        for ix, row in annotation_info.iterrows():
+            first, second, third, fourth = parse_ec_number(ix)
+            description = ec_info[ix]
+            new_object = EcNumber(type_identifier=ix, first_digit=first, second_digit=second, third_digit=third, fourth_digit=fourth, description=description)
+            annotations.append(new_object)
+
+        logging.info("Commiting all EC annotation info")
+        session.add_all(annotations)
+        session.commit()
+
+    annotations = []
+    if args.cog_annotation_info:
+        # Columns:Id,Name,Description
+        annotation_info = pd.read_table(args.cog_annotation_info, header=True)
+
+        for ix, row in annotation_info.iterrows():
+            new_object = Cog(type_identifier=ix, description= row['Description'])
+            annotations.append(new_object)
+
+        logging.info("Commiting all Cog annotation info")
+        session.add_all(annotations)
+        session.commit()
+
+    annotations = []
+    if args.tigrfam_annotation_info:
+        # Columns:Id,Name,Description
+        annotation_info = pd.read_table(args.tigrfam_annotation_info, header=True)
+
+        for ix, row in annotation_info.iterrows():
+            new_object = TigrFam(type_identifier=ix, description= row['Description'])
+            annotations.append(new_object)
+
+        logging.info("Commiting all TigrFam annotation info")
+        session.add_all(annotations)
+        session.commit()
+
     all_annotations = dict( (annotation.type_identifier, annotation) for annotation in session.query(Annotation).all() )
 
     logging.info("Adding annotation source")
@@ -228,9 +334,17 @@ def main(args):
         session.commit()
         return commited_genes
 
-    commited_genes = add_genes_with_annotation("Cog", args.gene_annotations_cog, commited_genes, all_annotations, all_annotation_sources["Cog"])
-    commited_genes = add_genes_with_annotation("Pfam", args.gene_annotations_pfam, commited_genes, all_annotations, all_annotation_sources["Pfam"])
-    commited_genes = add_genes_with_annotation("TigrFam", args.gene_annotations_tigrfam, commited_genes, all_annotations, all_annotation_sources["TigrFam"])
+    if args.gene_annotations_cog:
+        commited_genes = add_genes_with_annotation("Cog", args.gene_annotations_cog, commited_genes, all_annotations, all_annotation_sources["Cog"])
+    if args.gene_annotations_pfam:
+        commited_genes = add_genes_with_annotation("Pfam", args.gene_annotations_pfam, commited_genes, all_annotations, all_annotation_sources["Pfam"])
+    if args.gene_annotations_tigr:
+        commited_genes = add_genes_with_annotation("TigrFam", args.gene_annotations_tigrfam, commited_genes, all_annotations, all_annotation_sources["TigrFam"])
+    if args.gene_annotations_eggnog:
+        commited_genes = add_genes_with_annotation("EggNOG", args.gene_annotations_eggnog, commited_genes, all_annotations, all_annotation_sources["EggNOG"])
+    if args.gene_annotations_ec:
+        commited_genes = add_genes_with_annotation("EC", args.gene_annotations_ec, commited_genes, all_annotations, all_annotation_sources["EC"])
+
 
     logging.info("Processed {} genes in total, moving on to gene counts".format(len(commited_genes.keys())))
 
@@ -286,12 +400,19 @@ def main(args):
 if __name__ == '__main__':
     parser = argparse.ArgumentParser()
     parser.add_argument("--sample_info", help="A csv file with all the sample information.")
-    parser.add_argument("--all_annotations", help=("A tsv file with all the possible annotations."
-            "The three columns should be ['type_id', 'gene_id', 'description']"))
+    parser.add_argument("--ec_annotation_info", help=("A tsv file with all the possible EC annotations."))
+    parser.add_argument("--eggnog_annotation_info", help=("A tsv file with all the possible EggNOG annotations."))
+    parser.add_argument("--eggnog_category_info", help=("A tsv file with all the possible eggnog categories."))
+    parser.add_argument("--pfam_annotation_info", help=("A tsv file with all the possible pfam annotations."))
+    parser.add_argument("--dbcan_annotation_info", help=("A tsv file with all the possible dbCAN annotations."))
+    parser.add_argument("--cog_annotation_info", help=("A tsv file with all the possible cog annotations."))
     parser.add_argument("--annotation_source_info", help="A csv file with all the annotation source info.")
     parser.add_argument("--gene_annotations_cog", help="A tsv file with all the gene annotations")
     parser.add_argument("--gene_annotations_pfam", help="A tsv file with all the pfam gene annotations")
     parser.add_argument("--gene_annotations_tigrfam", help="A tsv file with all the tigrfam gene annotations")
+    parser.add_argument("--gene_annotations_ec", help="A tsv file with all the ec gene annotations")
+    parser.add_argument("--gene_annotations_eggnog", help="A tsv file with all the eggnog gene annotations")
+    parser.add_argument("--gene_annotations_dbcan", help="A tsv file with all the dbcan gene annotations")
     parser.add_argument("--reference_assembly", help="Name of the reference assembly that the genes belong to")
     parser.add_argument("--gene_counts", help="A tsv file with each sample as a column containing all the gene counts")
     parser.add_argument("--taxonomy_per_gene", help="A tsv file with taxonomic annotation per gene")
