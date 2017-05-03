@@ -5,24 +5,47 @@ from materialized_view_factory import MaterializedView, create_mat_view
 import collections
 import re
 
-##########
-# Sample #
-##########
+user_to_sampleset = db.Table('user_to_sampleset',
+    db.Column('user_id', db.Integer, db.ForeignKey('user.id')),
+    db.Column('sample_set_id', db.Integer, db.ForeignKey('sample_set.id'))
+)
+
+class User(db.Model):
+    __tablename__ = 'user'
+
+    id = db.Column(db.Integer, primary_key=True)
+    email = db.Column(db.String())
+    name = db.Column(db.String())
+
+    sample_sets = db.relationship('SampleSet', secondary=user_to_sampleset)
+
+    def __init__(self, name, email):
+        self.name = name
+        self.email = email
+
+    def private_sample_sets(self):
+        return [sample_set for sample_set in self.sample_sets if not sample_set.public]
 
 class SampleSet(db.Model):
     __tablename__ = 'sample_set'
 
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String())
+    public = db.Column(db.Boolean())
 
-
-
-    def __init__(self, name):
+    def __init__(self, name, public=False):
         self.name = name
+        self.public = public
 
     def __repr__(self):
         return '<SampleSet {}>'.format(self.id)
 
+    @classmethod
+    def all_public(self):
+        q = db.session.query(SampleSet).\
+                filter(SampleSet.public == True)
+
+        return q.all()
 
 class TimePlace(db.Model):
     __tablename__ = 'time_place'

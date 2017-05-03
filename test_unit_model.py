@@ -2,7 +2,7 @@ import unittest
 import app
 from models import Sample, SampleSet, TimePlace, SampleProperty, ReferenceAssembly, Gene, \
     GeneCount, AnnotationSource, Annotation, GeneAnnotation, Cog, Pfam, TigrFam, EcNumber, \
-    EggNOG, EggNOGCategory, RpkmTable, Taxon, TaxonRpkmTable
+    EggNOG, EggNOGCategory, RpkmTable, Taxon, TaxonRpkmTable, User
 import sqlalchemy
 
 import itertools
@@ -31,6 +31,52 @@ class SampleTestCase(unittest.TestCase):
         self.connection.close()
 
         self.db.drop_all()
+
+    def test_sampleset(self):
+        set1 = SampleSet("set1", public=True)
+        set2 = SampleSet("set2", public=True)
+        set3 = SampleSet("set3")
+        self.session.add(set1)
+        self.session.add(set2)
+        self.session.add(set3)
+        self.session.commit()
+
+        assert len(SampleSet.all_public()) == 2
+        assert set1 in SampleSet.all_public()
+        assert set2 in SampleSet.all_public()
+        assert set3 not in SampleSet.all_public()
+
+    def test_user(self):
+        user1 = User("johannes", "johannes@example.com")
+        user2 = User("johannes2", "johannes2@example.com")
+        self.session.add(user1)
+        self.session.add(user2)
+        self.session.commit()
+
+        set1 = SampleSet("set1", public=True)
+        set2 = SampleSet("set2")
+        user1.sample_sets.append(set1)
+
+        self.session.add(set1)
+        self.session.add(set2)
+        self.session.commit()
+
+        assert len(user1.sample_sets) == 1
+        assert set1 in user1.sample_sets
+
+        assert len(user1.private_sample_sets()) == 0
+
+        set1.public = False
+        self.session.add(set1)
+        self.session.commit()
+
+        assert len(user1.sample_sets) == 1
+        assert set1 in user1.sample_sets
+
+        assert len(user1.private_sample_sets()) == 1
+        assert set1 in user1.sample_sets
+
+
 
     def test_sample(self):
         all_samples_before = Sample.query.all()
