@@ -640,7 +640,8 @@ class EcNumber(Annotation):
     fourth_digit = db.Column(db.Integer, index=True)
 
     def __init__(self, type_identifier, **kwargs):
-        super().__init__(type_identifier)
+        new_kwargs = {key: value for key, value in kwargs.items() if key not in set(['first_digit', 'second_digit', 'third_digit', 'fourth_digit'])}
+        super().__init__(type_identifier, **new_kwargs)
         ec_digits = self.type_identifier.split('.')
         digit_translation_d = {
                 0: self.first_digit,
