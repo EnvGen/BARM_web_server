@@ -19,6 +19,13 @@ def main(args):
     # Add all samples from the sample info file
     sample_info = pd.read_table(args.sample_info, sep=',', index_col=0)
 
+    for sample_set_name, sample_set_df in sample_info.groupby('sample_set'):
+        assert len(SampleSet.query.filter_by(name=sample_set_name).all()) == 0
+
+    for sample_id, row in sample_info.iterrows():
+        samples_with_code = Sample.query.filter_by(scilifelab_code=sample_id).all()
+        assert len(samples_with_code) == 0
+
     logging.info("Creating sample sets")
     # sample_set
     sample_sets = {}
@@ -71,7 +78,7 @@ def main(args):
     logging.info("Commiting everything except gene counts")
     session.commit()
 
-    commited_genes = # fetch from database
+    commited_genes = dict( session.query(Gene.name, Gene.id).all() )
 
     # Fetch each gene from the gene count file and create the corresponding gene count
     logging.info("Starting with gene counts")
@@ -84,19 +91,13 @@ def main(args):
     filtered_gene_counts['gene_name'] = filtered_gene_counts.index
     filtered_gene_counts['gene_id'] = filtered_gene_counts['gene_name'].apply(lambda x: commited_genes[x])
 
-    def add_gene_counts_to_file(col, filtered_gene_counts, sample_id):
-        tmp_cov_df = filtered_gene_counts[[col, 'gene_id']].copy()
-        tmp_cov_df['rpkm'] = tmp_cov_df[col]
-        tmp_cov_df['sample_id'] = sample_id
-        with open(args.tmp_file, 'w') as gene_counts_file:
-            tmp_cov_df[['gene_id', 'sample_id', 'rpkm']].to_csv(gene_counts_file, index=False, header=False)
-
     all_sample_ids = dict((sample_name, sample.id) for sample_name, sample in all_samples.items())
     filtered_gene_counts.rename(columns=all_sample_ids, inplace=True)
 
     sample_id_cols = filtered_gene_counts.columns.tolist()
     sample_id_cols.remove('gene_id')
     sample_id_cols.remove('gene_name')
+    sample_id_cols.remove('gene_length')
 
     filtered_gene_counts.index = filtered_gene_counts['gene_id']
     filtered_gene_counts = pd.DataFrame(filtered_gene_counts[sample_id_cols].stack())

@@ -53,7 +53,28 @@ class CreateDB(Command):
             "--tmp_file", "{}/data/{}/tmp_file.csv".format(root_path, data), \
             "--taxonomy_per_gene", "{}/data/{}/lca_megan.tsv".format(root_path, data)])
 
+class AddSampleSetCounts(Command):
+    "Populates a db with new sample set counts"
+
+    option_list = (
+            Option('--db', dest='db', help='Database name'),
+            Option('--data', dest='data', help='Data from data/ dir to be loaded into the database'),
+            Option('--sample_set', dest='sample_set', help='Sample set from where sample info and quantification data should be loaded'),
+            Option('--root_path', dest='root_path', help='Root path to where data dir is located, needed for populate script')
+            )
+
+    def run(self, db, data, sample_set, root_path):
+        assert db in ['barm_web_dev', 'barm_web_test_integration']
+        assert os.environ['DATABASE_URL'].endswith(db)
+        print("Populate db")
+        check_call(["time", "python", "add_sample_set_to_db.py", \
+            "--sample_info",  "data/{0}/{1}/sample_info.csv".format(data, sample_set), \
+            "--gene_counts", "data/{}/{}/all_genes.tpm.tsv.gz".format(data, sample_set), \
+            "--metadata_reference", "data/{}/metadata_reference.tsv".format(data), \
+            "--tmp_file", "{}/data/{}/tmp_file.csv".format(root_path, data)])
+
 manager.add_command('create_db', CreateDB)
+manager.add_command('add_sample_set_counts', AddSampleSetCounts)
 
 if __name__ == '__main__':
     manager.run()
