@@ -1,100 +1,3000 @@
-gene_id	contig_id	superkingdom	phylum	class	order	family	genus	species
-PROKKA_MOD_PART0_00001	k99_1000001	Viruses			Caudovirales			
-PROKKA_MOD_PART0_00002	k99_1000001	Bacteria	Proteobacteria	Epsilonproteobacteria	Campylobacterales			
-PROKKA_MOD_PART0_00003	k99_1000008	Bacteria	Proteobacteria	Alphaproteobacteria	Rhodospirillales		Reyranella	Reyranella massiliensis
-PROKKA_MOD_PART0_00004	k99_1000015	Bacteria	Proteobacteria	Betaproteobacteria	Methylophilales			
-PROKKA_MOD_PART0_00005	k99_1000015	Viruses			Caudovirales	Podoviridae		Cellulophaga phage phi14:2
-PROKKA_MOD_PART0_00006	k99_1000021	Bacteria	Proteobacteria	Zetaproteobacteria	Mariprofundales	Mariprofundaceae	Mariprofundus	Mariprofundus ferrooxydans
-PROKKA_MOD_PART0_00007	k99_100003	Bacteria	Bacteroidetes	Flavobacteriia				
-PROKKA_MOD_PART0_00008	k99_100003	Bacteria	Proteobacteria	Betaproteobacteria	Methylophilales	Methylophilaceae	Methylotenera	Methylotenera versatilis
-PROKKA_MOD_PART0_00009	k99_100003	Bacteria	Chloroflexi	Dehalococcoidia			Dehalogenimonas	Dehalogenimonas lykanthroporepellens
-PROKKA_MOD_PART0_00010	k99_100003	Bacteria	Proteobacteria	Gammaproteobacteria	Pseudomonadales	Pseudomonadaceae		
-PROKKA_MOD_PART0_00011	k99_100003	Bacteria	Bacteroidetes	Cytophagia	Cytophagales	Cyclobacteriaceae	Cecembia	Cecembia lonarensis
-PROKKA_MOD_PART0_00012	k99_1000031	Bacteria	Firmicutes	Clostridia	Clostridiales		Intestinimonas	Intestinimonas butyriciproducens
-PROKKA_MOD_PART0_00013	k99_1000031	Archaea	Euryarchaeota					uncultured marine group II/III euryarchaeote KM3_67_D09
-PROKKA_MOD_PART0_00014	k99_1000056	Bacteria	Verrucomicrobia	Opitutae				
-PROKKA_MOD_PART0_00015	k99_1000056	Bacteria	Bacteroidetes	Flavobacteriia				uncultured Flavobacteriia bacterium
-PROKKA_MOD_PART0_00016	k99_1000059	Viruses				Phycodnaviridae	Prasinovirus	Bathycoccus sp. RCC1105 virus BpV
-PROKKA_MOD_PART0_00017	k99_1000059	Bacteria	Cyanobacteria		Chroococcales		Synechococcus	Synechococcus sp. WH 8102
-PROKKA_MOD_PART0_00018	k99_1000059	Bacteria	Cyanobacteria		Chroococcales		Synechococcus	
-PROKKA_MOD_PART0_00019	k99_1000059	Bacteria	Proteobacteria	Alphaproteobacteria	Rhodobacterales	Rhodobacteraceae	Octadecabacter	Octadecabacter antarcticus
-PROKKA_MOD_PART0_00020	k99_1000080	Bacteria	Actinobacteria <phylum>	Actinobacteria	Actinomycetales	Streptosporangiaceae	Streptosporangium	Streptosporangium roseum
-PROKKA_MOD_PART0_00021	k99_1000080	Bacteria	Proteobacteria	Betaproteobacteria	Burkholderiales	Comamonadaceae	Variovorax	Variovorax sp. URHB0020
-PROKKA_MOD_PART0_00022	k99_1000081	Bacteria	Verrucomicrobia	Spartobacteria			Chthoniobacter	Chthoniobacter flavus
-PROKKA_MOD_PART0_00023	k99_1000084	Eukaryota	Streptophyta					
-PROKKA_MOD_PART0_00024	k99_1000084	Eukaryota			Choanoflagellida	Salpingoecidae	Salpingoeca	Salpingoeca rosetta
-PROKKA_MOD_PART0_00025	k99_1000084	Bacteria	Actinobacteria <phylum>	Actinobacteria	Acidimicrobiales	Acidimicrobiaceae	Ilumatobacter	
-PROKKA_MOD_PART0_00026	k99_1000084	Bacteria	Tenericutes	Mollicutes				
-PROKKA_MOD_PART0_00027	k99_1000084	Bacteria	Bacteroidetes	Cytophagia	Cytophagales	Cytophagaceae	Spirosoma	Spirosoma luteum
-PROKKA_MOD_PART0_00028	k99_1000084	Bacteria	Bacteroidetes	Bacteroidia	Bacteroidales	Prolixibacteraceae	Prolixibacter	Prolixibacter bellariivorans
-PROKKA_MOD_PART0_00029	k99_1000084	Bacteria	Proteobacteria	Alphaproteobacteria	Rhodobacterales	Rhodobacteraceae	Octadecabacter	
-PROKKA_MOD_PART0_00030	k99_1000090	Bacteria	Proteobacteria	Alphaproteobacteria	Sphingomonadales	Erythrobacteraceae	Erythrobacter	Erythrobacter litoralis
-PROKKA_MOD_PART0_00031	k99_1000090	Eukaryota			Isochrysidales	Noelaerhabdaceae	Emiliania	Emiliania huxleyi
-PROKKA_MOD_PART0_00032	k99_1000090	Eukaryota	Cryptomycota				Rozella	Rozella allomycis
-PROKKA_MOD_PART0_00033	k99_100010	Bacteria	Verrucomicrobia	Verrucomicrobiae	Verrucomicrobiales			Verrucomicrobiae bacterium DG1235
-PROKKA_MOD_PART0_00034	k99_100010	Bacteria	Actinobacteria <phylum>	Actinobacteria	Actinomycetales	Nocardioidaceae	Nocardioides	
-PROKKA_MOD_PART0_00035	k99_1000124	Bacteria	Proteobacteria	Deltaproteobacteria				SAR324 cluster bacterium SCGC AAA240-J09
-PROKKA_MOD_PART0_00036	k99_1000124	Bacteria	Proteobacteria	Alphaproteobacteria	SAR11 cluster		Candidatus Pelagibacter	Candidatus Pelagibacter sp. IMCC9063
-PROKKA_MOD_PART0_00037	k99_100014	Bacteria	Cyanobacteria		Chroococcales		Synechococcus	Synechococcus sp. RS9917
-PROKKA_MOD_PART0_00038	k99_1000142	Bacteria	Actinobacteria <phylum>	Actinobacteria	Actinomycetales	Gordoniaceae	Gordonia	
-PROKKA_MOD_PART0_00039	k99_1000142	Bacteria	Proteobacteria	Alphaproteobacteria				
-PROKKA_MOD_PART0_00040	k99_1000148	Bacteria	Bacteroidetes	Flavobacteriia	Flavobacteriales	Flavobacteriaceae	Winogradskyella	Winogradskyella psychrotolerans
-PROKKA_MOD_PART0_00041	k99_1000148	Bacteria	Proteobacteria	Alphaproteobacteria				alpha proteobacterium BAL199
-PROKKA_MOD_PART0_00042	k99_1000151	Bacteria	Proteobacteria	Deltaproteobacteria	Desulfuromonadales	Geobacteraceae	Geopsychrobacter	Geopsychrobacter electrodiphilus
-PROKKA_MOD_PART0_00043	k99_1000151	Archaea						
-PROKKA_MOD_PART0_00044	k99_1000151	Bacteria	Proteobacteria	Betaproteobacteria			Candidatus Accumulibacter	
-PROKKA_MOD_PART0_00045	k99_1000151	Eukaryota	Cnidaria	Anthozoa	Actiniaria	Edwardsiidae	Nematostella	Nematostella vectensis
-PROKKA_MOD_PART0_00046	k99_1000151	Bacteria	Planctomycetes	Planctomycetia	Planctomycetales	Planctomycetaceae	Planctomyces	
-PROKKA_MOD_PART0_00047	k99_1000151	Bacteria	Proteobacteria	Betaproteobacteria	Burkholderiales	Sutterellaceae	Sutterella	Sutterella wadsworthensis
-PROKKA_MOD_PART0_00048	k99_100016	Bacteria	Firmicutes	Bacilli	Bacillales	Paenibacillaceae	Cohnella	Cohnella thermotolerans
-PROKKA_MOD_PART0_00049	k99_100016	Bacteria	Proteobacteria	Betaproteobacteria				
-PROKKA_MOD_PART0_00050	k99_1000197	Bacteria	Gemmatimonadetes	Gemmatimonadetes <class>				
-PROKKA_MOD_PART0_00051	k99_1000197	Bacteria	Proteobacteria	Gammaproteobacteria	Alteromonadales	Alteromonadaceae	Microbulbifer	Microbulbifer variabilis
-PROKKA_MOD_PART0_00052	k99_1000203	Bacteria	Proteobacteria	Gammaproteobacteria	Pseudomonadales	Moraxellaceae	Psychrobacter	
-PROKKA_MOD_PART0_00053	k99_1000203	Bacteria	Bacteroidetes	Bacteroidia	Bacteroidales			
-PROKKA_MOD_PART0_00054	k99_1000203	Bacteria	Planctomycetes	Planctomycetia	Planctomycetales	Planctomycetaceae	Planctomyces	Planctomyces limnophilus
-PROKKA_MOD_PART0_00055	k99_1000203	Viruses			Caudovirales	Podoviridae		Pelagibacter phage HTVC019P
-PROKKA_MOD_PART0_00056	k99_1000203	Bacteria	Firmicutes	Clostridia	Clostridiales	Peptostreptococcaceae		Peptostreptococcaceae bacterium VA2
-PROKKA_MOD_PART0_00057	k99_1000203	Bacteria	Proteobacteria	Alphaproteobacteria	SAR11 cluster			alpha proteobacterium HIMB59
-PROKKA_MOD_PART0_00058	k99_1000203	Bacteria	Cyanobacteria		Chroococcales			
-PROKKA_MOD_PART0_00059	k99_1000203	Eukaryota	Chlorophyta	Mamiellophyceae	Mamiellales	Mamiellaceae	Micromonas	Micromonas sp. RCC299
-PROKKA_MOD_PART0_00060	k99_1000203	Bacteria	Proteobacteria	Epsilonproteobacteria				
-PROKKA_MOD_PART0_00061	k99_1000212	Bacteria	Bacteroidetes	Bacteroidia	Bacteroidales	Marinilabiliaceae	Anaerophaga	Anaerophaga thermohalophila
-PROKKA_MOD_PART0_00062	k99_1000212	Bacteria	Proteobacteria	Alphaproteobacteria	Rhodospirillales	Acetobacteraceae		
-PROKKA_MOD_PART0_00063	k99_1000212	Bacteria	Bacteroidetes	Flavobacteriia	Flavobacteriales	Flavobacteriaceae	Flavobacterium	Flavobacterium filum
-PROKKA_MOD_PART0_00064	k99_1000212	Archaea	Thaumarchaeota					uncultured marine thaumarchaeote KM3_84_A09
-PROKKA_MOD_PART0_00065	k99_1000212	Bacteria	Proteobacteria	Betaproteobacteria	Burkholderiales		Rubrivivax	Rubrivivax gelatinosus
-PROKKA_MOD_PART0_00066	k99_1000224	Bacteria	Bacteroidetes	Cytophagia	Cytophagales	Cytophagaceae	Cytophaga	Cytophaga aurantiaca
-PROKKA_MOD_PART0_00067	k99_1000226	Eukaryota	Chlorophyta	Trebouxiophyceae		Coccomyxaceae	Coccomyxa	Coccomyxa subellipsoidea
-PROKKA_MOD_PART0_00068	k99_1000226	Bacteria	Nitrospinae	Nitrospinia	Nitrospinales	Nitrospinaceae	Nitrospina	Nitrospina gracilis
-PROKKA_MOD_PART0_00069	k99_1000226	Viruses			Caudovirales	Myoviridae		uncultured Myoviridae
-PROKKA_MOD_PART0_00070	k99_1000226	Eukaryota	Streptophyta		Malvales	Malvaceae	Theobroma	Theobroma cacao
-PROKKA_MOD_PART0_00071	k99_1000296	Bacteria						uncultured bacterium W4-39b
-PROKKA_MOD_PART0_00072	k99_1000296	Eukaryota		Spirotrichea	Sporadotrichida	Oxytrichidae	Oxytricha	Oxytricha trifallax
-PROKKA_MOD_PART0_00073	k99_1000296	Bacteria	Bacteroidetes	Flavobacteriia	Flavobacteriales			
-PROKKA_MOD_PART0_00074	k99_1000296	Bacteria	Actinobacteria <phylum>	Actinobacteria	Acidimicrobiales	Acidimicrobiaceae	Ilumatobacter	Ilumatobacter coccineus
-PROKKA_MOD_PART0_00075	k99_1000344	Bacteria	Cyanobacteria					
-PROKKA_MOD_PART0_00076	k99_1000344	Bacteria	Proteobacteria	Alphaproteobacteria	Rhodobacterales	Rhodobacteraceae		
-PROKKA_MOD_PART0_00077	k99_1000367	Bacteria	Actinobacteria <phylum>	Actinobacteria	Actinomycetales	Streptomycetaceae	Streptomyces	
-PROKKA_MOD_PART0_00078	k99_1000367	Bacteria	Proteobacteria	Betaproteobacteria	Burkholderiales	Burkholderiaceae	Pandoraea	
-PROKKA_MOD_PART0_00079	k99_1000382	Eukaryota		Spirotrichea	Sporadotrichida	Oxytrichidae		
-PROKKA_MOD_PART0_00080	k99_1000382	Bacteria						
-PROKKA_MOD_PART0_00081	k99_1000383	Eukaryota	Chlorophyta	Trebouxiophyceae	Chlorellales	Chlorellaceae	Marvania	Marvania geminata
-PROKKA_MOD_PART0_00082	k99_1000401	Bacteria	Proteobacteria	Alphaproteobacteria			Geminicoccus	Geminicoccus roseus
-PROKKA_MOD_PART0_00083	k99_1000401	Bacteria	Bacteroidetes	Cytophagia	Cytophagales			
-PROKKA_MOD_PART0_00084	k99_1000401	Bacteria	Proteobacteria	Deltaproteobacteria	Myxococcales			
-PROKKA_MOD_PART0_00085	k99_1000401	Eukaryota		Oomycetes	Saprolegniales	Saprolegniaceae		
-PROKKA_MOD_PART0_00086	k99_1000401	Eukaryota	Chlorophyta					
-PROKKA_MOD_PART0_00087	k99_1000401	Bacteria	Proteobacteria	Betaproteobacteria	Rhodocyclales	Rhodocyclaceae	Sulfuritalea	Sulfuritalea hydrogenivorans
-PROKKA_MOD_PART0_00088	k99_1000412	Bacteria	Proteobacteria	Alphaproteobacteria	Rhodobacterales	Rhodobacteraceae		Rhodobacteraceae bacterium HTCC2150
-PROKKA_MOD_PART0_00089	k99_1000412	Bacteria	Proteobacteria	Gammaproteobacteria	Vibrionales	Vibrionaceae		
-PROKKA_MOD_PART0_00090	k99_1000412	Bacteria	Proteobacteria	Gammaproteobacteria			Luminiphilus	Luminiphilus syltensis
-PROKKA_MOD_PART0_00091	k99_1000412	Eukaryota	Chordata	Actinopteri	Cichliformes	Cichlidae	Oreochromis	Oreochromis niloticus
-PROKKA_MOD_PART0_00092	k99_1000412	Bacteria	Proteobacteria	Deltaproteobacteria	Bdellovibrionales	Bacteriovoracaceae	Bacteriovorax	
-PROKKA_MOD_PART0_00093	k99_1000412	Bacteria	Proteobacteria	Alphaproteobacteria	Rhizobiales	Bradyrhizobiaceae	Bradyrhizobium	Bradyrhizobium sp. CCBAU 15544
-PROKKA_MOD_PART0_00094	k99_1000417	Bacteria	Actinobacteria <phylum>	Actinobacteria	Actinomycetales	Nocardiopsaceae	Nocardiopsis	Nocardiopsis potens
-PROKKA_MOD_PART0_00095	k99_1000442	Bacteria	Proteobacteria	Deltaproteobacteria	Myxococcales	Anaeromyxobacteraceae	Anaeromyxobacter	
-PROKKA_MOD_PART0_00096	k99_1000442	Bacteria	Bacteroidetes	Flavobacteriia	Flavobacteriales	Cryomorphaceae		
-PROKKA_MOD_PART0_00097	k99_1000455	Bacteria	Bacteroidetes	Flavobacteriia				Flavobacteria bacterium MS024-2A
-PROKKA_MOD_PART0_00098	k99_1000455	Bacteria	Proteobacteria	Betaproteobacteria				Betaproteobacteria bacterium MOLA814
-PROKKA_MOD_PART0_00099	k99_1000473	Bacteria	Bacteroidetes	Sphingobacteriia	Sphingobacteriales	Saprospiraceae	Lewinella	Lewinella cohaerens
+gene_id	superkingdom	phylum	class	order	family	genus	species
+k99_10000003_1	Bacteria	Proteobacteria	Betaproteobacteria				Betaproteobacteria bacterium MOLA814
+k99_10000003_2	Bacteria	Proteobacteria	Betaproteobacteria				Betaproteobacteria bacterium MOLA814
+k99_10000003_3	Bacteria	Cyanobacteria					
+k99_10000003_4	Bacteria						
+k99_10000003_5	Bacteria						
+k99_10000005_1							
+k99_10000005_2	Bacteria	Proteobacteria	Gammaproteobacteria	Pseudomonadales	Pseudomonadaceae	Pseudomonas	
+k99_10000005_3	Bacteria	Proteobacteria	Gammaproteobacteria	Pseudomonadales	Pseudomonadaceae	Pseudomonas	
+k99_1000001_1	Bacteria	Proteobacteria	Gammaproteobacteria	Pseudomonadales	Pseudomonadaceae	Pseudomonas	
+k99_1000001_2	Bacteria	Proteobacteria	Gammaproteobacteria	Pseudomonadales	Pseudomonadaceae	Pseudomonas	
+k99_10000020_1	Bacteria	Proteobacteria	Gammaproteobacteria	Pseudomonadales	Pseudomonadaceae	Pseudomonas	
+k99_10000020_2	Eukaryota	Chlorophyta	Mamiellophyceae	Mamiellales	Bathycoccaceae	Ostreococcus	
+k99_10000020_3	Eukaryota	Chlorophyta	Mamiellophyceae	Mamiellales	Bathycoccaceae	Ostreococcus	
+k99_10000020_4	Bacteria						
+k99_10000020_5	Bacteria						
+k99_10000020_6	Eukaryota		Dinophyceae	Gonyaulacales	Gonyaulacaceae	Alexandrium	Alexandrium fundyense
+k99_10000021_1	Eukaryota		Dinophyceae	Gonyaulacales	Gonyaulacaceae	Alexandrium	Alexandrium fundyense
+k99_10000022_1	Eukaryota		Dinophyceae	Gonyaulacales	Gonyaulacaceae	Alexandrium	Alexandrium fundyense
+k99_10000022_2	Eukaryota		Dinophyceae	Gonyaulacales	Gonyaulacaceae	Alexandrium	Alexandrium fundyense
+k99_10000022_3	Bacteria						
+k99_10000022_4	Bacteria						
+k99_10000059_1	Archaea	Euryarchaeota					
+k99_10000059_2	Bacteria	Proteobacteria					
+k99_10000064_1	Bacteria	Proteobacteria					
+k99_10000064_2	Bacteria	Proteobacteria					
+k99_10000067_1	Bacteria	Proteobacteria					
+k99_10000067_2	Bacteria	Proteobacteria					
+k99_10000077_1	Bacteria	Proteobacteria					
+k99_10000077_2	Bacteria	Proteobacteria					
+k99_10000077_3	Bacteria						
+k99_10000077_4	Bacteria						
+k99_10000077_5	Bacteria						
+k99_10000077_6	Bacteria	Proteobacteria	Gammaproteobacteria				SAR86 cluster bacterium SAR86B
+k99_10000085_1	Bacteria	Proteobacteria	Gammaproteobacteria				SAR86 cluster bacterium SAR86B
+k99_10000088_1	Bacteria	Proteobacteria					
+k99_10000088_2	Bacteria	Proteobacteria					
+k99_10000088_3							
+k99_10000088_4	Bacteria	Proteobacteria	Alphaproteobacteria	Caulobacterales	Caulobacteraceae	Brevundimonas	Brevundimonas nasdae
+k99_10000088_5	Bacteria	Proteobacteria	Alphaproteobacteria	Caulobacterales	Caulobacteraceae	Brevundimonas	Brevundimonas nasdae
+k99_1000008_1							
+k99_10000105_1							
+k99_10000105_2							
+k99_10000105_3							
+k99_10000124_1							
+k99_10000132_1							
+k99_10000132_2							
+k99_10000154_1							
+k99_10000154_2	Bacteria	Proteobacteria	Alphaproteobacteria				
+k99_10000155_1	Bacteria	Proteobacteria	Alphaproteobacteria				
+k99_10000155_2	Bacteria	Proteobacteria	Alphaproteobacteria	Rhodobacterales	Rhodobacteraceae		
+k99_10000155_3	Bacteria	Proteobacteria	Alphaproteobacteria	Rhodobacterales	Rhodobacteraceae		
+k99_1000015_1	Bacteria	Bacteroidetes	Flavobacteriia	Flavobacteriales	Flavobacteriaceae		
+k99_1000015_2	Bacteria	Bacteroidetes	Flavobacteriia	Flavobacteriales	Flavobacteriaceae		
+k99_10000168_1	Bacteria	Bacteroidetes	Flavobacteriia	Flavobacteriales	Flavobacteriaceae		
+k99_10000184_1	Bacteria	Bacteroidetes	Flavobacteriia	Flavobacteriales	Flavobacteriaceae		
+k99_10000191_1	Bacteria	Bacteroidetes	Flavobacteriia	Flavobacteriales	Flavobacteriaceae		
+k99_10000202_1	Bacteria	Bacteroidetes	Flavobacteriia	Flavobacteriales	Flavobacteriaceae		
+k99_10000202_2	Bacteria	Bacteroidetes	Flavobacteriia	Flavobacteriales	Flavobacteriaceae		
+k99_10000202_3	Bacteria	Bacteroidetes	Flavobacteriia	Flavobacteriales	Flavobacteriaceae		
+k99_10000202_4	Bacteria	Bacteroidetes	Flavobacteriia	Flavobacteriales	Flavobacteriaceae		
+k99_10000202_5	Bacteria	Proteobacteria	Alphaproteobacteria	Rhodobacterales	Rhodobacteraceae	Sulfitobacter	
+k99_10000202_6	Bacteria	Proteobacteria	Alphaproteobacteria	Rhodobacterales	Rhodobacteraceae	Sulfitobacter	
+k99_10000202_7	Bacteria	Proteobacteria	Alphaproteobacteria	Rhodobacterales	Rhodobacteraceae	Sulfitobacter	
+k99_10000207_1	Bacteria	Proteobacteria	Alphaproteobacteria	Rhodobacterales	Rhodobacteraceae	Sulfitobacter	
+k99_1000021_1	Bacteria	Proteobacteria	Alphaproteobacteria	Rhodobacterales	Rhodobacteraceae	Sulfitobacter	
+k99_10000220_1							
+k99_10000220_2	Archaea	Euryarchaeota					
+k99_10000220_3	Archaea	Euryarchaeota					
+k99_10000220_4	Archaea	Euryarchaeota					
+k99_10000220_5	Archaea	Euryarchaeota					
+k99_10000220_6	Bacteria						
+k99_10000270_1	Bacteria						
+k99_10000270_10	Bacteria						
+k99_10000270_11	Bacteria						
+k99_10000270_12	Eukaryota	Chlorophyta	Mamiellophyceae	Mamiellales	Bathycoccaceae	Bathycoccus	Bathycoccus prasinos
+k99_10000270_13	Eukaryota	Chlorophyta	Mamiellophyceae	Mamiellales	Bathycoccaceae	Bathycoccus	Bathycoccus prasinos
+k99_10000270_14	Archaea						
+k99_10000270_15	Archaea						
+k99_10000270_16	Bacteria	Cyanobacteria					
+k99_10000270_17	Bacteria	Cyanobacteria					
+k99_10000270_18	Bacteria	Bacteroidetes	Cytophagia	Cytophagales	Cytophagaceae	Pontibacter	Pontibacter sp. BAB1700
+k99_10000270_19	Bacteria						
+k99_10000270_2	Bacteria						
+k99_10000270_20	Bacteria						
+k99_10000270_21	Bacteria						
+k99_10000270_22	Bacteria						
+k99_10000270_23	Bacteria						
+k99_10000270_24	Bacteria	Proteobacteria	Gammaproteobacteria				
+k99_10000270_3	Bacteria	Proteobacteria	Gammaproteobacteria				
+k99_10000270_4	Bacteria	Proteobacteria	Gammaproteobacteria				
+k99_10000270_5	Bacteria	Proteobacteria	Gammaproteobacteria				
+k99_10000270_6	Bacteria	Proteobacteria	Gammaproteobacteria				
+k99_10000270_7	Bacteria	Proteobacteria	Gammaproteobacteria				
+k99_10000270_8							
+k99_10000270_9							
+k99_10000306_1							
+k99_10000306_10							
+k99_10000306_11							
+k99_10000306_12	Bacteria						
+k99_10000306_13	Bacteria						
+k99_10000306_14	Bacteria						
+k99_10000306_15	Bacteria						
+k99_10000306_16	Eukaryota	Chlorophyta	Mamiellophyceae	Mamiellales			
+k99_10000306_17	Eukaryota	Chlorophyta	Mamiellophyceae	Mamiellales			
+k99_10000306_2							
+k99_10000306_3							
+k99_10000306_4							
+k99_10000306_5	Bacteria	Proteobacteria	Deltaproteobacteria	Myxococcales			
+k99_10000306_6	Bacteria	Proteobacteria	Deltaproteobacteria	Myxococcales			
+k99_10000306_7	Bacteria	Cyanobacteria					
+k99_10000306_8	Bacteria	Cyanobacteria					
+k99_10000306_9	Bacteria	Verrucomicrobia	Verrucomicrobiae	Verrucomicrobiales	Verrucomicrobia subdivision 3	Pedosphaera	Pedosphaera parvula
+k99_1000031_1	Bacteria	Verrucomicrobia	Verrucomicrobiae	Verrucomicrobiales	Verrucomicrobia subdivision 3	Pedosphaera	Pedosphaera parvula
+k99_1000031_2	Bacteria	Verrucomicrobia	Verrucomicrobiae	Verrucomicrobiales	Verrucomicrobia subdivision 3	Pedosphaera	Pedosphaera parvula
+k99_10000330_1	Bacteria	Verrucomicrobia	Verrucomicrobiae	Verrucomicrobiales	Verrucomicrobia subdivision 3	Pedosphaera	Pedosphaera parvula
+k99_10000338_1							
+k99_10000338_2							
+k99_10000345_1	Bacteria	Planctomycetes	Planctomycetia	Planctomycetales	Planctomycetaceae		
+k99_10000345_2	Bacteria	Planctomycetes	Planctomycetia	Planctomycetales	Planctomycetaceae		
+k99_10000370_1	Bacteria	Planctomycetes	Planctomycetia	Planctomycetales	Planctomycetaceae		
+k99_10000370_2	Bacteria	Proteobacteria	Epsilonproteobacteria	Campylobacterales	Helicobacteraceae		
+k99_10000373_1	Bacteria	Proteobacteria	Epsilonproteobacteria	Campylobacterales	Helicobacteraceae		
+k99_100003_1							
+k99_100003_2							
+k99_100003_3							
+k99_100003_4	Bacteria	Proteobacteria	Gammaproteobacteria				
+k99_100003_5	Bacteria	Proteobacteria	Gammaproteobacteria				
+k99_10000409_1	Bacteria	Proteobacteria	Gammaproteobacteria				
+k99_10000409_2	Bacteria	Proteobacteria	Gammaproteobacteria				
+k99_10000440_1	Bacteria						
+k99_10000440_2	Bacteria						
+k99_10000440_3	Bacteria						
+k99_10000507_1	Bacteria						
+k99_10000523_1	Bacteria	Proteobacteria	Betaproteobacteria				Betaproteobacteria bacterium MOLA814
+k99_10000523_2	Bacteria	Proteobacteria	Betaproteobacteria				Betaproteobacteria bacterium MOLA814
+k99_10000545_1	Bacteria	Proteobacteria	Betaproteobacteria				Betaproteobacteria bacterium MOLA814
+k99_10000545_2	Bacteria						
+k99_10000551_1							
+k99_10000551_2	Eukaryota		Cryptophyta	Pyrenomonadales	Geminigeraceae	Guillardia	Guillardia theta
+k99_10000551_3	Eukaryota		Cryptophyta	Pyrenomonadales	Geminigeraceae	Guillardia	Guillardia theta
+k99_10000555_1	Eukaryota		Cryptophyta	Pyrenomonadales	Geminigeraceae	Guillardia	Guillardia theta
+k99_10000555_2							
+k99_10000555_3							
+k99_10000555_4	Bacteria	Proteobacteria	Gammaproteobacteria				gamma proteobacterium HIMB55
+k99_10000555_5	Bacteria	Proteobacteria	Gammaproteobacteria				gamma proteobacterium HIMB55
+k99_10000555_6	Bacteria	Proteobacteria	Gammaproteobacteria				gamma proteobacterium HIMB55
+k99_10000558_1							
+k99_10000558_2							
+k99_10000563_1	Eukaryota		Spirotrichea	Sporadotrichida	Oxytrichidae		
+k99_10000563_2	Eukaryota		Spirotrichea	Sporadotrichida	Oxytrichidae		
+k99_10000566_1							
+k99_10000566_2							
+k99_1000056_1							
+k99_1000056_2	Eukaryota	Chlorophyta	Mamiellophyceae	Mamiellales	Bathycoccaceae	Bathycoccus	Bathycoccus prasinos
+k99_10000589_1	Eukaryota	Chlorophyta	Mamiellophyceae	Mamiellales	Bathycoccaceae	Bathycoccus	Bathycoccus prasinos
+k99_10000589_2	Eukaryota	Chlorophyta	Mamiellophyceae	Mamiellales	Bathycoccaceae	Bathycoccus	Bathycoccus prasinos
+k99_10000589_3							
+k99_10000594_1							
+k99_10000594_2							
+k99_10000594_3	Bacteria	Proteobacteria	Gammaproteobacteria	Pseudomonadales	Pseudomonadaceae	Pseudomonas	Pseudomonas fluorescens
+k99_10000594_4	Bacteria	Proteobacteria	Gammaproteobacteria	Pseudomonadales	Pseudomonadaceae	Pseudomonas	Pseudomonas fluorescens
+k99_10000594_5	Bacteria	Proteobacteria	Gammaproteobacteria	Pseudomonadales	Pseudomonadaceae	Pseudomonas	Pseudomonas fluorescens
+k99_1000059_1	Bacteria	Proteobacteria	Gammaproteobacteria	Pseudomonadales	Pseudomonadaceae	Pseudomonas	Pseudomonas fluorescens
+k99_1000059_2	Bacteria						
+k99_1000059_3	Bacteria						
+k99_1000059_4	Bacteria						
+k99_10000604_1	Bacteria						
+k99_10000604_2	Bacteria						
+k99_10000626_1	Bacteria						
+k99_10000626_2	Bacteria	Proteobacteria	Alphaproteobacteria	Sphingomonadales	Erythrobacteraceae	Erythrobacter	
+k99_10000626_3	Eukaryota						
+k99_10000626_4	Bacteria	Proteobacteria					
+k99_10000627_1	Bacteria	Proteobacteria					
+k99_10000627_2	Bacteria	Proteobacteria					
+k99_10000631_1	Bacteria	Proteobacteria					
+k99_10000631_2	Bacteria	Proteobacteria					
+k99_10000631_3	Bacteria	Proteobacteria					
+k99_10000631_4	Bacteria	Proteobacteria					
+k99_10000631_5	Bacteria	Proteobacteria					
+k99_10000646_1	Bacteria	Proteobacteria					
+k99_10000646_2	Bacteria	Proteobacteria					
+k99_10000654_1	Bacteria	Proteobacteria					
+k99_10000677_1	Bacteria	Proteobacteria					
+k99_10000677_2	Bacteria	Proteobacteria					
+k99_10000714_1	Bacteria	Proteobacteria					
+k99_10000714_2	Bacteria	Proteobacteria					
+k99_10000761_1	Bacteria	Proteobacteria					
+k99_10000761_2	Bacteria	Proteobacteria					
+k99_10000761_3	Bacteria	Proteobacteria					
+k99_10000761_4	Bacteria	Proteobacteria					
+k99_10000775_1	Eukaryota	Chlorophyta	Mamiellophyceae	Mamiellales	Mamiellaceae	Micromonas	Micromonas pusilla
+k99_1000080_1							
+k99_1000080_2							
+k99_1000081_1							
+k99_10000827_1							
+k99_10000827_10							
+k99_10000827_11							
+k99_10000827_12							
+k99_10000827_2							
+k99_10000827_3							
+k99_10000827_4							
+k99_10000827_5							
+k99_10000827_6							
+k99_10000827_7							
+k99_10000827_8							
+k99_10000827_9							
+k99_1000084_1							
+k99_1000084_2							
+k99_1000084_3							
+k99_1000084_4							
+k99_1000084_5							
+k99_1000084_6							
+k99_1000084_7	Bacteria	Proteobacteria	Alphaproteobacteria				
+k99_10000853_1	Bacteria	Proteobacteria	Alphaproteobacteria				
+k99_10000857_1	Eukaryota	Eustigmatophyceae		Eustigmatales	Monodopsidaceae	Nannochloropsis	Nannochloropsis gaditana
+k99_10000857_2	Bacteria	Proteobacteria	Deltaproteobacteria				
+k99_10000880_1	Bacteria	Proteobacteria	Deltaproteobacteria				
+k99_10000880_2	Bacteria						
+k99_10000880_3	Bacteria						
+k99_10000894_1	Eukaryota	Ascomycota	Saccharomycetes	Saccharomycetales	Saccharomycetaceae	Nakaseomyces	Candida glabrata
+k99_10000894_2	Bacteria	Proteobacteria	Alphaproteobacteria	Rhodobacterales	Rhodobacteraceae		
+k99_10000894_3	Bacteria	Proteobacteria	Alphaproteobacteria	Rhodobacterales	Rhodobacteraceae		
+k99_10000894_4	Bacteria						
+k99_10000907_1	Bacteria						
+k99_1000090_1	Bacteria						
+k99_1000090_2	Bacteria						
+k99_1000090_3	Bacteria						
+k99_10000918_1							
+k99_10000918_2							
+k99_10000950_1							
+k99_10000950_2							
+k99_10000959_1							
+k99_10000963_1							
+k99_10000963_2							
+k99_10000972_1							
+k99_10000972_2							
+k99_10000990_1							
+k99_10001004_1							
+k99_10001004_2							
+k99_10001014_1							
+k99_10001014_2							
+k99_10001014_3							
+k99_10001035_1							
+k99_10001035_2							
+k99_10001040_1							
+k99_10001041_1							
+k99_10001041_2							
+k99_10001041_3							
+k99_10001055_1							
+k99_10001094_1							
+k99_10001094_2							
+k99_10001094_3							
+k99_100010_1							
+k99_100010_2	Bacteria	Proteobacteria	Alphaproteobacteria	Rhizobiales	Bradyrhizobiaceae	Bradyrhizobium	Bradyrhizobium sp. CCBAU 15544
+k99_10001118_1	Bacteria	Proteobacteria	Alphaproteobacteria	Rhizobiales	Bradyrhizobiaceae	Bradyrhizobium	Bradyrhizobium sp. CCBAU 15544
+k99_10001125_1	Bacteria	Proteobacteria	Alphaproteobacteria	Rhizobiales	Bradyrhizobiaceae	Bradyrhizobium	Bradyrhizobium sp. CCBAU 15544
+k99_10001125_2	Bacteria						
+k99_10001125_3	Bacteria						
+k99_10001129_1	Bacteria	Bacteroidetes	Flavobacteriia	Flavobacteriales			
+k99_10001156_1	Bacteria	Bacteroidetes	Flavobacteriia	Flavobacteriales			
+k99_10001181_1	Bacteria	Verrucomicrobia					Verrucomicrobia bacterium SCGC AAA168-F10
+k99_10001181_2	Bacteria	Verrucomicrobia					Verrucomicrobia bacterium SCGC AAA168-F10
+k99_10001181_3	Bacteria						
+k99_10001181_4	Bacteria						
+k99_10001209_1	Bacteria						
+k99_10001211_1	Bacteria						
+k99_10001211_2	Bacteria						
+k99_10001211_3	Bacteria						
+k99_10001211_4	Eukaryota						
+k99_10001211_5	Bacteria						
+k99_10001211_6	Bacteria						
+k99_10001211_7	Bacteria						
+k99_10001211_8	Bacteria						
+k99_10001211_9	Bacteria						
+k99_10001232_1	Bacteria						
+k99_10001242_1	Bacteria						
+k99_10001242_2	Bacteria						
+k99_10001243_1	Bacteria						
+k99_10001243_2	Bacteria	Proteobacteria	Alphaproteobacteria	Sphingomonadales			
+k99_10001243_3	Bacteria	Proteobacteria	Alphaproteobacteria	Sphingomonadales			
+k99_10001243_4	Viruses			Caudovirales	Podoviridae		Pelagibacter phage HTVC019P
+k99_10001246_1	Viruses			Caudovirales	Podoviridae		Pelagibacter phage HTVC019P
+k99_1000124_1	Viruses			Caudovirales	Podoviridae		Pelagibacter phage HTVC019P
+k99_1000124_2							
+k99_10001252_1							
+k99_10001252_2	Eukaryota	Chlorophyta	Mamiellophyceae	Mamiellales	Mamiellaceae	Micromonas	
+k99_10001259_1	Eukaryota	Chlorophyta	Mamiellophyceae	Mamiellales	Mamiellaceae	Micromonas	
+k99_10001259_2	Eukaryota	Chlorophyta	Mamiellophyceae	Mamiellales	Mamiellaceae	Micromonas	
+k99_10001259_3							
+k99_10001259_4	Eukaryota	Chlorophyta	Mamiellophyceae	Mamiellales	Bathycoccaceae	Bathycoccus	Bathycoccus prasinos
+k99_10001264_1	Eukaryota	Chlorophyta	Mamiellophyceae	Mamiellales	Bathycoccaceae	Bathycoccus	Bathycoccus prasinos
+k99_10001300_1	Bacteria	Actinobacteria <phylum>	Actinobacteria				marine actinobacterium MedAcidi-G1
+k99_10001318_1	Bacteria	Proteobacteria	Deltaproteobacteria				
+k99_10001318_2	Bacteria	Proteobacteria	Deltaproteobacteria				
+k99_10001322_1	Bacteria	Proteobacteria	Deltaproteobacteria				
+k99_10001322_2							
+k99_10001322_3							
+k99_10001324_1							
+k99_10001324_2							
+k99_10001324_3	Eukaryota						
+k99_10001324_4	Eukaryota						
+k99_10001324_5							
+k99_10001339_1	Bacteria	Proteobacteria					
+k99_10001351_1	Bacteria	Proteobacteria					
+k99_1000142_1	Bacteria						
+k99_1000142_2	Bacteria						
+k99_10001434_1	Bacteria						
+k99_10001434_2	Bacteria						
+k99_10001434_3	Bacteria						
+k99_10001453_1	Bacteria						
+k99_10001453_2	Bacteria	Firmicutes					
+k99_10001455_1	Bacteria	Firmicutes					
+k99_10001455_2	Eukaryota		Cryptophyta	Pyrenomonadales	Geminigeraceae	Guillardia	Guillardia theta
+k99_10001455_3	Eukaryota		Cryptophyta	Pyrenomonadales	Geminigeraceae	Guillardia	Guillardia theta
+k99_10001455_4	Eukaryota		Cryptophyta	Pyrenomonadales	Geminigeraceae	Guillardia	Guillardia theta
+k99_10001455_5	Eukaryota		Cryptophyta	Pyrenomonadales	Geminigeraceae	Guillardia	Guillardia theta
+k99_10001472_1	Eukaryota		Cryptophyta	Pyrenomonadales	Geminigeraceae	Guillardia	Guillardia theta
+k99_10001476_1	Bacteria						
+k99_1000148_1	Bacteria						
+k99_1000148_2	Bacteria						
+k99_10001491_1	Bacteria						
+k99_10001491_10	Bacteria						
+k99_10001491_11	Bacteria						
+k99_10001491_2	Bacteria						
+k99_10001491_3	Bacteria						
+k99_10001491_4	Bacteria						
+k99_10001491_5							
+k99_10001491_6	Bacteria	Proteobacteria	Alphaproteobacteria	Rhodobacterales			Rhodobacterales bacterium HTCC2255
+k99_10001491_7	Bacteria	Proteobacteria	Alphaproteobacteria	Rhodobacterales			Rhodobacterales bacterium HTCC2255
+k99_10001491_8							
+k99_10001491_9							
+k99_100014_1							
+k99_10001510_1							
+k99_10001510_2	Eukaryota		Spirotrichea	Sporadotrichida	Oxytrichidae		
+k99_10001510_3	Eukaryota		Spirotrichea	Sporadotrichida	Oxytrichidae		
+k99_1000151_1	Eukaryota						
+k99_1000151_2	Bacteria	Actinobacteria <phylum>	Actinobacteria				
+k99_1000151_3	Bacteria	Actinobacteria <phylum>	Actinobacteria				
+k99_1000151_4	Bacteria	Actinobacteria <phylum>	Actinobacteria				
+k99_1000151_5	Bacteria	Actinobacteria <phylum>	Actinobacteria				
+k99_1000151_6	Bacteria	Actinobacteria <phylum>	Actinobacteria				
+k99_10001529_1	Bacteria	Actinobacteria <phylum>	Actinobacteria				
+k99_10001529_2	Bacteria	Actinobacteria <phylum>	Actinobacteria				
+k99_10001533_1	Bacteria	Actinobacteria <phylum>	Actinobacteria				
+k99_10001533_2	Bacteria	Actinobacteria <phylum>	Actinobacteria				
+k99_10001533_3	Bacteria	Actinobacteria <phylum>	Actinobacteria				
+k99_10001580_1	Bacteria	Actinobacteria <phylum>	Actinobacteria				
+k99_10001596_1	Bacteria	Actinobacteria <phylum>	Actinobacteria				
+k99_10001601_1	Bacteria	Actinobacteria <phylum>	Actinobacteria				
+k99_10001601_2	Bacteria	Actinobacteria <phylum>	Actinobacteria				
+k99_10001615_1	Bacteria	Actinobacteria <phylum>	Actinobacteria				
+k99_10001615_2	Bacteria	Actinobacteria <phylum>	Actinobacteria				
+k99_10001657_1	Bacteria	Actinobacteria <phylum>	Actinobacteria				
+k99_10001657_2	Bacteria	Actinobacteria <phylum>	Actinobacteria				
+k99_10001657_3	Bacteria	Actinobacteria <phylum>	Actinobacteria				
+k99_10001657_4	Bacteria	Actinobacteria <phylum>	Actinobacteria				
+k99_10001665_1	Bacteria	Actinobacteria <phylum>	Actinobacteria				
+k99_10001665_2	Bacteria	Actinobacteria <phylum>	Actinobacteria				
+k99_10001665_3	Bacteria	Actinobacteria <phylum>	Actinobacteria				
+k99_10001665_4	Bacteria	Actinobacteria <phylum>	Actinobacteria				
+k99_10001669_1	Bacteria	Actinobacteria <phylum>	Actinobacteria				
+k99_10001669_2	Bacteria	Actinobacteria <phylum>	Actinobacteria				
+k99_10001671_1	Bacteria	Actinobacteria <phylum>	Actinobacteria				
+k99_10001671_2	Bacteria	Actinobacteria <phylum>	Actinobacteria				
+k99_10001671_3	Bacteria	Actinobacteria <phylum>	Actinobacteria				
+k99_10001684_1	Bacteria	Actinobacteria <phylum>	Actinobacteria				
+k99_100016_1	Bacteria	Actinobacteria <phylum>	Actinobacteria				
+k99_100016_2	Bacteria	Actinobacteria <phylum>	Actinobacteria				
+k99_10001732_1	Bacteria	Actinobacteria <phylum>	Actinobacteria				
+k99_10001743_1	Bacteria	Actinobacteria <phylum>	Actinobacteria				
+k99_10001765_1	Bacteria	Actinobacteria <phylum>	Actinobacteria				
+k99_10001765_2	Bacteria	Actinobacteria <phylum>	Actinobacteria				
+k99_10001790_1	Bacteria	Actinobacteria <phylum>	Actinobacteria				
+k99_10001790_2	Bacteria	Actinobacteria <phylum>	Actinobacteria				
+k99_10001801_1	Bacteria	Actinobacteria <phylum>	Actinobacteria				
+k99_10001801_2	Bacteria	Actinobacteria <phylum>	Actinobacteria				
+k99_10001801_3	Bacteria	Actinobacteria <phylum>	Actinobacteria				
+k99_10001807_1	Bacteria	Actinobacteria <phylum>	Actinobacteria				
+k99_10001807_2	Bacteria	Actinobacteria <phylum>	Actinobacteria				
+k99_10001813_1	Bacteria	Actinobacteria <phylum>	Actinobacteria				
+k99_10001813_10	Bacteria	Actinobacteria <phylum>	Actinobacteria				
+k99_10001813_11	Bacteria						
+k99_10001813_12	Bacteria						
+k99_10001813_13	Bacteria						
+k99_10001813_14	Bacteria						
+k99_10001813_15	Bacteria	Bacteroidetes	Cytophagia	Cytophagales	Cyclobacteriaceae		
+k99_10001813_16	Bacteria	Bacteroidetes	Cytophagia	Cytophagales	Cyclobacteriaceae		
+k99_10001813_17	Bacteria	Bacteroidetes	Cytophagia	Cytophagales	Cyclobacteriaceae		
+k99_10001813_18	Bacteria	Bacteroidetes	Cytophagia	Cytophagales	Cyclobacteriaceae		
+k99_10001813_2	Bacteria	Bacteroidetes	Cytophagia	Cytophagales	Cyclobacteriaceae		
+k99_10001813_3	Bacteria						
+k99_10001813_4							
+k99_10001813_5	Bacteria	Actinobacteria <phylum>	Actinobacteria				
+k99_10001813_6							
+k99_10001813_7							
+k99_10001813_8	Viruses			Caudovirales			
+k99_10001813_9	Viruses			Caudovirales			
+k99_10001814_1	Viruses			Caudovirales			
+k99_10001814_2	Viruses			Caudovirales			
+k99_10001820_1	Viruses			Caudovirales			
+k99_10001830_1	Viruses			Caudovirales			
+k99_10001836_1	Bacteria	Proteobacteria	Alphaproteobacteria				
+k99_10001836_2	Bacteria	Proteobacteria	Alphaproteobacteria				
+k99_10001836_3	Bacteria	Proteobacteria	Alphaproteobacteria				
+k99_10001867_1	Bacteria	Proteobacteria	Alphaproteobacteria				
+k99_10001867_2	Bacteria	Bacteroidetes					
+k99_10001870_1	Bacteria	Bacteroidetes					
+k99_10001870_2	Bacteria	Bacteroidetes					
+k99_10001870_3	Bacteria						
+k99_10001886_1	Bacteria						
+k99_10001886_2	Bacteria						
+k99_10001886_3							
+k99_10001886_4	Bacteria						
+k99_10001904_1	Bacteria						
+k99_10001904_2	Bacteria						
+k99_10001904_3	Bacteria						
+k99_10001905_1							
+k99_10001905_2	Eukaryota			Isochrysidales	Noelaerhabdaceae	Emiliania	Emiliania huxleyi
+k99_10001917_1							
+k99_10001917_2							
+k99_10001917_3							
+k99_10001917_4							
+k99_10001951_1							
+k99_10001951_2	Bacteria	Proteobacteria	Gammaproteobacteria				
+k99_10001957_1	Bacteria						
+k99_10001966_1	Bacteria						
+k99_10001966_2	Bacteria						
+k99_10001966_3	Bacteria						
+k99_1000197_1	Bacteria						
+k99_1000197_2	Bacteria						
+k99_10002026_1	Bacteria						
+k99_10002026_2	Bacteria	Proteobacteria	Betaproteobacteria	Burkholderiales	Burkholderiaceae	Pandoraea	
+k99_10002026_3	Bacteria	Proteobacteria	Betaproteobacteria	Burkholderiales	Burkholderiaceae	Pandoraea	
+k99_10002026_4	Bacteria	Proteobacteria	Betaproteobacteria	Burkholderiales	Burkholderiaceae	Pandoraea	
+k99_10002026_5							
+k99_10002026_6							
+k99_1000203_1							
+k99_1000203_2							
+k99_1000203_3	Bacteria	Proteobacteria	Alphaproteobacteria				
+k99_1000203_4	Eukaryota			Isochrysidales	Noelaerhabdaceae	Emiliania	Emiliania huxleyi
+k99_1000203_5	Eukaryota			Isochrysidales	Noelaerhabdaceae	Emiliania	Emiliania huxleyi
+k99_1000203_6							
+k99_1000203_7							
+k99_1000203_8							
+k99_1000203_9							
+k99_10002054_1	Eukaryota			Isochrysidales	Noelaerhabdaceae	Emiliania	Emiliania huxleyi
+k99_10002054_2	Eukaryota			Isochrysidales	Noelaerhabdaceae	Emiliania	Emiliania huxleyi
+k99_10002056_1	Bacteria	Proteobacteria	Alphaproteobacteria				
+k99_10002056_2	Bacteria	Proteobacteria	Alphaproteobacteria				
+k99_10002056_3	Viruses			Caudovirales	Siphoviridae		Flavobacterium phage 11b
+k99_10002091_1							
+k99_10002106_1							
+k99_10002106_2							
+k99_1000212_1							
+k99_1000212_2							
+k99_1000212_3							
+k99_1000212_4							
+k99_1000212_5	Bacteria	Proteobacteria	Epsilonproteobacteria	Campylobacterales	Helicobacteraceae	Thiovulum	Thiovulum sp. ES
+k99_10002182_1	Bacteria	Proteobacteria	Epsilonproteobacteria	Campylobacterales	Helicobacteraceae	Thiovulum	Thiovulum sp. ES
+k99_10002197_1	Bacteria	Proteobacteria	Epsilonproteobacteria	Campylobacterales	Helicobacteraceae	Thiovulum	Thiovulum sp. ES
+k99_10002197_2	Bacteria	Proteobacteria	Epsilonproteobacteria	Campylobacterales	Helicobacteraceae	Thiovulum	Thiovulum sp. ES
+k99_10002197_3	Bacteria	Proteobacteria	Epsilonproteobacteria	Campylobacterales	Helicobacteraceae	Thiovulum	Thiovulum sp. ES
+k99_10002208_1							
+k99_10002208_2							
+k99_10002216_1	Bacteria	Proteobacteria					
+k99_10002222_1	Bacteria	Proteobacteria					
+k99_10002222_2	Bacteria	Proteobacteria					
+k99_10002222_3	Bacteria	Proteobacteria					
+k99_10002222_4	Bacteria	Proteobacteria					
+k99_10002222_5	Bacteria	Proteobacteria					
+k99_10002224_1	Bacteria	Proteobacteria	Alphaproteobacteria				
+k99_10002224_2	Bacteria	Proteobacteria	Alphaproteobacteria				
+k99_10002224_3	Bacteria	Proteobacteria	Alphaproteobacteria				
+k99_10002224_4	Bacteria	Proteobacteria	Alphaproteobacteria				
+k99_10002224_5	Eukaryota	Chlorophyta	Mamiellophyceae	Mamiellales	Mamiellaceae	Micromonas	
+k99_10002224_6	Eukaryota	Chlorophyta	Mamiellophyceae	Mamiellales	Mamiellaceae	Micromonas	
+k99_10002224_7	Eukaryota	Chlorophyta	Mamiellophyceae	Mamiellales	Mamiellaceae	Micromonas	
+k99_10002242_1	Eukaryota	Chlorophyta	Mamiellophyceae	Mamiellales	Mamiellaceae	Micromonas	
+k99_10002242_2	Eukaryota	Chlorophyta	Mamiellophyceae	Mamiellales	Mamiellaceae	Micromonas	
+k99_10002242_3							
+k99_10002248_1	Bacteria	Bacteroidetes	Flavobacteriia				Flavobacteria bacterium MS024-2A
+k99_10002248_2	Bacteria	Bacteroidetes	Flavobacteriia				Flavobacteria bacterium MS024-2A
+k99_10002248_3	Bacteria	Bacteroidetes	Flavobacteriia				Flavobacteria bacterium MS024-2A
+k99_10002248_4	Bacteria	Bacteroidetes	Flavobacteriia				Flavobacteria bacterium MS024-2A
+k99_10002248_5	Bacteria	Proteobacteria					
+k99_10002248_6	Bacteria	Proteobacteria					
+k99_10002248_7	Bacteria	Bacteroidetes					
+k99_1000224_1	Bacteria	Actinobacteria <phylum>	Actinobacteria	Actinomycetales	Microbacteriaceae		
+k99_10002254_1	Bacteria	Actinobacteria <phylum>	Actinobacteria	Actinomycetales	Microbacteriaceae		
+k99_10002254_2	Bacteria	Proteobacteria	Alphaproteobacteria				
+k99_1000226_1	Bacteria	Proteobacteria	Alphaproteobacteria				
+k99_1000226_2	Bacteria	Actinobacteria <phylum>	Actinobacteria	Actinomycetales			
+k99_1000226_3	Bacteria	Actinobacteria <phylum>	Actinobacteria	Actinomycetales			
+k99_1000226_4	Bacteria						
+k99_10002280_1	Bacteria						
+k99_10002280_2	Bacteria						
+k99_10002280_3	Bacteria						
+k99_10002280_4	Bacteria						uncultured bacterium
+k99_10002280_5	Bacteria						uncultured bacterium
+k99_10002290_1	Bacteria						uncultured bacterium
+k99_10002353_1	Bacteria	Proteobacteria	Gammaproteobacteria				
+k99_10002353_2	Eukaryota	Arthropoda	Insecta	Diptera	Culicidae	Anopheles	Anopheles gambiae
+k99_10002353_3	Eukaryota	Arthropoda	Insecta	Diptera	Culicidae	Anopheles	Anopheles gambiae
+k99_10002353_4	Bacteria	Proteobacteria					
+k99_10002353_5	Bacteria	Proteobacteria					
+k99_10002359_1							
+k99_10002359_2							
+k99_10002359_3							
+k99_10002363_1	Bacteria	Verrucomicrobia					
+k99_10002401_1	Bacteria	Verrucomicrobia					
+k99_10002401_2	Bacteria	Verrucomicrobia					
+k99_10002401_3	Bacteria	Verrucomicrobia					
+k99_10002442_1	Bacteria	Proteobacteria					
+k99_10002442_2	Bacteria	Proteobacteria					
+k99_10002458_1	Bacteria						
+k99_10002458_2	Bacteria						
+k99_10002458_3	Bacteria						
+k99_10002509_1	Bacteria						
+k99_10002509_2	Bacteria						
+k99_10002510_1	Bacteria						
+k99_10002537_1	Bacteria						
+k99_10002537_2	Eukaryota			Isochrysidales	Noelaerhabdaceae	Emiliania	Emiliania huxleyi
+k99_10002551_1	Bacteria	Proteobacteria	Gammaproteobacteria	Vibrionales	Vibrionaceae		
+k99_10002566_1	Bacteria	Proteobacteria	Gammaproteobacteria	Vibrionales	Vibrionaceae		
+k99_10002600_1	Bacteria	Proteobacteria	Gammaproteobacteria				
+k99_10002600_2	Bacteria	Proteobacteria	Gammaproteobacteria				
+k99_10002625_1							
+k99_10002630_1							
+k99_10002635_1							
+k99_10002635_2							
+k99_10002635_3	Bacteria	Cyanobacteria					
+k99_10002635_4	Bacteria	Cyanobacteria					
+k99_10002635_5	Bacteria	Cyanobacteria					
+k99_10002660_1							
+k99_10002660_2	Viruses				Phycodnaviridae		
+k99_10002668_1	Viruses				Phycodnaviridae		
+k99_10002672_1	Bacteria						
+k99_10002672_2	Bacteria						
+k99_10002681_1	Bacteria						
+k99_10002681_2	Bacteria						
+k99_10002708_1	Bacteria						
+k99_10002708_2	Bacteria						
+k99_10002708_3	Bacteria						
+k99_10002708_4	Bacteria						
+k99_10002708_5	Bacteria						
+k99_10002765_1	Bacteria						
+k99_10002777_1	Bacteria						
+k99_10002777_2	Bacteria						
+k99_10002820_1	Bacteria						
+k99_10002821_1	Bacteria						
+k99_10002821_2	Bacteria						
+k99_10002821_3							
+k99_10002821_4	Bacteria	Bacteroidetes					
+k99_10002821_5	Bacteria	Bacteroidetes					
+k99_10002821_6	Bacteria						
+k99_10002896_1	Bacteria						
+k99_10002896_2	Bacteria	Proteobacteria	Deltaproteobacteria				
+k99_10002896_3	Bacteria	Proteobacteria	Deltaproteobacteria				
+k99_10002896_4	Bacteria	Proteobacteria	Deltaproteobacteria				
+k99_10002896_5	Bacteria	Proteobacteria	Deltaproteobacteria				
+k99_10002896_6	Bacteria						
+k99_10002896_7	Bacteria						
+k99_10002896_8	Bacteria						
+k99_10002896_9	Bacteria						
+k99_10002899_1	Bacteria						
+k99_10002899_2	Bacteria	Cyanobacteria		Chroococcales			
+k99_10002900_1	Bacteria	Cyanobacteria		Chroococcales			
+k99_10002918_1	Bacteria	Cyanobacteria		Chroococcales			
+k99_10002918_2	Bacteria	Cyanobacteria		Chroococcales			
+k99_10002918_3							
+k99_1000296_1							
+k99_1000296_2							
+k99_1000296_3							
+k99_1000296_4							
+k99_10002970_1							
+k99_10002970_10							
+k99_10002970_11							
+k99_10002970_2							
+k99_10002970_3							
+k99_10002970_4	Bacteria						
+k99_10002970_5							
+k99_10002970_6	Bacteria						
+k99_10002970_7	Bacteria						
+k99_10002970_8	Bacteria						
+k99_10002970_9	Eukaryota	Arthropoda	Arachnida	Araneae	Eresidae	Stegodyphus	Stegodyphus mimosarum
+k99_10002978_1	Bacteria	Proteobacteria	Betaproteobacteria				Betaproteobacteria bacterium MOLA814
+k99_10002985_1	Bacteria	Proteobacteria	Betaproteobacteria				Betaproteobacteria bacterium MOLA814
+k99_10002988_1	Eukaryota						
+k99_10003000_1	Eukaryota						
+k99_10003000_2	Eukaryota	Chlorophyta	Mamiellophyceae	Mamiellales	Mamiellaceae	Micromonas	Micromonas sp. RCC299
+k99_10003000_3	Bacteria						
+k99_10003000_4	Bacteria						
+k99_10003000_5	Bacteria						
+k99_10003000_6	Bacteria						
+k99_10003000_7	Eukaryota		Cryptophyta	Pyrenomonadales	Geminigeraceae	Guillardia	Guillardia theta
+k99_10003002_1							
+k99_10003002_2							
+k99_10003002_3	Bacteria	Bacteroidetes	Cytophagia	Cytophagales	Cytophagaceae	Spirosoma	Spirosoma luteum
+k99_10003002_4							
+k99_10003002_5	Bacteria						
+k99_10003002_6	Bacteria						
+k99_10003022_1							
+k99_10003027_1							
+k99_10003027_2	Archaea	Thaumarchaeota					uncultured marine thaumarchaeote KM3_84_A09
+k99_10003027_3	Archaea	Thaumarchaeota					uncultured marine thaumarchaeote KM3_84_A09
+k99_10003027_4	Archaea	Thaumarchaeota					uncultured marine thaumarchaeote KM3_84_A09
+k99_10003030_1	Eukaryota						
+k99_10003030_2	Eukaryota						
+k99_10003048_1	Eukaryota						
+k99_10003048_2	Eukaryota						
+k99_10003055_1	Eukaryota						
+k99_10003085_1	Bacteria	Bacteroidetes					
+k99_10003085_2	Bacteria	Bacteroidetes					
+k99_10003113_1							
+k99_10003113_2	Bacteria	Proteobacteria	Alphaproteobacteria	Rhodobacterales	Rhodobacteraceae		
+k99_10003113_3	Bacteria	Proteobacteria	Alphaproteobacteria	Rhodobacterales	Rhodobacteraceae		
+k99_10003113_4	Bacteria	Proteobacteria	Alphaproteobacteria	Rhodobacterales	Rhodobacteraceae		
+k99_10003113_5	Bacteria	Proteobacteria	Alphaproteobacteria	Rhodobacterales	Rhodobacteraceae		
+k99_10003113_6	Bacteria	Proteobacteria	Alphaproteobacteria	Rhodobacterales	Rhodobacteraceae		
+k99_10003113_7							
+k99_10003113_8							
+k99_10003139_1							
+k99_10003139_2							
+k99_10003148_1	Bacteria	Bacteroidetes	Cytophagia	Cytophagales	Flammeovirgaceae	Nafulsella	Nafulsella turpanensis
+k99_10003154_1	Eukaryota	Streptophyta					
+k99_10003170_1	Bacteria	Proteobacteria	Gammaproteobacteria	Enterobacteriales	Enterobacteriaceae		
+k99_10003171_1	Bacteria	Proteobacteria	Gammaproteobacteria	Enterobacteriales	Enterobacteriaceae		
+k99_10003180_1	Bacteria	Proteobacteria					
+k99_10003180_2	Bacteria	Proteobacteria					
+k99_10003191_1	Bacteria	Proteobacteria					
+k99_10003193_1	Bacteria	Proteobacteria					
+k99_10003193_2	Bacteria	Proteobacteria					
+k99_10003200_1	Bacteria	Proteobacteria					
+k99_10003200_2	Bacteria	Proteobacteria					
+k99_10003210_1	Bacteria	Bacteroidetes	Flavobacteriia	Flavobacteriales	Flavobacteriaceae		
+k99_10003210_2	Bacteria	Bacteroidetes	Flavobacteriia	Flavobacteriales	Flavobacteriaceae		
+k99_10003210_3							
+k99_10003210_4							
+k99_10003218_1	Eukaryota	Chlorophyta	Mamiellophyceae	Mamiellales			
+k99_10003218_2	Bacteria	Bacteroidetes	Flavobacteriia	Flavobacteriales			
+k99_10003230_1	Bacteria	Bacteroidetes	Flavobacteriia	Flavobacteriales			
+k99_10003252_1	Bacteria	Bacteroidetes	Flavobacteriia	Flavobacteriales			
+k99_10003252_2	Eukaryota		Spirotrichea	Sporadotrichida	Oxytrichidae		
+k99_10003252_3	Eukaryota		Spirotrichea	Sporadotrichida	Oxytrichidae		
+k99_10003252_4	Bacteria						
+k99_10003267_1	Bacteria						
+k99_10003267_2	Bacteria	Proteobacteria	Alphaproteobacteria	Rhodobacterales	Rhodobacteraceae	Octadecabacter	Octadecabacter antarcticus
+k99_10003271_1							
+k99_10003271_2							
+k99_10003271_3							
+k99_10003306_1							
+k99_10003324_1	Bacteria						
+k99_10003324_2	Bacteria						
+k99_10003324_3	Bacteria						
+k99_10003357_1	Bacteria						
+k99_10003361_1	Bacteria						
+k99_10003361_2	Bacteria						
+k99_10003367_1	Bacteria						
+k99_10003370_1	Bacteria						
+k99_10003370_2	Bacteria						
+k99_10003394_1	Bacteria						
+k99_10003394_2							
+k99_10003394_3							
+k99_10003408_1	Bacteria	Bacteroidetes					
+k99_10003431_1	Bacteria	Bacteroidetes					
+k99_10003431_2	Bacteria	Bacteroidetes					
+k99_10003431_3							
+k99_10003439_1							
+k99_10003439_2							
+k99_10003439_3	Bacteria						
+k99_10003439_4	Bacteria						
+k99_10003439_5	Bacteria						
+k99_10003440_1	Bacteria						
+k99_10003440_2	Eukaryota			Isochrysidales	Noelaerhabdaceae	Emiliania	Emiliania huxleyi
+k99_10003440_3	Eukaryota			Isochrysidales	Noelaerhabdaceae	Emiliania	Emiliania huxleyi
+k99_10003440_4	Eukaryota			Isochrysidales	Noelaerhabdaceae	Emiliania	Emiliania huxleyi
+k99_10003440_5	Eukaryota			Isochrysidales	Noelaerhabdaceae	Emiliania	Emiliania huxleyi
+k99_10003440_6	Bacteria	Proteobacteria	Alphaproteobacteria	SAR11 cluster			alpha proteobacterium HIMB5
+k99_1000344_1	Bacteria	Proteobacteria	Alphaproteobacteria	SAR11 cluster			alpha proteobacterium HIMB5
+k99_1000344_2	Bacteria	Proteobacteria	Alphaproteobacteria	SAR11 cluster			alpha proteobacterium HIMB5
+k99_10003454_1	Bacteria	Proteobacteria	Alphaproteobacteria	SAR11 cluster			alpha proteobacterium HIMB5
+k99_10003454_2	Eukaryota	Bacillariophyta					
+k99_10003454_3	Eukaryota	Bacillariophyta					
+k99_10003454_4	Eukaryota	Bacillariophyta					
+k99_10003554_1							
+k99_10003554_2							
+k99_10003554_3	Bacteria						
+k99_10003554_4	Bacteria						
+k99_10003554_5	Bacteria						
+k99_10003554_6	Bacteria						
+k99_10003554_7	Bacteria						
+k99_10003574_1	Bacteria	Bacteroidetes					
+k99_10003574_2	Bacteria	Bacteroidetes					
+k99_10003578_1							
+k99_10003578_10							
+k99_10003578_11							
+k99_10003578_12							
+k99_10003578_13	Bacteria						
+k99_10003578_14	Bacteria						
+k99_10003578_15	Bacteria	Proteobacteria	Alphaproteobacteria	Sphingomonadales			
+k99_10003578_16	Bacteria	Proteobacteria	Alphaproteobacteria	Sphingomonadales			
+k99_10003578_17	Bacteria	Proteobacteria	Alphaproteobacteria	Sphingomonadales			
+k99_10003578_18	Bacteria	Proteobacteria	Alphaproteobacteria	Sphingomonadales			
+k99_10003578_19	Bacteria	Proteobacteria	Alphaproteobacteria	Sphingomonadales			
+k99_10003578_2	Bacteria	Proteobacteria	Alphaproteobacteria	Sphingomonadales			
+k99_10003578_20							
+k99_10003578_21							
+k99_10003578_22	Eukaryota						
+k99_10003578_23	Eukaryota						
+k99_10003578_24	Bacteria	Proteobacteria					
+k99_10003578_3	Bacteria	Proteobacteria					
+k99_10003578_4	Bacteria						
+k99_10003578_5	Bacteria						
+k99_10003578_6	Bacteria						
+k99_10003578_7							
+k99_10003578_8	Bacteria	Bacteroidetes	Flavobacteriia	Flavobacteriales			
+k99_10003578_9	Bacteria	Bacteroidetes	Flavobacteriia	Flavobacteriales			
+k99_10003593_1	Bacteria	Bacteroidetes	Flavobacteriia	Flavobacteriales			
+k99_10003593_2	Bacteria	Bacteroidetes	Flavobacteriia	Flavobacteriales			
+k99_10003593_3	Bacteria	Proteobacteria	Betaproteobacteria	Burkholderiales	Alcaligenaceae		
+k99_10003593_4	Bacteria	Proteobacteria	Betaproteobacteria	Burkholderiales	Alcaligenaceae		
+k99_10003594_1	Bacteria	Proteobacteria	Betaproteobacteria	Burkholderiales	Alcaligenaceae		
+k99_10003608_1	Eukaryota						
+k99_10003608_2	Bacteria	Cyanobacteria					
+k99_10003608_3	Bacteria	Cyanobacteria					
+k99_10003608_4							
+k99_10003624_1							
+k99_10003639_1	Bacteria	Bacteroidetes	Flavobacteriia	Flavobacteriales	Flavobacteriaceae		
+k99_10003639_2	Bacteria	Bacteroidetes	Flavobacteriia	Flavobacteriales	Flavobacteriaceae		
+k99_10003650_1	Bacteria	Proteobacteria	Alphaproteobacteria	SAR11 cluster			
+k99_10003650_2	Bacteria	Proteobacteria	Alphaproteobacteria	SAR11 cluster			
+k99_10003656_1	Bacteria	Proteobacteria	Alphaproteobacteria	SAR11 cluster			
+k99_10003656_2	Bacteria	Bacteroidetes					
+k99_1000367_1	Bacteria	Bacteroidetes					
+k99_1000367_2	Bacteria	Bacteroidetes					
+k99_10003698_1	Bacteria	Bacteroidetes					
+k99_10003698_2	Bacteria	Bacteroidetes					
+k99_10003698_3	Bacteria	Bacteroidetes					
+k99_10003719_1	Bacteria	Proteobacteria					
+k99_10003719_2	Bacteria	Proteobacteria					
+k99_10003719_3							
+k99_10003719_4	Eukaryota	Chlorophyta	Mamiellophyceae	Mamiellales	Bathycoccaceae	Bathycoccus	Bathycoccus prasinos
+k99_10003730_1	Bacteria						
+k99_10003730_2	Bacteria	Bacteroidetes	Flavobacteriia	Flavobacteriales	Flavobacteriaceae		
+k99_10003750_1	Bacteria	Bacteroidetes	Flavobacteriia	Flavobacteriales	Flavobacteriaceae		
+k99_10003750_2	Bacteria	Proteobacteria	Deltaproteobacteria	Desulfobacterales	Desulfobacteraceae		
+k99_10003768_1	Bacteria	Proteobacteria	Deltaproteobacteria	Desulfobacterales	Desulfobacteraceae		
+k99_10003784_1	Bacteria	Verrucomicrobia	Verrucomicrobiae	Verrucomicrobiales	Verrucomicrobiaceae	Haloferula	Haloferula sp. BvORR071
+k99_10003784_2	Bacteria	Verrucomicrobia	Verrucomicrobiae	Verrucomicrobiales	Verrucomicrobiaceae	Haloferula	Haloferula sp. BvORR071
+k99_10003802_1							
+k99_10003802_10							
+k99_10003802_11	Bacteria	Proteobacteria	Alphaproteobacteria				
+k99_10003802_12	Bacteria	Proteobacteria	Alphaproteobacteria				
+k99_10003802_13	Bacteria	Proteobacteria	Alphaproteobacteria				
+k99_10003802_14							
+k99_10003802_15							
+k99_10003802_16	Bacteria	Verrucomicrobia					
+k99_10003802_17	Bacteria	Verrucomicrobia					
+k99_10003802_18	Bacteria	Verrucomicrobia					
+k99_10003802_2	Bacteria	Verrucomicrobia					
+k99_10003802_3	Bacteria	Verrucomicrobia					
+k99_10003802_4	Bacteria	Verrucomicrobia					
+k99_10003802_5							
+k99_10003802_6							
+k99_10003802_7							
+k99_10003802_8	Bacteria	Proteobacteria	Alphaproteobacteria	Rhodobacterales	Rhodobacteraceae		
+k99_10003802_9	Bacteria	Proteobacteria	Alphaproteobacteria	Rhodobacterales	Rhodobacteraceae		
+k99_10003827_1	Bacteria	Proteobacteria	Alphaproteobacteria	Rhodobacterales	Rhodobacteraceae		
+k99_1000382_1	Bacteria	Proteobacteria	Alphaproteobacteria	Rhodobacterales	Rhodobacteraceae		
+k99_1000382_2	Bacteria	Proteobacteria	Alphaproteobacteria	Rhodobacterales	Rhodobacteraceae		
+k99_10003836_1	Bacteria	Bacteroidetes					
+k99_10003836_2	Bacteria	Bacteroidetes					
+k99_10003836_3	Bacteria	Bacteroidetes					
+k99_1000383_1	Bacteria	Bacteroidetes					
+k99_10003854_1	Bacteria	Bacteroidetes					
+k99_10003860_1	Bacteria	Bacteroidetes					
+k99_10003864_1	Bacteria	Bacteroidetes					
+k99_10003864_2	Bacteria	Bacteroidetes					
+k99_10003864_3	Bacteria	Bacteroidetes					
+k99_10003864_4	Bacteria	Bacteroidetes					
+k99_10003871_1	Bacteria	Bacteroidetes					
+k99_10003871_2	Bacteria	Bacteroidetes					
+k99_10003871_3	Bacteria	Bacteroidetes					
+k99_10003926_1	Bacteria	Bacteroidetes					
+k99_10003928_1	Bacteria	Bacteroidetes					
+k99_10003928_2	Bacteria	Bacteroidetes					
+k99_10003928_3	Bacteria	Bacteroidetes					
+k99_10003928_4	Bacteria	Bacteroidetes					
+k99_10003941_1	Bacteria	Bacteroidetes					
+k99_10003941_2	Bacteria	Bacteroidetes					
+k99_10003951_1	Bacteria	Bacteroidetes					
+k99_10003951_2	Bacteria	Bacteroidetes					
+k99_10003951_3	Bacteria	Bacteroidetes					
+k99_10003951_4	Bacteria	Bacteroidetes					
+k99_10003951_5	Bacteria	Bacteroidetes					
+k99_10003951_6	Bacteria	Bacteroidetes					
+k99_10003951_7	Bacteria	Bacteroidetes					
+k99_10003951_8	Bacteria	Bacteroidetes					
+k99_10003967_1	Bacteria	Bacteroidetes					
+k99_10003967_2	Bacteria	Proteobacteria	Alphaproteobacteria	SAR11 cluster		Candidatus Pelagibacter	Candidatus Pelagibacter ubique
+k99_10003998_1	Bacteria	Proteobacteria	Gammaproteobacteria				
+k99_10004006_1	Bacteria	Proteobacteria	Gammaproteobacteria				
+k99_10004006_2	Bacteria	Proteobacteria	Gammaproteobacteria				
+k99_10004006_3							
+k99_10004006_4							
+k99_10004006_5	Bacteria	Proteobacteria					
+k99_10004009_1	Bacteria	Proteobacteria					
+k99_1000401_1	Eukaryota			Isochrysidales	Noelaerhabdaceae	Emiliania	Emiliania huxleyi
+k99_1000401_2	Eukaryota			Isochrysidales	Noelaerhabdaceae	Emiliania	Emiliania huxleyi
+k99_1000401_3	Eukaryota			Isochrysidales	Noelaerhabdaceae	Emiliania	Emiliania huxleyi
+k99_1000401_4	Eukaryota			Isochrysidales	Noelaerhabdaceae	Emiliania	Emiliania huxleyi
+k99_1000401_5	Eukaryota			Isochrysidales	Noelaerhabdaceae	Emiliania	Emiliania huxleyi
+k99_1000401_6	Eukaryota			Isochrysidales	Noelaerhabdaceae	Emiliania	Emiliania huxleyi
+k99_10004063_1	Eukaryota			Isochrysidales	Noelaerhabdaceae	Emiliania	Emiliania huxleyi
+k99_10004067_1							
+k99_10004070_1							
+k99_10004078_1							
+k99_10004078_2							
+k99_10004078_3							
+k99_10004078_4	Bacteria	Proteobacteria	Epsilonproteobacteria				
+k99_10004078_5	Bacteria	Proteobacteria	Epsilonproteobacteria				
+k99_10004078_6	Bacteria	Proteobacteria	Epsilonproteobacteria				
+k99_10004078_7	Eukaryota		Spirotrichea	Sporadotrichida	Oxytrichidae	Oxytricha	Oxytricha trifallax
+k99_10004080_1	Viruses				Phycodnaviridae		Ostreococcus tauri virus 2
+k99_10004080_2							
+k99_10004084_1							
+k99_1000412_1							
+k99_1000412_2							
+k99_1000412_3	Eukaryota		Spirotrichea	Sporadotrichida	Oxytrichidae	Stylonychia	Stylonychia lemnae
+k99_1000412_4	Eukaryota		Spirotrichea	Sporadotrichida	Oxytrichidae	Stylonychia	Stylonychia lemnae
+k99_1000412_5	Eukaryota		Spirotrichea	Sporadotrichida	Oxytrichidae	Stylonychia	Stylonychia lemnae
+k99_1000412_6							
+k99_10004133_1	Viruses				Phycodnaviridae		
+k99_10004133_2	Viruses				Phycodnaviridae		
+k99_10004138_1	Bacteria	Bacteroidetes	Flavobacteriia				
+k99_10004138_2							
+k99_10004138_3							
+k99_10004138_4	Bacteria	Bacteroidetes					
+k99_10004156_1	Bacteria	Bacteroidetes					
+k99_10004162_1	Bacteria	Bacteroidetes					
+k99_10004162_2	Bacteria	Bacteroidetes					
+k99_10004162_3	Bacteria	Bacteroidetes					
+k99_10004162_4	Bacteria	Bacteroidetes					
+k99_10004163_1	Bacteria	Bacteroidetes					
+k99_1000417_1	Bacteria	Bacteroidetes					
+k99_10004192_1	Bacteria	Bacteroidetes					
+k99_10004192_2	Bacteria	Bacteroidetes					
+k99_10004242_1	Bacteria	Bacteroidetes					
+k99_10004242_2	Bacteria	Bacteroidetes					
+k99_10004255_1	Eukaryota	Arthropoda	Insecta				
+k99_10004255_2	Eukaryota	Arthropoda	Insecta				
+k99_10004261_1	Eukaryota	Arthropoda	Insecta				
+k99_10004261_2	Bacteria						
+k99_10004261_3	Bacteria	Proteobacteria	Alphaproteobacteria	Rhodobacterales	Rhodobacteraceae		
+k99_10004306_1							
+k99_10004306_2	Bacteria	Proteobacteria	Betaproteobacteria				Betaproteobacteria bacterium MOLA814
+k99_10004306_3	Eukaryota		Spirotrichea	Sporadotrichida	Oxytrichidae		
+k99_10004306_4	Eukaryota		Spirotrichea	Sporadotrichida	Oxytrichidae		
+k99_10004306_5	Eukaryota		Spirotrichea	Sporadotrichida	Oxytrichidae		
+k99_10004313_1	Eukaryota		Spirotrichea	Sporadotrichida	Oxytrichidae		
+k99_10004313_2	Bacteria	Proteobacteria	Alphaproteobacteria				
+k99_10004313_3	Bacteria	Proteobacteria					
+k99_10004313_4	Bacteria	Proteobacteria					
+k99_10004313_5	Bacteria						
+k99_10004313_6	Bacteria						
+k99_10004332_1	Bacteria	Proteobacteria					
+k99_10004332_2	Bacteria	Proteobacteria					
+k99_10004346_1	Bacteria	Proteobacteria					
+k99_10004346_2	Bacteria						
+k99_10004346_3	Bacteria						
+k99_10004346_4	Bacteria						
+k99_10004346_5	Eukaryota	Phaeophyceae		Ectocarpales	Ectocarpaceae	Ectocarpus	Ectocarpus siliculosus
+k99_10004376_1	Eukaryota			Isochrysidales	Noelaerhabdaceae	Emiliania	Emiliania huxleyi
+k99_10004376_2							
+k99_10004386_1							
+k99_10004419_1	Bacteria	Planctomycetes	Planctomycetia	Planctomycetales	Planctomycetaceae		
+k99_10004419_2	Bacteria	Planctomycetes	Planctomycetia	Planctomycetales	Planctomycetaceae		
+k99_1000442_1							
+k99_1000442_2	Bacteria	Proteobacteria	Gammaproteobacteria	Chromatiales	Chromatiaceae	Thiocystis	Thiocystis violascens
+k99_10004437_1	Bacteria						
+k99_10004447_1	Bacteria						
+k99_10004447_2							
+k99_10004447_3							
+k99_10004447_4							
+k99_10004447_5							
+k99_10004447_6	Bacteria	Cyanobacteria		Chroococcales		Synechococcus	Synechococcus sp. WH 8016
+k99_10004457_1	Bacteria	Actinobacteria <phylum>	Actinobacteria	Acidimicrobiales	Acidimicrobiaceae	Ilumatobacter	
+k99_10004457_2	Bacteria	Actinobacteria <phylum>	Actinobacteria	Acidimicrobiales	Acidimicrobiaceae	Ilumatobacter	
+k99_10004457_3	Viruses						Synechococcus phage S-EIVl
+k99_10004457_4	Viruses						Synechococcus phage S-EIVl
+k99_10004457_5	Viruses						Synechococcus phage S-EIVl
+k99_10004457_6	Bacteria						
+k99_10004464_1	Bacteria						
+k99_10004488_1	Bacteria						
+k99_10004488_2	Eukaryota		Spirotrichea	Sporadotrichida	Oxytrichidae	Stylonychia	Stylonychia lemnae
+k99_10004488_3	Eukaryota		Spirotrichea	Sporadotrichida	Oxytrichidae	Stylonychia	Stylonychia lemnae
+k99_10004519_1	Eukaryota		Spirotrichea	Sporadotrichida	Oxytrichidae	Stylonychia	Stylonychia lemnae
+k99_10004550_1	Eukaryota		Spirotrichea	Sporadotrichida	Oxytrichidae	Stylonychia	Stylonychia lemnae
+k99_10004558_1							
+k99_10004558_2							
+k99_10004558_3							
+k99_10004558_4							
+k99_1000455_1							
+k99_1000455_2							
+k99_10004574_1							
+k99_10004611_1	Bacteria						
+k99_10004611_2	Bacteria						
+k99_10004611_3	Bacteria	Bacteroidetes	Flavobacteriia	Flavobacteriales			
+k99_10004645_1	Bacteria	Bacteroidetes	Flavobacteriia	Flavobacteriales			
+k99_10004645_2	Bacteria	Bacteroidetes	Flavobacteriia	Flavobacteriales			
+k99_10004645_3	Bacteria	Bacteroidetes	Flavobacteriia	Flavobacteriales			
+k99_10004651_1	Bacteria	Bacteroidetes	Flavobacteriia	Flavobacteriales			
+k99_10004651_2	Bacteria	Bacteroidetes	Flavobacteriia	Flavobacteriales			
+k99_10004653_1	Bacteria	Bacteroidetes	Flavobacteriia	Flavobacteriales			
+k99_10004653_2	Bacteria	Bacteroidetes	Flavobacteriia	Flavobacteriales			
+k99_10004660_1	Bacteria	Bacteroidetes	Flavobacteriia	Flavobacteriales			
+k99_10004660_2	Bacteria						
+k99_10004660_3	Bacteria						
+k99_10004660_4	Bacteria						
+k99_10004663_1	Bacteria						
+k99_10004663_2	Bacteria						
+k99_10004672_1	Bacteria						
+k99_10004674_1	Bacteria						
+k99_10004674_2	Eukaryota						
+k99_10004674_3	Eukaryota						
+k99_10004686_1	Eukaryota						
+k99_10004719_1	Bacteria	Proteobacteria					
+k99_10004719_2	Bacteria	Proteobacteria					
+k99_10004734_1							
+k99_10004734_2	Bacteria						
+k99_10004734_3	Bacteria						
+k99_10004734_4	Bacteria						
+k99_10004734_5	Bacteria						
+k99_10004734_6	Bacteria						
+k99_10004734_7	Bacteria						
+k99_10004734_8	Bacteria						
+k99_10004734_9	Bacteria						
+k99_1000473_1	Bacteria						
+k99_1000473_2	Bacteria						
+k99_1000473_3	Bacteria						
+k99_1000473_4	Bacteria						
+k99_10004741_1	Bacteria						
+k99_10004741_2	Bacteria						
+k99_10004743_1	Bacteria						
+k99_10004743_2	Bacteria						
+k99_10004746_1							
+k99_10004779_1	Eukaryota	Chlorophyta	Mamiellophyceae	Mamiellales	Bathycoccaceae	Bathycoccus	Bathycoccus prasinos
+k99_10004813_1	Eukaryota	Chlorophyta	Mamiellophyceae	Mamiellales	Bathycoccaceae	Bathycoccus	Bathycoccus prasinos
+k99_10004813_2	Eukaryota	Chlorophyta	Mamiellophyceae	Mamiellales	Bathycoccaceae	Bathycoccus	Bathycoccus prasinos
+k99_10004814_1	Bacteria	Bacteroidetes					
+k99_10004814_2	Bacteria	Bacteroidetes					
+k99_10004814_3	Bacteria						
+k99_10004823_1	Bacteria						
+k99_10004823_2	Bacteria						
+k99_10004823_3	Bacteria						
+k99_10004823_4							
+k99_10004836_1							
+k99_10004836_2	Bacteria	Planctomycetes	Planctomycetia	Planctomycetales	Planctomycetaceae		
+k99_10004910_1	Bacteria	Planctomycetes	Planctomycetia	Planctomycetales	Planctomycetaceae		
+k99_10004910_2	Bacteria	Planctomycetes	Planctomycetia	Planctomycetales	Planctomycetaceae		
+k99_10004910_3	Eukaryota	Chlorophyta	Mamiellophyceae	Mamiellales			
+k99_10004910_4	Eukaryota	Chlorophyta	Mamiellophyceae	Mamiellales			
+k99_10004910_5	Eukaryota	Chlorophyta	Mamiellophyceae	Mamiellales			
+k99_10004910_6							
+k99_10004911_1	Bacteria	Bacteroidetes	Flavobacteriia	Flavobacteriales	Flavobacteriaceae	Polaribacter	
+k99_10004911_2	Bacteria	Bacteroidetes	Flavobacteriia	Flavobacteriales	Flavobacteriaceae	Polaribacter	
+k99_10004923_1	Bacteria	Planctomycetes	Planctomycetia	Planctomycetales	Planctomycetaceae	Planctomyces	
+k99_10004928_1	Bacteria	Planctomycetes	Planctomycetia	Planctomycetales	Planctomycetaceae	Planctomyces	
+k99_10004928_2							
+k99_10004928_3							
+k99_10004954_1	Bacteria	Proteobacteria	Betaproteobacteria	Methylophilales			beta proteobacterium KB13
+k99_10004954_2	Bacteria	Proteobacteria	Betaproteobacteria	Methylophilales			beta proteobacterium KB13
+k99_10004956_1							
+k99_10004956_2							
+k99_10004956_3	Viruses			Caudovirales	Myoviridae		Pelagibacter phage HTVC008M
+k99_10004982_1	Viruses			Caudovirales	Myoviridae		Pelagibacter phage HTVC008M
+k99_10004982_2	Viruses			Caudovirales	Myoviridae		Pelagibacter phage HTVC008M
+k99_10004982_3	Viruses			Caudovirales	Myoviridae		Pelagibacter phage HTVC008M
+k99_10004987_1	Viruses			Caudovirales	Myoviridae		Pelagibacter phage HTVC008M
+k99_10004993_1							
+k99_10004997_1							
+k99_10004997_10							
+k99_10004997_11	Bacteria	Actinobacteria <phylum>	Actinobacteria				
+k99_10004997_2	Bacteria	Actinobacteria <phylum>	Actinobacteria				
+k99_10004997_3	Bacteria	Bacteroidetes	Flavobacteriia	Flavobacteriales	Flavobacteriaceae	Riemerella	Riemerella anatipestifer
+k99_10004997_4	Bacteria	Bacteroidetes	Flavobacteriia	Flavobacteriales	Flavobacteriaceae	Riemerella	Riemerella anatipestifer
+k99_10004997_5	Viruses			Caudovirales	Podoviridae		Puniceispirillum phage HMO-2011
+k99_10004997_6	Viruses			Caudovirales	Podoviridae		Puniceispirillum phage HMO-2011
+k99_10004997_7	Bacteria	Proteobacteria	Alphaproteobacteria	Rhodobacterales			Rhodobacterales bacterium HTCC2255
+k99_10004997_8	Bacteria	Proteobacteria	Alphaproteobacteria	Rhodobacterales			Rhodobacterales bacterium HTCC2255
+k99_10004997_9	Eukaryota						
+k99_10005020_1							
+k99_10005020_2							
+k99_10005065_1	Eukaryota			Choanoflagellida	Salpingoecidae	Salpingoeca	Salpingoeca rosetta
+k99_10005124_1	Bacteria						
+k99_10005124_2	Bacteria						
+k99_10005172_1	Bacteria						
+k99_10005172_2	Bacteria						
+k99_10005198_1	Bacteria						
+k99_10005198_2	Bacteria						
+k99_100051_1	Bacteria						
+k99_100051_2	Bacteria						
+k99_1000522_1	Bacteria	Cyanobacteria					
+k99_1000522_2							
+k99_1000522_3							
+k99_10005235_1							
+k99_10005244_1	Bacteria	Actinobacteria <phylum>	Actinobacteria	Actinomycetales			
+k99_10005287_1	Bacteria	Actinobacteria <phylum>	Actinobacteria	Actinomycetales			
+k99_10005295_1	Bacteria	Actinobacteria <phylum>	Actinobacteria	Actinomycetales			
+k99_10005295_2	Bacteria	Actinobacteria <phylum>	Actinobacteria				
+k99_10005302_1	Bacteria	Actinobacteria <phylum>	Actinobacteria				
+k99_10005302_10	Bacteria	Actinobacteria <phylum>	Actinobacteria				
+k99_10005302_2	Bacteria	Actinobacteria <phylum>	Actinobacteria				
+k99_10005302_3							
+k99_10005302_4							
+k99_10005302_5							
+k99_10005302_6	Bacteria	Verrucomicrobia					
+k99_10005302_7	Bacteria	Verrucomicrobia					
+k99_10005302_8	Bacteria	Verrucomicrobia					
+k99_10005302_9	Bacteria	Verrucomicrobia					
+k99_10005309_1	Bacteria	Verrucomicrobia					
+k99_10005313_1	Bacteria	Proteobacteria	Betaproteobacteria				
+k99_10005352_1	Bacteria	Proteobacteria	Betaproteobacteria				
+k99_10005352_2	Bacteria	Proteobacteria	Betaproteobacteria				
+k99_10005354_1	Bacteria	Proteobacteria	Betaproteobacteria				
+k99_10005354_2	Bacteria	Proteobacteria	Gammaproteobacteria	Alteromonadales	Shewanellaceae	Shewanella	Shewanella baltica
+k99_10005354_3	Eukaryota						
+k99_10005393_1	Eukaryota						
+k99_10005393_2	Eukaryota						
+k99_10005393_3	Eukaryota						
+k99_10005393_4	Bacteria						
+k99_10005393_5	Bacteria						
+k99_10005393_6	Bacteria						
+k99_10005400_1	Bacteria						
+k99_10005411_1	Bacteria						
+k99_10005411_2	Bacteria						
+k99_10005411_3	Bacteria						
+k99_10005411_4	Bacteria						
+k99_10005427_1	Bacteria						
+k99_10005427_2	Bacteria						
+k99_10005430_1	Bacteria						
+k99_10005430_2	Bacteria						
+k99_10005430_3							
+k99_10005430_4	Viruses				Phycodnaviridae	Prymnesiovirus	Phaeocystis globosa virus
+k99_10005447_1	Viruses				Phycodnaviridae	Prymnesiovirus	Phaeocystis globosa virus
+k99_10005447_2	Viruses				Phycodnaviridae	Prymnesiovirus	Phaeocystis globosa virus
+k99_10005447_3	Viruses				Phycodnaviridae	Prymnesiovirus	Phaeocystis globosa virus
+k99_1000545_1	Viruses				Phycodnaviridae	Prymnesiovirus	Phaeocystis globosa virus
+k99_1000545_2							
+k99_10005466_1	Bacteria	Proteobacteria	Betaproteobacteria				
+k99_10005466_2	Bacteria	Proteobacteria	Betaproteobacteria				
+k99_10005466_3	Bacteria	Proteobacteria	Betaproteobacteria				
+k99_10005466_4	Bacteria	Proteobacteria	Betaproteobacteria				
+k99_10005466_5	Bacteria	Proteobacteria	Betaproteobacteria				
+k99_10005466_6	Bacteria	Bacteroidetes	Bacteroidia	Bacteroidales			
+k99_10005478_1	Bacteria	Bacteroidetes	Flavobacteriia	Flavobacteriales	Flavobacteriaceae	Eudoraea	Eudoraea adriatica
+k99_1000549_1	Bacteria						
+k99_1000549_2	Bacteria						
+k99_10005508_1	Bacteria	Bacteroidetes	Flavobacteriia	Flavobacteriales			
+k99_10005508_2	Bacteria	Bacteroidetes	Flavobacteriia	Flavobacteriales			
+k99_10005508_3	Bacteria	Bacteroidetes	Flavobacteriia	Flavobacteriales			
+k99_10005508_4	Bacteria	Bacteroidetes	Flavobacteriia	Flavobacteriales			
+k99_10005518_1							
+k99_10005518_2	Bacteria	Proteobacteria	Alphaproteobacteria	Sphingomonadales	Sphingomonadaceae		
+k99_10005525_1	Bacteria	Proteobacteria	Alphaproteobacteria	Sphingomonadales	Sphingomonadaceae		
+k99_10005525_2	Bacteria	Proteobacteria	Zetaproteobacteria	Mariprofundales	Mariprofundaceae	Mariprofundus	Mariprofundus ferrooxydans
+k99_10005525_3	Bacteria	Proteobacteria					
+k99_10005525_4	Bacteria	Actinobacteria <phylum>	Actinobacteria	Actinomycetales			
+k99_10005557_1	Bacteria	Actinobacteria <phylum>	Actinobacteria	Actinomycetales			
+k99_10005557_2	Bacteria	Actinobacteria <phylum>	Actinobacteria	Actinomycetales			
+k99_10005586_1	Bacteria	Actinobacteria <phylum>	Actinobacteria	Actinomycetales			
+k99_10005586_2	Bacteria	Actinobacteria <phylum>	Actinobacteria	Actinomycetales			
+k99_10005615_1	Bacteria	Actinobacteria <phylum>	Actinobacteria	Actinomycetales			
+k99_10005619_1	Bacteria	Actinobacteria <phylum>	Actinobacteria	Actinomycetales			
+k99_10005619_2	Bacteria	Actinobacteria <phylum>	Actinobacteria	Actinomycetales			
+k99_10005620_1							
+k99_10005620_2	Archaea	Euryarchaeota					
+k99_10005620_3							
+k99_10005620_4							
+k99_10005620_5							
+k99_10005620_6							
+k99_10005620_7							
+k99_10005620_8							
+k99_10005641_1							
+k99_10005654_1							
+k99_10005654_2	Eukaryota						
+k99_10005666_1	Eukaryota						
+k99_1000566_1	Eukaryota						
+k99_1000566_2	Eukaryota						
+k99_1000566_3	Eukaryota						
+k99_1000566_4	Eukaryota						
+k99_10005725_1	Eukaryota						
+k99_10005725_2	Eukaryota						
+k99_10005725_3	Eukaryota						
+k99_10005726_1	Bacteria						
+k99_10005727_1	Bacteria						
+k99_10005727_2	Bacteria						
+k99_10005742_1	Bacteria						
+k99_10005742_2	Bacteria						
+k99_10005766_1	Eukaryota						
+k99_10005777_1	Eukaryota						
+k99_10005777_10	Eukaryota						
+k99_10005777_11	Eukaryota						
+k99_10005777_12							
+k99_10005777_13							
+k99_10005777_14							
+k99_10005777_15	Bacteria	Proteobacteria	Gammaproteobacteria				SAR86 cluster bacterium SAR86E
+k99_10005777_16	Bacteria	Proteobacteria	Gammaproteobacteria				SAR86 cluster bacterium SAR86E
+k99_10005777_17							
+k99_10005777_18							
+k99_10005777_19							
+k99_10005777_2							
+k99_10005777_20	Archaea	Euryarchaeota					uncultured marine group II euryarchaeote
+k99_10005777_21	Bacteria						
+k99_10005777_22	Eukaryota	Bacillariophyta	Coscinodiscophyceae	Thalassiosirales	Thalassiosiraceae	Thalassiosira	Thalassiosira oceanica
+k99_10005777_23	Eukaryota	Bacillariophyta	Coscinodiscophyceae	Thalassiosirales	Thalassiosiraceae	Thalassiosira	Thalassiosira oceanica
+k99_10005777_24	Eukaryota	Bacillariophyta	Coscinodiscophyceae	Thalassiosirales	Thalassiosiraceae	Thalassiosira	Thalassiosira oceanica
+k99_10005777_25	Eukaryota	Bacillariophyta	Coscinodiscophyceae	Thalassiosirales	Thalassiosiraceae	Thalassiosira	Thalassiosira oceanica
+k99_10005777_26	Eukaryota	Bacillariophyta	Coscinodiscophyceae	Thalassiosirales	Thalassiosiraceae	Thalassiosira	Thalassiosira oceanica
+k99_10005777_27	Bacteria	Bacteroidetes					
+k99_10005777_28	Bacteria	Bacteroidetes					
+k99_10005777_29	Eukaryota		Spirotrichea	Sporadotrichida	Oxytrichidae		
+k99_10005777_3	Eukaryota		Spirotrichea	Sporadotrichida	Oxytrichidae		
+k99_10005777_30	Eukaryota		Spirotrichea	Sporadotrichida	Oxytrichidae		
+k99_10005777_31	Eukaryota		Spirotrichea	Sporadotrichida	Oxytrichidae		
+k99_10005777_32	Eukaryota		Spirotrichea	Sporadotrichida	Oxytrichidae		
+k99_10005777_33	Eukaryota		Spirotrichea	Sporadotrichida	Oxytrichidae		
+k99_10005777_34	Eukaryota		Spirotrichea	Sporadotrichida	Oxytrichidae		
+k99_10005777_4	Eukaryota		Spirotrichea	Sporadotrichida	Oxytrichidae		
+k99_10005777_5	Viruses			Caudovirales			
+k99_10005777_6	Viruses			Caudovirales			
+k99_10005777_7	Viruses			Caudovirales			
+k99_10005777_8							
+k99_10005777_9	Eukaryota						
+k99_10005800_1	Eukaryota						
+k99_10005800_2	Bacteria	Proteobacteria	Alphaproteobacteria	Rhodobacterales	Rhodobacteraceae		
+k99_10005800_3	Bacteria	Proteobacteria	Alphaproteobacteria	Rhodobacterales	Rhodobacteraceae		
+k99_10005824_1							
+k99_10005824_2							
+k99_10005824_3	Bacteria	Proteobacteria					
+k99_10005843_1	Bacteria	Proteobacteria					
+k99_10005843_2							
+k99_10005843_3							
+k99_1000584_1							
+k99_1000584_2							
+k99_10005851_1							
+k99_10005851_2							
+k99_10005851_3	Bacteria						
+k99_10005851_4	Bacteria						
+k99_10005867_1	Bacteria						
+k99_10005871_1	Bacteria						
+k99_10005871_2	Bacteria	Proteobacteria	Alphaproteobacteria				
+k99_10005907_1	Bacteria	Proteobacteria	Alphaproteobacteria				
+k99_10005943_1	Bacteria	Proteobacteria	Alphaproteobacteria				
+k99_10005943_2	Bacteria	Proteobacteria	Betaproteobacteria			Candidatus Accumulibacter	Candidatus Accumulibacter sp. BA-94
+k99_10005943_3	Bacteria	Proteobacteria	Betaproteobacteria			Candidatus Accumulibacter	Candidatus Accumulibacter sp. BA-94
+k99_10005947_1	Bacteria						bacterium enrichment culture clone fosmid MGS-K1
+k99_10005950_1							
+k99_10005951_1							
+k99_10005952_1							
+k99_10005952_2	Bacteria	Proteobacteria					
+k99_10005952_3	Bacteria	Proteobacteria					
+k99_10005952_4							
+k99_10005966_1							
+k99_10005966_2							
+k99_1000597_1	Bacteria	Verrucomicrobia	Opitutae	Opitutales	Opitutaceae	Opitutus	Opitutus terrae
+k99_1000597_2	Bacteria	Verrucomicrobia	Opitutae	Opitutales	Opitutaceae	Opitutus	Opitutus terrae
+k99_1000597_3	Bacteria	Proteobacteria	Gammaproteobacteria				
+k99_10006008_1	Bacteria	Proteobacteria	Gammaproteobacteria				
+k99_10006008_2	Bacteria	Proteobacteria	Gammaproteobacteria				
+k99_10006012_1	Bacteria	Proteobacteria	Gammaproteobacteria				
+k99_10006021_1	Bacteria	Proteobacteria	Gammaproteobacteria				
+k99_10006021_2	Bacteria	Proteobacteria	Gammaproteobacteria				
+k99_10006046_1	Bacteria	Proteobacteria	Gammaproteobacteria				
+k99_10006046_2	Bacteria	Proteobacteria	Gammaproteobacteria				
+k99_10006046_3	Bacteria	Proteobacteria	Gammaproteobacteria				
+k99_10006046_4	Eukaryota	Eustigmatophyceae		Eustigmatales	Monodopsidaceae	Nannochloropsis	Nannochloropsis gaditana
+k99_10006053_1	Eukaryota	Eustigmatophyceae		Eustigmatales	Monodopsidaceae	Nannochloropsis	Nannochloropsis gaditana
+k99_10006053_2	Eukaryota	Eustigmatophyceae		Eustigmatales	Monodopsidaceae	Nannochloropsis	Nannochloropsis gaditana
+k99_10006070_1	Bacteria	Bacteroidetes					
+k99_10006070_2	Bacteria	Bacteroidetes					
+k99_10006070_3	Eukaryota						
+k99_10006070_4	Eukaryota						
+k99_10006078_1	Eukaryota						
+k99_10006078_2	Eukaryota						
+k99_10006078_3	Bacteria	Proteobacteria					
+k99_1000609_1	Bacteria	Proteobacteria					
+k99_1000609_2	Bacteria	Proteobacteria					
+k99_10006114_1	Bacteria	Proteobacteria					
+k99_10006139_1	Bacteria	Proteobacteria					
+k99_10006139_2	Bacteria	Proteobacteria					
+k99_10006139_3	Bacteria	Proteobacteria					
+k99_10006157_1	Bacteria	Proteobacteria					
+k99_10006157_2	Bacteria	Proteobacteria					
+k99_10006157_3	Bacteria	Proteobacteria					
+k99_10006169_1	Bacteria	Proteobacteria					
+k99_10006169_2	Bacteria	Proteobacteria					
+k99_10006169_3	Bacteria	Proteobacteria					
+k99_10006169_4	Bacteria	Proteobacteria					
+k99_10006170_1	Bacteria	Proteobacteria					
+k99_10006170_2	Bacteria	Proteobacteria					
+k99_10006170_3	Bacteria	Proteobacteria					
+k99_10006184_1							
+k99_10006184_2							
+k99_10006184_3							
+k99_10006222_1	Eukaryota	Chlorophyta	Trebouxiophyceae	Chlorellales	Chlorellaceae		
+k99_10006270_1	Eukaryota	Chlorophyta	Trebouxiophyceae	Chlorellales	Chlorellaceae		
+k99_10006270_2	Bacteria						
+k99_10006270_3	Bacteria						
+k99_10006271_1	Bacteria	Bacteroidetes					
+k99_10006271_2	Bacteria	Bacteroidetes					
+k99_10006292_1	Bacteria						
+k99_1000629_1	Bacteria						
+k99_10006302_1	Bacteria						
+k99_10006303_1	Bacteria	Actinobacteria <phylum>	Actinobacteria				
+k99_10006303_2	Bacteria	Actinobacteria <phylum>	Actinobacteria				
+k99_10006309_1	Bacteria	Actinobacteria <phylum>	Actinobacteria				
+k99_10006342_1	Bacteria	Actinobacteria <phylum>	Actinobacteria				
+k99_10006342_2	Bacteria	Actinobacteria <phylum>	Actinobacteria				
+k99_10006342_3	Bacteria	Actinobacteria <phylum>	Actinobacteria				
+k99_10006345_1	Bacteria	Bacteroidetes	Flavobacteriia	Flavobacteriales			
+k99_10006345_2	Bacteria	Bacteroidetes	Flavobacteriia	Flavobacteriales			
+k99_10006345_3	Bacteria	Bacteroidetes	Flavobacteriia	Flavobacteriales			
+k99_10006345_4							
+k99_10006345_5							
+k99_10006345_6							
+k99_10006345_7							
+k99_10006368_1							
+k99_10006368_2							
+k99_10006369_1							
+k99_10006369_2							
+k99_1000636_1							
+k99_1000636_2	Bacteria						
+k99_10006392_1	Bacteria						
+k99_10006392_2	Bacteria						
+k99_10006437_1	Bacteria						
+k99_10006437_2	Bacteria						
+k99_10006440_1	Bacteria						
+k99_10006440_2	Bacteria						
+k99_10006457_1	Bacteria						
+k99_10006457_2	Bacteria						
+k99_10006457_3	Bacteria						
+k99_10006474_1	Bacteria						
+k99_10006486_1	Bacteria						
+k99_10006486_2	Bacteria						
+k99_10006488_1	Bacteria						
+k99_10006488_2	Bacteria	Actinobacteria <phylum>	Actinobacteria				
+k99_10006488_3	Bacteria						
+k99_10006506_1	Bacteria						
+k99_10006515_1	Eukaryota			Isochrysidales	Noelaerhabdaceae	Emiliania	Emiliania huxleyi
+k99_10006515_2	Eukaryota			Isochrysidales	Noelaerhabdaceae	Emiliania	Emiliania huxleyi
+k99_10006527_1	Eukaryota			Isochrysidales	Noelaerhabdaceae	Emiliania	Emiliania huxleyi
+k99_10006527_2							
+k99_10006527_3							
+k99_10006527_4	Viruses			Caudovirales	Siphoviridae		Mycobacterium phage Jasper
+k99_10006527_5	Viruses			Caudovirales	Siphoviridae		Mycobacterium phage Jasper
+k99_10006527_6	Viruses			Caudovirales	Siphoviridae		Mycobacterium phage Jasper
+k99_10006545_1	Eukaryota	Streptophyta		Malvales	Malvaceae	Theobroma	Theobroma cacao
+k99_10006545_2	Eukaryota	Chlorophyta	Mamiellophyceae	Mamiellales	Bathycoccaceae	Ostreococcus	
+k99_10006545_3	Eukaryota	Chlorophyta	Mamiellophyceae	Mamiellales	Bathycoccaceae	Ostreococcus	
+k99_10006545_4	Bacteria						
+k99_10006545_5	Bacteria						
+k99_10006558_1	Bacteria						
+k99_10006571_1	Bacteria						
+k99_10006591_1	Bacteria						
+k99_10006591_2	Bacteria						
+k99_10006591_3	Eukaryota						
+k99_10006591_4	Eukaryota						
+k99_10006591_5	Eukaryota						
+k99_1000660_1							
+k99_1000660_2	Bacteria	Actinobacteria <phylum>	Actinobacteria	Actinomycetales			
+k99_1000660_3	Bacteria	Proteobacteria	Gammaproteobacteria				
+k99_1000660_4	Bacteria	Proteobacteria	Gammaproteobacteria				
+k99_10006623_1	Bacteria	Proteobacteria	Alphaproteobacteria				
+k99_10006623_2	Bacteria	Proteobacteria	Alphaproteobacteria				
+k99_10006627_1							
+k99_1000662_1							
+k99_1000662_2	Bacteria	Bacteroidetes	Flavobacteriia	Flavobacteriales	Flavobacteriaceae		
+k99_1000662_3	Bacteria	Bacteroidetes	Flavobacteriia	Flavobacteriales	Flavobacteriaceae		
+k99_10006630_1	Eukaryota		Cryptophyta	Pyrenomonadales	Geminigeraceae	Guillardia	Guillardia theta
+k99_10006668_1	Eukaryota			Isochrysidales	Noelaerhabdaceae	Emiliania	Emiliania huxleyi
+k99_10006671_1	Eukaryota	Streptophyta					
+k99_10006671_2	Bacteria	Bacteroidetes	Cytophagia	Cytophagales			
+k99_10006671_3	Bacteria	Bacteroidetes	Cytophagia	Cytophagales			
+k99_10006684_1	Bacteria	Actinobacteria <phylum>	Actinobacteria				
+k99_10006691_1	Bacteria	Actinobacteria <phylum>	Actinobacteria				
+k99_10006699_1	Bacteria	Actinobacteria <phylum>	Actinobacteria				
+k99_100066_1	Bacteria	Actinobacteria <phylum>	Actinobacteria				
+k99_100066_2	Bacteria	Proteobacteria	Alphaproteobacteria	Rhizobiales			
+k99_100066_3	Bacteria	Proteobacteria	Alphaproteobacteria	Rhizobiales			
+k99_100066_4	Bacteria	Proteobacteria	Betaproteobacteria	Burkholderiales	Comamonadaceae	Variovorax	Variovorax sp. URHB0020
+k99_10006702_1	Bacteria	Proteobacteria	Betaproteobacteria	Burkholderiales	Comamonadaceae	Variovorax	Variovorax sp. URHB0020
+k99_10006702_2							
+k99_10006712_1	Bacteria	Proteobacteria					
+k99_10006712_2	Bacteria	Proteobacteria					
+k99_10006725_1	Bacteria	Proteobacteria					
+k99_10006747_1	Bacteria	Proteobacteria					
+k99_10006747_2	Bacteria	Bacteroidetes	Flavobacteriia	Flavobacteriales	Flavobacteriaceae		
+k99_10006747_3	Bacteria	Firmicutes					
+k99_10006747_4	Bacteria	Firmicutes					
+k99_10006755_1	Bacteria	Proteobacteria	Betaproteobacteria	Burkholderiales			
+k99_10006755_2	Bacteria	Proteobacteria	Deltaproteobacteria				
+k99_10006755_3	Bacteria	Actinobacteria <phylum>	Actinobacteria	Acidimicrobiales	Acidimicrobiaceae	Ilumatobacter	
+k99_10006790_1	Bacteria	Actinobacteria <phylum>	Actinobacteria	Acidimicrobiales	Acidimicrobiaceae	Ilumatobacter	
+k99_10006807_1	Bacteria	Actinobacteria <phylum>	Actinobacteria	Acidimicrobiales	Acidimicrobiaceae	Ilumatobacter	
+k99_10006807_2	Bacteria						
+k99_10006807_3	Bacteria						
+k99_10006807_4	Bacteria						
+k99_10006814_1	Bacteria	Proteobacteria	Gammaproteobacteria				
+k99_10006848_1	Bacteria	Proteobacteria					
+k99_10006850_1	Bacteria	Proteobacteria					
+k99_10006850_2	Bacteria	Proteobacteria					
+k99_10006850_3	Bacteria	Proteobacteria					
+k99_1000686_1	Bacteria	Proteobacteria	Deltaproteobacteria				
+k99_1000687_1	Bacteria	Proteobacteria	Deltaproteobacteria				
+k99_10006880_1	Bacteria	Proteobacteria	Deltaproteobacteria				
+k99_10006880_2	Bacteria	Proteobacteria	Deltaproteobacteria				
+k99_10006880_3	Bacteria	Proteobacteria	Alphaproteobacteria	Rhodobacterales	Rhodobacteraceae		
+k99_10006880_4	Bacteria	Proteobacteria	Alphaproteobacteria	Rhodobacterales	Rhodobacteraceae		
+k99_10006880_5	Bacteria	Proteobacteria	Alphaproteobacteria	SAR11 cluster		Candidatus Pelagibacter	Candidatus Pelagibacter sp. IMCC9063
+k99_10006880_6	Bacteria	Proteobacteria	Alphaproteobacteria	SAR11 cluster		Candidatus Pelagibacter	Candidatus Pelagibacter sp. IMCC9063
+k99_10006888_1	Bacteria	Proteobacteria	Alphaproteobacteria	Rhodospirillales			
+k99_10006888_2	Bacteria	Proteobacteria	Alphaproteobacteria	Rhodospirillales			
+k99_10006888_3							
+k99_10006896_1	Eukaryota						
+k99_10006896_2	Bacteria	Proteobacteria	Gammaproteobacteria	Vibrionales	Vibrionaceae		
+k99_10006896_3	Bacteria	Proteobacteria	Gammaproteobacteria	Vibrionales	Vibrionaceae		
+k99_10006896_4	Eukaryota						
+k99_10006896_5	Eukaryota						
+k99_10006951_1	Eukaryota						
+k99_10006964_1	Eukaryota						
+k99_10006964_2	Eukaryota						
+k99_10007008_1	Bacteria	Proteobacteria	Alphaproteobacteria	Rhodobacterales			
+k99_10007008_2	Bacteria	Proteobacteria	Alphaproteobacteria	Rhodobacterales			
+k99_10007008_3	Bacteria	Proteobacteria	Alphaproteobacteria	Rhodobacterales			
+k99_10007033_1	Bacteria	Proteobacteria	Alphaproteobacteria	Rhodobacterales			
+k99_10007055_1	Bacteria	Proteobacteria	Alphaproteobacteria	Rhodobacterales			
+k99_10007055_2	Bacteria	Proteobacteria	Alphaproteobacteria	Rhodobacterales			
+k99_10007055_3	Bacteria	Proteobacteria	Alphaproteobacteria	Rhodobacterales			
+k99_10007055_4	Bacteria	Proteobacteria	Alphaproteobacteria	Rhodobacterales			
+k99_10007055_5	Bacteria	Proteobacteria	Alphaproteobacteria	Rhodobacterales			
+k99_10007055_6	Bacteria	Proteobacteria	Alphaproteobacteria	Rhodobacterales			
+k99_10007059_1	Bacteria	Proteobacteria	Alphaproteobacteria	Rhodobacterales			
+k99_10007059_2	Bacteria	Proteobacteria	Alphaproteobacteria	Rhodobacterales			
+k99_10007064_1	Bacteria	Proteobacteria	Alphaproteobacteria	Rhodobacterales			
+k99_10007064_2	Bacteria	Proteobacteria	Alphaproteobacteria	Rhodobacterales			
+k99_10007089_1	Bacteria	Proteobacteria	Alphaproteobacteria	Rhodobacterales			
+k99_10007094_1	Bacteria	Proteobacteria	Alphaproteobacteria	Rhodobacterales			
+k99_10007094_2	Bacteria	Proteobacteria	Alphaproteobacteria	Rhodobacterales			
+k99_10007130_1	Bacteria	Proteobacteria	Alphaproteobacteria	Rhodobacterales			
+k99_10007130_2	Bacteria	Proteobacteria	Alphaproteobacteria	Rhodobacterales			
+k99_10007156_1	Bacteria	Proteobacteria	Alphaproteobacteria	Rhodobacterales			
+k99_10007164_1	Bacteria	Proteobacteria	Alphaproteobacteria	Rhodobacterales			
+k99_10007164_2	Bacteria	Proteobacteria	Alphaproteobacteria	Rhodobacterales			
+k99_10007164_3	Bacteria	Proteobacteria	Alphaproteobacteria	Rhodobacterales			
+k99_10007168_1	Bacteria	Proteobacteria	Alphaproteobacteria	Rhodobacterales			
+k99_10007168_2	Bacteria	Proteobacteria	Alphaproteobacteria	Rhodobacterales			
+k99_10007172_1	Bacteria	Proteobacteria	Alphaproteobacteria	Rhodobacterales			
+k99_10007173_1	Bacteria	Proteobacteria	Alphaproteobacteria	Rhodobacterales			
+k99_10007187_1	Bacteria	Proteobacteria	Alphaproteobacteria	Rhodobacterales			
+k99_10007187_2	Bacteria	Bacteroidetes	Bacteroidia	Bacteroidales	Marinilabiliaceae	Saccharicrinis	Saccharicrinis fermentans
+k99_10007187_3	Bacteria	Bacteroidetes	Bacteroidia	Bacteroidales	Marinilabiliaceae	Saccharicrinis	Saccharicrinis fermentans
+k99_10007187_4							
+k99_10007236_1							
+k99_10007236_2	Bacteria	Proteobacteria	Deltaproteobacteria				SAR324 cluster bacterium SCGC AAA240-J09
+k99_10007236_3	Bacteria	Proteobacteria	Gammaproteobacteria				
+k99_10007243_1	Bacteria	Proteobacteria	Gammaproteobacteria				
+k99_10007243_2	Bacteria	Proteobacteria	Gammaproteobacteria				
+k99_10007248_1	Bacteria	Proteobacteria	Gammaproteobacteria				
+k99_10007248_2	Bacteria	Proteobacteria	Gammaproteobacteria				
+k99_10007282_1	Bacteria	Proteobacteria	Gammaproteobacteria				
+k99_10007282_2	Bacteria	Proteobacteria	Gammaproteobacteria				
+k99_10007301_1	Bacteria	Proteobacteria	Gammaproteobacteria				
+k99_10007301_2	Bacteria	Proteobacteria	Gammaproteobacteria				
+k99_10007301_3	Bacteria	Proteobacteria	Gammaproteobacteria				
+k99_10007305_1							
+k99_10007306_1							
+k99_10007306_2							
+k99_10007306_3							
+k99_10007306_4	Bacteria						
+k99_10007315_1							
+k99_10007315_2							
+k99_10007315_3	Bacteria	Bacteroidetes	Flavobacteriia				Flavobacteria bacterium MS024-2A
+k99_10007322_1	Bacteria	Bacteroidetes	Flavobacteriia				Flavobacteria bacterium MS024-2A
+k99_10007322_2	Eukaryota		Spirotrichea	Sporadotrichida	Oxytrichidae		
+k99_10007332_1	Eukaryota		Spirotrichea	Sporadotrichida	Oxytrichidae		
+k99_10007332_2	Eukaryota		Spirotrichea	Sporadotrichida	Oxytrichidae		
+k99_10007332_3	Eukaryota		Spirotrichea	Sporadotrichida	Oxytrichidae		
+k99_10007333_1	Eukaryota						
+k99_10007333_2	Bacteria						
+k99_10007333_3	Bacteria						
+k99_10007344_1	Bacteria						
+k99_10007344_2	Bacteria						
+k99_10007344_3	Bacteria						
+k99_10007344_4	Bacteria						
+k99_10007344_5	Bacteria						
+k99_10007344_6	Bacteria						
+k99_10007344_7	Bacteria						
+k99_10007344_8	Bacteria						
+k99_10007389_1	Bacteria						
+k99_10007389_2	Bacteria						
+k99_10007418_1	Bacteria						
+k99_10007443_1	Bacteria						
+k99_10007443_2	Bacteria						
+k99_10007443_3	Bacteria						
+k99_10007444_1	Bacteria						
+k99_10007453_1	Bacteria						
+k99_10007453_2	Bacteria						
+k99_10007467_1	Bacteria						
+k99_10007467_2	Bacteria						
+k99_10007485_1	Bacteria						
+k99_10007485_2	Bacteria						
+k99_10007487_1	Bacteria						
+k99_10007487_2	Bacteria						
+k99_10007487_3							
+k99_10007487_4							
+k99_10007487_5							
+k99_10007507_1							
+k99_10007507_2							
+k99_10007507_3	Bacteria	Proteobacteria	Alphaproteobacteria				
+k99_10007507_4	Bacteria	Proteobacteria	Alphaproteobacteria				
+k99_10007517_1							
+k99_10007517_2							
+k99_10007525_1							
+k99_10007525_2	Bacteria	Actinobacteria <phylum>	Actinobacteria				
+k99_10007534_1	Bacteria	Actinobacteria <phylum>	Actinobacteria				
+k99_10007534_2	Bacteria	Actinobacteria <phylum>	Actinobacteria				
+k99_10007555_1	Bacteria	Proteobacteria	Deltaproteobacteria	Bdellovibrionales	Bdellovibrionaceae	Bdellovibrio	Bdellovibrio bacteriovorus
+k99_10007555_2	Bacteria	Proteobacteria	Deltaproteobacteria	Bdellovibrionales	Bdellovibrionaceae	Bdellovibrio	Bdellovibrio bacteriovorus
+k99_10007566_1	Bacteria	Proteobacteria	Deltaproteobacteria	Bdellovibrionales	Bdellovibrionaceae	Bdellovibrio	Bdellovibrio bacteriovorus
+k99_10007566_2	Bacteria	Proteobacteria	Deltaproteobacteria	Bdellovibrionales	Bdellovibrionaceae	Bdellovibrio	Bdellovibrio bacteriovorus
+k99_10007567_1							
+k99_10007567_2							
+k99_10007577_1							
+k99_10007583_1							
+k99_10007583_2	Bacteria						
+k99_10007583_3							
+k99_10007603_1							
+k99_10007603_2	Bacteria	Bacteroidetes					
+k99_10007610_1	Eukaryota	Cnidaria	Anthozoa	Actiniaria	Edwardsiidae	Nematostella	Nematostella vectensis
+k99_10007610_2	Bacteria	Bacteroidetes					
+k99_10007617_1	Bacteria	Bacteroidetes					
+k99_10007617_2	Bacteria	Cyanobacteria					
+k99_10007618_1	Bacteria	Cyanobacteria					
+k99_10007618_2	Bacteria	Cyanobacteria					
+k99_10007633_1	Bacteria						
+k99_10007633_2	Bacteria						
+k99_10007652_1	Bacteria						
+k99_10007652_2	Bacteria	Proteobacteria					
+k99_10007658_1	Bacteria	Proteobacteria					
+k99_10007658_2	Bacteria	Proteobacteria					
+k99_10007675_1	Bacteria	Proteobacteria					
+k99_10007678_1							
+k99_10007678_2							
+k99_10007678_3							
+k99_10007721_1	Bacteria						
+k99_10007721_2	Bacteria						
+k99_10007721_3	Bacteria	Bacteroidetes	Flavobacteriia	Flavobacteriales	Flavobacteriaceae	Flavobacterium	Flavobacterium sp. MS220-5C
+k99_1000772_1	Bacteria	Bacteroidetes	Flavobacteriia	Flavobacteriales	Flavobacteriaceae	Flavobacterium	Flavobacterium sp. MS220-5C
+k99_1000772_2	Bacteria	Proteobacteria	Deltaproteobacteria	Myxococcales	Anaeromyxobacteraceae	Anaeromyxobacter	
+k99_1000772_3	Bacteria	Proteobacteria	Alphaproteobacteria				
+k99_10007745_1	Bacteria	Proteobacteria	Alphaproteobacteria				
+k99_10007745_2	Bacteria						
+k99_10007754_1	Bacteria						
+k99_10007754_2	Bacteria						
+k99_10007754_3	Bacteria						
+k99_10007765_1	Bacteria						
+k99_10007769_1	Bacteria						
+k99_10007769_2	Viruses			Caudovirales	Podoviridae	N4likevirus	
+k99_10007769_3	Viruses			Caudovirales	Podoviridae	N4likevirus	
+k99_10007797_1	Eukaryota						
+k99_10007801_1	Eukaryota						
+k99_10007801_2	Eukaryota		Spirotrichea	Sporadotrichida	Oxytrichidae		
+k99_10007801_3	Eukaryota		Spirotrichea	Sporadotrichida	Oxytrichidae		
+k99_10007801_4	Eukaryota		Spirotrichea	Sporadotrichida	Oxytrichidae		
+k99_10007836_1	Eukaryota	Ascomycota	Dothideomycetes	Pleosporales	Pleosporaceae	Bipolaris	Bipolaris maydis
+k99_10007837_1	Eukaryota	Ascomycota	Dothideomycetes	Pleosporales	Pleosporaceae	Bipolaris	Bipolaris maydis
+k99_1000785_1	Eukaryota	Ascomycota	Dothideomycetes	Pleosporales	Pleosporaceae	Bipolaris	Bipolaris maydis
+k99_1000785_2	Bacteria						
+k99_10007870_1	Bacteria						
+k99_10007896_1							
+k99_10007918_1	Bacteria	Proteobacteria	Alphaproteobacteria	Rhodobacterales	Rhodobacteraceae		
+k99_10007918_2	Bacteria	Proteobacteria	Alphaproteobacteria	Rhodobacterales	Rhodobacteraceae		
+k99_10007924_1	Bacteria	Proteobacteria	Alphaproteobacteria	Rhodobacterales	Rhodobacteraceae		
+k99_10007924_2	Bacteria	Bacteroidetes	Flavobacteriia				
+k99_10007930_1	Bacteria						
+k99_10007943_1	Bacteria						
+k99_10007956_1	Bacteria						
+k99_10007964_1							
+k99_10007964_2							
+k99_10007985_1	Bacteria						
+k99_10007991_1	Bacteria						
+k99_10007991_2	Bacteria						
+k99_10008033_1							
+k99_10008033_2							
+k99_10008054_1							
+k99_10008054_2							
+k99_10008060_1							
+k99_10008065_1							
+k99_10008065_2	Bacteria	Proteobacteria	Alphaproteobacteria	Rhodobacterales	Rhodobacteraceae		
+k99_10008125_1	Bacteria	Proteobacteria	Alphaproteobacteria	Rhodobacterales	Rhodobacteraceae		
+k99_10008139_1							
+k99_10008139_2	Bacteria	Bacteroidetes	Flavobacteriia	Flavobacteriales			
+k99_10008139_3	Bacteria	Bacteroidetes	Flavobacteriia	Flavobacteriales			
+k99_10008139_4	Bacteria	Bacteroidetes	Flavobacteriia	Flavobacteriales			
+k99_10008139_5	Bacteria	Bacteroidetes	Cytophagia	Cytophagales	Cyclobacteriaceae	Cecembia	Cecembia lonarensis
+k99_10008139_6	Bacteria	Bacteroidetes	Cytophagia	Cytophagales	Cyclobacteriaceae	Cecembia	Cecembia lonarensis
+k99_10008139_7	Bacteria	Bacteroidetes	Cytophagia	Cytophagales	Cyclobacteriaceae	Cecembia	Cecembia lonarensis
+k99_10008139_8	Bacteria	Bacteroidetes	Cytophagia	Cytophagales	Cyclobacteriaceae	Cecembia	Cecembia lonarensis
+k99_10008139_9							
+k99_10008171_1							
+k99_10008171_2							
+k99_10008171_3							
+k99_10008175_1	Bacteria	Proteobacteria	Alphaproteobacteria	Rhodobacterales	Rhodobacteraceae	Roseobacter	Roseobacter litoralis
+k99_10008175_2							
+k99_10008179_1							
+k99_1000819_1							
+k99_1000819_2	Bacteria						
+k99_1000819_3	Bacteria						
+k99_10008207_1	Bacteria						
+k99_10008216_1	Bacteria	Actinobacteria <phylum>	Actinobacteria				
+k99_10008216_2	Bacteria	Actinobacteria <phylum>	Actinobacteria				
+k99_10008216_3							
+k99_10008216_4	Bacteria	Proteobacteria	Betaproteobacteria	Burkholderiales			
+k99_10008218_1	Bacteria	Proteobacteria	Betaproteobacteria	Burkholderiales			
+k99_10008230_1	Bacteria	Proteobacteria	Betaproteobacteria	Burkholderiales			
+k99_1000824_1	Bacteria	Proteobacteria	Betaproteobacteria	Burkholderiales			
+k99_1000824_2	Bacteria	Proteobacteria	Gammaproteobacteria				
+k99_10008289_1	Bacteria	Proteobacteria	Gammaproteobacteria				
+k99_10008289_2	Eukaryota		Spirotrichea	Sporadotrichida	Oxytrichidae		
+k99_10008296_1	Eukaryota		Spirotrichea	Sporadotrichida	Oxytrichidae		
+k99_10008296_2	Eukaryota		Spirotrichea	Sporadotrichida	Oxytrichidae		
+k99_10008299_1	Bacteria	Proteobacteria					
+k99_10008299_2	Bacteria	Proteobacteria					
+k99_10008342_1	Bacteria	Proteobacteria					
+k99_10008342_2	Bacteria	Proteobacteria					
+k99_10008342_3	Bacteria	Proteobacteria					
+k99_10008348_1	Bacteria	Bacteroidetes	Flavobacteriia				Flavobacteria bacterium MS024-2A
+k99_10008348_2	Bacteria	Bacteroidetes	Flavobacteriia				Flavobacteria bacterium MS024-2A
+k99_10008348_3	Bacteria	Bacteroidetes	Flavobacteriia				Flavobacteria bacterium MS024-2A
+k99_10008360_1							
+k99_10008360_2							
+k99_10008360_3							
+k99_10008360_4							
+k99_10008360_5							
+k99_10008360_6	Bacteria						
+k99_10008360_7	Bacteria						
+k99_10008362_1	Bacteria						
+k99_10008362_2	Bacteria						
+k99_10008362_3	Bacteria						
+k99_1000836_1							
+k99_1000836_2							
+k99_1000838_1							
+k99_1000838_2	Eukaryota						
+k99_1000838_3	Bacteria						
+k99_10008393_1	Bacteria						
+k99_10008393_2	Bacteria						
+k99_10008393_3	Bacteria						
+k99_1000839_1	Bacteria						
+k99_1000839_2	Bacteria						
+k99_1000839_3	Bacteria						
+k99_10008415_1	Bacteria						
+k99_10008418_1	Bacteria	Proteobacteria	Alphaproteobacteria	Rhodobacterales	Rhodobacteraceae		
+k99_10008418_2	Bacteria	Proteobacteria	Alphaproteobacteria	Rhodobacterales	Rhodobacteraceae		
+k99_10008422_1	Bacteria						
+k99_10008422_2	Bacteria						
+k99_10008433_1	Bacteria						
+k99_10008458_1	Bacteria						
+k99_10008466_1	Bacteria						
+k99_10008466_2	Bacteria						
+k99_10008466_3	Bacteria						
+k99_10008489_1	Bacteria						
+k99_10008489_2	Bacteria						
+k99_10008489_3	Bacteria						
+k99_10008489_4	Bacteria						
+k99_10008489_5	Bacteria						
+k99_10008524_1	Bacteria						
+k99_10008524_2	Bacteria						
+k99_10008524_3	Bacteria						
+k99_1000852_1	Bacteria						
+k99_1000852_2	Bacteria						
+k99_1000852_3	Bacteria						
+k99_1000852_4	Bacteria						
+k99_10008533_1	Bacteria						
+k99_10008533_10	Bacteria						
+k99_10008533_11	Bacteria						
+k99_10008533_12	Bacteria						
+k99_10008533_13	Bacteria						
+k99_10008533_14	Bacteria						
+k99_10008533_15	Bacteria						
+k99_10008533_16	Bacteria						
+k99_10008533_17	Bacteria						
+k99_10008533_2	Bacteria						
+k99_10008533_3	Bacteria						
+k99_10008533_4	Bacteria						
+k99_10008533_5	Bacteria						
+k99_10008533_6	Bacteria						
+k99_10008533_7	Bacteria						
+k99_10008533_8	Bacteria						
+k99_10008533_9	Bacteria						
+k99_10008538_1	Bacteria						
+k99_10008538_2	Eukaryota	Chlorophyta					
+k99_10008538_3							
+k99_10008538_4							
+k99_10008550_1	Bacteria	Proteobacteria	Alphaproteobacteria				
+k99_10008550_2	Bacteria	Proteobacteria	Alphaproteobacteria				
+k99_10008561_1	Eukaryota		Spirotrichea	Sporadotrichida	Oxytrichidae	Stylonychia	Stylonychia lemnae
+k99_10008561_2	Eukaryota		Spirotrichea	Sporadotrichida	Oxytrichidae	Stylonychia	Stylonychia lemnae
+k99_10008564_1	Eukaryota		Spirotrichea	Sporadotrichida	Oxytrichidae	Stylonychia	Stylonychia lemnae
+k99_10008580_1	Bacteria						
+k99_10008580_2	Bacteria						
+k99_10008580_3	Bacteria						
+k99_10008591_1	Bacteria						
+k99_100085_1	Bacteria						
+k99_100085_2	Bacteria						
+k99_100085_3	Bacteria						
+k99_10008614_1	Bacteria						
+k99_10008614_2	Bacteria						
+k99_10008614_3	Bacteria						
+k99_10008614_4	Bacteria						
+k99_10008614_5	Bacteria						
+k99_10008652_1	Bacteria	Cyanobacteria		Chroococcales			
+k99_10008678_1	Bacteria	Cyanobacteria		Chroococcales			
+k99_10008686_1	Bacteria	Cyanobacteria		Chroococcales			
+k99_10008686_2	Bacteria	Cyanobacteria		Chroococcales			
+k99_10008686_3	Bacteria	Cyanobacteria		Chroococcales			
+k99_10008696_1	Bacteria	Cyanobacteria		Chroococcales			
+k99_10008696_2	Bacteria	Proteobacteria	Betaproteobacteria	Rhodocyclales	Rhodocyclaceae	Sulfuritalea	Sulfuritalea hydrogenivorans
+k99_10008705_1							
+k99_10008708_1	Bacteria	Bacteroidetes					
+k99_10008708_2	Bacteria	Bacteroidetes					
+k99_10008709_1							
+k99_1000870_1							
+k99_1000870_2							
+k99_1000870_3							
+k99_1000870_4							
+k99_1000870_5							
+k99_1000870_6							
+k99_10008735_1							
+k99_10008735_2	Bacteria						
+k99_10008735_3	Bacteria						
+k99_10008735_4	Bacteria						
+k99_10008735_5	Bacteria						
+k99_10008735_6	Bacteria	Proteobacteria	Betaproteobacteria	Burkholderiales	Alcaligenaceae		
+k99_10008735_7	Bacteria						
+k99_1000874_1	Bacteria	Bacteroidetes	Flavobacteriia	Flavobacteriales			
+k99_10008753_1	Bacteria	Bacteroidetes	Flavobacteriia	Flavobacteriales			
+k99_10008772_1							
+k99_10008772_2	Bacteria	Bacteroidetes	Flavobacteriia	Flavobacteriales	Flavobacteriaceae		
+k99_10008782_1	Bacteria	Bacteroidetes	Flavobacteriia	Flavobacteriales	Flavobacteriaceae		
+k99_10008782_2	Bacteria	Proteobacteria					
+k99_10008782_3	Bacteria	Proteobacteria					
+k99_10008807_1	Eukaryota		Pelagophyceae	Pelagomonadales		Aureococcus	Aureococcus anophagefferens
+k99_10008825_1	Eukaryota		Pelagophyceae	Pelagomonadales		Aureococcus	Aureococcus anophagefferens
+k99_10008825_2	Bacteria	Planctomycetes	Planctomycetia	Planctomycetales	Planctomycetaceae		
+k99_10008833_1	Bacteria	Planctomycetes	Planctomycetia	Planctomycetales	Planctomycetaceae		
+k99_10008833_2	Bacteria	Planctomycetes	Planctomycetia	Planctomycetales	Planctomycetaceae		
+k99_10008833_3	Bacteria	Proteobacteria	Alphaproteobacteria	Rhodobacterales	Rhodobacteraceae		
+k99_10008833_4	Bacteria	Proteobacteria	Alphaproteobacteria	Rhodobacterales	Rhodobacteraceae		
+k99_10008833_5	Bacteria	Proteobacteria	Alphaproteobacteria	Rhodobacterales	Rhodobacteraceae		
+k99_10008839_1	Bacteria	Proteobacteria	Alphaproteobacteria	Rhodobacterales	Rhodobacteraceae		
+k99_10008839_2							
+k99_10008839_3	Bacteria	Bacteroidetes					
+k99_10008840_1	Bacteria	Bacteroidetes					
+k99_10008840_2	Bacteria	Bacteroidetes					
+k99_1000884_1	Bacteria						
+k99_10008853_1	Bacteria						
+k99_10008853_2	Bacteria						
+k99_10008853_3	Bacteria						
+k99_10008866_1	Bacteria						
+k99_10008866_10	Bacteria						
+k99_10008866_11	Archaea	Euryarchaeota					uncultured marine group II/III euryarchaeote KM3_85_D06
+k99_10008866_2	Bacteria	Actinobacteria <phylum>	Actinobacteria	Actinomycetales	Nocardiopsaceae	Nocardiopsis	Nocardiopsis potens
+k99_10008866_3	Bacteria	Actinobacteria <phylum>	Actinobacteria	Actinomycetales	Nocardiopsaceae	Nocardiopsis	Nocardiopsis potens
+k99_10008866_4							
+k99_10008866_5							
+k99_10008866_6							
+k99_10008866_7	Bacteria						
+k99_10008866_8	Bacteria						
+k99_10008866_9	Bacteria						
+k99_10008868_1	Bacteria						
+k99_10008868_2	Bacteria						
+k99_10008881_1	Bacteria						
+k99_10008881_2	Bacteria						
+k99_10008912_1	Bacteria						
+k99_10008912_2	Bacteria						
+k99_10008912_3	Bacteria						
+k99_10008912_4	Bacteria						
+k99_10008930_1	Bacteria						
+k99_10008930_2	Bacteria						
+k99_10008930_3	Bacteria						
+k99_10008934_1	Bacteria						
+k99_10008934_2	Bacteria						
+k99_10008934_3	Bacteria						
+k99_10008934_4	Bacteria						
+k99_1000895_1	Bacteria						
+k99_1000895_10	Bacteria						
+k99_1000895_11	Bacteria						
+k99_1000895_12	Bacteria						
+k99_1000895_13	Bacteria						
+k99_1000895_14	Bacteria						
+k99_1000895_15	Eukaryota			Isochrysidales	Noelaerhabdaceae	Emiliania	Emiliania huxleyi
+k99_1000895_16	Eukaryota			Isochrysidales	Noelaerhabdaceae	Emiliania	Emiliania huxleyi
+k99_1000895_17	Eukaryota						
+k99_1000895_18	Eukaryota						
+k99_1000895_19	Eukaryota						
+k99_1000895_2	Bacteria						
+k99_1000895_3	Bacteria						
+k99_1000895_4	Bacteria						
+k99_1000895_5	Bacteria						
+k99_1000895_6	Bacteria						
+k99_1000895_7	Bacteria						
+k99_1000895_8	Bacteria						
+k99_1000895_9	Bacteria						
+k99_10008976_1	Bacteria						
+k99_10008976_2	Bacteria						
+k99_10008976_3	Bacteria						
+k99_10008976_4							
+k99_10009017_1	Viruses			Caudovirales	Podoviridae		
+k99_10009030_1							
+k99_10009041_1	Bacteria	Actinobacteria <phylum>	Actinobacteria				
+k99_10009041_2	Bacteria	Actinobacteria <phylum>	Actinobacteria				
+k99_10009041_3	Bacteria	Actinobacteria <phylum>	Actinobacteria	Actinomycetales	Streptomycetaceae	Streptomyces	
+k99_10009067_1							
+k99_10009067_2							
+k99_10009067_3							
+k99_10009076_1							
+k99_10009076_2							
+k99_10009076_3							
+k99_10009079_1							
+k99_10009079_2							
+k99_10009079_3	Eukaryota	Chlorophyta	Mamiellophyceae	Mamiellales	Bathycoccaceae	Bathycoccus	Bathycoccus prasinos
+k99_10009086_1	Eukaryota	Chlorophyta	Mamiellophyceae	Mamiellales	Bathycoccaceae	Bathycoccus	Bathycoccus prasinos
+k99_10009086_2	Eukaryota	Chlorophyta	Mamiellophyceae	Mamiellales	Bathycoccaceae	Bathycoccus	Bathycoccus prasinos
+k99_10009106_1	Viruses						uncultured virus
+k99_10009106_2	Viruses						uncultured virus
+k99_10009112_1	Bacteria	Proteobacteria	Gammaproteobacteria				
+k99_10009112_2	Bacteria	Proteobacteria	Gammaproteobacteria				
+k99_10009112_3	Bacteria	Proteobacteria	Gammaproteobacteria				
+k99_10009112_4	Bacteria	Proteobacteria	Alphaproteobacteria	Rhodobacterales	Rhodobacteraceae		
+k99_10009112_5	Bacteria	Proteobacteria	Alphaproteobacteria	Rhodobacterales	Rhodobacteraceae		
+k99_10009112_6							
+k99_10009112_7							
+k99_10009121_1							
+k99_10009121_2							
+k99_10009127_1	Eukaryota	Chlorophyta	Trebouxiophyceae	Chlorellales	Chlorellaceae	Chlorella	Chlorella variabilis
+k99_10009127_2							
+k99_10009127_3							
+k99_10009127_4	Bacteria	Proteobacteria	Alphaproteobacteria	Rhodobacterales	Rhodobacteraceae	Roseovarius	Roseovarius nubinhibens
+k99_10009127_5	Bacteria	Proteobacteria	Alphaproteobacteria	Rhodobacterales	Rhodobacteraceae	Roseovarius	Roseovarius nubinhibens
+k99_10009127_6	Eukaryota	Arthropoda	Insecta				
+k99_10009130_1	Eukaryota	Arthropoda	Insecta				
+k99_10009146_1	Eukaryota	Chlorophyta	Mamiellophyceae	Mamiellales	Mamiellaceae	Micromonas	Micromonas sp. RCC299
+k99_10009146_10	Eukaryota	Chlorophyta	Mamiellophyceae	Mamiellales	Mamiellaceae	Micromonas	Micromonas sp. RCC299
+k99_10009146_11	Bacteria						
+k99_10009146_12	Bacteria						
+k99_10009146_13	Bacteria						
+k99_10009146_14	Bacteria						
+k99_10009146_15	Bacteria	Cyanobacteria		Chroococcales			
+k99_10009146_16	Bacteria	Cyanobacteria		Chroococcales			
+k99_10009146_17	Bacteria						
+k99_10009146_18	Bacteria						
+k99_10009146_19	Bacteria	Bacteroidetes	Flavobacteriia				
+k99_10009146_2	Bacteria	Bacteroidetes	Flavobacteriia				
+k99_10009146_20	Eukaryota	Chlorophyta	Mamiellophyceae	Mamiellales	Bathycoccaceae	Ostreococcus	Ostreococcus 'lucimarinus'
+k99_10009146_21	Bacteria	Proteobacteria	Gammaproteobacteria				Gammaproteobacteria bacterium MOLA455
+k99_10009146_22	Bacteria	Proteobacteria	Gammaproteobacteria				Gammaproteobacteria bacterium MOLA455
+k99_10009146_23	Bacteria						
+k99_10009146_24	Bacteria						
+k99_10009146_25	Bacteria						
+k99_10009146_26	Bacteria						
+k99_10009146_27	Bacteria						
+k99_10009146_28	Bacteria						
+k99_10009146_29	Bacteria	Actinobacteria <phylum>	Actinobacteria	Actinomycetales			
+k99_10009146_3	Bacteria	Actinobacteria <phylum>	Actinobacteria	Actinomycetales			
+k99_10009146_30	Bacteria	Actinobacteria <phylum>	Actinobacteria	Actinomycetales			
+k99_10009146_31	Bacteria	Actinobacteria <phylum>	Actinobacteria	Actinomycetales			
+k99_10009146_32	Eukaryota	Streptophyta		Brassicales	Brassicaceae	Arabidopsis	Arabidopsis thaliana
+k99_10009146_33	Bacteria	Proteobacteria	Epsilonproteobacteria	Campylobacterales	Helicobacteraceae	Sulfurimonas	
+k99_10009146_34	Bacteria	Proteobacteria	Epsilonproteobacteria	Campylobacterales	Helicobacteraceae	Sulfurimonas	
+k99_10009146_35							
+k99_10009146_36							
+k99_10009146_37	Bacteria						
+k99_10009146_38	Bacteria						
+k99_10009146_39	Bacteria						
+k99_10009146_4	Bacteria						
+k99_10009146_40							
+k99_10009146_41	Bacteria	Proteobacteria	Alphaproteobacteria	Rhodobacterales			
+k99_10009146_42	Bacteria	Proteobacteria	Alphaproteobacteria	Rhodobacterales			
+k99_10009146_43							
+k99_10009146_44	Bacteria						
+k99_10009146_45	Bacteria						
+k99_10009146_46	Bacteria						
+k99_10009146_47	Bacteria						
+k99_10009146_48	Bacteria						
+k99_10009146_49	Bacteria						
+k99_10009146_5	Bacteria	Bacteroidetes	Cytophagia	Cytophagales	Cyclobacteriaceae	Algoriphagus	
+k99_10009146_50							
+k99_10009146_51							
+k99_10009146_6							
+k99_10009146_7	Bacteria						
+k99_10009146_8	Bacteria						
+k99_10009146_9	Bacteria						
+k99_10009147_1	Bacteria						
+k99_10009147_2	Bacteria						
+k99_10009147_3							
+k99_10009151_1	Bacteria						
+k99_10009151_2	Bacteria						
+k99_10009151_3	Bacteria						
+k99_10009157_1	Bacteria						
+k99_10009157_10	Bacteria						
+k99_10009157_11	Bacteria						
+k99_10009157_12	Bacteria						
+k99_10009157_13	Bacteria						
+k99_10009157_14	Bacteria						
+k99_10009157_15	Bacteria						
+k99_10009157_2	Bacteria						
+k99_10009157_3	Bacteria						
+k99_10009157_4							
+k99_10009157_5							
+k99_10009157_6	Bacteria						
+k99_10009157_7	Bacteria						
+k99_10009157_8	Bacteria						
+k99_10009157_9	Bacteria						
+k99_10009160_1	Bacteria						
+k99_10009160_2							
+k99_10009176_1							
+k99_10009176_2							
+k99_10009176_3							
+k99_10009210_1							
+k99_10009210_2							
+k99_10009210_3	Eukaryota						
+k99_10009237_1	Eukaryota						
+k99_10009237_2	Eukaryota						
+k99_10009255_1	Bacteria						
+k99_10009255_2	Bacteria						
+k99_10009257_1							
+k99_10009257_2							
+k99_10009261_1	Viruses			Caudovirales	Myoviridae		uncultured Myoviridae
+k99_10009261_2	Viruses			Caudovirales	Myoviridae		uncultured Myoviridae
+k99_10009261_3	Viruses			Caudovirales	Myoviridae		uncultured Myoviridae
+k99_10009278_1	Viruses			Caudovirales	Myoviridae		uncultured Myoviridae
+k99_10009278_2	Bacteria	Planctomycetes	Phycisphaerae	Phycisphaerales	Phycisphaeraceae	Phycisphaera	Phycisphaera mikurensis
+k99_10009301_1	Bacteria	Planctomycetes	Phycisphaerae	Phycisphaerales	Phycisphaeraceae	Phycisphaera	Phycisphaera mikurensis
+k99_10009301_2							
+k99_10009307_1	Bacteria						
+k99_10009307_2	Bacteria						
+k99_10009339_1	Bacteria						
+k99_10009365_1							
+k99_10009369_1							
+k99_10009369_2							
+k99_10009393_1	Bacteria	Proteobacteria	Alphaproteobacteria			Candidatus Puniceispirillum	Candidatus Puniceispirillum marinum
+k99_10009393_2	Bacteria	Proteobacteria	Alphaproteobacteria			Candidatus Puniceispirillum	Candidatus Puniceispirillum marinum
+k99_10009393_3	Bacteria	Proteobacteria	Alphaproteobacteria			Candidatus Puniceispirillum	Candidatus Puniceispirillum marinum
+k99_10009429_1							
+k99_10009429_2							
+k99_10009441_1							
+k99_10009441_2							
+k99_10009441_3	Bacteria	Firmicutes	Bacilli	Lactobacillales	Streptococcaceae	Streptococcus	Streptococcus pneumoniae
+k99_10009441_4	Bacteria	Firmicutes	Bacilli	Lactobacillales	Streptococcaceae	Streptococcus	Streptococcus pneumoniae
+k99_10009442_1	Eukaryota		Spirotrichea	Sporadotrichida	Oxytrichidae	Stylonychia	Stylonychia lemnae
+k99_10009442_2	Eukaryota		Spirotrichea	Sporadotrichida	Oxytrichidae	Stylonychia	Stylonychia lemnae
+k99_10009442_3	Eukaryota		Spirotrichea	Sporadotrichida	Oxytrichidae	Stylonychia	Stylonychia lemnae
+k99_10009442_4	Bacteria	Verrucomicrobia					
+k99_10009447_1	Bacteria	Proteobacteria	Gammaproteobacteria	Methylococcales	Methylococcaceae	Methylovulum	Methylovulum miyakonense
+k99_10009447_2	Bacteria	Proteobacteria	Gammaproteobacteria	Methylococcales	Methylococcaceae	Methylovulum	Methylovulum miyakonense
+k99_10009447_3							
+k99_10009478_1	Eukaryota						
+k99_10009478_2	Bacteria	Bacteroidetes	Flavobacteriia	Flavobacteriales	Flavobacteriaceae		
+k99_10009478_3	Bacteria	Bacteroidetes	Flavobacteriia	Flavobacteriales	Flavobacteriaceae		
+k99_10009478_4	Archaea	Euryarchaeota	Methanomicrobia	Methanosarcinales	Methanosarcinaceae	Methanosarcina	Methanosarcina acetivorans
+k99_10009541_1	Archaea	Euryarchaeota	Methanomicrobia	Methanosarcinales	Methanosarcinaceae	Methanosarcina	Methanosarcina acetivorans
+k99_10009541_2							
+k99_10009541_3							
+k99_10009541_4	Bacteria	Bacteroidetes					
+k99_10009563_1	Bacteria	Bacteroidetes					
+k99_10009563_2							
+k99_10009563_3							
+k99_10009563_4							
+k99_10009563_5							
+k99_10009576_1							
+k99_10009576_2							
+k99_10009576_3							
+k99_10009578_1	Bacteria	Proteobacteria	Alphaproteobacteria	Rhodobacterales			
+k99_10009578_2	Bacteria	Proteobacteria	Alphaproteobacteria	Rhodobacterales			
+k99_10009597_1							
+k99_10009597_2							
+k99_10009600_1							
+k99_10009600_2							
+k99_10009600_3	Bacteria	Bacteroidetes					
+k99_10009621_1	Bacteria	Bacteroidetes					
+k99_10009621_2	Bacteria						
+k99_10009639_1	Bacteria						
+k99_10009639_2	Bacteria						
+k99_10009639_3							
+k99_1000965_1							
+k99_10009662_1							
+k99_10009662_2	Bacteria	Proteobacteria	Alphaproteobacteria	Rhodobacterales	Rhodobacteraceae	Ruegeria	Ruegeria lacuscaerulensis
+k99_10009662_3	Bacteria	Bacteroidetes					
+k99_10009666_1	Bacteria	Bacteroidetes					
+k99_10009666_2	Bacteria						
+k99_1000967_1	Bacteria						
+k99_1000967_2	Bacteria						
+k99_10009689_1	Bacteria						
+k99_10009689_2	Bacteria						
+k99_10009707_1	Bacteria						
+k99_10009707_2	Bacteria						
+k99_10009707_3	Bacteria						
+k99_10009707_4	Bacteria						
+k99_10009707_5	Bacteria						
+k99_10009707_6	Bacteria						
+k99_10009719_1	Bacteria						
+k99_10009723_1	Bacteria						
+k99_10009762_1	Bacteria						
+k99_10009814_1	Bacteria						
+k99_10009838_1	Bacteria						
+k99_10009841_1	Bacteria						
+k99_10009843_1							
+k99_10009843_2							
+k99_10009855_1							
+k99_10009855_2							
+k99_10009855_3	Bacteria	Proteobacteria	Gammaproteobacteria	Alteromonadales	Colwelliaceae		
+k99_10009867_1	Eukaryota						
+k99_1000987_1	Eukaryota						
+k99_1000987_10	Eukaryota						
+k99_1000987_11	Bacteria						
+k99_1000987_12	Bacteria						
+k99_1000987_13	Bacteria						
+k99_1000987_14							
+k99_1000987_15							
+k99_1000987_16	Bacteria	Proteobacteria	Alphaproteobacteria				
+k99_1000987_17	Bacteria	Proteobacteria	Alphaproteobacteria				
+k99_1000987_18	Bacteria	Proteobacteria	Alphaproteobacteria				
+k99_1000987_19	Bacteria	Proteobacteria	Alphaproteobacteria				
+k99_1000987_2	Bacteria	Proteobacteria	Alphaproteobacteria				
+k99_1000987_3	Bacteria	Proteobacteria	Alphaproteobacteria				
+k99_1000987_4	Bacteria	Proteobacteria	Alphaproteobacteria				
+k99_1000987_5							
+k99_1000987_6							
+k99_1000987_7							
+k99_1000987_8							
+k99_1000987_9							
+k99_1000988_1							
+k99_1000988_2	Bacteria						
+k99_10009913_1	Bacteria						
+k99_10009913_2	Bacteria						
+k99_10009913_3	Bacteria						
+k99_10009913_4	Bacteria						
+k99_10009913_5	Bacteria	Proteobacteria	Betaproteobacteria			Candidatus Accumulibacter	
+k99_10009913_6	Viruses						
+k99_10009913_7	Viruses						
+k99_10009913_8	Viruses						
+k99_10009915_1	Viruses						
+k99_10009915_2	Viruses						
+k99_10009915_3	Viruses						
+k99_10009915_4	Bacteria						
+k99_1000992_1	Bacteria						
+k99_1000994_1	Bacteria						
+k99_1000994_2	Viruses				Phycodnaviridae	Prymnesiovirus	Phaeocystis globosa virus
+k99_10009964_1	Bacteria	Proteobacteria	Alphaproteobacteria	Rhodospirillales			
+k99_10009964_2	Bacteria	Proteobacteria	Alphaproteobacteria	Rhodospirillales			
+k99_10009964_3	Eukaryota	Chlorophyta	Mamiellophyceae	Mamiellales	Mamiellaceae	Micromonas	
+k99_10009972_1	Eukaryota	Chlorophyta	Mamiellophyceae	Mamiellales	Mamiellaceae	Micromonas	
+k99_10009972_2	Bacteria	Proteobacteria	Betaproteobacteria	Burkholderiales			
+k99_10009973_1	Bacteria	Proteobacteria	Betaproteobacteria	Burkholderiales			
+k99_10009973_2	Bacteria						
+k99_10009973_3	Bacteria						
+k99_10009982_1	Bacteria						
+k99_10009982_2	Bacteria						
+k99_10009985_1	Bacteria						
+k99_10010002_1	Bacteria						
+k99_10010028_1	Bacteria						
+k99_10010028_2	Bacteria						
+k99_10010035_1	Bacteria						
+k99_10010035_2	Bacteria						
+k99_10010035_3	Bacteria						
+k99_10010053_1	Bacteria						
+k99_10010053_2	Bacteria	Proteobacteria	Alphaproteobacteria	SAR11 cluster			
+k99_10010055_1	Bacteria	Proteobacteria	Alphaproteobacteria	SAR11 cluster			
+k99_10010055_2	Bacteria	Proteobacteria	Alphaproteobacteria	SAR11 cluster			
+k99_10010055_3							
+k99_10010063_1							
+k99_10010122_1	Bacteria	Proteobacteria	Alphaproteobacteria				
+k99_10010122_2	Eukaryota	Chlorophyta	Trebouxiophyceae	Chlorellales	Chlorellaceae	Chlorella	Chlorella variabilis
+k99_1001015_1	Eukaryota	Chlorophyta	Trebouxiophyceae	Chlorellales	Chlorellaceae	Chlorella	Chlorella variabilis
+k99_1001015_2	Bacteria						
+k99_10010168_1	Bacteria						
+k99_10010168_2	Eukaryota	Apicomplexa	Coccidia	Eucoccidiorida	Eimeriidae	Eimeria	Eimeria praecox
+k99_10010171_1	Eukaryota	Apicomplexa	Coccidia	Eucoccidiorida	Eimeriidae	Eimeria	Eimeria praecox
+k99_10010193_1	Eukaryota	Apicomplexa	Coccidia	Eucoccidiorida	Eimeriidae	Eimeria	Eimeria praecox
+k99_10010193_2	Bacteria						
+k99_10010193_3	Bacteria						
+k99_10010193_4	Bacteria						
+k99_10010193_5	Bacteria						
+k99_10010202_1	Bacteria						
+k99_10010202_2	Bacteria						
+k99_10010202_3	Bacteria						
+k99_10010202_4	Bacteria						
+k99_10010202_5	Bacteria						
+k99_10010202_6	Bacteria						
+k99_10010205_1	Bacteria						
+k99_10010205_2	Bacteria						
+k99_10010258_1	Bacteria						
+k99_10010258_2	Bacteria						
+k99_10010269_1	Eukaryota						
+k99_10010269_2	Eukaryota						
+k99_10010269_3							
+k99_10010269_4	Bacteria	Verrucomicrobia					Verrucomicrobia bacterium SCGC AAA168-F10
+k99_10010269_5	Eukaryota						
+k99_10010269_6	Eukaryota						
+k99_10010294_1	Eukaryota						
+k99_10010294_2							
+k99_1001030_1	Bacteria						
+k99_10010316_1	Bacteria						
+k99_10010316_2	Bacteria						
+k99_10010334_1	Bacteria	Actinobacteria <phylum>	Actinobacteria	Actinomycetales	Intrasporangiaceae	Tetrasphaera	Tetrasphaera japonica
+k99_10010334_2	Bacteria	Actinobacteria <phylum>	Actinobacteria	Actinomycetales	Intrasporangiaceae	Tetrasphaera	Tetrasphaera japonica
+k99_10010334_3	Bacteria						
+k99_10010334_4	Bacteria						
+k99_10010334_5	Bacteria						
+k99_10010351_1	Bacteria						
+k99_10010352_1	Bacteria						
+k99_10010352_2							
+k99_10010352_3							
+k99_1001035_1	Bacteria						
+k99_1001035_2	Bacteria						
+k99_10010379_1	Bacteria						
+k99_10010379_2	Bacteria						
+k99_10010409_1	Bacteria						
+k99_10010409_10	Bacteria						
+k99_10010409_11	Bacteria						
+k99_10010409_12	Bacteria						
+k99_10010409_13	Bacteria						
+k99_10010409_14	Bacteria						
+k99_10010409_15	Bacteria	Proteobacteria					
+k99_10010409_2	Bacteria	Proteobacteria					
+k99_10010409_3	Bacteria	Proteobacteria					
+k99_10010409_4	Bacteria	Proteobacteria					
+k99_10010409_5							
+k99_10010409_6							
+k99_10010409_7							
+k99_10010409_8							
+k99_10010409_9	Bacteria	Bacteroidetes					
+k99_10010426_1	Bacteria	Bacteroidetes					
+k99_10010426_2	Bacteria	Bacteroidetes					
+k99_10010429_1							
+k99_10010429_2							
+k99_10010429_3	Bacteria	Cyanobacteria		Chroococcales			
+k99_10010429_4	Bacteria	Cyanobacteria		Chroococcales			
+k99_10010462_1	Bacteria	Verrucomicrobia					
+k99_10010462_2	Bacteria	Verrucomicrobia					
+k99_10010486_1	Bacteria	Verrucomicrobia					
+k99_10010491_1	Bacteria	Proteobacteria					
+k99_10010491_2	Bacteria	Proteobacteria					
+k99_10010498_1	Bacteria	Proteobacteria					
+k99_10010498_2	Eukaryota	Chlorophyta	Mamiellophyceae	Mamiellales	Bathycoccaceae	Bathycoccus	Bathycoccus prasinos
+k99_10010498_3	Eukaryota	Chlorophyta	Mamiellophyceae	Mamiellales	Bathycoccaceae	Bathycoccus	Bathycoccus prasinos
+k99_10010507_1	Eukaryota	Chlorophyta	Mamiellophyceae	Mamiellales	Bathycoccaceae	Bathycoccus	Bathycoccus prasinos
+k99_10010507_2	Bacteria	Proteobacteria	Deltaproteobacteria	Desulfuromonadales	Geobacteraceae	Geopsychrobacter	Geopsychrobacter electrodiphilus
+k99_10010507_3							
+k99_10010507_4							
+k99_10010507_5							
+k99_10010558_1							
+k99_10010558_2	Bacteria						
+k99_1001055_1	Bacteria						
+k99_1001055_2	Bacteria						
+k99_1001055_3	Bacteria						
+k99_1001055_4	Bacteria	Proteobacteria	Alphaproteobacteria	Rhizobiales	Phyllobacteriaceae	Chelativorans	Chelativorans sp. J32
+k99_1001055_5	Bacteria	Proteobacteria	Alphaproteobacteria	Rhizobiales	Phyllobacteriaceae	Chelativorans	Chelativorans sp. J32
+k99_10010567_1	Bacteria	Proteobacteria	Alphaproteobacteria	Rhodobacterales	Rhodobacteraceae		
+k99_10010567_2	Bacteria	Proteobacteria	Alphaproteobacteria	Rhodobacterales	Rhodobacteraceae		
+k99_10010605_1	Bacteria	Proteobacteria	Alphaproteobacteria	Rhodobacterales	Rhodobacteraceae		
+k99_10010605_2	Bacteria	Proteobacteria	Alphaproteobacteria	Rhodobacterales	Rhodobacteraceae		
+k99_10010630_1	Bacteria	Bacteroidetes	Cytophagia	Cytophagales	Cyclobacteriaceae	Algoriphagus	
+k99_10010630_2	Bacteria	Bacteroidetes	Cytophagia	Cytophagales	Cyclobacteriaceae	Algoriphagus	
+k99_10010650_1	Bacteria	Proteobacteria	Alphaproteobacteria	Rhodobacterales	Rhodobacteraceae		
+k99_10010650_2	Bacteria	Proteobacteria	Alphaproteobacteria	Rhodobacterales	Rhodobacteraceae		
+k99_10010650_3	Bacteria	Verrucomicrobia					
+k99_10010650_4	Bacteria	Verrucomicrobia					
+k99_10010650_5							
+k99_10010650_6	Bacteria	Proteobacteria	Alphaproteobacteria				
+k99_10010650_7	Bacteria	Proteobacteria	Alphaproteobacteria				
+k99_10010670_1	Bacteria	Bacteroidetes					
+k99_10010689_1	Bacteria	Bacteroidetes					
+k99_10010689_2	Bacteria	Bacteroidetes					
+k99_10010704_1	Bacteria	Bacteroidetes					
+k99_10010704_2	Bacteria	Bacteroidetes					
+k99_10010740_1	Bacteria	Bacteroidetes					
+k99_10010740_2	Bacteria	Bacteroidetes					
+k99_10010740_3	Bacteria	Bacteroidetes					
+k99_10010740_4							
+k99_10010756_1							
+k99_10010756_2	Bacteria						
+k99_10010756_3	Bacteria						
+k99_10010760_1	Bacteria						
+k99_10010760_2	Bacteria	Proteobacteria	Alphaproteobacteria				
+k99_10010760_3	Bacteria	Proteobacteria	Alphaproteobacteria				
+k99_10010802_1	Eukaryota	Chordata					
+k99_10010802_2	Eukaryota	Chordata					
+k99_10010804_1	Eukaryota	Chordata					
+k99_10010804_2							
+k99_10010804_3							
+k99_10010804_4	Bacteria	Proteobacteria	Gammaproteobacteria				
+k99_10010825_1	Bacteria						
+k99_10010825_2	Bacteria						
+k99_10010825_3							
+k99_10010854_1	Bacteria	Proteobacteria					
+k99_10010854_2	Bacteria	Proteobacteria					
+k99_10010854_3	Bacteria	Proteobacteria					
+k99_1001085_1	Bacteria	Proteobacteria					
+k99_1001085_10	Bacteria	Proteobacteria					
+k99_1001085_11	Bacteria	Proteobacteria					
+k99_1001085_12	Bacteria	Proteobacteria	Alphaproteobacteria	Rhodobacterales	Rhodobacteraceae		
+k99_1001085_13	Bacteria	Proteobacteria	Alphaproteobacteria	Rhodobacterales	Rhodobacteraceae		
+k99_1001085_14	Bacteria	Proteobacteria	Alphaproteobacteria	Rhodobacterales	Rhodobacteraceae		
+k99_1001085_15	Bacteria	Nitrospinae	Nitrospinia	Nitrospinales	Nitrospinaceae	Nitrospina	Nitrospina gracilis
+k99_1001085_16	Bacteria	Nitrospinae	Nitrospinia	Nitrospinales	Nitrospinaceae	Nitrospina	Nitrospina gracilis
+k99_1001085_17	Bacteria						
+k99_1001085_18	Bacteria						
+k99_1001085_19	Bacteria						
+k99_1001085_2	Bacteria						
+k99_1001085_20	Bacteria						
+k99_1001085_21	Bacteria						
+k99_1001085_22	Bacteria						
+k99_1001085_23	Bacteria						
+k99_1001085_24	Bacteria						
+k99_1001085_25	Bacteria						
+k99_1001085_26	Bacteria						
+k99_1001085_3	Bacteria						
+k99_1001085_4	Bacteria						
+k99_1001085_5	Bacteria						
+k99_1001085_6	Bacteria						
+k99_1001085_7	Bacteria						
+k99_1001085_8	Bacteria						
+k99_1001085_9	Bacteria						
+k99_10010865_1	Bacteria	Proteobacteria	Alphaproteobacteria	Sphingomonadales	Sphingomonadaceae		
+k99_10010865_2	Bacteria	Proteobacteria	Alphaproteobacteria	Sphingomonadales	Sphingomonadaceae		
+k99_10010894_1	Bacteria	Proteobacteria	Alphaproteobacteria	Sphingomonadales	Sphingomonadaceae		
+k99_10010894_2	Bacteria	Proteobacteria	Alphaproteobacteria	Sphingomonadales	Sphingomonadaceae		
+k99_10010895_1	Bacteria	Proteobacteria					
+k99_10010895_2	Bacteria	Proteobacteria					
+k99_10010895_3	Bacteria	Bacteroidetes					
+k99_10010905_1	Bacteria	Bacteroidetes					
+k99_10010943_1	Bacteria	Bacteroidetes					
+k99_10010960_1	Bacteria	Proteobacteria					
+k99_10010960_2	Bacteria	Proteobacteria					
+k99_10010962_1	Viruses			Caudovirales			
+k99_10010962_2	Viruses			Caudovirales			
+k99_10010968_1	Viruses			Caudovirales			
+k99_10010968_2	Viruses			Caudovirales			
+k99_10010968_3	Viruses			Caudovirales			
+k99_10010968_4	Viruses			Caudovirales			
+k99_10010978_1	Bacteria						
+k99_10011004_1	Bacteria						
+k99_10011004_2	Bacteria						
+k99_10011004_3	Bacteria						
+k99_10011004_4							
+k99_10011004_5	Bacteria						
+k99_10011024_1	Bacteria						
+k99_10011029_1	Bacteria						
+k99_10011029_2	Bacteria						
+k99_10011043_1	Bacteria						
+k99_10011044_1	Bacteria						
+k99_1001110_1	Bacteria						
+k99_1001110_2	Bacteria						
+k99_1001110_3							
+k99_10011150_1	Bacteria						
+k99_10011150_2	Bacteria						
+k99_10011177_1	Bacteria						uncultured marine bacterium Ant29B7
+k99_10011177_2	Bacteria						uncultured marine bacterium Ant29B7
+k99_10011177_3	Bacteria						uncultured marine bacterium Ant29B7
+k99_10011177_4	Bacteria	Proteobacteria	Deltaproteobacteria				SAR324 cluster bacterium SCGC AAA001-C10
+k99_10011177_5	Bacteria	Proteobacteria	Deltaproteobacteria				SAR324 cluster bacterium SCGC AAA001-C10
+k99_10011181_1	Bacteria	Proteobacteria	Deltaproteobacteria				SAR324 cluster bacterium SCGC AAA001-C10
+k99_10011181_2	Bacteria	Proteobacteria	Deltaproteobacteria				SAR324 cluster bacterium SCGC AAA001-C10
+k99_10011181_3	Bacteria	Proteobacteria	Deltaproteobacteria				SAR324 cluster bacterium SCGC AAA001-C10
+k99_10011191_1							
+k99_10011191_2							
+k99_10011250_1	Bacteria	Proteobacteria	Deltaproteobacteria				
+k99_10011254_1	Bacteria	Proteobacteria	Deltaproteobacteria				
+k99_10011263_1	Archaea						
+k99_10011266_1	Archaea						
+k99_10011268_1	Archaea						
+k99_10011268_2	Archaea						
+k99_10011290_1	Archaea						
+k99_10011311_1	Archaea						
+k99_10011315_1	Archaea						
+k99_10011315_2	Archaea						
+k99_10011315_3	Archaea						
+k99_10011328_1	Eukaryota						
+k99_10011328_2	Eukaryota						
+k99_10011329_1	Eukaryota						
+k99_10011340_1	Eukaryota						
+k99_10011354_1	Eukaryota						
+k99_10011354_2	Eukaryota						
+k99_10011356_1	Eukaryota						
+k99_10011378_1	Eukaryota						
+k99_10011390_1	Eukaryota						
+k99_10011390_2	Eukaryota						
+k99_10011393_1	Eukaryota						
+k99_1001140_1	Eukaryota						
+k99_1001140_2	Eukaryota						
+k99_10011419_1	Bacteria	Proteobacteria	Gammaproteobacteria	Pseudomonadales	Pseudomonadaceae	Cellvibrio	
+k99_10011419_2	Bacteria	Proteobacteria	Gammaproteobacteria	Pseudomonadales	Pseudomonadaceae	Cellvibrio	
+k99_10011419_3							
+k99_10011444_1							
+k99_10011444_2							
+k99_10011452_1							
+k99_10011452_2							
+k99_10011470_1							
+k99_1001148_1							
+k99_1001148_2	Bacteria						
+k99_10011529_1	Bacteria						
+k99_10011529_2	Bacteria						
+k99_10011552_1	Bacteria						
+k99_10011552_2	Bacteria	Actinobacteria <phylum>	Actinobacteria	Actinomycetales	Streptomycetaceae		
+k99_10011553_1	Bacteria	Verrucomicrobia					
+k99_10011566_1	Bacteria	Verrucomicrobia					
+k99_10011566_2	Bacteria	Proteobacteria	Alphaproteobacteria	Rhodospirillales		Reyranella	Reyranella massiliensis
+k99_10011586_1	Bacteria	Proteobacteria	Alphaproteobacteria	Rhodospirillales		Reyranella	Reyranella massiliensis
+k99_10011590_1	Bacteria	Proteobacteria	Alphaproteobacteria	Rhodospirillales		Reyranella	Reyranella massiliensis
+k99_10011590_2	Bacteria	Proteobacteria	Alphaproteobacteria	Rhodospirillales		Reyranella	Reyranella massiliensis
+k99_10011592_1	Bacteria	Proteobacteria	Alphaproteobacteria	Rhodospirillales		Reyranella	Reyranella massiliensis
+k99_10011592_2	Bacteria	Proteobacteria	Alphaproteobacteria	Rhodospirillales		Reyranella	Reyranella massiliensis
+k99_10011603_1	Bacteria	Proteobacteria	Alphaproteobacteria	Rhodospirillales		Reyranella	Reyranella massiliensis
+k99_10011626_1	Bacteria	Proteobacteria					
+k99_10011626_10	Bacteria	Proteobacteria					
+k99_10011626_2	Bacteria	Proteobacteria					
+k99_10011626_3	Bacteria	Proteobacteria					
+k99_10011626_4	Bacteria	Proteobacteria					
+k99_10011626_5							
+k99_10011626_6							
+k99_10011626_7							
+k99_10011626_8							
+k99_10011626_9	Bacteria	Bacteroidetes	Flavobacteriia	Flavobacteriales	Cryomorphaceae		
+k99_10011636_1							
+k99_10011636_2							
+k99_10011636_3	Bacteria	Proteobacteria					
+k99_10011645_1	Bacteria	Proteobacteria					
+k99_10011645_2	Bacteria	Proteobacteria					
+k99_10011651_1	Bacteria	Proteobacteria					
+k99_10011661_1	Bacteria	Proteobacteria					
+k99_10011661_2	Bacteria	Proteobacteria					
+k99_10011668_1	Bacteria	Proteobacteria					
+k99_10011668_2	Bacteria	Proteobacteria					
+k99_10011674_1	Bacteria	Proteobacteria					
+k99_10011674_2	Bacteria	Proteobacteria					
+k99_10011674_3	Bacteria	Proteobacteria					
+k99_10011683_1	Bacteria	Proteobacteria					
+k99_10011683_2	Bacteria	Proteobacteria					
+k99_10011693_1	Bacteria	Proteobacteria					
+k99_10011730_1	Bacteria	Proteobacteria					
+k99_10011730_2	Bacteria	Proteobacteria					
+k99_10011730_3	Bacteria	Proteobacteria					
+k99_10011733_1	Bacteria	Proteobacteria					
+k99_10011733_2	Bacteria	Proteobacteria					
+k99_10011753_1	Bacteria	Proteobacteria					
+k99_10011753_2	Bacteria	Proteobacteria					
+k99_1001177_1	Bacteria	Proteobacteria					
+k99_1001177_2	Bacteria	Proteobacteria					
+k99_10011786_1	Bacteria	Proteobacteria					
+k99_10011786_2	Bacteria	Proteobacteria					
+k99_10011794_1	Bacteria	Proteobacteria					
+k99_10011794_2	Bacteria	Proteobacteria					
+k99_10011808_1	Bacteria	Proteobacteria					
+k99_10011808_2	Bacteria	Proteobacteria					
+k99_10011808_3	Bacteria	Proteobacteria					
+k99_10011810_1	Bacteria	Proteobacteria					
+k99_10011810_2							
+k99_10011814_1							
+k99_10011814_2	Viruses				Phycodnaviridae	Prymnesiovirus	Phaeocystis globosa virus
+k99_10011814_3	Bacteria	Bacteroidetes	Flavobacteriia	Flavobacteriales	Flavobacteriaceae		
+k99_10011814_4	Bacteria	Bacteroidetes	Flavobacteriia	Flavobacteriales	Flavobacteriaceae		
+k99_10011814_5	Bacteria	Bacteroidetes	Flavobacteriia	Flavobacteriales	Flavobacteriaceae		
+k99_10011814_6	Bacteria	Bacteroidetes	Flavobacteriia	Flavobacteriales	Flavobacteriaceae		
+k99_10011814_7	Bacteria	Bacteroidetes	Flavobacteriia	Flavobacteriales	Flavobacteriaceae		
+k99_10011814_8							
+k99_10011814_9	Bacteria	Proteobacteria	Betaproteobacteria				Betaproteobacteria bacterium MOLA814
+k99_10011820_1	Bacteria	Proteobacteria	Betaproteobacteria				Betaproteobacteria bacterium MOLA814
+k99_10011820_2	Bacteria	Proteobacteria	Betaproteobacteria				Betaproteobacteria bacterium MOLA814
+k99_10011820_3	Bacteria	Proteobacteria	Betaproteobacteria				Betaproteobacteria bacterium MOLA814
+k99_10011820_4	Eukaryota	Chlorophyta	Mamiellophyceae	Mamiellales	Bathycoccaceae	Bathycoccus	Bathycoccus prasinos
+k99_10011824_1	Eukaryota	Chlorophyta	Mamiellophyceae	Mamiellales	Bathycoccaceae	Bathycoccus	Bathycoccus prasinos
+k99_10011824_2	Bacteria	Bacteroidetes	Flavobacteriia	Flavobacteriales	Flavobacteriaceae		
+k99_10011824_3	Bacteria	Bacteroidetes	Flavobacteriia	Flavobacteriales	Flavobacteriaceae		
+k99_10011824_4							
+k99_10011824_5	Bacteria	Proteobacteria					
+k99_10011824_6	Bacteria	Proteobacteria					
+k99_10011824_7	Bacteria	Proteobacteria	Alphaproteobacteria				
+k99_10011824_8	Bacteria	Proteobacteria	Alphaproteobacteria				
+k99_10011878_1	Bacteria	Proteobacteria	Alphaproteobacteria				
+k99_10011883_1	Bacteria	Proteobacteria	Alphaproteobacteria				
+k99_10011883_2	Bacteria	Proteobacteria	Alphaproteobacteria				
+k99_10011886_1	Bacteria	Proteobacteria	Alphaproteobacteria				
+k99_10011886_2	Bacteria	Proteobacteria	Alphaproteobacteria				
+k99_10011915_1	Bacteria	Proteobacteria	Alphaproteobacteria				
+k99_10011915_2	Bacteria	Proteobacteria	Alphaproteobacteria				
+k99_10011925_1	Bacteria	Proteobacteria	Alphaproteobacteria				
+k99_10011925_2	Bacteria	Proteobacteria	Alphaproteobacteria				
+k99_1001193_1	Bacteria						
+k99_1001193_2	Bacteria						
+k99_1001193_3							
+k99_1001193_4							
+k99_1001193_5							
+k99_1001193_6							
+k99_10011951_1	Viruses			Caudovirales	Myoviridae	T4likevirus	Synechococcus phage ACG-2014h
+k99_10011951_2	Viruses			Caudovirales	Myoviridae	T4likevirus	Synechococcus phage ACG-2014h
+k99_10011951_3	Viruses			Caudovirales	Myoviridae	T4likevirus	Synechococcus phage ACG-2014h
+k99_10011958_1	Eukaryota						
+k99_10011958_2	Eukaryota						
+k99_10011966_1	Bacteria						
+k99_10011966_2	Bacteria						
+k99_10011966_3	Bacteria						
+k99_10011966_4	Bacteria						
+k99_10011983_1	Bacteria						
+k99_10011983_2	Bacteria						
+k99_10012005_1	Bacteria						
+k99_1001200_1	Eukaryota			Isochrysidales	Noelaerhabdaceae	Emiliania	Emiliania huxleyi
+k99_10012033_1	Bacteria	Actinobacteria <phylum>	Actinobacteria	Solirubrobacterales			
+k99_10012033_2	Bacteria	Actinobacteria <phylum>	Actinobacteria	Solirubrobacterales			
+k99_1001203_1							
+k99_1001203_2							
+k99_1001203_3							
+k99_1001203_4							
+k99_1001203_5							
+k99_1001203_6	Bacteria						
+k99_1001203_7	Bacteria						
+k99_1001203_8	Bacteria						
+k99_1001203_9	Bacteria						
+k99_10012051_1	Bacteria						
+k99_10012051_2	Bacteria						
+k99_10012051_3	Bacteria						
+k99_10012051_4	Eukaryota						
+k99_10012058_1	Bacteria						
+k99_10012058_2	Bacteria						
+k99_10012065_1	Bacteria	Planctomycetes	Planctomycetia	Planctomycetales	Planctomycetaceae		
+k99_10012065_2	Bacteria	Planctomycetes	Planctomycetia	Planctomycetales	Planctomycetaceae		
+k99_10012073_1	Bacteria	Bacteroidetes	Flavobacteriia				Flavobacteria bacterium MS024-2A
+k99_10012073_2	Bacteria	Bacteroidetes	Flavobacteriia				Flavobacteria bacterium MS024-2A
+k99_1001207_1	Bacteria	Bacteroidetes	Flavobacteriia				Flavobacteria bacterium MS024-2A
+k99_1001207_2	Bacteria	Bacteroidetes	Flavobacteriia				Flavobacteria bacterium MS024-2A
+k99_10012090_1	Bacteria	Proteobacteria	Gammaproteobacteria			Luminiphilus	Luminiphilus syltensis
+k99_10012090_2	Bacteria	Proteobacteria	Gammaproteobacteria			Luminiphilus	Luminiphilus syltensis
+k99_10012090_3							
+k99_10012090_4							
+k99_10012090_5							
+k99_10012090_6	Bacteria	Cyanobacteria		Chroococcales			
+k99_10012109_1	Bacteria	Cyanobacteria		Chroococcales			
+k99_10012109_2	Bacteria	Cyanobacteria		Chroococcales			
+k99_10012120_1	Bacteria						
+k99_10012120_2	Bacteria						
+k99_10012122_1	Bacteria						
+k99_10012122_2	Bacteria						
+k99_10012127_1	Bacteria						
+k99_10012146_1	Bacteria						
+k99_10012160_1	Bacteria						
+k99_10012160_2	Bacteria						
+k99_10012160_3	Bacteria						
+k99_10012160_4	Bacteria	Actinobacteria <phylum>	Actinobacteria	Actinomycetales	Streptosporangiaceae	Streptosporangium	Streptosporangium roseum
+k99_10012160_5	Bacteria	Actinobacteria <phylum>	Actinobacteria	Actinomycetales	Streptosporangiaceae	Streptosporangium	Streptosporangium roseum
+k99_10012160_6							
+k99_10012160_7	Bacteria	Proteobacteria	Gammaproteobacteria				
+k99_10012160_8	Bacteria	Proteobacteria	Gammaproteobacteria				
+k99_10012160_9	Bacteria	Proteobacteria	Gammaproteobacteria				
+k99_10012165_1	Bacteria	Actinobacteria <phylum>	Actinobacteria				
+k99_10012165_2	Bacteria	Actinobacteria <phylum>	Actinobacteria				
+k99_10012165_3	Eukaryota						
+k99_10012165_4	Eukaryota						
+k99_10012165_5	Eukaryota						
+k99_10012165_6	Eukaryota						
+k99_10012165_7	Eukaryota						
+k99_10012165_8	Bacteria						
+k99_10012170_1	Bacteria						
+k99_10012170_2	Bacteria						
+k99_10012170_3	Bacteria						
+k99_10012178_1	Bacteria						
+k99_10012178_2	Bacteria	Cyanobacteria		Chroococcales			
+k99_10012180_1	Bacteria	Cyanobacteria		Chroococcales			
+k99_10012211_1	Bacteria	Bacteroidetes					
+k99_10012216_1	Bacteria	Bacteroidetes					
+k99_10012222_1	Bacteria	Bacteroidetes					
+k99_10012222_2	Bacteria	Bacteroidetes					
+k99_10012225_1	Bacteria	Bacteroidetes					
+k99_10012242_1	Bacteria	Bacteroidetes					
+k99_10012242_2	Bacteria	Bacteroidetes					
+k99_10012242_3	Bacteria	Bacteroidetes					
+k99_10012263_1	Bacteria	Bacteroidetes					
+k99_10012281_1							
+k99_10012281_2							
+k99_1001230_1							
+k99_1001230_2	Eukaryota						
+k99_1001230_3							
+k99_10012317_1							
+k99_10012317_2	Bacteria	Bacteroidetes	Flavobacteriia	Flavobacteriales			
+k99_10012317_3	Bacteria	Bacteroidetes	Flavobacteriia	Flavobacteriales			
+k99_10012317_4							
+k99_10012317_5							
+k99_10012317_6	Bacteria						
+k99_10012325_1	Bacteria						
+k99_10012325_2	Bacteria	Proteobacteria					
+k99_10012325_3	Bacteria	Proteobacteria					
+k99_10012364_1	Bacteria	Proteobacteria					
+k99_10012364_2	Bacteria	Proteobacteria					
+k99_10012364_3	Bacteria	Proteobacteria					
+k99_10012364_4	Bacteria	Proteobacteria					
+k99_10012364_5	Bacteria	Proteobacteria					
+k99_10012383_1							
+k99_10012383_2							
+k99_10012383_3	Bacteria						
+k99_10012383_4	Bacteria						
+k99_10012383_5	Bacteria						
+k99_10012383_6	Bacteria						
+k99_10012386_1	Eukaryota			Isochrysidales	Noelaerhabdaceae	Emiliania	Emiliania huxleyi
+k99_10012386_2	Eukaryota			Isochrysidales	Noelaerhabdaceae	Emiliania	Emiliania huxleyi
+k99_10012391_1							
+k99_10012391_2							
+k99_10012391_3							
+k99_10012404_1	Bacteria						
+k99_10012404_2	Bacteria						
+k99_10012406_1	Bacteria						
+k99_10012406_2	Bacteria	Proteobacteria	Alphaproteobacteria				
+k99_10012406_3							
+k99_10012421_1							
+k99_10012421_2	Bacteria	Actinobacteria <phylum>	Actinobacteria				
+k99_10012425_1	Bacteria	Actinobacteria <phylum>	Actinobacteria				
+k99_10012425_2	Bacteria	Proteobacteria	Gammaproteobacteria				SAR86 cluster bacterium SAR86B
+k99_10012425_3	Bacteria	Proteobacteria	Gammaproteobacteria				SAR86 cluster bacterium SAR86B
+k99_10012425_4							
+k99_10012454_1							
+k99_10012454_2							
+k99_10012454_3							
+k99_10012454_4							
+k99_10012466_1	Bacteria						
+k99_10012466_2	Bacteria						
+k99_10012466_3	Bacteria						
+k99_10012469_1	Bacteria						
+k99_10012469_2	Bacteria						
+k99_10012469_3	Bacteria						
+k99_10012469_4	Bacteria	Planctomycetes					
+k99_1001246_1	Bacteria	Planctomycetes					
+k99_1001246_2	Bacteria	Proteobacteria					
+k99_10012484_1	Bacteria	Proteobacteria					
+k99_10012484_2	Bacteria	Proteobacteria					
+k99_10012484_3	Bacteria	Proteobacteria	Gammaproteobacteria				
+k99_10012484_4	Bacteria	Proteobacteria	Gammaproteobacteria				
+k99_10012518_1	Bacteria	Verrucomicrobia					
+k99_10012518_2	Bacteria	Verrucomicrobia					
+k99_10012528_1	Bacteria	Verrucomicrobia					
+k99_10012528_2	Bacteria	Verrucomicrobia					
+k99_10012531_1	Bacteria	Verrucomicrobia					
+k99_10012531_2	Bacteria	Verrucomicrobia					
+k99_10012555_1	Bacteria	Verrucomicrobia					
+k99_10012555_2							
+k99_10012569_1							
+k99_10012581_1							
+k99_10012581_2							
+k99_10012581_3	Archaea	Thaumarchaeota					
+k99_10012584_1	Bacteria	Proteobacteria					
+k99_10012584_2	Bacteria	Proteobacteria					
+k99_1001259_1	Eukaryota	Arthropoda	Insecta	Hymenoptera	Formicidae	Harpegnathos	Harpegnathos saltator
+k99_1001259_2							
+k99_1001259_3							
+k99_10012605_1	Bacteria						
+k99_10012605_2	Bacteria						
+k99_10012605_3	Bacteria						
+k99_10012608_1	Bacteria						
+k99_10012617_1	Bacteria						
+k99_10012628_1							
+k99_10012628_2							
+k99_10012628_3	Viruses			Caudovirales	Podoviridae		Cellulophaga phage phi38:1
+k99_10012629_1	Viruses			Caudovirales	Podoviridae		Cellulophaga phage phi38:1
+k99_10012631_1							
+k99_10012631_2							
+k99_10012631_3	Bacteria	Proteobacteria	Deltaproteobacteria	Bdellovibrionales	Bacteriovoracaceae	Bacteriovorax	
+k99_10012631_4	Bacteria	Proteobacteria	Deltaproteobacteria	Bdellovibrionales	Bacteriovoracaceae	Bacteriovorax	
+k99_10012631_5	Bacteria	Proteobacteria	Deltaproteobacteria	Bdellovibrionales	Bacteriovoracaceae	Bacteriovorax	
+k99_10012639_1	Bacteria	Actinobacteria <phylum>	Actinobacteria	Actinomycetales	Pseudonocardiaceae	Amycolatopsis	Amycolatopsis taiwanensis
+k99_10012644_1	Bacteria	Actinobacteria <phylum>	Actinobacteria	Actinomycetales	Pseudonocardiaceae	Amycolatopsis	Amycolatopsis taiwanensis
+k99_10012644_10							
+k99_10012644_11							
+k99_10012644_2							
+k99_10012644_3							
+k99_10012644_4	Eukaryota		Spirotrichea	Sporadotrichida	Oxytrichidae		
+k99_10012644_5	Eukaryota		Spirotrichea	Sporadotrichida	Oxytrichidae		
+k99_10012644_6	Eukaryota		Spirotrichea	Sporadotrichida	Oxytrichidae		
+k99_10012644_7	Eukaryota		Spirotrichea	Sporadotrichida	Oxytrichidae		
+k99_10012644_8	Eukaryota		Spirotrichea	Sporadotrichida	Oxytrichidae		
+k99_10012644_9	Eukaryota		Spirotrichea	Sporadotrichida	Oxytrichidae		
+k99_10012651_1	Eukaryota		Spirotrichea	Sporadotrichida	Oxytrichidae		
+k99_10012651_2	Eukaryota						
+k99_10012654_1	Eukaryota						
+k99_10012654_2	Eukaryota						
+k99_10012654_3	Eukaryota						
+k99_10012654_4	Eukaryota						
+k99_10012684_1	Bacteria						
+k99_10012703_1	Bacteria						
+k99_10012703_2	Bacteria						
+k99_10012703_3							
+k99_10012705_1							
+k99_10012705_2							
+k99_10012705_3	Bacteria	Verrucomicrobia					
+k99_10012705_4							
+k99_10012714_1							
+k99_10012714_2	Bacteria						
+k99_10012765_1	Bacteria						
+k99_10012779_1	Bacteria						
+k99_10012779_2	Bacteria						
+k99_10012780_1	Bacteria						
+k99_10012780_2	Bacteria						
+k99_10012787_1	Bacteria						
+k99_1001278_1	Bacteria						
+k99_10012792_1	Bacteria						
+k99_10012792_2							
+k99_10012792_3	Bacteria						
+k99_10012792_4	Bacteria						
+k99_10012813_1	Bacteria						
+k99_10012827_1	Bacteria						
+k99_10012827_10	Bacteria						
+k99_10012827_11	Bacteria						
+k99_10012827_12	Bacteria						
+k99_10012827_13							
+k99_10012827_14	Bacteria	Actinobacteria <phylum>	Actinobacteria	Actinomycetales			
+k99_10012827_15	Bacteria	Actinobacteria <phylum>	Actinobacteria	Actinomycetales			
+k99_10012827_2							
+k99_10012827_3							
+k99_10012827_4	Eukaryota	Chlorophyta	Mamiellophyceae	Mamiellales	Bathycoccaceae	Ostreococcus	
+k99_10012827_5	Bacteria	Proteobacteria	Alphaproteobacteria	Rhodobacterales	Rhodobacteraceae		
+k99_10012827_6	Bacteria	Proteobacteria	Alphaproteobacteria	Rhodobacterales	Rhodobacteraceae		
+k99_10012827_7	Bacteria	Proteobacteria	Alphaproteobacteria	Rhodobacterales	Rhodobacteraceae		
+k99_10012827_8	Bacteria	Proteobacteria	Alphaproteobacteria	Rhodobacterales	Rhodobacteraceae		
+k99_10012827_9	Bacteria	Proteobacteria	Alphaproteobacteria	Rhodobacterales	Rhodobacteraceae		
+k99_10012838_1							
+k99_10012880_1							
+k99_10012880_2							
+k99_10012880_3							
+k99_10012880_4							
+k99_10012880_5							
+k99_10012880_6	Bacteria	Proteobacteria					
+k99_10012885_1	Bacteria	Proteobacteria					
+k99_10012896_1							
+k99_10012921_1							
+k99_10012921_2							
+k99_10012921_3	Bacteria						
+k99_10012962_1	Bacteria						
+k99_10012972_1	Bacteria						
+k99_10012972_2	Bacteria						
+k99_10012972_3	Bacteria						
+k99_10012972_4	Bacteria	Bacteroidetes	Flavobacteriia	Flavobacteriales	Flavobacteriaceae	Flavobacterium	Flavobacterium aquatile
+k99_10012972_5	Bacteria	Bacteroidetes	Flavobacteriia	Flavobacteriales	Flavobacteriaceae	Flavobacterium	Flavobacterium aquatile
+k99_10012972_6	Bacteria	Actinobacteria <phylum>	Actinobacteria	Actinomycetales	Gordoniaceae	Gordonia	
+k99_10012972_7	Bacteria	Actinobacteria <phylum>	Actinobacteria	Actinomycetales	Gordoniaceae	Gordonia	
+k99_10012982_1	Bacteria	Actinobacteria <phylum>	Actinobacteria	Actinomycetales	Gordoniaceae	Gordonia	
+k99_10012982_2							
+k99_10012982_3							
+k99_100129_1							
+k99_100129_2							
+k99_10013007_1							
+k99_10013007_2							
+k99_10013032_1	Bacteria						
+k99_10013032_2	Bacteria						
+k99_10013081_1	Archaea	Thaumarchaeota					
+k99_10013083_1	Bacteria						
+k99_10013083_2	Bacteria						
+k99_10013083_3							
+k99_10013102_1							
+k99_10013102_2	Bacteria	Proteobacteria					
+k99_10013107_1	Bacteria	Proteobacteria					
+k99_10013107_2	Bacteria	Proteobacteria	Alphaproteobacteria	Rhodobacterales	Rhodobacteraceae		
+k99_10013107_3	Bacteria	Proteobacteria	Alphaproteobacteria	Rhodobacterales	Rhodobacteraceae		
+k99_10013114_1							
+k99_10013114_10	Bacteria						
+k99_10013114_11	Bacteria						
+k99_10013114_12	Bacteria						
+k99_10013114_2	Bacteria						
+k99_10013114_3	Bacteria						
+k99_10013114_4	Bacteria						
+k99_10013114_5	Bacteria						
+k99_10013114_6	Bacteria						
+k99_10013114_7	Bacteria						
+k99_10013114_8	Bacteria						
+k99_10013114_9	Bacteria						
+k99_10013117_1	Bacteria						
+k99_10013121_1	Bacteria						
+k99_10013121_2	Bacteria						
+k99_10013159_1	Bacteria						
+k99_10013159_2	Bacteria						
+k99_10013174_1							
+k99_10013174_2							
+k99_10013202_1							
+k99_10013222_1	Bacteria						
+k99_1001322_1	Bacteria						
+k99_10013241_1	Bacteria						
+k99_10013241_2	Bacteria						
+k99_10013241_3	Bacteria						
+k99_10013249_1	Bacteria						
+k99_10013268_1	Bacteria						
+k99_10013288_1	Eukaryota		Spirotrichea	Sporadotrichida	Oxytrichidae	Oxytricha	Oxytricha trifallax
+k99_10013303_1	Bacteria	Proteobacteria					
+k99_10013303_2	Bacteria	Proteobacteria					
+k99_10013315_1	Eukaryota						
+k99_1001332_1	Eukaryota						
+k99_1001332_2	Eukaryota						
+k99_1001332_3	Eukaryota						
+k99_10013331_1	Eukaryota						
+k99_10013331_2	Bacteria	Proteobacteria					
+k99_10013331_3	Bacteria	Proteobacteria					
+k99_10013331_4	Bacteria	Proteobacteria					
+k99_10013333_1	Bacteria	Proteobacteria					
+k99_10013333_2	Bacteria	Proteobacteria					
+k99_10013340_1	Bacteria	Proteobacteria					
+k99_10013343_1	Bacteria	Proteobacteria					
+k99_10013343_2							
+k99_10013351_1							
+k99_10013351_2	Bacteria	Actinobacteria <phylum>	Actinobacteria	Actinomycetales	Nocardiaceae		
+k99_10013370_1	Bacteria						
+k99_10013385_1	Bacteria						
+k99_10013385_2	Bacteria						
+k99_10013388_1	Bacteria						
+k99_10013388_2	Bacteria						
+k99_10013393_1	Bacteria						
+k99_10013393_2	Bacteria						
+k99_10013402_1							
+k99_10013402_2	Bacteria	Proteobacteria	Gammaproteobacteria				
+k99_10013402_3	Bacteria	Proteobacteria	Gammaproteobacteria				
+k99_10013412_1	Bacteria	Actinobacteria <phylum>	Actinobacteria				
+k99_10013412_2	Bacteria	Actinobacteria <phylum>	Actinobacteria				
+k99_10013447_1	Bacteria	Proteobacteria					
+k99_10013447_2	Bacteria	Proteobacteria					
+k99_10013456_1	Bacteria	Proteobacteria					
+k99_10013456_2	Archaea						
+k99_10013456_3	Archaea						
+k99_10013456_4	Archaea						
+k99_10013470_1	Archaea						
+k99_10013471_1	Archaea						
+k99_10013471_2	Bacteria	Proteobacteria					
+k99_10013472_1	Bacteria	Proteobacteria					
+k99_10013472_2	Bacteria	Bacteroidetes					
+k99_10013472_3	Bacteria	Bacteroidetes					
+k99_10013481_1	Bacteria	Proteobacteria	Alphaproteobacteria	Sphingomonadales			
+k99_10013481_2	Bacteria	Proteobacteria	Alphaproteobacteria	Sphingomonadales			
+k99_10013505_1	Bacteria	Proteobacteria	Betaproteobacteria	Burkholderiales			
+k99_10013505_2	Bacteria	Proteobacteria	Betaproteobacteria	Burkholderiales			
+k99_1001350_1							
+k99_10013534_1							
+k99_10013557_1	Bacteria						
+k99_10013557_2	Bacteria						
+k99_10013561_1							
+k99_10013561_2							
+k99_10013570_1							
+k99_10013570_2							
+k99_10013570_3							
+k99_10013589_1							
+k99_10013600_1							
+k99_10013609_1	Bacteria	Proteobacteria	Alphaproteobacteria	Sphingomonadales			
+k99_10013609_10	Bacteria	Proteobacteria	Alphaproteobacteria	Sphingomonadales			
+k99_10013609_11	Bacteria	Proteobacteria	Alphaproteobacteria	Sphingomonadales			
+k99_10013609_12							
+k99_10013609_13							
+k99_10013609_14							
+k99_10013609_15	Eukaryota	Bacillariophyta	Coscinodiscophyceae	Thalassiosirales	Thalassiosiraceae	Thalassiosira	
+k99_10013609_16	Eukaryota	Bacillariophyta	Coscinodiscophyceae	Thalassiosirales	Thalassiosiraceae	Thalassiosira	
+k99_10013609_17							
+k99_10013609_18	Viruses			Caudovirales	Podoviridae		Cellulophaga phage phi14:2
+k99_10013609_19	Viruses			Caudovirales	Podoviridae		Cellulophaga phage phi14:2
+k99_10013609_2	Bacteria	Planctomycetes	Planctomycetia	Planctomycetales			
+k99_10013609_20	Bacteria	Planctomycetes	Planctomycetia	Planctomycetales			
+k99_10013609_21	Bacteria	Proteobacteria					
+k99_10013609_22	Bacteria	Proteobacteria					
+k99_10013609_23							
+k99_10013609_24	Bacteria	Proteobacteria	Alphaproteobacteria				
+k99_10013609_25	Bacteria	Proteobacteria	Alphaproteobacteria				
+k99_10013609_26	Bacteria	Proteobacteria	Alphaproteobacteria				
+k99_10013609_27	Bacteria	Proteobacteria	Alphaproteobacteria				
+k99_10013609_28	Bacteria	Proteobacteria	Alphaproteobacteria				
+k99_10013609_29	Bacteria	Proteobacteria	Alphaproteobacteria				
+k99_10013609_3	Bacteria	Proteobacteria	Alphaproteobacteria				
+k99_10013609_30	Bacteria	Proteobacteria	Alphaproteobacteria				
+k99_10013609_31	Bacteria	Proteobacteria	Alphaproteobacteria				
+k99_10013609_32	Bacteria	Proteobacteria	Alphaproteobacteria				
+k99_10013609_33	Bacteria	Proteobacteria	Alphaproteobacteria				
+k99_10013609_34							
+k99_10013609_35							
+k99_10013609_4							
+k99_10013609_5							
+k99_10013609_6	Bacteria	Proteobacteria	Gammaproteobacteria	Alteromonadales	Alteromonadaceae	Haliea	Haliea salexigens
+k99_10013609_7	Bacteria	Proteobacteria	Gammaproteobacteria	Alteromonadales	Alteromonadaceae	Haliea	Haliea salexigens
+k99_10013609_8	Bacteria	Bacteroidetes	Flavobacteriia	Flavobacteriales	Flavobacteriaceae		
+k99_10013609_9							
+k99_10013625_1							
+k99_10013625_2							
+k99_10013625_3	Bacteria						
+k99_10013625_4	Bacteria						
+k99_10013625_5	Bacteria						
+k99_10013625_6	Bacteria						
+k99_10013627_1	Bacteria	Proteobacteria					
+k99_10013627_2	Bacteria	Proteobacteria					
+k99_10013627_3	Bacteria	Proteobacteria					
+k99_10013628_1	Bacteria	Proteobacteria					
+k99_10013628_2	Bacteria	Proteobacteria					
+k99_10013647_1	Eukaryota			Isochrysidales	Noelaerhabdaceae	Emiliania	Emiliania huxleyi
+k99_10013647_2	Eukaryota			Isochrysidales	Noelaerhabdaceae	Emiliania	Emiliania huxleyi
+k99_10013657_1	Bacteria	Thermotogae <phylum>	Thermotogae	Thermotogales	Thermotogaceae	Kosmotoga	Kosmotoga olearia
+k99_10013657_2							
+k99_10013680_1							
+k99_10013680_2	Bacteria						
+k99_10013684_1	Bacteria						
+k99_10013684_2							
+k99_10013689_1							
+k99_10013718_1							
+k99_10013742_1							
+k99_10013742_2	Bacteria						
+k99_10013742_3	Bacteria						
+k99_1001377_1							
+k99_10013794_1							
+k99_10013794_2							
+k99_10013796_1	Bacteria						
+k99_10013803_1	Bacteria						
+k99_10013803_2	Bacteria						
+k99_10013803_3							
+k99_10013803_4							
+k99_10013809_1							
+k99_10013868_1							
+k99_10013868_2							
+k99_10013868_3	Bacteria	Gemmatimonadetes	Gemmatimonadetes <class>	Gemmatimonadales	Gemmatimonadaceae	Gemmatimonas	Gemmatimonas aurantiaca
+k99_10013876_1	Bacteria	Gemmatimonadetes	Gemmatimonadetes <class>	Gemmatimonadales	Gemmatimonadaceae	Gemmatimonas	Gemmatimonas aurantiaca
+k99_10013876_2	Eukaryota						
+k99_10013889_1	Eukaryota						
+k99_10013889_2	Bacteria	Actinobacteria <phylum>	Actinobacteria	Actinomycetales	Mycobacteriaceae	Mycobacterium	
+k99_10013917_1	Bacteria	Actinobacteria <phylum>	Actinobacteria	Actinomycetales	Mycobacteriaceae	Mycobacterium	
+k99_10013917_2	Bacteria	Actinobacteria <phylum>	Actinobacteria	Actinomycetales	Mycobacteriaceae	Mycobacterium	
+k99_10013985_1	Eukaryota			Isochrysidales	Noelaerhabdaceae	Emiliania	Emiliania huxleyi
+k99_10013985_2	Eukaryota			Isochrysidales	Noelaerhabdaceae	Emiliania	Emiliania huxleyi
+k99_1001398_1							
+k99_1001398_2							
+k99_10014047_1	Bacteria	Proteobacteria	Alphaproteobacteria	Sphingomonadales			
+k99_10014065_1	Bacteria	Proteobacteria	Alphaproteobacteria	Sphingomonadales			
+k99_10014065_2	Bacteria	Proteobacteria	Alphaproteobacteria	Sphingomonadales			
+k99_10014070_1	Bacteria						
+k99_10014089_1	Bacteria						
+k99_10014089_2	Bacteria						
+k99_10014089_3	Bacteria						
+k99_10014089_4	Bacteria	Proteobacteria	Gammaproteobacteria				
+k99_10014099_1	Bacteria	Proteobacteria	Gammaproteobacteria				
+k99_10014119_1	Bacteria	Proteobacteria	Gammaproteobacteria				
+k99_10014144_1	Bacteria						
+k99_10014144_2	Bacteria						
+k99_10014149_1	Bacteria						
+k99_10014149_2	Bacteria	Proteobacteria	Alphaproteobacteria	Rhodobacterales	Rhodobacteraceae	Loktanella	Loktanella vestfoldensis
+k99_10014153_1	Bacteria	Proteobacteria	Alphaproteobacteria	Rhodobacterales	Rhodobacteraceae	Loktanella	Loktanella vestfoldensis
+k99_10014153_2	Bacteria	Bacteroidetes	Sphingobacteriia	Sphingobacteriales	Chitinophagaceae		
+k99_10014154_1	Bacteria	Bacteroidetes	Sphingobacteriia	Sphingobacteriales	Chitinophagaceae		
+k99_10014154_2	Bacteria	Bacteroidetes	Sphingobacteriia	Sphingobacteriales	Chitinophagaceae		
+k99_10014154_3							
+k99_1001416_1							
+k99_1001416_2							
+k99_10014204_1	Bacteria						
+k99_10014220_1	Bacteria						
+k99_10014220_2	Bacteria						
+k99_10014220_3	Bacteria						
+k99_1001422_1	Bacteria						
+k99_10014244_1	Bacteria						
+k99_10014244_2	Bacteria						
+k99_10014244_3	Bacteria						
+k99_10014248_1							
+k99_10014249_1							
+k99_10014249_2							
+k99_10014252_1							
+k99_10014252_2	Bacteria	Bacteroidetes	Bacteroidia	Bacteroidales	Porphyromonadaceae	Porphyromonas	
+k99_10014269_1	Bacteria	Bacteroidetes	Bacteroidia	Bacteroidales	Porphyromonadaceae	Porphyromonas	
+k99_10014269_2	Bacteria	Bacteroidetes					
+k99_10014272_1	Bacteria	Bacteroidetes					
+k99_10014272_2	Bacteria	Proteobacteria	Epsilonproteobacteria	Campylobacterales	Campylobacteraceae		
+k99_10014272_3	Bacteria	Proteobacteria	Epsilonproteobacteria	Campylobacterales	Campylobacteraceae		
+k99_10014272_4	Bacteria	Proteobacteria	Epsilonproteobacteria	Campylobacterales	Campylobacteraceae		
+k99_10014272_5	Bacteria	Proteobacteria	Epsilonproteobacteria	Campylobacterales	Campylobacteraceae		
+k99_10014272_6	Bacteria	Proteobacteria	Epsilonproteobacteria	Campylobacterales	Campylobacteraceae		
+k99_10014272_7	Eukaryota		Spirotrichea	Sporadotrichida	Oxytrichidae		
+k99_10014272_8	Eukaryota		Spirotrichea	Sporadotrichida	Oxytrichidae		
+k99_10014280_1	Eukaryota		Spirotrichea	Sporadotrichida	Oxytrichidae		
+k99_10014294_1	Eukaryota		Spirotrichea	Sporadotrichida	Oxytrichidae		
+k99_10014307_1	Eukaryota		Spirotrichea	Sporadotrichida	Oxytrichidae		
+k99_10014349_1	Bacteria	Proteobacteria					
+k99_10014349_2	Bacteria	Proteobacteria					
+k99_10014349_3	Bacteria						
+k99_10014349_4	Bacteria						
+k99_10014351_1	Bacteria						
+k99_10014362_1	Bacteria						
+k99_1001438_1	Bacteria						
+k99_1001438_2							
+k99_10014396_1	Bacteria	Planctomycetes	Planctomycetia	Planctomycetales	Planctomycetaceae		
+k99_10014396_2	Bacteria	Planctomycetes	Planctomycetia	Planctomycetales	Planctomycetaceae		
+k99_10014408_1	Bacteria	Proteobacteria	Alphaproteobacteria				
+k99_10014408_2	Bacteria	Proteobacteria	Alphaproteobacteria				
+k99_10014408_3	Bacteria	Proteobacteria					
+k99_1001440_1	Bacteria	Proteobacteria					
+k99_1001440_2	Bacteria	Proteobacteria					
+k99_1001440_3	Eukaryota						
+k99_1001440_4	Eukaryota						
+k99_10014427_1	Bacteria	Proteobacteria	Alphaproteobacteria	SAR11 cluster		Candidatus Pelagibacter	Candidatus Pelagibacter sp. IMCC9063
+k99_10014427_2	Bacteria	Proteobacteria	Alphaproteobacteria	SAR11 cluster		Candidatus Pelagibacter	Candidatus Pelagibacter sp. IMCC9063
+k99_10014444_1	Bacteria	Proteobacteria	Alphaproteobacteria	SAR11 cluster		Candidatus Pelagibacter	Candidatus Pelagibacter sp. IMCC9063
+k99_10014444_2	Eukaryota						
+k99_10014444_3	Bacteria						
+k99_10014444_4	Bacteria						
+k99_10014444_5	Bacteria						
+k99_10014444_6	Bacteria	Proteobacteria					
+k99_10014444_7	Bacteria	Proteobacteria					
+k99_10014444_8	Bacteria	Proteobacteria					
+k99_10014445_1	Bacteria	Proteobacteria					
+k99_10014445_2	Bacteria	Proteobacteria					
+k99_10014445_3	Bacteria	Proteobacteria					
+k99_10014488_1	Bacteria	Proteobacteria					
+k99_10014494_1	Bacteria	Proteobacteria					
+k99_10014514_1	Bacteria	Proteobacteria					
+k99_10014514_2	Bacteria	Proteobacteria					
+k99_10014519_1	Bacteria	Proteobacteria					
+k99_10014519_2	Bacteria	Proteobacteria					
+k99_10014519_3	Bacteria	Proteobacteria					
+k99_10014534_1	Bacteria	Proteobacteria					
+k99_10014535_1	Bacteria	Proteobacteria					
+k99_10014535_2	Bacteria	Proteobacteria					
+k99_10014535_3	Bacteria	Proteobacteria					
+k99_10014535_4	Bacteria	Proteobacteria					
+k99_10014592_1	Bacteria	Proteobacteria					
+k99_10014592_2	Bacteria	Proteobacteria					
+k99_10014592_3	Bacteria	Proteobacteria					
+k99_10014592_4	Bacteria	Proteobacteria					
+k99_10014592_5	Bacteria	Proteobacteria					
+k99_10014592_6	Bacteria	Proteobacteria					
+k99_1001459_1	Bacteria	Proteobacteria					
+k99_1001459_2	Bacteria	Proteobacteria					
+k99_10014612_1	Bacteria	Proteobacteria					
+k99_10014612_2	Bacteria	Proteobacteria					
+k99_10014612_3	Bacteria	Proteobacteria					
+k99_10014612_4	Bacteria	Proteobacteria					
+k99_10014627_1	Bacteria	Proteobacteria					
+k99_10014627_10	Bacteria	Proteobacteria					
+k99_10014627_11	Bacteria	Proteobacteria					
+k99_10014627_12	Bacteria	Proteobacteria					
+k99_10014627_13	Bacteria	Proteobacteria					
+k99_10014627_14	Bacteria	Proteobacteria					
+k99_10014627_15							
+k99_10014627_16							
+k99_10014627_17	Bacteria						
+k99_10014627_18	Bacteria						
+k99_10014627_19	Bacteria						
+k99_10014627_2	Bacteria	Proteobacteria	Alphaproteobacteria				
+k99_10014627_20	Bacteria	Proteobacteria	Alphaproteobacteria				
+k99_10014627_21	Bacteria	Proteobacteria	Alphaproteobacteria				
+k99_10014627_22	Bacteria	Verrucomicrobia	Opitutae	Opitutales	Opitutaceae	Opitutus	Opitutus terrae
+k99_10014627_23	Bacteria	Verrucomicrobia	Opitutae	Opitutales	Opitutaceae	Opitutus	Opitutus terrae
+k99_10014627_24	Bacteria	Verrucomicrobia	Opitutae	Opitutales	Opitutaceae	Opitutus	Opitutus terrae
+k99_10014627_25	Bacteria	Verrucomicrobia	Opitutae	Opitutales	Opitutaceae	Opitutus	Opitutus terrae
+k99_10014627_3	Bacteria	Verrucomicrobia	Opitutae	Opitutales	Opitutaceae	Opitutus	Opitutus terrae
+k99_10014627_4	Bacteria	Verrucomicrobia	Opitutae	Opitutales	Opitutaceae	Opitutus	Opitutus terrae
+k99_10014627_5	Bacteria	Proteobacteria					
+k99_10014627_6	Bacteria	Proteobacteria					
+k99_10014627_7	Bacteria	Proteobacteria					
+k99_10014627_8	Bacteria	Proteobacteria					
+k99_10014627_9	Bacteria	Proteobacteria					
+k99_1001467_1							
+k99_1001467_2							
+k99_10014699_1							
+k99_10014699_2							
+k99_1001471_1							
+k99_1001471_2							
+k99_1001471_3							
+k99_1001471_4							
+k99_1001471_5	Bacteria	Proteobacteria	Gammaproteobacteria	Pseudomonadales	Pseudomonadaceae	Pseudomonas	
+k99_10014721_1	Bacteria	Proteobacteria	Deltaproteobacteria				
+k99_10014744_1	Bacteria	Proteobacteria	Deltaproteobacteria				
+k99_10014744_2	Bacteria	Verrucomicrobia					
+k99_10014778_1	Bacteria	Verrucomicrobia					
+k99_1001482_1							
+k99_1001482_2							
+k99_1001482_3	Bacteria	Proteobacteria					
+k99_1001482_4	Bacteria	Proteobacteria					
+k99_1001482_5	Bacteria	Proteobacteria					
+k99_1001482_6	Bacteria	Proteobacteria					
+k99_1001482_7	Bacteria	Proteobacteria	Alphaproteobacteria				
+k99_1001482_8	Archaea	Thaumarchaeota					
+k99_1001482_9	Archaea	Thaumarchaeota					
+k99_1001484_1	Archaea	Thaumarchaeota					
+k99_10014891_1	Bacteria						
+k99_10014891_10	Bacteria						
+k99_10014891_11	Bacteria						
+k99_10014891_12	Bacteria						
+k99_10014891_13	Bacteria						
+k99_10014891_14	Bacteria	Proteobacteria	Alphaproteobacteria				
+k99_10014891_15	Bacteria	Proteobacteria	Alphaproteobacteria				
+k99_10014891_2	Bacteria	Proteobacteria	Alphaproteobacteria				
+k99_10014891_3							
+k99_10014891_4							
+k99_10014891_5	Eukaryota			Choanoflagellida	Codonosigidae	Monosiga	Monosiga brevicollis
+k99_10014891_6							
+k99_10014891_7	Bacteria						
+k99_10014891_8	Bacteria						
+k99_10014891_9	Bacteria						
+k99_10014902_1	Bacteria						
+k99_10014902_2	Viruses						Vibrio phage helene 12B3
+k99_10014902_3	Viruses						Vibrio phage helene 12B3
+k99_10014902_4	Viruses						Vibrio phage helene 12B3
+k99_10014902_5	Viruses						Vibrio phage helene 12B3
+k99_10014925_1	Viruses						Vibrio phage helene 12B3
+k99_10014930_1	Viruses						Vibrio phage helene 12B3
+k99_1001493_1	Viruses						Vibrio phage helene 12B3
+k99_1001493_2	Viruses						Vibrio phage helene 12B3
+k99_10014943_1	Viruses						Vibrio phage helene 12B3
+k99_10014943_2	Viruses						Vibrio phage helene 12B3
+k99_10014947_1	Bacteria	Proteobacteria	Alphaproteobacteria	Rhizobiales	Bradyrhizobiaceae		
+k99_10014947_2	Bacteria	Proteobacteria	Alphaproteobacteria	Rhizobiales	Bradyrhizobiaceae		
+k99_10014947_3	Bacteria	Proteobacteria	Alphaproteobacteria	Rhizobiales	Bradyrhizobiaceae		
+k99_10014952_1	Eukaryota	Chlorophyta	Mamiellophyceae	Mamiellales	Mamiellaceae	Micromonas	Micromonas sp. RCC299
+k99_10014952_2	Eukaryota	Chlorophyta	Mamiellophyceae	Mamiellales	Mamiellaceae	Micromonas	Micromonas sp. RCC299
+k99_10014956_1	Eukaryota	Chlorophyta	Mamiellophyceae	Mamiellales	Mamiellaceae	Micromonas	Micromonas sp. RCC299
+k99_10014956_2							
+k99_10014956_3							
+k99_10015010_1	Bacteria						
+k99_1001502_1	Eukaryota		Spirotrichea	Sporadotrichida	Oxytrichidae		
+k99_10015046_1	Eukaryota		Spirotrichea	Sporadotrichida	Oxytrichidae		
+k99_10015046_2	Eukaryota		Spirotrichea	Sporadotrichida	Oxytrichidae		
+k99_10015052_1	Eukaryota		Spirotrichea	Sporadotrichida	Oxytrichidae		
+k99_10015059_1	Bacteria	Proteobacteria	Alphaproteobacteria	Rhodobacterales	Hyphomonadaceae		
+k99_10015059_2	Bacteria	Proteobacteria	Alphaproteobacteria	Rhodobacterales	Hyphomonadaceae		
+k99_10015087_1	Eukaryota	Chlorophyta	Mamiellophyceae	Mamiellales	Mamiellaceae	Micromonas	Micromonas sp. RCC299
+k99_10015087_2	Eukaryota	Chlorophyta	Mamiellophyceae	Mamiellales	Mamiellaceae	Micromonas	Micromonas sp. RCC299
+k99_10015087_3	Eukaryota			Isochrysidales	Noelaerhabdaceae	Emiliania	Emiliania huxleyi
+k99_1001508_1	Eukaryota			Isochrysidales	Noelaerhabdaceae	Emiliania	Emiliania huxleyi
+k99_1001508_2	Eukaryota		Spirotrichea	Sporadotrichida	Oxytrichidae		
+k99_10015090_1	Eukaryota		Spirotrichea	Sporadotrichida	Oxytrichidae		
+k99_10015090_2	Bacteria						
+k99_10015090_3	Bacteria						
+k99_10015108_1	Bacteria						
+k99_10015108_2	Bacteria						
+k99_1001510_1	Bacteria						
+k99_10015127_1							
+k99_10015127_2							
+k99_1001513_1							
+k99_1001513_2							
+k99_10015161_1							
+k99_10015161_2	Bacteria	Bacteroidetes	Flavobacteriia	Flavobacteriales			
+k99_10015162_1							
+k99_10015207_1							
+k99_10015207_2	Bacteria						
+k99_10015207_3	Bacteria						
+k99_10015215_1	Bacteria						
+k99_10015215_2							
+k99_10015215_3							
+k99_10015215_4							
+k99_10015218_1							
+k99_10015218_2							
+k99_10015230_1							
+k99_10015230_2							
+k99_10015243_1							
+k99_10015263_1							
+k99_10015270_1							
+k99_10015270_2							
+k99_10015270_3							
+k99_10015285_1							
+k99_10015285_2							
+k99_10015285_3	Bacteria	Bacteroidetes	Cytophagia	Cytophagales			
+k99_100152_1							
+k99_10015305_1	Bacteria						
+k99_10015305_2	Bacteria						
+k99_10015313_1	Bacteria						
+k99_1001531_1							
+k99_1001531_10	Eukaryota	Chlorophyta	Trebouxiophyceae				
+k99_1001531_11	Eukaryota	Chlorophyta	Trebouxiophyceae				
+k99_1001531_12	Viruses				Phycodnaviridae		
+k99_1001531_13	Viruses				Phycodnaviridae		
+k99_1001531_14	Viruses				Phycodnaviridae		
+k99_1001531_15	Bacteria	Bacteroidetes	Flavobacteriia	Flavobacteriales	Flavobacteriaceae		
+k99_1001531_16	Bacteria	Bacteroidetes	Flavobacteriia	Flavobacteriales	Flavobacteriaceae		
+k99_1001531_17	Bacteria	Proteobacteria					
+k99_1001531_18	Bacteria	Proteobacteria					
+k99_1001531_19	Bacteria	Proteobacteria					
+k99_1001531_2	Bacteria	Proteobacteria					
+k99_1001531_20	Bacteria	Proteobacteria					
+k99_1001531_21	Bacteria	Proteobacteria					
+k99_1001531_22	Bacteria	Proteobacteria					
+k99_1001531_23	Bacteria	Proteobacteria					
+k99_1001531_24	Bacteria	Proteobacteria					
+k99_1001531_25	Bacteria	Proteobacteria					
+k99_1001531_26	Bacteria	Proteobacteria					
+k99_1001531_27	Bacteria	Proteobacteria					
+k99_1001531_28	Bacteria	Proteobacteria					
+k99_1001531_29	Bacteria	Proteobacteria					
+k99_1001531_3	Bacteria	Cyanobacteria		Chroococcales			
+k99_1001531_30	Bacteria	Cyanobacteria		Chroococcales			
+k99_1001531_31							
+k99_1001531_32							
+k99_1001531_33							
+k99_1001531_34							
+k99_1001531_35							
+k99_1001531_36	Bacteria						uncultured bacterium
+k99_1001531_37							
+k99_1001531_38							
+k99_1001531_39							
+k99_1001531_4	Bacteria	Actinobacteria <phylum>	Actinobacteria	Actinomycetales	Mycobacteriaceae	Mycobacterium	

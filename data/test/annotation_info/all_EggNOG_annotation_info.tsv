@@ -1,0 +1,847 @@
+Id	Categories	Description
+COG0006	E	peptidase M24
+COG0013	J	Catalyzes the attachment of alanine to tRNA(Ala) in a two-step reaction alanine is first activated by ATP to form Ala- AMP and then transferred to the acceptor end of tRNA(Ala). Also edits incorrectly charged Ser-tRNA(Ala) and Gly-tRNA(Ala) via its editing domain (By similarity)
+COG0014	E	Catalyzes the NADPH dependent reduction of L-gamma- glutamyl 5-phosphate into L-glutamate 5-semialdehyde and phosphate. The product spontaneously undergoes cyclization to form 1-pyrroline-5-carboxylate (By similarity)
+COG0026	F	phosphoribosylaminoimidazole carboxylase atpase subunit
+COG0028	E	acetolactate synthase
+COG0029	H	L-aspartate oxidase
+COG0034	F	glutamine phosphoribosylpyrophosphate amidotransferase
+COG0042	J	Catalyzes the synthesis of dihydrouridine a modified base found in the D-loop of most tRNAs (By similarity)
+COG0064	J	Allows the formation of correctly charged Asn-tRNA(Asn) or Gln-tRNA(Gln) through the transamidation of misacylated Asp- tRNA(Asn) or Glu-tRNA(Gln) in organisms which lack either or both of asparaginyl-tRNA or glutaminyl-tRNA synthetases. The reaction takes place in the presence of glutamine and ATP through an activated phospho-Asp-tRNA(Asn) or phospho-Glu-tRNA(Gln) (By similarity)
+COG0067	E	glutamate synthase
+COG0076	E	decarboxylase
+COG0085	K	DNA-dependent RNA polymerase catalyzes the transcription of DNA into RNA using the four ribonucleoside triphosphates as substrates (By similarity)
+COG0098	J	Located at the back of the 30S subunit body where it stabilizes the conformation of the head with respect to the body (By similarity)
+COG0104	F	Plays an important role in the de novo pathway of purine nucleotide biosynthesis
+COG0110	S	acetyltransferase
+COG0112	E	Catalyzes the reversible interconversion of serine and glycine with tetrahydrofolate (THF) serving as the one-carbon carrier. This reaction serves as the major source of one-carbon groups required for the biosynthesis of purines, thymidylate, methionine, and other important biomolecules. Also exhibits THF- independent aldolase activity toward beta-hydroxyamino acids, producing glycine and aldehydes, via a retro-aldol mechanism (By similarity)
+COG0119	E	Catalyzes the condensation of the acetyl group of acetyl-CoA with 3-methyl-2-oxobutanoate (2-oxoisovalerate) to form 3-carboxy-3-hydroxy-4-methylpentanoate (2-isopropylmalate) (By similarity)
+COG0125	F	Phosphorylation of dTMP to form dTDP in both de novo and salvage pathways of dTTP synthesis (By similarity)
+COG0130	J	Responsible for synthesis of pseudouridine from uracil- 55 in the psi GC loop of transfer RNAs (By similarity)
+COG0134	E	indole-3-glycerol phosphate synthase
+COG0136	E	Catalyzes the NADPH-dependent formation of L-aspartate- semialdehyde (L-ASA) by the reductive dephosphorylation of L- aspartyl-4-phosphate (By similarity)
+COG0138	F	bifunctional purine biosynthesis protein PURH
+COG0144	J	nOP2 Sun
+COG0145	EQ	5-oxoprolinase
+COG0146	EQ	5-oxoprolinase
+COG0148	G	Catalyzes the reversible conversion of 2- phosphoglycerate into phosphoenolpyruvate. It is essential for the degradation of carbohydrates via glycolysis (By similarity)
+COG0152	F	SAICAR synthetase
+COG0160	E	transaminase activity
+COG0161	E	Catalyzes the transfer of the alpha-amino group from S- adenosyl-L-methionine (SAM) to 7-keto-8-aminopelargonic acid (KAPA) to form 7,8-diaminopelargonic acid (DAPA). It is the only animotransferase known to utilize SAM as an amino donor (By similarity)
+COG0165	E	argininosuccinate lyase
+COG0166	G	glucose-6-phosphate isomerase activity
+COG0174	E	glutamine synthetase
+COG0176	G	Transaldolase is important for the balance of metabolites in the pentose-phosphate pathway (By similarity)
+COG0179	Q	Fumarylacetoacetate hydrolase
+COG0180	J	tryptophanyltRNA synthetase
+COG0183	I	acetyl-coa acetyltransferase
+COG0187	L	DNA gyrase negatively supercoils closed circular double- stranded DNA in an ATP-dependent manner and also catalyzes the interconversion of other topological isomers of double-stranded DNA rings, including catenanes and knotted rings (By similarity)
+COG0190	H	Catalyzes the oxidation of 5,10- methylenetetrahydrofolate to 5,10-methenyltetrahydrofolate and then the hydrolysis of 5,10-methenyltetrahydrofolate to 10- formyltetrahydrofolate (By similarity)
+COG0191	G	Aldolase
+COG0195	K	Transcription elongation factor NusA
+COG0196	H	riboflavin biosynthesis protein ribF
+COG0198	J	One of the proteins that surrounds the polypeptide exit tunnel on the outside of the subunit (By similarity)
+COG0202	K	DNA-dependent RNA polymerase catalyzes the transcription of DNA into RNA using the four ribonucleoside triphosphates as substrates (By similarity)
+COG0208	F	Provides the precursors necessary for DNA synthesis. Catalyzes the biosynthesis of deoxyribonucleotides from the corresponding ribonucleotides (By similarity)
+COG0209	F	Provides the precursors necessary for DNA synthesis. Catalyzes the biosynthesis of deoxyribonucleotides from the corresponding ribonucleotides (By similarity)
+COG0211	J	50S ribosomal protein l27
+COG0216	J	Peptide chain release factor 1 directs the termination of translation in response to the peptide chain termination codons UAG and UAA (By similarity)
+COG0222	J	Seems to be the binding site for several of the factors involved in protein synthesis and appears to be essential for accurate translation (By similarity)
+COG0223	J	Modifies the free amino group of the aminoacyl moiety of methionyl-tRNA(fMet). The formyl group appears to play a dual role in the initiator identity of N-formylmethionyl-tRNA by (I) promoting its recognition by IF2 and (II) impairing its binding to EFTu-GTP (By similarity)
+COG0226	P	phosphate abc transporter
+COG0233	J	Responsible for the release of ribosomes from messenger RNA at the termination of protein biosynthesis. May increase the efficiency of translation by recycling ribosomes from one round of translation to another (By similarity)
+COG0238	J	Binds as a heterodimer with protein S6 to the central domain of the 16S rRNA, where it helps stabilize the platform of the 30S subunit (By similarity)
+COG0240	C	glycerol-3-phosphate dehydrogenase
+COG0242	J	Removes the formyl group from the N-terminal Met of newly synthesized proteins. Requires at least a dipeptide for an efficient rate of reaction. N-terminal L-methionine is a prerequisite for activity but the enzyme has broad specificity at other positions (By similarity)
+COG0244	J	50s ribosomal protein L10
+COG0247	C	domain protein
+COG0252	E	L-asparaginase
+COG0254	J	50S ribosomal protein L3-1
+COG0256	J	This is one of the proteins that binds and probably mediates the attachment of the 5S RNA into the large ribosomal subunit, where it forms part of the central protuberance (By similarity)
+COG0260	E	Presumably involved in the processing and regular turnover of intracellular proteins. Catalyzes the removal of unsubstituted N-terminal amino acids from various peptides (By similarity)
+COG0261	J	This protein binds to 23S rRNA in the presence of protein L20 (By similarity)
+COG0263	E	Catalyzes the transfer of a phosphate group to glutamate to form glutamate 5-phosphate which rapidly cyclizes to 5- oxoproline (By similarity)
+COG0265	O	Serine protease
+COG0274	F	Catalyzes a reversible aldol reaction between acetaldehyde and D-glyceraldehyde 3-phosphate to generate 2-deoxy- D-ribose 5-phosphate (By similarity)
+COG0275	M	Specifically methylates the N4 position of cytidine in position 1402 (C1402) of 16S rRNA (By similarity)
+COG0297	G	starch synthase activity
+COG0299	F	phosphoribosylglycinamide formyltransferase
+COG0304	I	Catalyzes the condensation reaction of fatty acid synthesis by the addition to an acyl acceptor of two carbons from malonyl-ACP (By similarity)
+COG0305	L	Replicative dna helicase
+COG0309	O	Hydrogenase expression formation protein HypE
+COG0318	IQ	Amp-dependent synthetase and ligase
+COG0319	S	metalloendopeptidase activity
+COG0329	E	Catalyzes the condensation of (S)-aspartate-beta- semialdehyde (S)-ASA and pyruvate to 4-hydroxy- tetrahydrodipicolinate (HTPA) (By similarity)
+COG0330	O	Band 7 protein
+COG0331	I	Malonyl coA-acyl carrier protein transacylase
+COG0332	I	Catalyzes the condensation reaction of fatty acid synthesis by the addition to an acyl acceptor of two carbons from malonyl-ACP. Catalyzes the first condensation reaction which initiates fatty acid synthesis and may therefore play a role in governing the total rate of fatty acid production. Possesses both acetoacetyl-ACP synthase and acetyl transacylase activities. Its substrate specificity determines the biosynthesis of branched- chain and or straight-chain of fatty acids (By similarity)
+COG0334	E	oxidoreductase activity, acting on the CH-NH2 group of donors, NAD or NADP as acceptor
+COG0346	E	glyoxalase bleomycin resistance protein dioxygenase
+COG0356	C	it plays a direct role in the translocation of protons across the membrane (By similarity)
+COG0359	J	Binds to the 23S rRNA (By similarity)
+COG0360	J	Binds together with S18 to 16S ribosomal RNA (By similarity)
+COG0365	I	Catalyzes the conversion of acetate into acetyl-CoA (AcCoA), an essential intermediate at the junction of anabolic and catabolic pathways. AcsA undergoes a two-step reaction. In the first half reaction, AcsA combines acetate with ATP to form acetyl-adenylate (AcAMP) intermediate. In the second half reaction, it can then transfer the acetyl group from AcAMP to the sulfhydryl group of CoA, forming the product AcCoA (By similarity)
+COG0366	G	alpha amylase, catalytic
+COG0367	E	asparagine synthetase
+COG0370	P	Ferrous iron transport protein b
+COG0377	C	NDH-1 shuttles electrons from NADH, via FMN and iron- sulfur (Fe-S) centers, to quinones in the respiratory chain. The immediate electron acceptor for the enzyme in this species is believed to be ubiquinone. Couples the redox reaction to proton translocation (for every two electrons transferred, four hydrogen ions are translocated across the cytoplasmic membrane), and thus conserves the redox energy in a proton gradient (By similarity)
+COG0381	M	UDP-N-acetylglucosamine 2-epimerase
+COG0382	H	Synthesis of 3-octaprenyl-4-hydroxybenzoate (By similarity)
+COG0410	E	amino acid transport
+COG0411	E	(ABC) transporter
+COG0416	I	Catalyzes the reversible formation of acyl-phosphate (acyl-PO(4)) from acyl- acyl-carrier-protein (acyl-ACP). This enzyme utilizes acyl-ACP as fatty acyl donor, but not acyl-CoA (By similarity)
+COG0417	L	DNA polymerase
+COG0424	D	Maf-like protein
+COG0427	C	Acetyl-CoA hydrolase
+COG0428	P	zinc transporter
+COG0438	M	Glycosyl transferase (Group 1
+COG0457	S	repeat-containing protein
+COG0469	G	Pyruvate kinase
+COG0471	P	Transporter
+COG0476	H	small protein activating enzyme activity
+COG0479	C	succinate dehydrogenase
+COG0484	O	ATP binding to DnaK triggers the release of the substrate protein, thus completing the reaction cycle. Several rounds of ATP-dependent interactions between DnaJ, DnaK and GrpE are required for fully efficient folding. Also involved, together with DnaK and GrpE, in the DNA replication of plasmids through activation of initiation proteins (By similarity)
+COG0488	S	(ABC) transporter
+COG0498	E	threonine synthase
+COG0505	F	carbamoyl-phosphate synthetase glutamine chain
+COG0507	L	exodeoxyribonuclease v alpha
+COG0508	C	Dehydrogenase
+COG0520	E	cysteine desulfurase
+COG0524	G	pfkb domain protein
+COG0535	S	radical SAM domain protein
+COG0536	S	An essential GTPase which binds GTP, GDP and possibly (p)ppGpp with moderate affinity, with high nucleotide exchange rates and a fairly low GTP hydrolysis rate (By similarity). It may play a role in control of the cell cycle, stress response, ribosome biogenesis and in those bacteria that undergo differentiation, in morphogenesis control
+COG0537	FG	histidine triad (hIT) protein
+COG0539	J	thus facilitating recognition of the initiation point. It is needed to translate mRNA with a short Shine-Dalgarno (SD) purine-rich sequence (By similarity)
+COG0547	E	Anthranilate phosphoribosyltransferase
+COG0548	E	nag kinase
+COG0553	L	helicase
+COG0556	L	damaged site, the DNA wraps around one UvrB monomer. DNA wrap is dependent on ATP binding by UvrB and probably causes local melting of the DNA helix, facilitating insertion of UvrB beta-hairpin between the DNA strands. Then UvrB probes one DNA strand for the presence of a lesion. If a lesion is found the UvrA subunits dissociate and the UvrB-DNA preincision complex is formed. This complex is subsequently bound by UvrC and the second UvrB is released. If no lesion is found, the DNA wraps around the other UvrB subunit that will check the other stand for damage (By similarity)
+COG0557	K	3'-5' exoribonuclease that releases 5'-nucleoside monophosphates and is involved in maturation of structured RNAs (By similarity)
+COG0559	E	(ABC) transporter
+COG0560	E	phosphoserine phosphatase activity
+COG0566	J	Methyltransferase
+COG0567	C	2-oxoglutarate dehydrogenase, E1
+COG0569	P	Potassium uptake protein
+COG0575	I	phosphatidate Cytidylyltransferase
+COG0576	O	Participates actively in the response to hyperosmotic and heat shock by preventing the aggregation of stress-denatured proteins, in association with DnaK and GrpE. It is the nucleotide exchange factor for DnaK and may function as a thermosensor. Unfolded proteins bind initially to DnaJ
+COG0577	V	ABC transporter (permease)
+COG0581	P	phosphate abc transporter
+COG0593	L	it binds specifically double-stranded DNA at a 9 bp consensus (dnaA box) 5'-TTATC CA A CA A-3'. DnaA binds to ATP and to acidic phospholipids (By similarity)
+COG0595	S	Metallo-Beta-Lactamase
+COG0598	P	magnesium and cobalt transport protein CorA
+COG0610	V	Type I site-specific deoxyribonuclease
+COG0618	S	phosphoesterase RecJ domain protein
+COG0626	E	cystathionine
+COG0629	L	single-stranded DNA-binding protein
+COG0630	U	type II secretion system protein
+COG0632	L	The RuvA-RuvB complex in the presence of ATP renatures cruciform structure in supercoiled DNA with palindromic sequence, indicating that it may promote strand exchange reactions in homologous recombination. RuvAB is a helicase that mediates the Holliday junction migration by localized denaturation and reannealing. RuvA stimulates, in the presence of DNA, the weak ATPase activity of RuvB (By similarity)
+COG0635	H	Coproporphyrinogen III oxidase
+COG0639	T	serine threonine-protein phosphatase
+COG0642	T	Histidine kinase
+COG0655	S	Nadph-dependent fmn reductase
+COG0657	I	alpha beta hydrolase fold-3 domain protein
+COG0661	S	Required, probably indirectly, for the hydroxylation of 2-octaprenylphenol to 2-octaprenyl-6-hydroxy-phenol, the fourth step in ubiquinone biosynthesis (By similarity)
+COG0669	H	Reversibly transfers an adenylyl group from ATP to 4'- phosphopantetheine, yielding dephospho-CoA (dPCoA) and pyrophosphate (By similarity)
+COG0680	C	Hydrogenase maturation protease
+COG0696	G	Catalyzes the interconversion of 2-phosphoglycerate and 3-phosphoglycerate (By similarity)
+COG0698	G	Isomerase
+COG0709	E	Synthesizes selenophosphate from selenide and ATP (By similarity)
+COG0711	C	F(1)F(0) ATP synthase produces ATP from ADP in the presence of a proton or sodium gradient. F-type ATPases consist of two structural domains, F(1) containing the extramembraneous catalytic core and F(0) containing the membrane proton channel, linked together by a central stalk and a peripheral stalk. During catalysis, ATP synthesis in the catalytic domain of F(1) is coupled via a rotary mechanism of the central stalk subunits to proton translocation (By similarity)
+COG0714	S	ATPase activity
+COG0728	S	Integral membrane protein (MviN
+COG0730	S	Membrane
+COG0743	I	Catalyzes the NADP-dependent rearrangement and reduction of 1-deoxy-D-xylulose-5-phosphate (DXP) to 2-C-methyl-D-erythritol 4-phosphate (MEP) (By similarity)
+COG0744	M	penicillin-binding protein
+COG0748	P	pyridoxamine 5-phosphate
+COG0750	M	Membrane-associated zinc metalloprotease
+COG0755	O	cytochrome c
+COG0760	O	peptidyl-prolyl cis-trans isomerase
+COG0761	I	Converts 1-hydroxy-2-methyl-2-(E)-butenyl 4-diphosphate into isopentenyl diphosphate (IPP) and dimethylallyl diphosphate (DMAPP) (By similarity)
+COG0768	M	penicillin-binding protein
+COG0772	D	Cell Division Protein
+COG0773	M	cell wall formation (By similarity)
+COG0778	C	nitroreductase
+COG0782	K	Necessary for efficient RNA polymerase transcription elongation past template-encoded arresting sites. The arresting sites in DNA have the property of trapping a certain fraction of elongating RNA polymerases that pass through, resulting in locked ternary complexes. Cleavage of the nascent transcript by cleavage factors such as GreA or GreB allows the resumption of elongation from the new 3'terminus. GreA releases sequences of 2 to 3 nucleotides (By similarity)
+COG0785	O	Cytochrome c biogenesis protein
+COG0789	K	Transcriptional regulator
+COG0790	S	Sel1 domain protein repeat-containing protein
+COG0799	S	Functions as a ribosomal silencing factor. Interacts with ribosomal protein L14 (rplN), blocking formation of intersubunit bridge B8. Prevents association of the 30S and 50S ribosomal subunits and the formation of functional ribosomes, thus repressing translation (By similarity)
+COG0803	P	periplasmic solute binding protein
+COG0811	U	MotA TolQ exbB proton channel
+COG0822	C	sUF system Fes assembly protein, NifU family
+COG0835	NT	chew protein
+COG0838	C	NDH-1 shuttles electrons from NADH, via FMN and iron- sulfur (Fe-S) centers, to quinones in the respiratory chain
+COG0841	P	acriflavin resistance protein
+COG0848	U	Biopolymer transport protein exbD tolR
+COG0852	C	NDH-1 shuttles electrons from NADH, via FMN and iron- sulfur (Fe-S) centers, to quinones in the respiratory chain. The immediate electron acceptor for the enzyme in this species is believed to be ubiquinone. Couples the redox reaction to proton translocation (for every two electrons transferred, four hydrogen ions are translocated across the cytoplasmic membrane), and thus conserves the redox energy in a proton gradient (By similarity)
+COG0860	M	n-acetylmuramoyl-l-alanine amidase
+COG1002	V	Type II restriction enzyme, methylase
+COG1018	C	Is involved in NO detoxification in an aerobic process, termed nitric oxide dioxygenase (NOD) reaction that utilizes O(2) and NAD(P)H to convert NO to nitrate, which protects the bacterium from various noxious nitrogen compounds. Therefore, plays a central role in the inducible response to nitrosative stress (By similarity)
+COG1032	C	radical SAM domain protein
+COG1034	C	subunit g
+COG1038	C	Catalyzes a 2-step reaction, involving the ATP-dependent carboxylation of the covalently attached biotin in the first step and the transfer of the carboxyl group to pyruvate in the second (By similarity)
+COG1054	S	UPF0176 protein
+COG1057	H	Catalyzes the reversible adenylation of nicotinate mononucleotide (NaMN) to nicotinic acid adenine dinucleotide (NaAD) (By similarity)
+COG1063	E	Dehydrogenase
+COG1071	C	Dehydrogenase
+COG1075	S	Triacylglycerol Lipase
+COG1083	M	cytidylyltransferase
+COG1087	M	udp-glucose 4-epimerase
+COG1088	M	dTDP-glucose 4-6-dehydratase
+COG1089	M	GDP-mannose 4,6-dehydratase
+COG1123	S	(ABC) transporter
+COG1131	V	(ABC) transporter
+COG1134	GM	(ABC) transporter
+COG1136	V	(ABC) transporter
+COG1146	C	metal cluster binding
+COG1151	C	Catalyzes the reduction of hydroxylamine to form NH(3) and H(2)O (By similarity)
+COG1154	H	Catalyzes the acyloin condensation reaction between C atoms 2 and 3 of pyruvate and glyceraldehyde 3-phosphate to yield 1-deoxy-D-xylulose-5-phosphate (DXP) (By similarity)
+COG1158	K	Facilitates transcription termination by a mechanism that involves Rho binding to the nascent RNA, activation of Rho's RNA-dependent ATPase activity, and release of the mRNA from the DNA template (By similarity)
+COG1171	E	Threonine dehydratase
+COG1173	P	Binding-protein-dependent transport systems inner membrane component
+COG1183	I	Cdp-diacylglycerol--serine o-phosphatidyltransferase
+COG1192	D	cobyrinic Acid a,c-diamide synthase
+COG1198	L	Primosomal protein n'
+COG1207	M	Catalyzes the last two sequential reactions in the de novo biosynthetic pathway for UDP-N-acetylglucosamine (UDP- GlcNAc). The C-terminal domain catalyzes the transfer of acetyl group from acetyl coenzyme A to glucosamine-1-phosphate (GlcN-1-P) to produce N-acetylglucosamine-1-phosphate (GlcNAc-1-P), which is converted into UDP-GlcNAc by the transfer of uridine 5- monophosphate (from uridine 5-triphosphate), a reaction catalyzed by the N-terminal domain (By similarity)
+COG1212	M	Activates KDO (a required 8-carbon sugar) for incorporation into bacterial lipopolysaccharide in Gram-negative bacteria (By similarity)
+COG1215	M	Glycosyl transferase, family 2
+COG1216	M	Glycosyl transferase, family 2
+COG1220	O	this subunit has chaperone activity. The binding of ATP and its subsequent hydrolysis by HslU are essential for unfolding of protein substrates subsequently hydrolyzed by HslV. HslU recognizes the N-terminal part of its protein substrates and unfolds these before they are guided to HslV for hydrolysis (By similarity)
+COG1239	H	magnesium chelatase
+COG1241	L	dna replication licensing factor
+COG1256	N	ciliary or bacterial-type flagellar motility
+COG1259	S	nuclease activity
+COG1262	S	Sulphatase-modifying factor protein
+COG1295	S	ribonuclease BN
+COG1296	E	AzlC Family
+COG1304	C	Catalyzes the 1,3-allylic rearrangement of the homoallylic substrate isopentenyl (IPP) to its allylic isomer, dimethylallyl diphosphate (DMAPP) (By similarity)
+COG1327	K	Negatively regulates transcription of bacterial ribonucleotide reductase nrd genes and operons by binding to NrdR- boxes (By similarity)
+COG1334	N	flagellar protein FlaG
+COG1338	N	Flagellar biosynthetic protein FliP
+COG1344	N	Flagellin
+COG1345	N	flagellar hook-associated
+COG1347	C	NQR complex catalyzes the reduction of ubiquinone-1 to ubiquinol by two successive reactions, coupled with the transport of Na( ) ions from the cytoplasm to the periplasm. NqrA to NqrE are probably involved in the second step, the conversion of ubisemiquinone to ubiquinol (By similarity)
+COG1348	P	The key enzymatic reactions in nitrogen fixation are catalyzed by the nitrogenase complex, which has 2 components the iron protein and the molybdenum-iron protein (By similarity)
+COG1351	F	Catalyzes the formation of dTMP and tetrahydrofolate from dUMP and methylenetetrahydrofolate (By similarity)
+COG1352	NT	catalyzes the demethylation of specific methylglutamate residues introduced into the chemoreceptors (methyl-accepting chemotaxis proteins) by CheR (By similarity)
+COG1363	E	Peptidase m42 family protein
+COG1368	M	Sulfatase
+COG1373	S	ATPase (AAA
+COG1377	N	flagellar biosynthetic protein flhB
+COG1386	K	Participates in chromosomal partition during cell division. May act via the formation of a condensin-like complex containing Smc and ScpA that pull DNA away from mid-cell into both cell halves (By similarity)
+COG1408	S	metallophosphoesterase
+COG1410	E	methionine synthase
+COG1454	C	alcohol dehydrogenase
+COG1466	L	DNA polymerase III (delta' subunit)
+COG1470	S	domain protein
+COG1472	G	hydrolase family 3
+COG1477	H	(LipO)protein
+COG1480	S	Metal Dependent Phosphohydrolase
+COG1494	G	Fructose-1,6-bisphosphatase
+COG1506	E	peptidase s9 prolyl oligopeptidase active site domain protein
+COG1516	N	flagellar protein FliS
+COG1524	S	type i phosphodiesterase nucleotide pyrophosphatase
+COG1529	C	Aldehyde oxidase and xanthine dehydrogenase, molybdopterin binding
+COG1554	G	hydrolase family 65
+COG1573	L	uracil-dna glycosylase
+COG1575	H	1,4-dihydroxy-2-naphthoate octaprenyltransferase
+COG1576	S	rRNA processing
+COG1596	M	polysaccharide transmembrane transporter activity
+COG1597	I	diacylglycerol kinase
+COG1610	S	gatB Yqey
+COG1621	G	Hydrolase
+COG1643	L	helicase
+COG1654	H	biotin-[acetyl-CoA-carboxylase] ligase activity
+COG1672	S	Archaeal ATPase
+COG1674	D	cell division protein FtsK
+COG1682	V	ABC-2 type transporter
+COG1684	N	Role in flagellar biosynthesis (By similarity)
+COG1696	M	Membrane bOund o-acyl transferase mboat family protein
+COG1734	T	Transcription factor that acts by binding directly to the RNA polymerase (RNAP). Required for negative regulation of rRNA expression and positive regulation of several amino acid biosynthesis promoters
+COG1741	S	pirin domain protein
+COG1770	E	Oligopeptidase b
+COG1792	M	regulation of cell shape
+COG1798	J	S-adenosyl-L-methionine-dependent methyltransferase that catalyzes the trimethylation of the amino group of the modified target histidine residue in translation elongation factor 2 (EF- 2), to form an intermediate called diphthine. The three successive methylation reactions represent the second step of diphthamide biosynthesis (By similarity)
+COG1804	C	l-carnitine dehydratase bile acid-inducible protein F
+COG1805	C	NQR complex catalyzes the reduction of ubiquinone-1 to ubiquinol by two successive reactions, coupled with the transport of Na( ) ions from the cytoplasm to the periplasm. NqrA to NqrE are probably involved in the second step, the conversion of ubisemiquinone to ubiquinol (By similarity)
+COG1832	S	CoA-binding domain protein
+COG1853	S	flavin reductase domain protein, FMN-binding
+COG1864	F	DNA RNA NON-specific endonuclease
+COG1875	T	Phoh family
+COG1887	M	CDP-glycerol poly(glycerophosphate) glycerophosphotransferase
+COG1889	J	Involved in pre-rRNA and tRNA processing. Utilizes the methyl donor S-adenosyl-L-methionine to catalyze the site-specific 2'-hydroxyl methylation of ribose moieties in rRNA and tRNA. Site specificity is provided by a guide RNA that base pairs with the substrate. Methylation occurs at a characteristic distance from the sequence involved in base pairing with the guide RNA (By similarity)
+COG1894	C	Nadh dehydrogenase
+COG1898	M	DTDP-4-dehydrorhamnose 3,5-epimerase
+COG1905	C	Nadh dehydrogenase
+COG1925	G	phosphocarrier protein (HPr)
+COG1940	G	ROK family
+COG1951	C	fumarate
+COG1987	N	Flagellar biosynthetic protein fliq
+COG2006	S	iron-sulfur cluster-binding protein
+COG2014	S	Domain of unknown function (DUF364)
+COG2025	C	Electron transfer flavoprotein
+COG2041	S	The exact function is not known. Can catalyze the reduction of a variety of substrates like dimethyl sulfoxide, trimethylamine N-oxide, phenylmethyl sulfoxide and L-methionine sulfoxide. Cannot reduce cyclic N-oxides. Shows no activity as sulfite oxidase (By similarity)
+COG2055	C	malate L-lactate dehydrogenase
+COG2064	U	type ii secretion system
+COG2072	P	Monooxygenase
+COG2081	S	hi0933 family
+COG2089	M	synthase
+COG2133	G	Dehydrogenase
+COG2173	M	zinc D-Ala-D-Ala carboxypeptidase activity
+COG2188	K	GntR family transcriptional regulator
+COG2195	E	Cleaves the N-terminal amino acid of tripeptides (By similarity)
+COG2201	T	protein-glutamate methylesterase activity
+COG2202	T	Histidine kinase
+COG2209	C	NQR complex catalyzes the reduction of ubiquinone-1 to ubiquinol by two successive reactions, coupled with the transport of Na( ) ions from the cytoplasm to the periplasm. NqrA to NqrE are probably involved in the second step, the conversion of ubisemiquinone to ubiquinol (By similarity)
+COG2214	O	DNAj domain protein
+COG2251	S	RecB family nuclease
+COG2262	S	GTPase that associates with the 50S ribosomal subunit and may have a role during protein synthesis or ribosome biogenesis (By similarity)
+COG2274	V	(ABC) transporter
+COG2301	G	citrate lyase
+COG2313	Q	hydrolase activity, acting on glycosyl bonds
+COG2318	S	dinb family
+COG2326	S	Polyphosphate kinase 2
+COG2391	S	YeeE YedE family protein
+COG2453	T	dual specificity phosphatase
+COG2515	E	1-aminocyclopropane-1-carboxylate deaminase
+COG2603	S	Catalyzes the transfer of selenium from selenophosphate for conversion of 2-thiouridine to 2-selenouridine at the wobble position in tRNA (By similarity)
+COG2609	C	Component of the pyruvate dehydrogenase (PDH) complex, that catalyzes the overall conversion of pyruvate to acetyl-CoA and CO(2) (By similarity)
+COG2717	P	Is probably involved in the electron transfer between its heme and the molybdenum cofactor of the reductase catalytic subunit YedY (By similarity)
+COG2805	NU	twitching motility protein
+COG2812	L	dna polymerase iii subunits gamma and tau
+COG2815	T	Serine Threonine protein kinase
+COG2825	M	Molecular chaperone that interacts specifically with outer membrane proteins, thus maintaining the solubility of early folding intermediates during passage through the periplasm (By similarity)
+COG2831	U	Polypeptide-transport-associated domain protein, ShlB-type
+COG2869	C	NQR complex catalyzes the reduction of ubiquinone-1 to ubiquinol by two successive reactions, coupled with the transport of Na( ) ions from the cytoplasm to the periplasm. NqrA to NqrE are probably involved in the second step, the conversion of ubisemiquinone to ubiquinol (By similarity)
+COG2871	C	2 iron, 2 sulfur cluster binding
+COG2885	M	Ompa motb domain protein
+COG2887	L	helicase
+COG2904	S	Catalyzes the NADPH-dependent reduction of 7-cyano-7- deazaguanine (preQ0) to 7-aminomethyl-7-deazaguanine (preQ1) (By similarity)
+COG2979	S	Inner membrane protein YebE
+COG2986	E	histidine ammonia-lyase
+COG2991	S	Periplasmic Protein
+COG2993	C	cytochrome C oxidase
+COG3000	I	fatty acid hydroxylase
+COG3034	S	ErfK ybiS ycfS ynhG family protein
+COG3087	D	Cell Division Protein
+COG3088	O	biogenesis protein
+COG3104	E	transporter
+COG3118	O	Thioredoxin
+COG3119	P	Sulfatase
+COG3181	S	extra-cytoplasmic solute receptor family protein
+COG3210	U	filamentous hemagglutinin family outer membrane protein
+COG3239	I	linoleoyl-CoA desaturase activity
+COG3258	C	cytochrome c
+COG3278	C	cytochrome C oxidase, cbb3-type, subunit i
+COG3311	K	Phage transcriptional regulator AlpA
+COG3319	Q	synthetase
+COG3345	G	alpha-galactosidase
+COG3428	S	membrane-flanked domain protein
+COG3436	L	Transposase
+COG3437	T	Response Regulator
+COG3464	L	transposase
+COG3497	S	tail sheath protein
+COG3588	G	fructose-bisphosphate aldolase
+COG3604	K	Transcriptional regulator
+COG3653	Q	Deacylase
+COG3670	Q	dioxygenase
+COG3705	E	Required for the first step of histidine biosynthesis. May allow the feedback regulation of ATP phosphoribosyltransferase activity by histidine (By similarity)
+COG3718	G	myo-inositol catabolism
+COG3744	S	PilT protein domain protein
+COG3758	S	HutD
+COG3800	K	Transcriptional regulator
+COG3812	S	Domain of unknown function (DUF1993)
+COG3822	S	Protein of unknown function (DUF1498)
+COG3825	S	Vwa containing coxe family protein
+COG3829	K	Transcriptional regulator
+COG3842	E	Part of the ABC transporter complex PotABCD involved in spermidine putrescine import. Responsible for energy coupling to the transport system (By similarity)
+COG3844	E	Catalyzes the cleavage of L-kynurenine (L-Kyn) and L-3- hydroxykynurenine (L-3OHKyn) into anthranilic acid (AA) and 3- hydroxyanthranilic acid (3-OHAA), respectively (By similarity)
+COG3864	S	VWA-like domain (DUF2201)
+COG3903	K	transcriptional regulator
+COG3907	S	PAP2 superfamily protein
+COG3971	Q	2-oxopent-4-enoate hydratase activity
+COG4146	S	solute carrier family 5 (sodium glucose cotransporter), member
+COG4176	E	Glycine betaine
+COG4177	E	(ABC) transporter
+COG4191	T	Histidine kinase
+COG4254	S	Peptidoglycan-binding LysM
+COG4398	S	growth
+COG4421	S	Capsular Polysaccharide Biosynthesis Protein-Like Protein
+COG4536	P	flavin adenine dinucleotide binding
+COG4576	E	ethanolamine catabolic process
+COG4577	E	Microcompartments protein
+COG4584	L	Transposase
+COG4590	P	Binding-protein-dependent transport systems inner membrane component
+COG4591	M	lipoprotein releasing system transmembrane protein
+COG4775	M	Gram-negative-bacterium-type cell outer membrane assembly
+COG4807	S	Protein of unknown function (DUF1456)
+COG4942	D	peptidase
+COG4951	L	Type III restriction protein, res subunit
+COG4987	V	(ABC) transporter
+COG4988	V	cysteine transport
+COG4993	G	Dehydrogenase
+COG5002	T	Histidine kinase
+COG5009	M	penicillin-binding protein 1A
+COG5024	D	g2 mitotic-specific
+COG5043	U	Vacuolar Protein
+COG5049	ADL	5'-3' exoribonuclease
+COG5059	Z	Kinesin family member
+COG5126	DTZ	Calcium-binding protein
+COG5141	S	phd finger
+COG5245	Z	heavy chain
+COG5362	S	phage protein
+COG5405	O	Protease subunit of a proteasome-like degradation complex believed to be a general protein degrading machinery (By similarity)
+COG5410	S	phage protein
+COG5535	L	nucleotide-excision repair
+COG5545	S	Virulence-associated protein e
+COG5646	S	Domain of unknown function (DU1801)
+COG5659	L	transposase
+ENOG410XNME	U	Type I secretion membrane fusion protein (HlyD
+ENOG410XNP6	U	Calcium channel
+ENOG410XNQ3	S	NA
+ENOG410XNSC	S	sphingomyelin synthase
+ENOG410XNSN	S	Diphosphoinositol pentakisphosphate kinase
+ENOG410XNW1	S	)-reductase
+ENOG410XNWN	S	WD repeat domain 90
+ENOG410XNX8	S	kelch-like
+ENOG410XNYJ	S	Tat (Twin-arginine translocation) pathway signal sequence domain protein
+ENOG410XP4F	S	selenium-binding protein
+ENOG410XP5G	S	Methyltransferase
+ENOG410XP6K	S	Notch ligand involved in the mediation of Notch signaling (By similarity)
+ENOG410XPA0	O	Nuclear receptor interacting protein
+ENOG410XPBB	T	Male germ cell-associated kinase
+ENOG410XPD8	Q	nonribosomal peptide
+ENOG410XPF1	G	alpha-galactosidase
+ENOG410XPGB	P	tonB-dependent siderophore receptor
+ENOG410XPH3	I	phosphatidylinositol 4-kinase
+ENOG410XPJ6	S	NA
+ENOG410XPK7	V	Beta-lactamase
+ENOG410XPNR	S	alkyl hydroperoxide reductase Thiol specific antioxidant Mal allergen
+ENOG410XPNW	A	Splicing factor 3A subunit
+ENOG410XPQ5	S	ATP-binding region, ATPase domain protein
+ENOG410XPQG	S	heme-binding protein
+ENOG410XPRE	S	NA
+ENOG410XPRS	S	Bacterial extracellular solute-binding proteins, family 5 Middle
+ENOG410XPUU	S	Methyltransferase
+ENOG410XPW2	L	exonuclease VIII
+ENOG410XPXW	S	MreB/Mbl protein
+ENOG410XPYW	S	lipase maturation factor
+ENOG410XPZ7	C	Acyl-CoA dehydrogenase, C-terminal domain
+ENOG410XQ01	S	polycystic kidney and hepatic disease 1 (autosomal
+ENOG410XQ0W	S	Photosystem II
+ENOG410XQ13	S	Protein of unknown function (DUF2927)
+ENOG410XQ3B	S	organic solvent tolerance protein
+ENOG410XQ4K	T	HATPase_c
+ENOG410XQ4U	S	(LipO)protein
+ENOG410XQ4Y	L	DNA (cytosine-5-)-methyltransferase
+ENOG410XQ52	M	Glycosyl transferase, family 2
+ENOG410XQ5Y	S	KIAA0319-like
+ENOG410XQ6K	S	Binding-protein-dependent transport system inner membrane component
+ENOG410XQ6M	S	NA
+ENOG410XQ79	M	glycosyl transferase group 1
+ENOG410XQ7J	S	ZW10, kinetochore associated, homolog (Drosophila)
+ENOG410XQ7P	U	Fraser syndrome 1
+ENOG410XQB7	V	Efflux transporter rnd family, mfp subunit
+ENOG410XQBD	S	oxidoreductase
+ENOG410XQCD	S	Transmembrane protein 132E
+ENOG410XQGA	S	NDP-hexose 2,3-dehydratase
+ENOG410XQKC	G	major facilitator superfamily
+ENOG410XQKE	O	thrombospondin
+ENOG410XQM6	K	Forms a fork protection complex (FPC) with csm-3 and which is required for chromosome segregation during meiosis and DNA damage repair. FPC coordinates leading and lagging strand synthesis and moves with the replication fork. FPC stabilizes replication forks in a configuration that is recognized by replication checkpoint sensors
+ENOG410XQND	S	carboxymuconolactone decarboxylase
+ENOG410XQPX	S	Sulfhydryl-activated toxin that causes cytolysis by forming pores in cholesterol containing host membranes. After binding to target membranes, the protein undergoes a major conformation change, leading to its insertion in the host membrane and formation of an oligomeric pore complex. Cholesterol may be required for binding to host membranes, membrane insertion and pore formation. Can be reversibly inactivated by oxidation
+ENOG410XQQ4	T	Histidine kinase
+ENOG410XR2G	K	LysR family (Transcriptional regulator
+ENOG410XR2X	S	TEL2, telomere maintenance 2, homolog (S. cerevisiae)
+ENOG410XR7P	L	Involved in DNA repair and RecF pathway recombination (By similarity)
+ENOG410XRAU	S	NA
+ENOG410XRBN	S	ERCC4 domain protein
+ENOG410XRCX	S	Methyl-accepting chemotaxis
+ENOG410XRDN	S	Protein of unknown function (DUF3604)
+ENOG410XRDW	S	pyruvate phosphate dikinase
+ENOG410XRJF	Q	ectoine hydroxylase
+ENOG410XRKW	L	Integrase
+ENOG410XRMA	S	Essential component of the cytosolic iron-sulfur (Fe S) protein assembly machinery. Required for the maturation of extramitochondrial Fe S proteins (By similarity)
+ENOG410XRMJ	T	calcium-dependent protein kinase
+ENOG410XRNX	S	Protein of unknown function (DUF1595)
+ENOG410XRR8	S	Short-chain dehydrogenase reductase Sdr
+ENOG410XRUF	L	DNA polymerase family A
+ENOG410XRWS	S	Oxidoreductase domain protein
+ENOG410XS4D	S	Retrotransposon protein
+ENOG410XS4R	T	Histidine kinase
+ENOG410XS82	S	Retrotransposon protein
+ENOG410XSB5	T	Serine threonine protein kinase with pasta sensor(S)
+ENOG410XSCX	M	Glycosyl transferase (Group 1
+ENOG410XSD8	T	Histidine kinase
+ENOG410XSEY	L	ATPdependent RNA helicase
+ENOG410XSPQ	V	ABC superfamily, ATP binding cassette transporter
+ENOG410XSQW	S	NA
+ENOG410XSSU	L	transposase
+ENOG410XSVM	S	NA
+ENOG410XSZG	S	F5/8 type C domain
+ENOG410XT0V	I	acyl-Coa dehydrogenase
+ENOG410XT46	S	protein TIM barrel
+ENOG410XT54	P	NA
+ENOG410XT7Y	C	Aldehyde dehydrogenase
+ENOG410XT98	G	Multidrug
+ENOG410XTCR	S	NA
+ENOG410XTI2	S	tubulin tyrosine ligase-like family, member 4
+ENOG410XUCG	S	Ankyrin Repeat
+ENOG410XUF6	O	Heat shock protein
+ENOG410XUGI	S	Pentapeptide repeat
+ENOG410XUVE	S	monooxygenase, FAD-binding
+ENOG410XUX1	S	SnoaL-like polyketide cyclase
+ENOG410XUYC	S	Glyoxalase Bleomycin resistance protein (Dioxygenase
+ENOG410XUZS	S	Cytochrome b5
+ENOG410XVBV	S	NA
+ENOG410XVCK	S	Uncharacterized protein conserved in bacteria (DUF2065)
+ENOG410XVJT	O	Quiescin Q6 sulfhydryl oxidase
+ENOG410XVQY	S	NA
+ENOG410XWHK	S	chromosome 20 open reading frame 72
+ENOG410XWJ5	S	RNA binding motif protein 17
+ENOG410XWVW	S	NA
+ENOG410XX1G	S	NA
+ENOG410XXNR	S	LamG domain protein jellyroll fold domain protein
+ENOG410XXVY	S	NA
+ENOG410XXYX	P	tonB-dependent Receptor
+ENOG410XY2N	S	NA
+ENOG410XY3T	S	NA
+ENOG410XY8C	S	Chromodomain protein
+ENOG410XYG1	S	Peptidoglycan-binding domain 1 protein
+ENOG410XZ2S	S	thioesterase
+ENOG410XZDB	S	NA
+ENOG410XZXC	S	NA
+ENOG410Y03M	M	glycosyl transferase group 1
+ENOG410Y05G	S	NA
+ENOG410Y0NA	S	Immunoreactive 84 kDa antigen
+ENOG410Y0VU	S	phytanoyl-CoA dioxygenase
+ENOG410Y1ET	S	acetyltransferase
+ENOG410Y1MD	S	NA
+ENOG410Y1PX	S	NA
+ENOG410Y1R1	S	CheW
+ENOG410Y1U2	C	Seems to play a role in the dimerization of PSII (By similarity)
+ENOG410Y1YR	S	NA
+ENOG410Y2BN	S	(MSHA) biogenesis protein MshK
+ENOG410Y2I5	S	LysM
+ENOG410Y2R6	S	NA
+ENOG410Y2T6	M	NA
+ENOG410Y2V0	S	NA
+ENOG410Y36N	S	NA
+ENOG410Y376	S	NA
+ENOG410Y3NU	S	NA
+ENOG410Y4GP	K	ParB-like nuclease domain
+ENOG410Y4UP	T	kinase suppressor of Ras
+ENOG410Y57J	S	NA
+ENOG410Y5PW	S	NA
+ENOG410Y5QU	S	NA
+ENOG410Y657	S	NA
+ENOG410Y6TF	S	Pfam:DUF395
+ENOG410Y6ZM	S	Protein of unknown function (DUF1569)
+ENOG410Y78N	O	O-fucosyltransferase 2
+ENOG410Y7IR	S	NA
+ENOG410Y7JF	T	NIMA-related kinase
+ENOG410Y81N	L	Phage integrase family
+ENOG410Y8HS	S	Antibiotic biosynthesis monooxygenase
+ENOG410Y97J	S	Bromodomain containing 8
+ENOG410Y9VH	P	Glutamate-gated receptor that probably acts as non- selective cation channel (By similarity)
+ENOG410YAAZ	S	filament-like plant protein
+ENOG410YAGY	S	NA
+ENOG410YB8Y	S	NA
+ENOG410YBKC	S	NA
+ENOG410YC2D	Q	fatty-acid-coa ligase
+ENOG410YDJF	M	Outer membrane efflux protein
+ENOG410YE77	S	zinc finger CCCH-type containing 14
+ENOG410YEIR	S	NA
+ENOG410YF1I	S	metallophosphoesterase
+ENOG410YF4M	O	Mitochondrial E3 ubiquitin protein ligase 1
+ENOG410YFIC	Z	KISc
+ENOG410YFRJ	S	coiledcoil domain containing
+ENOG410YHGV	S	NA
+ENOG410YHVR	S	NA
+ENOG410YI6Q	E	extracellular ligand-binding receptor
+ENOG410YIKI	U	Small GTPase component of the coat protein complex II (COPII) which promotes the formation of transport vesicles from the endoplasmic reticulum (ER). The coat has two main functions, the physical deformation of the endoplasmic reticulum membrane into vesicles and the selection of cargo molecules. SAR1 controls the coat assembly in a stepwise manner. Activated SAR1-GTP binds to membranes first and recruits the SEC23 24 complex. These SEC23 24-SAR1 prebudding intermediates are then collected by the SEC13 31 complex as subunits polymerize to form coated transport vesicles. Conversion to SAR1-GDP triggers coat release and recycles COPII subunits (By similarity)
+ENOG410YJF8	S	oxidoreductase DCC
+ENOG410YJYQ	V	type I restriction-modification system, S subunit
+ENOG410YKBA	S	NA
+ENOG410YM8P	S	NA
+ENOG410YMAS	O	Protein O-linked mannose beta1,2-N-acetylglucosaminyltransferase
+ENOG410YNAX	S	NA
+ENOG410YNI2	S	Methyltransferase
+ENOG410YP2W	S	BNR repeat
+ENOG410YRK8	S	Protein of unknown function (DUF1585)
+ENOG410YSGX	S	NA
+ENOG410YT57	S	coenzyme PQQ synthesis protein B
+ENOG410YTFI	S	monooxygenase
+ENOG410YUJE	S	spore coat protein CotH
+ENOG410YW2S	S	NA
+ENOG410YW8B	E	Branched-chain amino acid transport
+ENOG410YWCW	T	Histidine kinase
+ENOG410YWNZ	S	Mammalian cell entry related domain protein
+ENOG410YY9R	Z	Component of the PAN1 actin cytoskeleton-regulatory complex required for the internalization of endosomes during actin-coupled endocytosis. The complex links the site of endocytosis to the cell membrane-associated actin cytoskeleton. Mediates uptake of external molecules and vacuolar degradation of plasma membrane proteins. Plays a role in the proper organization of the cell membrane-associated actin cytoskeleton and promotes its destabilization (By similarity)
+ENOG410YZ8A	O	DnaJ domain
+ENOG410YZYN	S	NA
+ENOG410Z06U	S	NA
+ENOG410Z2M6	M	Gram positive anchor
+ENOG410Z4HM	S	EFh
+ENOG410Z4KP	M	O-Antigen Polymerase
+ENOG410Z4Y4	S	NA
+ENOG410Z6MW	S	glycine-rich protein
+ENOG410Z7AY	S	Demethylmenaquinone methyltransferase
+ENOG410Z7MD	S	NA
+ENOG410Z7NT	T	Sensor hybrid histidine kinase
+ENOG410Z7UE	S	NA
+ENOG410Z974	S	Alpha amylase
+ENOG410Z9U9	S	NA
+ENOG410ZAJS	S	NA
+ENOG410ZD0X	K	Myb-like DNA-binding domain
+ENOG410ZD2Z	S	WD40-like protein
+ENOG410ZD8C	S	Domain of unknown function (DUF1768)
+ENOG410ZDHW	S	NA
+ENOG410ZDSN	S	NA
+ENOG410ZEGS	S	Cna B-type protein
+ENOG410ZEP7	S	NA
+ENOG410ZEUS	S	NA
+ENOG410ZFVU	S	PR domain containing
+ENOG410ZGB6	S	acetyltransferase
+ENOG410ZGC3	S	terminase, large subunit
+ENOG410ZGKI	S	NA
+ENOG410ZGR7	S	NA
+ENOG410ZHJX	S	NA
+ENOG410ZHXS	S	WD40-like Beta Propeller Repeat
+ENOG410ZI1S	T	Carbon storage regulator
+ENOG410ZI3G	S	O-Antigen Polymerase
+ENOG410ZI3Q	S	NA
+ENOG410ZIMM	S	NA
+ENOG410ZJ8K	M	O-Antigen Polymerase
+ENOG410ZJ9Q	S	NA
+ENOG410ZJEG	S	Phage integrase family
+ENOG410ZJRS	S	NA
+ENOG410ZKMB	S	NADH ubiquinone oxidoreductase family protein
+ENOG410ZM1B	S	NA
+ENOG410ZM4Z	S	NA
+ENOG410ZMC2	S	NA
+ENOG410ZMDV	S	ADP-ribosylation factor related protein 1
+ENOG410ZMDX	S	FR47-like protein
+ENOG410ZMUA	S	NA
+ENOG410ZMYZ	S	NA
+ENOG410ZN2A	S	tetratricopeptide repeat protein
+ENOG410ZNC0	S	peroxisomal membrane protein
+ENOG410ZNYP	S	NA
+ENOG410ZP9Z	S	NA
+ENOG410ZPC2	S	Dynein heavy chain, N-terminal region 1
+ENOG410ZQ1U	S	Ankyrin repeat
+ENOG410ZQPZ	S	Phage integrase family
+ENOG410ZQVQ	S	Tail fiber protein
+ENOG410ZRKI	S	NA
+ENOG410ZRRW	G	protein TIM barrel
+ENOG410ZSV3	G	ribokinase
+ENOG410ZSYA	S	NA
+ENOG410ZTH1	S	VWA
+ENOG410ZTW2	S	NA
+ENOG410ZUFU	S	NA
+ENOG410ZUZ7	S	NA
+ENOG410ZVDG	G	Xylose isomerase domain protein TIM barrel
+ENOG410ZVDQ	G	SV2 related protein homolog
+ENOG410ZVEX	S	peroxisomal multifunctional enzyme
+ENOG410ZVFE	S	GH3 auxin-responsive promoter
+ENOG410ZVGF	S	NA
+ENOG410ZVGH	M	Outer membrane efflux protein
+ENOG410ZVGS	G	Major Facilitator Superfamily
+ENOG410ZVHX	S	NA
+ENOG410ZVIE	G	extracellular solute-binding protein
+ENOG410ZVJI	S	Oxidoreductase family, C-terminal alpha/beta domain
+ENOG410ZVJJ	U	Non-repetitive/WGA-negative nucleoporin C-terminal
+ENOG410ZVKK	V	Efflux transporter rnd family, mfp subunit
+ENOG410ZVM3	S	Tetratricopeptide TPR_2 repeat protein
+ENOG410ZVWF	S	methyl-accepting chemotaxis
+ENOG410ZW2N	S	FG-GAP repeat
+ENOG410ZW3Q	M	glycosyl transferase group 1
+ENOG410ZWA0	K	Transcriptional regulator, TetR family
+ENOG410ZWDE	S	NA
+ENOG410ZWHC	S	NA
+ENOG410ZWJV	M	Polysaccharide chain length determinant protein
+ENOG410ZWM2	S	membrane protein involved in the export of O-antigen and teichoic acid
+ENOG410ZWM5	S	Rhodanese-like domain
+ENOG410ZWMM	S	Toxic component of a toxin-antitoxin (TA) module. A
+ENOG410ZWN9	O	alkyl hydroperoxide reductase Thiol specific antioxidant Mal allergen
+ENOG410ZWSI	S	NA
+ENOG410ZWUW	S	radical SAM domain protein
+ENOG410ZWVY	S	Protein of unknown function (DUF819)
+ENOG410ZWW6	S	Heme binding protein 2
+ENOG410ZWZ5	S	Tetratricopeptide tpr_2 repeat protein
+ENOG410ZX2M	S	doxx family
+ENOG410ZX9T	S	vegetatible incompatibility protein
+ENOG410ZXF3	S	Symplekin tight junction protein C terminal
+ENOG410ZXJA	T	Histidine kinase-, DNA gyrase B-, and HSP90-like ATPase
+ENOG410ZXMM	U	translocase subunit sece
+ENOG410ZXQ9	C	ATP synthase F0 C subunit
+ENOG410ZXVA	J	50S ribosomal protein L32
+ENOG410ZY6S	K	XRE family Transcriptional regulator
+ENOG410ZYE6	S	Sulfotransferase family
+ENOG410ZYIA	S	Integrase
+ENOG410ZYM2	C	Succinate DeHydrogenase
+ENOG410ZYRB	I	Carrier of the growing fatty acid chain in fatty acid biosynthesis (By similarity)
+ENOG410ZZQ3	S	NA
+ENOG410ZZX2	A	Pre-mRNA splicing factor PRP21 like protein
+ENOG41101UC	S	NA
+ENOG41101YC	S	NA
+ENOG4110336	U	NA
+ENOG411083Y	S	amidohydrolase 2
+ENOG41108IT	M	Glycosyl transferases group 1
+ENOG4110CNM	S	Reverse transcriptase (RNA-dependent DNA polymerase)
+ENOG4110EWA	S	NA
+ENOG4110GCR	S	domain protein
+ENOG4110J1N	E	High-affinity branched-chain amino acid transport system permease protein
+ENOG4110JAH	U	NA
+ENOG4110KXX	S	TonB system biopolymer transport component
+ENOG4110SZB	S	NA
+ENOG4110TQD	S	chitinase
+ENOG4110UYG	S	glycosyltransferase
+ENOG41112QF	S	RNA recognition motif. (a.k.a. RRM, RBD, or RNP domain)
+ENOG41112TC	S	glutathione Stransferase
+ENOG41114Z5	L	NA
+ENOG411150R	L	NA
+ENOG4111604	T	FecR protein
+ENOG41118M1	S	Terminase-like family
+ENOG411192P	S	NA
+ENOG4111AT2	S	NA
+ENOG4111AY6	T	PAS PAC sensor Signal transduction histidine kinase
+ENOG4111BCX	Z	NA
+ENOG4111DPK	S	NA
+ENOG4111EXJ	S	NA
+ENOG4111F1Y	S	signal peptide protein
+ENOG4111F78	S	Auxin Efflux Carrier
+ENOG4111FAP	S	pega domain protein
+ENOG4111FDV	S	Lactoylglutathione lyase
+ENOG4111FE0	S	NA
+ENOG4111FPD	T	Two component transcriptional regulator, winged helix family
+ENOG4111FTB	S	NA
+ENOG4111FUN	S	phosphodiesterase, mj0936 family
+ENOG4111G2J	S	NA
+ENOG4111G5Y	S	NA
+ENOG4111G7G	S	Cupin 2 Conserved Barrel Domain Protein
+ENOG4111GB6	S	NA
+ENOG4111GB9	S	Beta-lactamase domain protein
+ENOG4111GUE	S	NA
+ENOG4111HJ8	S	Methyltransferase domain
+ENOG4111HKX	S	alpha/beta hydrolase fold
+ENOG4111HP6	C	Alcohol dehydrogenase GroES-like domain
+ENOG4111HPQ	S	Methyl-CpG binding domain protein
+ENOG4111IA8	S	NA
+ENOG4111IE7	L	modification methylase
+ENOG4111IGI	S	WD repeat domain 53
+ENOG4111IQJ	S	Domain of unknown function (DUF3127)
+ENOG4111IV8	S	receptor kinase
+ENOG4111IW2	S	pyridoxamine 5'-phosphate
+ENOG4111IWJ	G	Major Facilitator superfamily
+ENOG4111J1U	S	tyrosine serine protein phosphatase
+ENOG4111J45	M	Nad-dependent epimerase dehydratase
+ENOG4111J5N	S	NA
+ENOG4111JN9	S	short-chain dehydrogenase reductase
+ENOG4111JT5	S	NA
+ENOG4111JXH	P	(ABC) transporter
+ENOG4111K0K	I	Phospholipid glycerol acyltransferase
+ENOG4111K1F	G	Major Facilitator
+ENOG4111K6R	M	epimerase dehydratase
+ENOG4111KDC	L	transposase
+ENOG4111M1F	K	rna polymerase
+ENOG4111M2B	S	Ankyrin Repeat Protein
+ENOG4111MM7	S	NA
+ENOG4111N15	S	NA
+ENOG4111N89	E	l-2,4-diaminobutyric acid acetyltransferase
+ENOG4111NEJ	H	Catalyzes the circularization of gamma-N-acetyl- alpha,gamma-diaminobutyric acid (ADABA) to ectoine (1,4,5,6- tetrahydro-2-methyl-4-pyrimidine carboxylic acid), which is an excellent osmoprotectant (By similarity)
+ENOG4111NNP	S	Polyketide cyclase / dehydrase and lipid transport
+ENOG4111NV4	M	Polysaccharide biosynthesis protein
+ENOG4111NWU	S	cysteine-rich repeat-containing protein
+ENOG4111P35	S	NA
+ENOG4111P3Z	S	NA
+ENOG4111PB9	S	NA
+ENOG4111PD0	S	Methyltransferase, type
+ENOG4111PET	M	glycosyl transferase group 1
+ENOG4111PI5	S	MotA TolQ ExbB proton channel
+ENOG4111PJX	S	(Lipo)protein
+ENOG4111Q7I	S	Methyl-accepting chemotaxis sensory transducer
+ENOG4111QCP	S	Endoribonuclease L-PSP
+ENOG4111QF0	O	alkyl hydroperoxide reductase Thiol specific antioxidant Mal allergen
+ENOG4111R1P	V	(ABC) transporter
+ENOG4111R4B	S	NA
+ENOG4111R7R	S	NA
+ENOG4111RBA	T	Diguanylate cyclase
+ENOG4111RJR	S	SET domain
+ENOG4111RKH	S	capsule biosynthesis phosphatase
+ENOG4111S53	S	NA
+ENOG4111SDF	S	NA
+ENOG4111SE4	S	Acyl-CoA dehydrogenase, N-terminal domain
+ENOG4111SIQ	S	biopolymer transport protein, ExbB family
+ENOG4111SNB	S	Short-chain dehydrogenase reductase Sdr
+ENOG4111SV1	S	NA
+ENOG4111TD0	S	dUTPase
+ENOG4111TE0	S	Domain-Containing protein
+ENOG4111TIH	S	NA
+ENOG4111TIM	C	PBS lyase HEAT domain protein repeat-containing protein
+ENOG4111U8M	S	neurotransmitter-gated ion-channel ligand-binding
+ENOG4111U8X	S	Alpha beta hydrolase fold protein
+ENOG4111UHH	S	Trehalose utilisation
+ENOG4111UW3	S	Mitochondrial Carrier (MC) Family
+ENOG4111UZS	K	asnc family transcriptional regulator
+ENOG4111VJN	S	NA
+ENOG4111WDK	K	Transcriptional regulator, TetR family
+ENOG4111WRX	S	tpr repeat-containing protein
+ENOG4111WTB	S	NA
+ENOG4111WTI	S	NA
+ENOG4111Y0E	S	Membrane
+ENOG4111Y2R	V	NA
+ENOG4111YAI	I	Cdp-alcohol phosphatidyltransferase
+ENOG4111YCH	S	type i phosphodiesterase nucleotide pyrophosphatase
+ENOG4111YEP	S	Cephalosporin hydroxylase
+ENOG4111YJG	O	thioredoxin domaiN-containing protein
+ENOG4111Z15	S	NA
+ENOG4111Z1M	S	lipid transfer protein
+ENOG4111Z7X	S	ret finger protein-like
+ENOG4112019	T	Transcriptional regulator, Crp Fnr family
+ENOG41120Z4	S	NA
+ENOG41120ZY	L	ATPase family associated with various cellular activities (AAA)
+ENOG41121CH	C	Ferredoxin
+ENOG41121TS	S	NA
+ENOG41121W6	S	NA
+ENOG41121Y0	S	DNA binding domain protein, excisionase family
+ENOG41122MN	T	Response Regulator
+ENOG41122PX	S	Putative trans-membrane protein
+ENOG41122XN	S	Protein of unknown function (DUF3307)
+ENOG4112325	E	ethanolamine utilization protein EutN carboxysome structural protein Ccml
+ENOG41123RE	S	NA
+ENOG41123ZK	S	NA
+ENOG4112442	S	Calvin cycle protein
+ENOG411249W	S	NA
+ENOG41124BF	S	Cupin 2 Conserved Barrel Domain Protein
+ENOG41124IF	S	NA
+ENOG41124NF	S	Pfam:TonB
+ENOG411250H	S	membrane protein-like protein
+ENOG411251Q	S	NA
+ENOG41125BA	S	BRCA1 C Terminus (BRCT) domain
+ENOG41125G1	S	Flagellar biosynthesis protein, FliO
+ENOG41125KQ	M	tolA protein
+ENOG41125SZ	S	PGAP1-like protein
+ENOG411262F	S	NA
+ENOG411267M	S	Rod shape-determining protein MreD
+ENOG411268W	K	transcriptional regulator MERR family
+ENOG41126G6	S	NA
+ENOG41126R1	S	FkbM family
+ENOG41126XM	S	peptidoglycaN-binding
+ENOG411276D	S	NA
+ENOG4112798	S	repeat protein
+ENOG41127DI	M	Polymorphic outer membrane protein
+ENOG41129EX	S	Pentapeptide repeat
+ENOG41129HF	S	NA
+ENOG41129YV	E	ethanolamine utilization protein EutN carboxysome structural protein Ccml
+ENOG4112AI4	S	Phenylacetic acid degradation-related protein
+ENOG4112ANR	S	Domain of unknown function DUF302
+ENOG4112APT	S	NA
+ENOG4112AXE	S	NA
+ENOG4112BDD	S	NA
+ENOG4112CBB	S	prevent-host-death family
+ENOG4112CBD	V	HNH nuclease
+ENOG4112CWT	S	NA
+ENOG4112D71	K	Pathogenesis-related transcriptional factor and ERF protein
+ENOG4112D9G	T	response regulator
+ENOG4112DCP	S	outer membrane autotransporter barrel
