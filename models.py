@@ -98,11 +98,18 @@ class Sample(db.Model):
 
     @classmethod
     def all_from_sample_sets(self, sample_sets):
-        # Use only the annotations which has the highest total
         q = db.session.query(Sample).\
                 join(SampleSet).\
                 filter(Sample.sample_set_id == SampleSet.id).\
                 filter(SampleSet.name.in_(sample_sets))
+
+        return q.all()
+
+    @classmethod
+    def all_public_samples(self):
+        q = db.session.query(Sample).\
+                join(SampleSet).\
+                filter(SampleSet.public == True)
 
         return q.all()
 
