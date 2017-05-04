@@ -90,7 +90,7 @@ class SampleTestCase(unittest.TestCase):
 
     def test_sample_sampleset(self):
         #Test that sample and sample set references each other properly
-        sample_set = SampleSet("first_sampleset")
+        sample_set = SampleSet("first_sampleset", public=True)
         sample1 = Sample("P1993_101", sample_set, None)
 
         self.session.add(sample1)
@@ -99,7 +99,7 @@ class SampleTestCase(unittest.TestCase):
         # Sample sets relations are created
         assert Sample.query.filter_by(scilifelab_code='P1993_101').first().sample_set is sample_set
 
-        sample_set2 = SampleSet("second_sampleset")
+        sample_set2 = SampleSet("second_sampleset", public=True)
         sample2 = Sample("P1993_102", sample_set2, None)
         sample3 = Sample("P1993_103", sample_set, None)
         self.session.add(sample2)
@@ -135,6 +135,28 @@ class SampleTestCase(unittest.TestCase):
         assert sample1 in Sample.all_from_sample_sets(['second_sampleset', 'first_sampleset'])
         assert sample3 in Sample.all_from_sample_sets(['second_sampleset', 'first_sampleset'])
         assert sample2 in Sample.all_from_sample_sets(['second_sampleset', 'first_sampleset'])
+
+        sample_set3 = SampleSet("third_sampleset", public=False)
+        sample4 = Sample("P1994_104", sample_set3, None)
+        sample5 = Sample("P1994_105", sample_set3, None)
+        self.session.add(sample4)
+        self.session.add(sample5)
+
+        self.session.commit()
+
+        assert len(Sample.all_from_sample_sets(['second_sampleset', 'first_sampleset', 'third_sampleset'])) == 5
+        assert sample1 in Sample.all_from_sample_sets(['second_sampleset', 'first_sampleset', 'third_sampleset'])
+        assert sample3 in Sample.all_from_sample_sets(['second_sampleset', 'first_sampleset', 'third_sampleset'])
+        assert sample2 in Sample.all_from_sample_sets(['second_sampleset', 'first_sampleset', 'third_sampleset'])
+        assert sample4 in Sample.all_from_sample_sets(['second_sampleset', 'first_sampleset', 'third_sampleset'])
+        assert sample5 in Sample.all_from_sample_sets(['second_sampleset', 'first_sampleset', 'third_sampleset'])
+
+        assert len(Sample.all_public_samples()) == 3
+        assert sample1 in Sample.all_public_samples()
+        assert sample2 in Sample.all_public_samples()
+        assert sample3 in Sample.all_public_samples()
+        assert sample4 not in Sample.all_public_samples()
+        assert sample5 not in Sample.all_public_samples()
 
     def test_sample_timeplace(self):
         sample_set = SampleSet("first_sampleset")
