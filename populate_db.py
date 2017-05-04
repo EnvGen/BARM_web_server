@@ -27,7 +27,9 @@ def main(args):
     sample_sets = {}
     for sample_set_name, sample_set_df in sample_info.groupby('sample_set'):
         if len(SampleSet.query.filter_by(name=sample_set_name).all()) == 0:
-            sample_set = SampleSet(sample_set_name)
+            assert len(sample_set_df.public.unique() == 1)
+            public = sample_set_df.public.unique()[0]
+            sample_set = SampleSet(sample_set_name, public=public)
         for sample_id, row in sample_set_df.iterrows():
             sample_sets[sample_id] = sample_set
 
@@ -152,7 +154,7 @@ def main(args):
     annotations = []
     if args.tigrfam_annotation_info:
         # Columns:Id,Name,Description
-        annotation_info = pd.read_table(args.tigrfam_annotation_info)
+        annotation_info = pd.read_table(args.tigrfam_annotation_info, index_col=0)
 
         for ix, row in annotation_info.iterrows():
             new_object = TigrFam(type_identifier=str(ix), description= row['Description'])
