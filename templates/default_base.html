@@ -18,9 +18,34 @@
       <div class="navbar-header">
         <a class="navbar-brand">BalticMicrobeDB</a>
       </div>
+      <div id="navbar" class="navbar-collapse collapse">
+        <ul class="nav navbar-nav navbar-right">
+          <li>
+            {% if current_user.is_active %}
+            <a>Hi {{ current_user.email }}</a></li>
+              <li><form class="navbar-form">
+                <a class="btn btn-success" href={{ url_for("logout") }}>Sign Out</a>
+              </form>
+            {% else %}
+              <form class="navbar-form">
+                <a class="btn btn-success" href={{ url_for("google.login") }}>Sign in</a>
+              </form>
+            {% endif %}
+          </li>
+        </ul>
+      </div>
     </div>
   </nav>
   <div class="main-content">
+    {% with messages = get_flashed_messages(with_categories=true) %}
+      {% if messages %}
+        <ul class="flash">
+        {% for category, message in messages %}
+        <li><p class="{{ category }}">{{ message }}</p></li>
+        {% endfor %}
+        </ul>
+      {% endif %}
+    {% endwith %}
     {% block body %}
     {% endblock body %}
   </div>

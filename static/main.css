@@ -40,3 +40,8 @@ footer img.square {
   width: 50px;
   height: 50px;
 }
+
+.flash > li > p {
+  font-size: 300%;
+  text-align: center;
+}

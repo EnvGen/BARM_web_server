@@ -1,30 +1,63 @@
 from app import db
 import sqlalchemy
-from sqlalchemy import not_
+from sqlalchemy import not_, inspect
 from materialized_view_factory import MaterializedView, create_mat_view
 import collections
 import re
+from flask_dance.consumer.backend.sqla import OAuthConsumerMixin
 
 user_to_sampleset = db.Table('user_to_sampleset',
     db.Column('user_id', db.Integer, db.ForeignKey('user.id')),
     db.Column('sample_set_id', db.Integer, db.ForeignKey('sample_set.id'))
 )
 
+
 class User(db.Model):
     __tablename__ = 'user'
 
     id = db.Column(db.Integer, primary_key=True)
-    email = db.Column(db.String())
-    name = db.Column(db.String())
+    email = db.Column(db.String(), unique=True)
 
     sample_sets = db.relationship('SampleSet', secondary=user_to_sampleset)
 
-    def __init__(self, name, email):
-        self.name = name
+    def __init__(self, email):
         self.email = email
 
     def private_sample_sets(self):
         return [sample_set for sample_set in self.sample_sets if not sample_set.public]
+
+    @property
+    def is_authenticated(self):
+        # No user object will be created without authentication first
+        return True
+
+    @property
+    def is_active(self):
+        # All users are active at the moment
+        return True 
+
+    @property
+    def is_anonymous(self):
+        return not inspect(self).persistent
+
+    def get_id(self):
+        # email should be unique
+        return self.email
+
+    @classmethod
+    def get_from_email(self, email):
+        q = db.session.query(User).\
+                filter(User.email == email)
+        users = q.all()
+        if len(users) == 0:
+            return None
+        else:
+            return users[0]
+
+class OAuth(OAuthConsumerMixin, db.Model):
+    __tablename__ = 'oauth'
+    user_id = db.Column(db.Integer, db.ForeignKey(User.id))
+    user = db.relationship(User)
 
 class SampleSet(db.Model):
     __tablename__ = 'sample_set'

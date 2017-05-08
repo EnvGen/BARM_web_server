@@ -32,6 +32,8 @@ class CreateDB(Command):
         check_call(["python", "manage.py", "db", "upgrade"])
         print("Migrate")
         check_call(["python", "manage.py", "db", "migrate"])
+        print("Upgrade")
+        check_call(["python", "manage.py", "db", "upgrade"])
         print("Populate db")
         check_call(["time", "python", "populate_db.py", \
             "--sample_info",  "data/{0}/{1}/sample_info.csv".format(data, sample_set), \
