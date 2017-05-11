@@ -324,13 +324,13 @@ def main(args):
     sample_id_cols.remove('gene_id')
     sample_id_cols.remove('gene_name')
     sample_id_cols.remove('gene_length')
+    tot_nr_samples = len(sample_id_cols)
 
     filtered_gene_counts.index = filtered_gene_counts['gene_id']
     filtered_gene_counts = pd.DataFrame(filtered_gene_counts[sample_id_cols].stack())
     filtered_gene_counts.reset_index(inplace=True)
     filtered_gene_counts.columns = ['gene_id', 'sample_id', 'rpkm']
 
-    tot_nr_samples = len(all_samples.values())
     logging.info("Start adding gene counts")
 
     for i, sample_t in enumerate(filtered_gene_counts.groupby('sample_id')):

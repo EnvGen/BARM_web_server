@@ -22,7 +22,6 @@ class CreateDB(Command):
             )
 
     def run(self, db, data, sample_set, root_path):
-        assert db in ['barm_web_dev', 'barm_web_test_integration']
         assert os.environ['DATABASE_URL'].endswith(db)
         print("Drop db")
         check_call(["sudo", "-u", "postgres", "/Library/PostgreSQL/9.4/bin/psql", "-c", "DROP DATABASE {};".format(db)])
@@ -53,7 +52,7 @@ class CreateDB(Command):
             "--metadata_reference", "data/{}/metadata_reference.tsv".format(data), \
             "--reference_assembly", "megahit_coassembly.0", \
             "--tmp_file", "{}/data/{}/tmp_file.csv".format(root_path, data), \
-            "--taxonomy_per_gene", "{}/data/{}/lca_megan.tsv".format(root_path, data)])
+            "--taxonomy_per_gene", "{}/data/{}/lca_script.tsv".format(root_path, data)])
 
 class AddSampleSetCounts(Command):
     "Populates a db with new sample set counts"
