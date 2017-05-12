@@ -1,4 +1,19 @@
-time python populate_db.py --sample_info data/stage/samples.csv --all_annotations data/stage/all_annotations.tsv --annotation_source_info data/stage/annotation_source_info.csv --gene_annotations_cog data/stage/megahit_coassembly.0.COG.tsv --gene_annotations_pfam data/stage/megahit_coassembly.0.PFAM.tsv --gene_annotations_tigrfam data/stage/megahit_coassembly.0.TIGR.tsv --reference_assembly "megahit_coassembly.0" --gene_counts data/stage/rpkm_table.tsv --metadata_reference data/stage/metadata_reference.tsv --tmp_file /Users/johannesalneberg/repos/BARM_web_server/data/stage/tmp_file.csv --taxonomy_per_gene ~/repos/BARM_web_server/data/stage/lca_megan.tsv
+time python populate_db.py --sample_info data/stage/lmo/sample_info.csv \
+    --pfam_annotation_info data/stage/annotation_info/all_pfam_annotation_info.tsv \
+    --eggnog_category_info data/stage/annotation_info/eggnog_categories.tsv \
+    --eggnog_annotation_info data/stage/annotation_info/all_EggNOG_annotation_info.tsv \
+    --ec_annotation_info data/stage/annotation_info/all_EC_annotation_info.tsv \
+    --dbcan_annotation_info data/stage/annotation_info/all_dbCAN_annotation_info.tsv \
+    --annotation_source_info data/stage/annotation_source_info.csv \
+    --gene_annotations_pfam data/stage/annotations/all.pfam.standardized.tsv \
+    --gene_annotations_eggnog data/stage/annotations/all.EggNOG.standardized.tsv \
+    --gene_annotations_ec data/stage/annotations/all.EC.standardized.tsv \
+    --gene_annotations_dbcan data/stage/all.dbCAN.standardized.tsv \
+    --reference_assembly "megahit_coassembly.0" \
+    --gene_counts data/stage/lmo/all_genes.tpm.tsv.gz \
+    --metadata_reference data/stage/metadata_reference.tsv \
+    --tmp_file /Users/johannesalneberg/repos/BARM_web_server/data/stage/tmp_file.csv \
+    --taxonomy_per_gene ~/repos/BARM_web_server/data/stage/lca_megan.tsv
 
 time python populate_db.py --sample_info data/test/samples.csv --all_annotations data/test/all_annotations.tsv --annotation_source_info data/test/annotation_source_info.csv --gene_annotations_cog data/test/megahit_coassembly.0.COG.tsv --gene_annotations_pfam data/test/megahit_coassembly.0.PFAM.tsv --gene_annotations_tigrfam data/test/megahit_coassembly.0.TIGR.tsv --reference_assembly "megahit_coassembly.0" --gene_counts data/test/rpkm_table.tsv --metadata_reference data/test/metadata_reference.tsv --tmp_file /Users/johannesalneberg/repos/BARM_web_server/data/test/tmp_file.csv --taxonomy_per_gene data/test/lca_megan.tsv
 

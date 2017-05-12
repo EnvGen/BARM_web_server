@@ -1,28 +1,84 @@
 from app import db
 import sqlalchemy
-from sqlalchemy import not_
+from sqlalchemy import not_, inspect
 from materialized_view_factory import MaterializedView, create_mat_view
 import collections
 import re
+from flask_dance.consumer.backend.sqla import OAuthConsumerMixin
 
-##########
-# Sample #
-##########
+user_to_sampleset = db.Table('user_to_sampleset',
+    db.Column('user_id', db.Integer, db.ForeignKey('user.id')),
+    db.Column('sample_set_id', db.Integer, db.ForeignKey('sample_set.id'))
+)
+
+
+class User(db.Model):
+    __tablename__ = 'user'
+
+    id = db.Column(db.Integer, primary_key=True)
+    email = db.Column(db.String(), unique=True)
+
+    sample_sets = db.relationship('SampleSet', secondary=user_to_sampleset)
+
+    def __init__(self, email):
+        self.email = email
+
+    def private_sample_sets(self):
+        return [sample_set for sample_set in self.sample_sets if not sample_set.public]
+
+    @property
+    def is_authenticated(self):
+        # No user object will be created without authentication first
+        return True
+
+    @property
+    def is_active(self):
+        # All users are active at the moment
+        return True 
+
+    @property
+    def is_anonymous(self):
+        return not inspect(self).persistent
+
+    def get_id(self):
+        # email should be unique
+        return self.email
+
+    @classmethod
+    def get_from_email(self, email):
+        q = db.session.query(User).\
+                filter(User.email == email)
+        users = q.all()
+        if len(users) == 0:
+            return None
+        else:
+            return users[0]
+
+class OAuth(OAuthConsumerMixin, db.Model):
+    __tablename__ = 'oauth'
+    user_id = db.Column(db.Integer, db.ForeignKey(User.id))
+    user = db.relationship(User)
 
 class SampleSet(db.Model):
     __tablename__ = 'sample_set'
 
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String())
+    public = db.Column(db.Boolean())
 
-
-
-    def __init__(self, name):
+    def __init__(self, name, public=False):
         self.name = name
+        self.public = public
 
     def __repr__(self):
         return '<SampleSet {}>'.format(self.id)
 
+    @classmethod
+    def all_public(self):
+        q = db.session.query(SampleSet).\
+                filter(SampleSet.public == True)
+
+        return q.all()
 
 class TimePlace(db.Model):
     __tablename__ = 'time_place'
@@ -75,11 +131,18 @@ class Sample(db.Model):
 
     @classmethod
     def all_from_sample_sets(self, sample_sets):
-        # Use only the annotations which has the highest total
         q = db.session.query(Sample).\
                 join(SampleSet).\
                 filter(Sample.sample_set_id == SampleSet.id).\
                 filter(SampleSet.name.in_(sample_sets))
+
+        return q.all()
+
+    @classmethod
+    def all_public_samples(self):
+        q = db.session.query(Sample).\
+                join(SampleSet).\
+                filter(SampleSet.public == True)
 
         return q.all()
 
@@ -522,6 +585,7 @@ class Annotation(db.Model):
             return self.description
 
     __mapper_args__ = {
+
             'polymorphic_identity': 'annotation',
             'polymorphic_on': annotation_type
         }
@@ -541,6 +605,43 @@ class RpkmTable(MaterializedView):
 
 
 db.Index('rpkm_table_mv_id_idx', RpkmTable.annotation_id, RpkmTable.sample_id, unique=True)
+
+eggnog_to_category = db.Table('eggnog_to_category',
+    db.Column('eggnog_category_id', db.Integer, db.ForeignKey('eggnog_category.id')),
+    db.Column('eggnog_id', db.Integer, db.ForeignKey('eggnog.id'))
+)
+
+class EggNOGCategory(db.Model):
+    __tablename__ = 'eggnog_category'
+    __table_args__ = (
+        db.UniqueConstraint('category', name='eggnog_category_unique'),
+    )
+    id = db.Column(db.Integer, primary_key=True)
+
+    category = db.Column(db.String)
+    description = db.Column(db.String(4000))
+
+    def __init__(self, category, description):
+        self.category = category
+        self.description = description
+
+class EggNOG(Annotation):
+    __tablename__ = 'eggnog'
+    id = db.Column(db.Integer, db.ForeignKey("annotation.id"),
+            primary_key=True)
+    categories = db.relationship('EggNOGCategory', secondary=eggnog_to_category)
+
+    def __init__(self, type_identifier, categories, **kwargs):
+        super().__init__(type_identifier, **kwargs)
+        self.categories = categories
+
+    __mapper_args__ = {
+            'polymorphic_identity':'eggnog'
+        }
+
+    @property
+    def external_link(self):
+        return "http://eggnogdb.embl.de/#/app/home"
 
 class Cog(Annotation):
     __tablename__ = 'cog'
@@ -602,7 +703,8 @@ class EcNumber(Annotation):
     fourth_digit = db.Column(db.Integer, index=True)
 
     def __init__(self, type_identifier, **kwargs):
-        super().__init__(type_identifier, **kwargs)
+        new_kwargs = {key: value for key, value in kwargs.items() if key not in set(['first_digit', 'second_digit', 'third_digit', 'fourth_digit'])}
+        super().__init__(type_identifier, **new_kwargs)
         ec_digits = self.type_identifier.split('.')
         digit_translation_d = {
                 0: self.first_digit,
@@ -619,3 +721,8 @@ class EcNumber(Annotation):
     __mapper_args__ = {
             'polymorphic_identity': 'ecnumber'
         }
+
+    @property
+    def external_link(self):
+        return "http://enzyme.expasy.org/"
+
