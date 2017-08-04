@@ -228,6 +228,16 @@ def functional_table():
             r.headers["Content-Disposition"] = "attachment; filename=gene_list.csv"
             r.headers["Content-Type"] = "text/csv"
             return r
+        elif download_select == 'Annotation Counts':
+            csv_output = 'annotation_id' + ',' + \
+            ','.join([sample.scilifelab_code for sample in samples]) \
+            + '\n'
+            csv_output += '\n'.join(
+                    [annotation.type_identifier + ',' + ','.join([str(sample_d[sample]) for sample in samples]) for annotation, sample_d in table.items()])
+            r = make_response(csv_output)
+            r.headers["Content-Disposition"] = "attachment; filename=annotation_counts.csv"
+            r.headers["Content-Type"] = "text/csv"
+            return r
     return render_template('functional_table.html',
             table=table,
             samples=samples,
