@@ -233,7 +233,7 @@ def functional_table():
             ','.join([sample.scilifelab_code for sample in samples]) \
             + '\n'
             csv_output += '\n'.join(
-                    [annotation.type_identifier + ',' + ','.join([str(sample_d[sample]) for sample in samples]) for annotation, sample_d in table.items()])
+                    [annotation.type_identifier + ',' + ','.join(["{:0.2f}".format(sample_d[sample]) for sample in samples]) for annotation, sample_d in table.items()])
             r = make_response(csv_output)
             r.headers["Content-Disposition"] = "attachment; filename=annotation_counts.csv"
             r.headers["Content-Type"] = "text/csv"
