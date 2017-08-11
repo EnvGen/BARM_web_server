@@ -47,8 +47,8 @@ class SampleTestCase(unittest.TestCase):
         assert set3 not in SampleSet.all_public()
 
     def test_user(self):
-        user1 = User("johannes", "johannes@example.com")
-        user2 = User("johannes2", "johannes2@example.com")
+        user1 = User("johannes@example.com")
+        user2 = User("johannes2@example.com")
         self.session.add(user1)
         self.session.add(user2)
         self.session.commit()
