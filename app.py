@@ -107,6 +107,24 @@ def taxon_tree_nodes(parent_level, parent_value):
                     node_level=child_level,
                     node_values=child_values)
 
+
+@app.route('/ajax/taxon_tree_nodes_for_table/<string:parent_level>/<string:parent_value>')
+def taxon_tree_nodes_for_table(parent_level, parent_value):
+    child_level, child_values = Taxon.tree_nodes(parent_level, parent_value)
+    return render_template('taxon_tree_nodes_for_table.html',
+                    node_level=child_level,
+                    node_values=child_values)
+
+@app.route('/ajax/taxon_tree_table_row/<string:level>/<string:complete_taxonomy>')
+def taxon_tree_table_row(level, complete_taxonomy):
+    samples, rpkm_row, complete_val_to_val = Taxon.rpkm_table_row(level, complete_taxonomy)
+    rpkm_row['complete_taxonomy_id'] = complete_taxonomy.replace(';','-')
+    return render_template('taxon_tree_table_row.html',
+            complete_taxon = complete_taxonomy,
+            complete_val_to_val = complete_val_to_val,
+            samples = samples,
+            table_row=rpkm_row)
+
 @app.route('/taxonomy_tree', methods=['GET'])
 def taxonomy_tree():
     node_level = "superkingdom"
@@ -114,6 +132,30 @@ def taxonomy_tree():
     return render_template('taxon_tree.html',
             node_level = node_level,
             node_values = node_values
+        )
+
+
+@app.route('/taxonomy_tree_table', methods=['GET'])
+def taxonomy_tree_table():
+    node_level = "superkingdom"
+    node_values = Taxon.top_entry_taxa()
+
+    taxon_level = 'superkingdom'
+    parent_values = None
+    limit = 20
+
+    sample_scilifelab_codes = [s.scilifelab_code for s in Sample.query.all()]
+    samples, table, complete_val_to_val = Taxon.rpkm_table(level=node_level, top_level_complete_values=parent_values, limit=limit)
+    for complete_taxon, table_row in table.items():
+        table_row['complete_taxonomy_id'] = complete_taxon.replace(';','-')
+
+    return render_template('taxon_tree_table.html',
+            node_level = node_level,
+            node_values = node_values,
+            table=table,
+            samples=samples,
+            sample_scilifelab_codes = sample_scilifelab_codes,
+            complete_val_to_val=complete_val_to_val,
         )
 
 @app.route('/taxonomy_table', methods=['GET'])

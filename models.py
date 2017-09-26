@@ -359,6 +359,24 @@ class Taxon(db.Model):
             raise ValueError
 
     @classmethod
+    def rpkm_table_row(self, level="superkingdom", complete_taxonomy=None):
+        filter_level = "up_to_" + level
+        q_first = db.session.query(Sample.scilifelab_code, sqlalchemy.func.sum(TaxonRpkmTable.rpkm)).\
+                filter(TaxonRpkmTable.taxon_id == Taxon.id).\
+                group_by(getattr(Taxon, filter_level)).\
+                group_by(Sample.id).\
+                filter(Sample.id == TaxonRpkmTable.sample_id).\
+                filter(getattr(Taxon, filter_level) == complete_taxonomy)
+
+        table_row = dict(q_first.all())
+
+        samples = sorted(table_row.keys())
+        complete_val_to_val = {}
+        level_val = complete_taxonomy.split(';')[-1]
+        complete_val_to_val[complete_taxonomy] = level_val
+        return samples, table_row, complete_val_to_val
+
+    @classmethod
     def rpkm_table(self, level="superkingdom", top_level_complete_values=None, top_level=None, samples=None, limit=20):
         filter_level = "up_to_" + level
         q_first = db.session.query(getattr(Taxon, filter_level), sqlalchemy.func.sum(TaxonRpkmTable.rpkm)).\
