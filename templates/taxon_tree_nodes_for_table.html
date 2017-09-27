@@ -1,0 +1,10 @@
+<ul>
+  {% for node_name, node_taxonomy in node_values %}
+  <li>
+    <i class="glyphicon glyphicon-plus" full_taxonomy="{{node_taxonomy}}", taxonomy_level="{{node_level}}"></i> </i>
+    <a class='node_name'>{{ node_name }}</a>
+    <ul>
+    </ul>
+  </li>
+  {% endfor %}
+</ul>

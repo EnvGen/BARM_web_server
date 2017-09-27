@@ -45,3 +45,7 @@ footer img.square {
   font-size: 300%;
   text-align: center;
 }
+
+.glyphicon-remove {
+  color: Tomato;
+}

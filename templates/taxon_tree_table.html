@@ -1,0 +1,138 @@
+{% extends "default_base.html" %}
+
+
+{% block body %}
+
+<div class="row">
+  <div class="col-md-3">
+    <h3>Click on plus-sign to expand</h3>
+    <div id="expList">
+      {% include 'taxon_tree_nodes_for_table.html' %}
+    </div>
+  </div>
+  <div class="col-md-9">
+    <h3>This is the Table</h3>
+    <div id="taxon_actual_table" class="container-fluid">
+      <table class="table" id="taxonomy_table" current_taxon_level="{{current_level}}">
+      <thead>
+        <tr>
+          <th></th>
+          <th>Taxonomy</th>
+          {% for sample in samples %}
+          <th>
+            <a href="#" data-toggle="tooltip" data-title="{% include 'sample_info_tooltip.html' %}" data-html="true">{{sample.scilifelab_code}}</a>
+          </th>
+          {% endfor %}
+        </tr>
+      </thead>
+      <tbody class='rpkm_values_tbody'>
+      {% for complete_taxon, table_row in table.items() %}
+        {% include 'taxon_tree_table_row.html' %}
+      {% endfor %}
+      </tbody>
+    </table>
+    <div id="result"></div>
+    </div>
+    <script>
+      generate_sparkline();
+    </script>
+  </div>
+</div>
+
+<script type=text/javascript>
+  function what_happens_when_clicking(i_tag) {
+      var li_tag = $(i_tag).parent();
+      
+      function get_new_node_list(ul_tag) {
+        var node_taxonomy = $(i_tag).attr("full_taxonomy")
+        var taxonomy_level = $(i_tag).attr("taxonomy_level")
+        $.get("ajax/taxon_tree_nodes_for_table/" + taxonomy_level + "/" + node_taxonomy, function(data){
+          $(ul_tag).replaceWith(data);
+          $(li_tag).children("ul").find("i").click(function() {
+            var i_tag = this;
+            what_happens_when_clicking(i_tag)
+          });
+          $(li_tag).children("ul").find("a").click(function() {
+            var a_tag = this;
+            add_or_remove_table_row(a_tag);
+          });
+        });
+      };
+      
+      $(i_tag).toggleClass("glyphicon-plus");
+      $(i_tag).toggleClass("glyphicon-minus");
+      if (!$(li_tag).hasClass("expanded")) {
+        get_new_node_list($(li_tag).children("ul"));
+      } else {
+        $(li_tag).children("ul").toggle("medium")
+      }
+      $(li_tag).toggleClass("expanded")
+  }
+
+  $(function() {
+    $("#expList").find("li").find("i").unbind("click").click(function() {
+      var i_tag = this;
+      what_happens_when_clicking(i_tag);
+    });
+  });
+
+  function remove_row(taxonomy_id) {
+    $('.rpkm_values_tbody').children('#' + taxonomy_id).remove();
+  }
+
+  function add_row(full_taxonomy, taxonomy_level) {
+    $.when(
+      $.get("ajax/taxon_tree_table_row/" + taxonomy_level + "/" + full_taxonomy, function(data){
+        $('.rpkm_values_tbody').append(data);
+      })
+    ).then(function() {
+      new_table_row_added();
+    });
+  }
+
+  function replace_chars_for_tax_id(full_taxonomy) {
+    var taxonomy_id = full_taxonomy.replace(/;/g, '-').replace(/ /g, '_');
+    return taxonomy_id;
+  };
+
+  function add_or_remove_table_row(a_tag) {
+    var li_tag = $(a_tag).parent();
+    var full_taxonomy = $(li_tag).children("i").attr("full_taxonomy");
+    var taxonomy_level = $(li_tag).children("i").attr("taxonomy_level");
+    var taxonomy_id = replace_chars_for_tax_id(full_taxonomy);
+
+    if($('.rpkm_values_tbody').children('#' + taxonomy_id).length == 0) {
+      add_row(full_taxonomy, taxonomy_level);
+    } else {
+      remove_row(taxonomy_id);
+    }
+  };
+
+  function new_table_row_added() {
+    $(".rpkm_values_tbody").find("tr").find("td").find(".glyphicon-remove").unbind("click").click(function() {
+      var i_tag = this;
+      var full_taxonomy = $(i_tag).attr('full_taxonomy');
+      var taxonomy_id = replace_chars_for_tax_id(full_taxonomy);
+      remove_row(taxonomy_id);
+    });
+    enable_tooltip();
+  };
+
+  $(function() {
+    $("#expList").find("li").find("a").unbind("click").click(function() {
+      var a_tag = this;
+      /* Find out whether row is present in table */
+      add_or_remove_table_row(a_tag);
+    });
+  });
+
+  function enable_tooltip() {
+    $('[data-toggle="tooltip"]').tooltip();
+  }
+
+  $(document).ready(function() {
+      new_table_row_added();
+  });
+
+</script>
+{% endblock body %}

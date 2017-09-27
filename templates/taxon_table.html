@@ -26,6 +26,7 @@
       </div>
     </div>
     <input class="btn btn-default" id="updateTaxonTable" type="button" value="Update" onclick="fetch_new_table_data()"/>
+    <input class="btn btn-default" id="updateRowNumber" type="button" value="Update Nr Rows" onclick="adjust_nr_of_rows()"/>
   </div>
 </form>
 <button class="btn btn-default" id="toggle_full_taxonomy" value='show'>Show Full Taxonomy</button>
@@ -100,6 +101,12 @@
         }
       });
   });
+
+  function adjust_nr_of_rows() {
+    var row_limit = $( "#row_limit_select" ).val();
+    window.location.search = jQuery.query.set("row_limit", row_limit);
+    window.location.reload();
+  };
 
   function fetch_new_table_data() {
     var taxon_level = $( "#taxon_level_select" ).val();
