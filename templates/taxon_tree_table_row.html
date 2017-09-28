@@ -1,0 +1,16 @@
+<tr id={{table_row['complete_taxonomy_id']}}>
+  <td>
+    <i class="glyphicon glyphicon-remove" full_taxonomy="{{complete_taxon}}"></i> </i>
+  </td>
+  <td>
+    <nobr>
+      <label>
+        <a href="#" data-toggle="tooltip" data-title="{{complete_taxon}}" data-html="true">{{complete_val_to_val[complete_taxon]}}</a>
+      </label>
+    </nobr>
+  </td>
+  <td class='sparkline_column' data-sparkline="{% for sample in samples %} {{table_row[sample] | round(4)}}, {% endfor %}"></td>
+  {% for sample in samples %}
+    <td class="rpkm_value">{{table_row[sample] | round(4)}}</td>
+  {% endfor %}
+</tr>

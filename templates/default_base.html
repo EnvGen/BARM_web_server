@@ -16,11 +16,20 @@
   <nav class="navbar navbar-inverse navbar-fixed-top">
     <div class="container">
       <div class="navbar-header">
-        <a class="navbar-brand">BalticMicrobeDB</a>
+        <a href='/' class="navbar-brand">BalticMicrobeDB</a>
       </div>
     </div>
   </nav>
   <div class="main-content">
+    {% with messages = get_flashed_messages(with_categories=true) %}
+      {% if messages %}
+        <ul class="flash">
+        {% for category, message in messages %}
+        <li><p class="{{ category }}">{{ message }}</p></li>
+        {% endfor %}
+        </ul>
+      {% endif %}
+    {% endwith %}
     {% block body %}
     {% endblock body %}
   </div>
@@ -32,7 +41,7 @@
     <p>
       <div class="row">
         <div class="col-md-8">
-          <p>&copy; 2016 Johannes Alneberg, Anders F. Andersson and the <a href="http://blueprint-project.org/">BLUEPRINT Project</a>
+          <p>&copy; 2016 Johannes Alneberg, Anders F. Andersson and the <a href="http://blueprint-project.org/">BLUEPRINT Project</a></p>
         </div>
         <div class="col-md-4">
           <img src="{{ url_for('static', filename='images/eu.png') }}" class="rectangle">

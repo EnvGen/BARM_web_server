@@ -3,7 +3,7 @@ import urllib
 import app
 from selenium import webdriver
 from selenium.webdriver.common.by import By
-from selenium.common.exceptions import NoSuchElementException
+from selenium.common.exceptions import NoSuchElementException, MoveTargetOutOfBoundsException
 from selenium.webdriver.support.ui import Select
 from selenium.webdriver.common.action_chains import ActionChains
 from selenium.webdriver.firefox.firefox_profile import FirefoxProfile
@@ -38,7 +38,7 @@ class SampleTestCase(unittest.TestCase):
             new_profile.default_preferences['browser.download.folderList'] = 2
             new_profile.default_preferences['browser.helperApps.neverAsk.saveToDisk'] = 'text/csv'
             self.driver = webdriver.Firefox(firefox_profile=new_profile)
-            self.driver.set_window_size(2024,1768)
+            #self.driver.set_window_size(2024,1768)
             self.action_chains = ActionChains(self.driver)
 
         self.client = app.app.test_client()
@@ -69,8 +69,16 @@ class SampleTestCase(unittest.TestCase):
         self.action_chains.move_to_element(element)
         self.action_chains.perform()
 
-    def mouse_out(self):
-        self.action_chains.move_by_offset(5000, 5000)
+    def mouse_out(self, element):
+        window_size_x = self.driver.get_window_size()['width']
+        window_size_y = self.driver.get_window_size()['height']
+        position_x, position_y = element.location['x'], element.location['y']
+        x_offset, y_offset = 300,300
+        if window_size_x < position_x + 300:
+            x_offset = -300
+        if window_size_y < position_y + 300:
+            y_offset = -300
+        self.action_chains.move_by_offset(x_offset, y_offset)
         self.action_chains.perform()
 
     def test_front_page(self):
@@ -80,6 +88,7 @@ class SampleTestCase(unittest.TestCase):
 
         assert self.is_text_present("Functional")
         self.driver.find_element(by=By.ID, value='link_to_functional').click()
+        time.sleep(1)
         assert self.driver.current_url == url + 'functional_table'
 
 
@@ -106,10 +115,10 @@ class SampleTestCase(unittest.TestCase):
 
         # Verify the search term filtering
         self.find_by_value(value="filter_with_search")[0].click()
-        self.driver.find_element(by=By.ID, value='search_annotations').send_keys("glycosy")
+        self.driver.find_element(by=By.ID, value='search_annotations').send_keys("glycosyl hydro")
         time.sleep(2) # wait for search result to load
         self.driver.execute_script("window.scrollTo(0,400)")
-        assert self.is_text_present("Showing 8 out of 8 in total")
+        assert self.is_text_present("Showing 4 out of 4 in total")
 
         self.driver.find_element(by=By.ID, value='submit_view').click()
 
@@ -117,7 +126,7 @@ class SampleTestCase(unittest.TestCase):
         # There are only six of these which is present as annotations
         # in the test result
         rpkm_tbody = self.driver.find_elements(by=By.CLASS_NAME, value='rpkm_values_tbody')[0]
-        assert len(rpkm_tbody.find_elements(by=By.TAG_NAME, value= 'tr')) == 6 # only showing the filtered rows
+        assert len(rpkm_tbody.find_elements(by=By.TAG_NAME, value= 'tr')) == 4 # only showing the filtered rows
 
     def test_filtering_type_identifier(self):
         url = "http://localhost:5000/functional_table"
@@ -128,10 +137,11 @@ class SampleTestCase(unittest.TestCase):
 
         # Verify the type identifiers filtering
         self.find_by_value("filter_with_type_identifiers")[0].click()
-        self.driver.find_element(by=By.ID, value='type_identifiers-0').send_keys('pfam00535')
+        self.driver.find_element(by=By.ID, value='type_identifiers-0').send_keys('PF00535')
 
         self.driver.find_element(by=By.ID, value='submit_view').click()
-        assert self.is_text_present("pfam00535")
+        time.sleep(1) # The accordion takes some time to unfold
+        assert self.is_text_present("PF00535")
         rpkm_tbody = self.driver.find_elements(by=By.CLASS_NAME, value='rpkm_values_tbody')[0]
         assert len(rpkm_tbody.find_elements(by=By.TAG_NAME, value='tr')) == 1
 
@@ -144,7 +154,7 @@ class SampleTestCase(unittest.TestCase):
         self.driver.find_element(by=By.ID, value='type_identifiers-1').send_keys('TIGR01420')
 
         self.driver.find_element(by=By.ID, value='submit_view').click()
-        assert "pfam00535" in self.driver.find_elements(by=By.TAG_NAME, value='table')[0].text
+        assert "PF00535" in self.driver.find_elements(by=By.TAG_NAME, value='table')[0].text
         assert "TIGR01420" in self.driver.find_elements(by=By.TAG_NAME, value='table')[0].text
         rpkm_tbody = self.driver.find_elements(by=By.CLASS_NAME, value='rpkm_values_tbody')[0]
         assert len(rpkm_tbody.find_elements(by=By.TAG_NAME, value='tr')) == 2
@@ -153,21 +163,22 @@ class SampleTestCase(unittest.TestCase):
         url = "http://localhost:5000/functional_table"
         self.driver.get(url)
 
-        self.mouse_over(self.driver.find_elements(by=By.LINK_TEXT, value='COG0059')[0])
+        element = self.driver.find_elements(by=By.LINK_TEXT, value='6.1.1.4')[0]
+        self.mouse_over(element)
         time.sleep(1)
-        assert self.is_text_present("Ketol-acid reductoisomerase [Amino acid transport and metabolism")
+        assert self.is_text_present("Leucine--tRNA ligase")
 
-        self.mouse_out()
+        self.mouse_out(element)
         time.sleep(1)
-        assert not self.is_text_present("Ketol-acid reductoisomerase [Amino acid transport and metabolism")
-
-        self.driver.find_element(by=By.ID, value='toggle_description_column').click()
-        time.sleep(1)
-        assert self.is_text_present("Ketol-acid reductoisomerase [Amino acid transport and metabolism")
+        assert not self.is_text_present("Leucine--tRNA ligase")
 
         self.driver.find_element(by=By.ID, value='toggle_description_column').click()
         time.sleep(1)
-        assert not self.is_text_present("Ketol-acid reductoisomerase [Amino acid transport and metabolism")
+        assert self.is_text_present("Leucine--tRNA ligase")
+
+        self.driver.find_element(by=By.ID, value='toggle_description_column').click()
+        time.sleep(1)
+        assert not self.is_text_present("Leucine--tRNA ligase")
 
 
 
@@ -176,29 +187,30 @@ class SampleTestCase(unittest.TestCase):
         self.driver.get(url)
         self.driver.find_elements(by=By.LINK_TEXT, value="Table")[0].click()
 
-        assert not self.is_text_present("2014-06-08")
-        assert not self.is_text_present("16.3665")
-        self.mouse_over(self.driver.find_elements(by=By.LINK_TEXT, value='P1994_119')[0])
+        assert not self.is_text_present("2012-08-06")
+        assert not self.is_text_present("17.06204")
+        element = self.driver.find_elements(by=By.LINK_TEXT, value='120806')[0]
+        self.mouse_over(self.driver.find_elements(by=By.LINK_TEXT, value='120806')[0])
         time.sleep(1)
-        assert self.is_text_present("2014-06-08")
-        assert self.is_text_present("16.3665")
+        assert self.is_text_present("2012-08-06")
+        assert self.is_text_present("17.06204")
 
-        self.mouse_out()
+        self.mouse_out(element)
         time.sleep(1)
 
-        assert not self.is_text_present("2014-06-08")
-        assert not self.is_text_present("16.3665")
+        assert not self.is_text_present("2012-08-06")
+        assert not self.is_text_present("17.06204")
 
         self.driver.find_element(by=By.ID, value='toggle_sample_description').click()
         time.sleep(1)
 
-        assert self.is_text_present("2014-06-08")
-        assert self.is_text_present("16.3665")
+        assert self.is_text_present("2012-08-06")
+        assert self.is_text_present("17.06204")
 
         self.driver.find_element(by=By.ID, value='toggle_sample_description').click()
         time.sleep(1)
-        assert not self.is_text_present("2014-06-08")
-        assert not self.is_text_present("16.3665")
+        assert not self.is_text_present("2012-08-06")
+        assert not self.is_text_present("17.06204")
 
     def test_filter_samples(self):
         url = "http://localhost:5000/functional_table"
@@ -207,8 +219,9 @@ class SampleTestCase(unittest.TestCase):
         self.driver.find_elements(by=By.LINK_TEXT, value="Table")[0].click()
 
         # This sample should disappear after filtering
-        assert self.is_text_present("120813")
-        assert self.is_text_present("P1994_119")
+        assert self.is_text_present("120717")
+        assert self.is_text_present("120802")
+        assert self.is_text_present("120806")
 
         self.driver.find_element(by=By.ID, value="filter_accordion").click()
         time.sleep(1) # The accordion takes some time to unfold
@@ -218,11 +231,13 @@ class SampleTestCase(unittest.TestCase):
 
         self.driver.find_element(by=By.ID, value='submit_view').click()
         self.driver.find_elements(by=By.LINK_TEXT, value="Table")[0].click()
+        assert self.is_text_present("P2236_101")
+        assert self.is_text_present("P2236_102")
         assert self.is_text_present("P2236_103")
         assert self.is_text_present("P2236_104")
-        assert self.is_text_present("P2236_105")
-        assert not self.is_text_present("120813")
-        assert not self.is_text_present("P1994_119")
+        assert not self.is_text_present("120717")
+        assert not self.is_text_present("120802")
+        assert not self.is_text_present("120806")
 
         self.driver.find_element(by=By.ID, value="filter_accordion").click()
         time.sleep(1) # The accordion takes some time to unfold
@@ -234,11 +249,13 @@ class SampleTestCase(unittest.TestCase):
 
         self.driver.find_element(by=By.ID, value='submit_view').click()
         self.driver.find_elements(by=By.LINK_TEXT, value="Table")[0].click()
+        assert self.is_text_present("P2236_101")
+        assert self.is_text_present("P2236_102")
         assert self.is_text_present("P2236_103")
         assert self.is_text_present("P2236_104")
-        assert self.is_text_present("P2236_105")
-        assert self.is_text_present("120813")
-        assert not self.is_text_present("P1994_119")
+        assert self.is_text_present("120717")
+        assert self.is_text_present("120802")
+        assert self.is_text_present("120806")
 
 
     def test_download_gene_list(self):
@@ -258,15 +275,13 @@ class SampleTestCase(unittest.TestCase):
             gene_list = os.path.join(DOWNLOAD_DIR, 'gene_list.csv')
             assert os.path.isfile(gene_list)
             df = pandas.read_table(gene_list, sep=',', header=None, names=['gene_name', 'type_identifier'])
-            assert len(df) == 24
+            print(len(df))
+            assert len(df) == 76
             assert len(df.columns) == 2
             assert len(df['type_identifier'].unique()) == 20
-            assert df.ix[0]['gene_name'] == 'PROKKA_MOD_PART0_00096'
-            assert df.ix[0]['type_identifier'] == 'COG0059'
+            assert df.ix[0]['gene_name'] == 'k99_10000918_2'
+            assert df.ix[0]['type_identifier'] == 'PF01609'
 
-
-
-    @unittest.skip("Not yet implemented")
     def test_download_annotation_counts(self):
         url = "http://localhost:5000/functional_table"
         self.driver.get(url)
@@ -278,21 +293,20 @@ class SampleTestCase(unittest.TestCase):
                 self.driver.find_element(by=By.ID, value='download_select')
                 )
 
-        time.sleep(3)
+        time.sleep(1)
         select_what_to_download.select_by_visible_text("Annotation Counts")
-        time.sleep(3)
+        time.sleep(1)
 
         self.driver.find_element(by=By.ID, value="submit_download").click()
         time.sleep(3)
 
         output_file = os.path.join(DOWNLOAD_DIR, 'annotation_counts.csv')
         assert os.path.isfile(output_file)
-        df = pandas.read_table(output_file, sep=',', index_col=0)
+        df = pandas.read_table(output_file, sep=',')
         assert len(df) == 20
-        assert len(df.columns) == 10
-        assert len(df['type_identifier'].uniq) == 20
-        assert df.ix[0]['gene_name'] == 'PROKKA_MOD_PART0_00096'
-        assert df.ix[0]['type_identifier'] == 'COG0059'
+        assert len(df.columns) == 4
+        assert len(df['annotation_id'].unique()) == 20
+        assert df.ix[0]['annotation_id'] == '6.1.1.4'
 
     def test_taxonomy_table_row_limit(self):
         url = "http://localhost:5000/taxonomy_table"
@@ -301,7 +315,7 @@ class SampleTestCase(unittest.TestCase):
         rpkm_tbody = self.driver.find_elements(by=By.CLASS_NAME, value='rpkm_values_tbody')[0]
         assert len(rpkm_tbody.find_elements(by=By.TAG_NAME, value= 'tr')) == 4 # only showing the superkingdoms
 
-        row_limit_and_result = [("20", 20), ("50", 50), ("100", 72), ("Show All", 72)]
+        row_limit_and_result = [("20", 20), ("50", 50), ("100", 100), ("Show All", 127)]
         for row_limit, result in row_limit_and_result:
             self.driver.get(url)
             self.driver.find_elements(by=By.LINK_TEXT, value="Table")[0].click()

@@ -1,17 +1,96 @@
-from flask import Flask, render_template, request, make_response, jsonify
+from flask import Flask, render_template, request, make_response, jsonify, redirect, url_for, flash
 from flask.ext.sqlalchemy import SQLAlchemy
+from flask_dance.contrib.google import make_google_blueprint, google
+from flask_dance.consumer.backend.sqla import SQLAlchemyBackend
+from flask_dance.consumer import oauth_authorized, oauth_error
+from flask_login import current_user, LoginManager, login_user, logout_user, login_required
 from forms import FunctionClassFilterForm, TaxonomyTableFilterForm
 import sqlalchemy
-
+import config
 import json
 import os
 from collections import OrderedDict
+from urllib.parse import urlparse, urljoin
 
 app = Flask(__name__)
 app.config.from_object(os.environ['APP_SETTINGS'])
+
+config.check_oauth_variables(os.environ['APP_SETTINGS'])
+
 db = SQLAlchemy(app)
 
-from models import Sample, SampleSet, TimePlace, SampleProperty, Annotation, Taxon
+from models import Sample, SampleSet, TimePlace, SampleProperty, Annotation, Taxon, OAuth, User
+
+
+def is_safe_url(target):
+    ref_url = urlparse(request.host_url)
+    test_url = urlparse(urljoin(request.host_url, target))
+    return test_url.scheme in ('http', 'https') and \
+           ref_url.netloc == test_url.netloc
+
+if os.environ.get('BARM_GOOGLE_CLIENT_ID'):
+    google_client_id = os.environ['BARM_GOOGLE_CLIENT_ID']
+else:
+    raise Exception('The variable BARM_GOOGLE_CLIENT_ID is not set')
+
+if os.environ.get('BARM_GOOGLE_CLIENT_SECRET'):
+    google_client_secret = os.environ['BARM_GOOGLE_CLIENT_SECRET']
+else:
+    raise Exception('The variable BARM_GOOGLE_CLIENT_SECRET is not set')
+
+blueprint = make_google_blueprint(
+    client_id=google_client_id,
+    client_secret=google_client_secret,
+    scope=["profile", "email"],
+    offline=True,
+    reprompt_consent=True
+)
+app.register_blueprint(blueprint, url_prefix="/login")
+
+blueprint.backend = SQLAlchemyBackend(OAuth, db.session, user=current_user)
+
+login_manager = LoginManager()
+login_manager.login_view = 'google.login'
+login_manager.init_app(app)
+
+@login_manager.user_loader
+def load_user(user_id):
+    email = user_id
+    return User.get_from_email(email)
+
+@oauth_authorized.connect_via(blueprint)
+def google_logged_in(blueprint, token):
+    if not token:
+        msg = "Failed to log in with {name}".format(name=blueprint.name)
+        flash(msg, category="error")
+        return
+
+    # figure out who the user is
+    resp = google.get("/oauth2/v2/userinfo")
+    if resp.ok:
+        email = resp.json()["email"]
+        name = resp.json()["name"]
+        user = User.get_from_email(email)
+        if not user:
+            msg = "No user registered for email: {email}".format(email=email)
+            flash(msg, category="error")
+        else:
+            user.name = name
+            login_user(user)
+            msg = "Successfully signed in with Google"
+            flash(msg, category="success")
+            return
+    else:
+        msg = "Failed to fetch user info from {name}".format(name=blueprint.name)
+        flash(msg, category="error")
+        return
+
+@app.route("/logout")
+@login_required
+def logout():
+    logout_user()
+    flash("You have logged out")
+    return redirect(url_for("index"))
 
 @app.route('/highcharts')
 def highcharts():
@@ -28,6 +107,24 @@ def taxon_tree_nodes(parent_level, parent_value):
                     node_level=child_level,
                     node_values=child_values)
 
+
+@app.route('/ajax/taxon_tree_nodes_for_table/<string:parent_level>/<string:parent_value>')
+def taxon_tree_nodes_for_table(parent_level, parent_value):
+    child_level, child_values = Taxon.tree_nodes(parent_level, parent_value)
+    return render_template('taxon_tree_nodes_for_table.html',
+                    node_level=child_level,
+                    node_values=child_values)
+
+@app.route('/ajax/taxon_tree_table_row/<string:level>/<string:complete_taxonomy>')
+def taxon_tree_table_row(level, complete_taxonomy):
+    samples, rpkm_row, complete_val_to_val = Taxon.rpkm_table_row(level, complete_taxonomy)
+    rpkm_row['complete_taxonomy_id'] = complete_taxonomy.replace(';','-').replace(' ', '_').replace('.','_')
+    return render_template('taxon_tree_table_row.html',
+            complete_taxon = complete_taxonomy,
+            complete_val_to_val = complete_val_to_val,
+            samples = samples,
+            table_row=rpkm_row)
+
 @app.route('/taxonomy_tree', methods=['GET'])
 def taxonomy_tree():
     node_level = "superkingdom"
@@ -35,6 +132,30 @@ def taxonomy_tree():
     return render_template('taxon_tree.html',
             node_level = node_level,
             node_values = node_values
+        )
+
+
+@app.route('/taxonomy_tree_table', methods=['GET'])
+def taxonomy_tree_table():
+    node_level = "superkingdom"
+    node_values = Taxon.top_entry_taxa()
+
+    taxon_level = 'superkingdom'
+    parent_values = None
+    limit = 20
+
+    sample_scilifelab_codes = [s.scilifelab_code for s in Sample.query.all()]
+    samples, table, complete_val_to_val = Taxon.rpkm_table(level=node_level, top_level_complete_values=parent_values, limit=limit)
+    for complete_taxon, table_row in table.items():
+        table_row['complete_taxonomy_id'] = complete_taxon.replace(';','-').replace(' ', '_').replace('.','_')
+
+    return render_template('taxon_tree_table.html',
+            node_level = node_level,
+            node_values = node_values,
+            table=table,
+            samples=samples,
+            sample_scilifelab_codes = sample_scilifelab_codes,
+            complete_val_to_val=complete_val_to_val,
         )
 
 @app.route('/taxonomy_table', methods=['GET'])
@@ -58,12 +179,8 @@ def taxon_table():
         limit = None
     else:
         limit = row_limit
-
-    ### Manual limit to only lmo ###
-    sample_set = SampleSet.query.filter(SampleSet.name == 'lmo')[0]
-    sample_scilifelab_codes = [s.scilifelab_code for s in sample_set.samples]
-
-    samples, table, complete_val_to_val = Taxon.rpkm_table(level=taxon_level, top_level_complete_values=parent_values, top_level=parent_level, samples=sample_scilifelab_codes, limit=limit)
+    sample_scilifelab_codes = [s.scilifelab_code for s in Sample.query.all()]
+    samples, table, complete_val_to_val = Taxon.rpkm_table(level=taxon_level, top_level_complete_values=parent_values, top_level=parent_level, limit=limit)
     sorted_table = OrderedDict()
     for complete_taxon, sample_d in table.items():
         new_sample_data = []
@@ -151,6 +268,16 @@ def functional_table():
                             for gene, annotation in genes_per_annotation])
             r = make_response(csv_output)
             r.headers["Content-Disposition"] = "attachment; filename=gene_list.csv"
+            r.headers["Content-Type"] = "text/csv"
+            return r
+        elif download_select == 'Annotation Counts':
+            csv_output = 'annotation_id' + ',' + \
+            ','.join([sample.scilifelab_code for sample in samples]) \
+            + '\n'
+            csv_output += '\n'.join(
+                    [annotation.type_identifier + ',' + ','.join(["{:0.2f}".format(sample_d[sample]) for sample in samples]) for annotation, sample_d in table.items()])
+            r = make_response(csv_output)
+            r.headers["Content-Disposition"] = "attachment; filename=annotation_counts.csv"
             r.headers["Content-Type"] = "text/csv"
             return r
     return render_template('functional_table.html',

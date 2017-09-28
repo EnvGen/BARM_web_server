@@ -1,0 +1,182 @@
+{% extends "default_base.html" %}
+
+
+{% block body %}
+
+<div class="row">
+  <div class="col-md-3">
+    <h3>Choose your taxa</h3>
+    <p>Click on plus-sign to expand and click on the name of the taxon to add or remove it to the analysis. Click on the same taxon again to remove it.</p>
+    <div id="expList">
+      {% include 'taxon_tree_nodes_for_table.html' %}
+    </div>
+  </div>
+  <div class="col-md-9">
+    <ul class="nav nav-tabs" id="table_diagram_tabs">
+      <li role="presentation" class="active" id="sparkline_tab_btn"><a href="#sparkline_tab" aria-controls="sparkline_tab" role="tab" data-toggle="tab">Diagram</a></li>
+      <li role="presentation" id="table_tab_btn"><a href="#table_tab" aria-controls="table_tab" role="tab">Table</a></li>
+    </ul>
+    <div id="sparkline_diagram" class="container-fluid" data-sample_names='{{ sample_scilifelab_codes|tojson|safe }}'>
+      <table class="table" id="taxonomy_table" current_taxon_level="{{current_level}}">
+      <thead>
+        <tr>
+          <th></th>
+          <th>Taxonomy</th>
+          <th class="sparkline_column">Sparkline</th>
+          {% for sample in samples %}
+          <th class="rpkm_value">
+            <a href="#" data-toggle="tooltip" data-title="{% include 'sample_info_tooltip.html' %}" data-html="true">{{sample.scilifelab_code}}</a>
+          </th>
+          {% endfor %}
+        </tr>
+      </thead>
+      <tbody class='rpkm_values_tbody'>
+      {% for complete_taxon, table_row in table.items() %}
+        {% include 'taxon_tree_table_row.html' %}
+      {% endfor %}
+      </tbody>
+    </table>
+    <div id="result"></div>
+    </div>
+    <script>
+      generate_sparkline();
+    </script>
+  </div>
+</div>
+
+<script type=text/javascript>
+  /* Taxonomic tree functions */
+  function what_happens_when_clicking(i_tag) {
+      var li_tag = $(i_tag).parent();
+      
+      function get_new_node_list(ul_tag) {
+        var node_taxonomy = $(i_tag).attr("full_taxonomy")
+        var taxonomy_level = $(i_tag).attr("taxonomy_level")
+        $.get("ajax/taxon_tree_nodes_for_table/" + taxonomy_level + "/" + node_taxonomy, function(data){
+          $(ul_tag).replaceWith(data);
+          $(li_tag).children("ul").find("i").click(function() {
+            var i_tag = this;
+            what_happens_when_clicking(i_tag)
+          });
+          $(li_tag).children("ul").find("a").click(function() {
+            var a_tag = this;
+            add_or_remove_table_row(a_tag);
+          });
+        });
+      };
+      
+      $(i_tag).toggleClass("glyphicon-plus");
+      $(i_tag).toggleClass("glyphicon-minus");
+      if (!$(li_tag).hasClass("expanded")) {
+        get_new_node_list($(li_tag).children("ul"));
+      } else {
+        $(li_tag).children("ul").toggle("medium")
+      }
+      $(li_tag).toggleClass("expanded")
+  }
+
+  $(function() {
+    $("#expList").find("li").find("i").unbind("click").click(function() {
+      var i_tag = this;
+      what_happens_when_clicking(i_tag);
+    });
+  });
+
+  /* Functions for adding and removing rows */
+  function remove_row(taxonomy_id) {
+    $('.rpkm_values_tbody').children('#' + taxonomy_id).remove();
+  }
+
+  function add_row(full_taxonomy, taxonomy_level) {
+    $.when(
+      $.get("ajax/taxon_tree_table_row/" + taxonomy_level + "/" + full_taxonomy, function(data){
+        $('.rpkm_values_tbody').append(data);
+      })
+    ).then(function() {
+      new_table_row_added();
+    });
+  }
+
+  function replace_chars_for_tax_id(full_taxonomy) {
+    var taxonomy_id = full_taxonomy.replace(/;/g, '-').replace(/ /g, '_').replace(/\./g, '_')
+    return taxonomy_id;
+  };
+
+  function add_or_remove_table_row(a_tag) {
+    var li_tag = $(a_tag).parent();
+    var full_taxonomy = $(li_tag).children("i").attr("full_taxonomy");
+    var taxonomy_level = $(li_tag).children("i").attr("taxonomy_level");
+    var taxonomy_id = replace_chars_for_tax_id(full_taxonomy);
+
+    if($('.rpkm_values_tbody').children('#' + taxonomy_id).length == 0) {
+      add_row(full_taxonomy, taxonomy_level);
+    } else {
+      remove_row(taxonomy_id);
+    }
+  }
+
+  function new_table_row_added() {
+    $(".rpkm_values_tbody").find("tr").find("td").find(".glyphicon-remove").unbind("click").click(function() {
+      var i_tag = this;
+      var full_taxonomy = $(i_tag).attr('full_taxonomy');
+      var taxonomy_id = replace_chars_for_tax_id(full_taxonomy);
+      remove_row(taxonomy_id);
+    });
+    enable_tooltip();
+    generate_sparkline();
+    /* Check which tab is active to decide which ones to hide */
+    if($("#table_diagram_tabs .active").attr('id') == 'sparkline_tab_btn') { 
+      show_sparkline_tab()
+    } else {
+      show_table_tab()
+    }
+  };
+
+  $(function() {
+    $("#expList").find("li").find("a").unbind("click").click(function() {
+      var a_tag = this;
+      /* Find out whether row is present in table */
+      add_or_remove_table_row(a_tag);
+    });
+  });
+
+
+  /* tabs */
+  function init_tabs() {
+      $('#table_diagram_tabs #sparkline_tab_btn').click(function (e) {
+        e.preventDefault()
+        $(this).parent().children('.active').removeClass('active')
+        $(this).addClass('active')
+        show_sparkline_tab()
+      });
+      $('#table_diagram_tabs #table_tab_btn').click(function (e) {
+        e.preventDefault()
+        $(this).parent().children('.active').removeClass('active')
+        $(this).addClass('active')
+        show_table_tab()
+      });
+  };
+
+  function show_sparkline_tab() {
+    $('.sparkline_column').show()
+    $('.rpkm_value').hide()
+  };
+
+  function show_table_tab() {
+    $('.sparkline_column').hide()
+    $('.rpkm_value').show()
+  };
+
+  /* General */
+  function enable_tooltip() {
+    $('[data-toggle="tooltip"]').tooltip();
+  }
+
+  $(document).ready(function() {
+      new_table_row_added();
+      init_tabs();
+      show_sparkline_tab();
+  });
+
+</script>
+{% endblock body %}

@@ -2,7 +2,7 @@ import unittest
 import app
 from models import Sample, SampleSet, TimePlace, SampleProperty, ReferenceAssembly, Gene, \
     GeneCount, AnnotationSource, Annotation, GeneAnnotation, Cog, Pfam, TigrFam, EcNumber, \
-    RpkmTable, Taxon, TaxonRpkmTable
+    EggNOG, EggNOGCategory, RpkmTable, Taxon, TaxonRpkmTable, User
 import sqlalchemy
 
 import itertools
@@ -32,6 +32,52 @@ class SampleTestCase(unittest.TestCase):
 
         self.db.drop_all()
 
+    def test_sampleset(self):
+        set1 = SampleSet("set1", public=True)
+        set2 = SampleSet("set2", public=True)
+        set3 = SampleSet("set3")
+        self.session.add(set1)
+        self.session.add(set2)
+        self.session.add(set3)
+        self.session.commit()
+
+        assert len(SampleSet.all_public()) == 2
+        assert set1 in SampleSet.all_public()
+        assert set2 in SampleSet.all_public()
+        assert set3 not in SampleSet.all_public()
+
+    def test_user(self):
+        user1 = User("johannes@example.com")
+        user2 = User("johannes2@example.com")
+        self.session.add(user1)
+        self.session.add(user2)
+        self.session.commit()
+
+        set1 = SampleSet("set1", public=True)
+        set2 = SampleSet("set2")
+        user1.sample_sets.append(set1)
+
+        self.session.add(set1)
+        self.session.add(set2)
+        self.session.commit()
+
+        assert len(user1.sample_sets) == 1
+        assert set1 in user1.sample_sets
+
+        assert len(user1.private_sample_sets()) == 0
+
+        set1.public = False
+        self.session.add(set1)
+        self.session.commit()
+
+        assert len(user1.sample_sets) == 1
+        assert set1 in user1.sample_sets
+
+        assert len(user1.private_sample_sets()) == 1
+        assert set1 in user1.sample_sets
+
+
+
     def test_sample(self):
         all_samples_before = Sample.query.all()
         assert len(all_samples_before) == 0
@@ -44,7 +90,7 @@ class SampleTestCase(unittest.TestCase):
 
     def test_sample_sampleset(self):
         #Test that sample and sample set references each other properly
-        sample_set = SampleSet("first_sampleset")
+        sample_set = SampleSet("first_sampleset", public=True)
         sample1 = Sample("P1993_101", sample_set, None)
 
         self.session.add(sample1)
@@ -53,7 +99,7 @@ class SampleTestCase(unittest.TestCase):
         # Sample sets relations are created
         assert Sample.query.filter_by(scilifelab_code='P1993_101').first().sample_set is sample_set
 
-        sample_set2 = SampleSet("second_sampleset")
+        sample_set2 = SampleSet("second_sampleset", public=True)
         sample2 = Sample("P1993_102", sample_set2, None)
         sample3 = Sample("P1993_103", sample_set, None)
         self.session.add(sample2)
@@ -89,6 +135,28 @@ class SampleTestCase(unittest.TestCase):
         assert sample1 in Sample.all_from_sample_sets(['second_sampleset', 'first_sampleset'])
         assert sample3 in Sample.all_from_sample_sets(['second_sampleset', 'first_sampleset'])
         assert sample2 in Sample.all_from_sample_sets(['second_sampleset', 'first_sampleset'])
+
+        sample_set3 = SampleSet("third_sampleset", public=False)
+        sample4 = Sample("P1994_104", sample_set3, None)
+        sample5 = Sample("P1994_105", sample_set3, None)
+        self.session.add(sample4)
+        self.session.add(sample5)
+
+        self.session.commit()
+
+        assert len(Sample.all_from_sample_sets(['second_sampleset', 'first_sampleset', 'third_sampleset'])) == 5
+        assert sample1 in Sample.all_from_sample_sets(['second_sampleset', 'first_sampleset', 'third_sampleset'])
+        assert sample3 in Sample.all_from_sample_sets(['second_sampleset', 'first_sampleset', 'third_sampleset'])
+        assert sample2 in Sample.all_from_sample_sets(['second_sampleset', 'first_sampleset', 'third_sampleset'])
+        assert sample4 in Sample.all_from_sample_sets(['second_sampleset', 'first_sampleset', 'third_sampleset'])
+        assert sample5 in Sample.all_from_sample_sets(['second_sampleset', 'first_sampleset', 'third_sampleset'])
+
+        assert len(Sample.all_public_samples()) == 3
+        assert sample1 in Sample.all_public_samples()
+        assert sample2 in Sample.all_public_samples()
+        assert sample3 in Sample.all_public_samples()
+        assert sample4 not in Sample.all_public_samples()
+        assert sample5 not in Sample.all_public_samples()
 
     def test_sample_timeplace(self):
         sample_set = SampleSet("first_sampleset")
@@ -602,13 +670,26 @@ class SampleTestCase(unittest.TestCase):
 
 
     def test_annotation_type_inheritance(self):
-        annotation2 = Pfam("pfam00002")
-        annotation = Cog("COG0001", "H")
-        annotation3 = TigrFam("TIGR00004")
+        eggnog_category_H = EggNOGCategory("H", "A really good category description")
+        eggnog_category_G = EggNOGCategory("G", "Another good category description")
+        eggnog_category_E = EggNOGCategory("E", "A pretty bad category description")
+        self.session.add(eggnog_category_H)
+        self.session.add(eggnog_category_G)
+        self.session.add(eggnog_category_E)
+        self.session.commit()
 
-        assert annotation2.annotation_type == 'pfam'
+        annotation = Cog("COG0001", "H")
+        annotation2 = Pfam("pfam00002")
+        annotation3 = TigrFam("TIGR00004")
+        annotation4 = EggNOG("ENOG410ZWUW", [])
+        annotation5 = EggNOG("COG0006", [eggnog_category_H, eggnog_category_G]) # Cogs are a subset of EggNOG
+        annotation6 = EcNumber("2.1.1.206")
         assert annotation.annotation_type == 'cog'
+        assert annotation2.annotation_type == 'pfam'
         assert annotation3.annotation_type == 'tigrfam'
+        assert annotation4.annotation_type == 'eggnog'
+        assert annotation5.annotation_type == 'eggnog'
+        assert annotation6.annotation_type == 'ecnumber'
 
         gene = Gene("gene1", None)
         annotation_source1 = AnnotationSource("Cog", "v1.0", "rpsblast", "e_value=0.00001")
@@ -622,6 +703,12 @@ class SampleTestCase(unittest.TestCase):
 
         # category is defined on cog class
         assert annotation.category == "H"
+        # EggNOGs can have multiple categories
+        assert annotation4.categories == []
+        assert eggnog_category_H in annotation5.categories
+        assert eggnog_category_G in annotation5.categories
+        assert len(annotation5.categories) == 2
+
         # Genes is defined on the annotation base class
         assert gene in annotation.genes
 
@@ -661,8 +748,8 @@ class SampleTestCase(unittest.TestCase):
         # A different annotation_type is either not sufficient to
         # have the same type_identifier twice
         with self.assertRaises(sqlalchemy.exc.IntegrityError):
-            annotation4 = Pfam("COG0001")
-            self.session.add(annotation4)
+            annotation7 = Pfam("COG0001")
+            self.session.add(annotation7)
             self.session.commit()
 
         self.session.rollback()
@@ -671,6 +758,8 @@ class SampleTestCase(unittest.TestCase):
         assert annotation.external_link == "http://www.ncbi.nlm.nih.gov/Structure/cdd/cddsrv.cgi?uid=COG0001"
         assert annotation2.external_link == "http://pfam.xfam.org/family/PF00002"
         assert annotation3.external_link == "http://www.jcvi.org/cgi-bin/tigrfams/HmmReportPage.cgi?acc=TIGR00004"
+        assert annotation4.external_link == "http://eggnogdb.embl.de/#/app/home"
+        assert annotation6.external_link == "http://enzyme.expasy.org/"
 
     def test_annotation_rpkm(self):
         annotation1 = Annotation("COG0001")
@@ -703,10 +792,20 @@ class SampleTestCase(unittest.TestCase):
     def test_annotation_type_rpkm(self):
         # Test rpkm for the subclasses as well
 
+        eggnog_category_H = EggNOGCategory("H", "A really good category description")
+        eggnog_category_G = EggNOGCategory("G", "Another good category description")
+        eggnog_category_E = EggNOGCategory("E", "A pretty bad category description")
+        self.session.add(eggnog_category_H)
+        self.session.add(eggnog_category_G)
+        self.session.add(eggnog_category_E)
+        self.session.commit()
+
         annotation_types = [("Cog", {'class': Cog}),
                 ("Pfam", {'class': Pfam}),
                 ("TigrFam", {'class': TigrFam}),
-                ("EcNumber", {'class': EcNumber})]
+                ("EcNumber", {'class': EcNumber}),
+                ("EggNOG", {'class': EggNOG})]
+
         for annotation_type, type_d in annotation_types:
             if annotation_type == 'Cog':
                 annotation1 = type_d['class'](annotation_type.upper() + "0001", "H")
@@ -716,6 +815,10 @@ class SampleTestCase(unittest.TestCase):
                 annotation1 = type_d['class']("0.0.0.1")
                 annotation2 = type_d['class']("0.0.0.2")
                 annotation3 = type_d['class']("0.0.0.3")
+            elif annotation_type == 'EggNOG':
+                annotation1 = type_d['class'](annotation_type.upper() + "0001", [eggnog_category_H])
+                annotation2 = type_d['class'](annotation_type.upper() + "0002", [eggnog_category_G])
+                annotation3 = type_d['class'](annotation_type.upper() + "0003", [eggnog_category_E])
             else:
                 annotation1 = type_d['class'](annotation_type.upper() + "0001")
                 annotation2 = type_d['class'](annotation_type.upper() + "0002")
