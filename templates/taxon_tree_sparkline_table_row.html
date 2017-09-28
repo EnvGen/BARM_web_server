@@ -1,0 +1,11 @@
+<tr>
+  <td>
+    <nobr>
+      <label>
+        <input type="checkbox" name="tax_filter" value="{{complete_taxon}}" checked> {{complete_val_to_val[complete_taxon]}}
+      </label>
+    </nobr>
+  </td>
+  <td class="full_taxonomy">{{complete_taxon}}</td>
+  <td data-sparkline="{% for sample in samples %} {{sample_d[sample] | round(4)}}, {% endfor %}"></td>
+</tr>
