@@ -9,6 +9,7 @@
       </label>
     </nobr>
   </td>
+  <td class='sparkline_column' data-sparkline="{% for sample in samples %} {{table_row[sample] | round(4)}}, {% endfor %}"></td>
   {% for sample in samples %}
     <td class="rpkm_value">{{table_row[sample] | round(4)}}</td>
   {% endfor %}

@@ -572,6 +572,10 @@ class Annotation(db.Model):
 
         return list(samples), rows
 
+    @classmethod
+    def rpkm_table_for_taxonomy(self, type_identifiers, samples=None, limit=20):
+        q = db.session.query(GeneCount).join(Gene).filter(GeneCount.gene_id == Gene.id).join(GeneAnnotation).filter(Gene.id == GeneAnnotation.gene_id).filter(GeneAnnotation.annotation_id==pfam1.id).join(Taxon).filter(Gene.taxon_id == Taxon.id).filter(Taxon.up_to_phylum == 'Bacteria;Cyanobacteria')
+
     @property
     def genes(self):
         q = db.session.query(Gene).join(GeneAnnotation).\

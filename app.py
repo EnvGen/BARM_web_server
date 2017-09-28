@@ -118,7 +118,7 @@ def taxon_tree_nodes_for_table(parent_level, parent_value):
 @app.route('/ajax/taxon_tree_table_row/<string:level>/<string:complete_taxonomy>')
 def taxon_tree_table_row(level, complete_taxonomy):
     samples, rpkm_row, complete_val_to_val = Taxon.rpkm_table_row(level, complete_taxonomy)
-    rpkm_row['complete_taxonomy_id'] = complete_taxonomy.replace(';','-').replace(' ', '_')
+    rpkm_row['complete_taxonomy_id'] = complete_taxonomy.replace(';','-').replace(' ', '_').replace('.','_')
     return render_template('taxon_tree_table_row.html',
             complete_taxon = complete_taxonomy,
             complete_val_to_val = complete_val_to_val,
@@ -147,7 +147,7 @@ def taxonomy_tree_table():
     sample_scilifelab_codes = [s.scilifelab_code for s in Sample.query.all()]
     samples, table, complete_val_to_val = Taxon.rpkm_table(level=node_level, top_level_complete_values=parent_values, limit=limit)
     for complete_taxon, table_row in table.items():
-        table_row['complete_taxonomy_id'] = complete_taxon.replace(';','-').replace(' ', '_')
+        table_row['complete_taxonomy_id'] = complete_taxon.replace(';','-').replace(' ', '_').replace('.','_')
 
     return render_template('taxon_tree_table.html',
             node_level = node_level,
