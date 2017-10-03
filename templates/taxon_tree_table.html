@@ -22,11 +22,13 @@
         <tr>
           <th></th>
           <th>Taxonomy</th>
-          <th class="sparkline_column">Sparkline</th>
-          {% for sample in samples %}
-          <th class="rpkm_value">
-            <a href="#" data-toggle="tooltip" data-title="{% include 'sample_info_tooltip.html' %}" data-html="true">{{sample.scilifelab_code}}</a>
-          </th>
+          {% for sample_set, samples in sample_sets.items() %}
+            <th class="sparkline_column">{{sample_set.name}}</th>
+            {% for sample in samples %}
+            <th class="rpkm_value sample_group_{{sample_set.name}}">
+              <a href="#" data-toggle="tooltip" data-title="{% include 'sample_info_tooltip.html' %}" data-html="true">{{sample.scilifelab_code}}</a>
+            </th>
+            {% endfor %}
           {% endfor %}
         </tr>
       </thead>

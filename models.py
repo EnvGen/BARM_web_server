@@ -146,6 +146,7 @@ class Sample(db.Model):
 
         return q.all()
 
+
 class SampleProperty(db.Model):
     __tablename__ = 'sample_property'
 
@@ -361,7 +362,7 @@ class Taxon(db.Model):
     @classmethod
     def rpkm_table_row(self, level="superkingdom", complete_taxonomy=None):
         filter_level = "up_to_" + level
-        q_first = db.session.query(Sample.scilifelab_code, sqlalchemy.func.sum(TaxonRpkmTable.rpkm)).\
+        q_first = db.session.query(Sample, sqlalchemy.func.sum(TaxonRpkmTable.rpkm)).\
                 filter(TaxonRpkmTable.taxon_id == Taxon.id).\
                 group_by(getattr(Taxon, filter_level)).\
                 group_by(Sample.id).\
@@ -369,12 +370,8 @@ class Taxon(db.Model):
                 filter(getattr(Taxon, filter_level) == complete_taxonomy)
 
         table_row = dict(q_first.all())
+        return table_row
 
-        samples = sorted(table_row.keys())
-        complete_val_to_val = {}
-        level_val = complete_taxonomy.split(';')[-1]
-        complete_val_to_val[complete_taxonomy] = level_val
-        return samples, table_row, complete_val_to_val
 
     @classmethod
     def rpkm_table(self, level="superkingdom", top_level_complete_values=None, top_level=None, samples=None, limit=20):
