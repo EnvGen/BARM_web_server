@@ -136,9 +136,11 @@
     /* Check which sample sets are active and hide the others */
     $(".sampleset-select label").each(function() {
       if(!$(this).hasClass('active')) {
-        var sample_set_class = $(this).attr('id').replace('toggle_btn_', '.sample_group_')
+        var sample_set_class = $(this).attr('id').replace('toggle_btn_', 'sample_group_')
         $('.sparkline_column.' + sample_set_class).hide();
+        $('.sparkline_column.' + sample_set_class).removeClass('sample_set_selected');
         $('.rpkm_value.' + sample_set_class).hide();
+        $('.rpkm_value.' + sample_set_class).removeClass('sample_set_selected');
       };
     });
     /* Check which tab is active to decide which ones to hide */
