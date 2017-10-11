@@ -353,8 +353,11 @@ class Taxon(db.Model):
                         filter(getattr(Taxon, filter_level) == parent_value).\
                         distinct().all()
                 children_names_and_values = [(child_t[0].split(';')[-1], child_t[0]) for child_t in children]
-
                 children_names_and_values.sort(key=lambda x: x[0].lower())
+                # First one is always exactly classified to the actual level
+                first_val = children_names_and_values[0]
+                new_first_val = ("<exactly {}>".format(parent_value), first_val[1])
+                children_names_and_values[0] = new_first_val
                 return child_level, children_names_and_values
         else:
             raise ValueError

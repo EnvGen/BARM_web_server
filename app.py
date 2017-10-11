@@ -110,6 +110,8 @@ def taxon_tree_nodes(parent_level, parent_value):
 
 @app.route('/ajax/taxon_tree_nodes_for_table/<string:parent_level>/<string:parent_value>')
 def taxon_tree_nodes_for_table(parent_level, parent_value):
+    if parent_value.endswith(';'):
+        return ""
     child_level, child_values = Taxon.tree_nodes(parent_level, parent_value)
     return render_template('taxon_tree_nodes_for_table.html',
                     node_level=child_level,
@@ -118,7 +120,10 @@ def taxon_tree_nodes_for_table(parent_level, parent_value):
 @app.route('/ajax/taxon_tree_table_row/<string:level>/<string:complete_taxonomy>')
 def taxon_tree_table_row(level, complete_taxonomy):
     complete_val_to_val = {}
-    complete_val_to_val[complete_taxonomy] = complete_taxonomy.split(';')[-1]
+    complete_val = complete_taxonomy.split(';')[-1]
+    if complete_val == '':
+        complete_val = '<exactly {}>'.format(complete_taxonomy.split(';')[-2])
+    complete_val_to_val[complete_taxonomy] = complete_val
     
     sample_sets = OrderedDict()
     for sample_set in sorted(SampleSet.all_public(), key=lambda ss: ss.name):
