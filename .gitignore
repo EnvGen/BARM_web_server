@@ -1,5 +1,6 @@
 # Data directories
 data/real/*
+data/old_real/*
 data/only_lmo/*
 data/*/tmp_file.csv
 data/bp_presentation/*
