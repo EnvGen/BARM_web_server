@@ -12,6 +12,13 @@
     </div>
   </div>
   <div class="col-md-9">
+   <div class="btn-group sampleset-select" data-toggle="buttons">
+      {% for sample_set, samples in sample_sets.items() %}
+        <label class="btn btn-primary active" id="toggle_btn_{{sample_set.name}}">
+          <input type="checkbox" autocomplete="off" checked>{{sample_set.name}}
+        </label>
+      {% endfor %}
+    </div> 
     <ul class="nav nav-tabs" id="table_diagram_tabs">
       <li role="presentation" class="active" id="sparkline_tab_btn"><a href="#sparkline_tab" aria-controls="sparkline_tab" role="tab" data-toggle="tab">Diagram</a></li>
       <li role="presentation" id="table_tab_btn"><a href="#table_tab" aria-controls="table_tab" role="tab">Table</a></li>
@@ -23,9 +30,9 @@
           <th></th>
           <th>Taxonomy</th>
           {% for sample_set, samples in sample_sets.items() %}
-            <th class="sparkline_column">{{sample_set.name}}</th>
+            <th class="sparkline_column sample_group_{{sample_set.name}} sample_set_selected">{{sample_set.name}}</th>
             {% for sample in samples %}
-            <th class="rpkm_value sample_group_{{sample_set.name}}">
+            <th class="rpkm_value sample_group_{{sample_set.name}} sample_set_selected">
               <a href="#" data-toggle="tooltip" data-title="{% include 'sample_info_tooltip.html' %}" data-html="true">{{sample.scilifelab_code}}</a>
             </th>
             {% endfor %}
@@ -126,6 +133,14 @@
     });
     enable_tooltip();
     generate_sparkline();
+    /* Check which sample sets are active and hide the others */
+    $(".sampleset-select label").each(function() {
+      if(!$(this).hasClass('active')) {
+        var sample_set_class = $(this).attr('id').replace('toggle_btn_', '.sample_group_')
+        $('.sparkline_column.' + sample_set_class).hide();
+        $('.rpkm_value.' + sample_set_class).hide();
+      };
+    });
     /* Check which tab is active to decide which ones to hide */
     if($("#table_diagram_tabs .active").attr('id') == 'sparkline_tab_btn') { 
       show_sparkline_tab()
@@ -140,6 +155,20 @@
       /* Find out whether row is present in table */
       add_or_remove_table_row(a_tag);
     });
+  });
+
+  /* sample groups */
+  $(".sampleset-select label").on('click', function toggle_sample_group() {
+    var sample_set_class = $(this).attr('id').replace('toggle_btn_', '.sample_group_')
+    /* Toggle activation of sample set */
+    $(sample_set_class).toggleClass('sample_set_selected')
+    $('#table_diagram_tabs li.active').each(function() {
+      if($(this).attr('id') == 'sparkline_tab_btn'){
+        show_sparkline_tab();
+      } else {
+        show_table_tab();
+      }
+    })
   });
 
 
@@ -160,13 +189,15 @@
   };
 
   function show_sparkline_tab() {
-    $('.sparkline_column').show()
+    $('.sparkline_column.sample_set_selected').show()
+    $('.sparkline_column').not('.sample_set_selected').hide()
     $('.rpkm_value').hide()
   };
 
   function show_table_tab() {
     $('.sparkline_column').hide()
-    $('.rpkm_value').show()
+    $('.rpkm_value.sample_set_selected').show()
+    $('.rpkm_value').not('.sample_set_selected').hide()
   };
 
   /* General */
@@ -179,6 +210,5 @@
       init_tabs();
       show_sparkline_tab();
   });
-
 </script>
 {% endblock body %}

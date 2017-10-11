@@ -10,11 +10,11 @@
     </nobr>
   </td>
   {% for sample_set, samples in sample_sets.items() %}
-    <td class='sparkline_column sample_group_{{sample_set.name}}' data-sparkline="{% for sample in samples %} {{table_row[sample] | round(4)}}, {% endfor %}"></td>
+    <td class='sparkline_column sample_group_{{sample_set.name}} sample_set_selected' data-sample_group="{{sample_set.name}}" data-sparkline='{{json_table[complete_taxon][sample_set.name] | tojson }}'></td>
   {% endfor %}
   {% for sample_set, samples in sample_sets.items() %}
     {% for sample in samples %}
-      <td class="rpkm_value sample_group_{{sample_set.name}}">{{table_row[sample] | round(4)}}</td>
+      <td class="rpkm_value sample_group_{{sample_set.name}} sample_set_selected">{{table_row[sample] | round(4)}}</td>
     {% endfor %}
   {% endfor %}
 </tr>
