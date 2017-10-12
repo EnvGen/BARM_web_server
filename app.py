@@ -173,7 +173,7 @@ def taxonomy_tree_table():
         sample_sets[sample_set] = sample_set.samples
         sample_scilifelab_codes += [sample.scilifelab_code for sample in sample_set.samples]
 
-    table = {}
+    table = OrderedDict()
     json_table = {}
     for taxa_name, complete_taxonomy in node_values:
         json_table[complete_taxonomy] = {}
