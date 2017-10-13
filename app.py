@@ -122,7 +122,7 @@ def taxon_tree_table_row(level, complete_taxonomy):
     complete_val_to_val = {}
     complete_val = complete_taxonomy.split(';')[-1]
     if complete_val == '':
-        complete_val = '<exactly {}>'.format(complete_taxonomy.split(';')[-2])
+        complete_val = '<unassigned {}>'.format(complete_taxonomy.split(';')[-2])
     complete_val_to_val[complete_taxonomy] = complete_val
     
     sample_sets = OrderedDict()
