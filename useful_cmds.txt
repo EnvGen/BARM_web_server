@@ -52,5 +52,14 @@ time python populate_db.py --sample_info data/test/lmo/sample_info.csv \
 time python add_sample_set_to_db.py --sample_info data/test/baltic_redox_cline_2014/sample_info.csv \
     --gene_counts data/test/baltic_redox_cline_2014/all_genes.tpm.tsv.gz \
     --metadata_reference data/test/metadata_reference.tsv \
-    --tmp_file /Users/johannesalneberg/repos/BARM_web_server/data/test/tmp_file.csv 
+    --tmp_file /Users/johannesalneberg/repos/BARM_web_server/data/test/tmp_file.csv
 
+time python add_sample_set_to_db.py --sample_info data/real/baltic_redoxcline_2014/sample_info.csv \
+    --gene_counts data/real/baltic_redoxcline_2014/all_genes.tpm.tsv.gz \
+    --metadata_reference data/real/metadata_reference.tsv \
+    --tmp_file /Users/johannesalneberg/repos/BARM_web_server/data/real/tmp_file.csv
+
+time python add_sample_set_to_db.py --sample_info data/real/baltic_transect_2014/sample_info.csv \
+    --gene_counts data/real/baltic_transect_2014/all_genes.tpm.tsv.gz \
+    --metadata_reference data/real/metadata_reference.tsv \
+    --tmp_file /Users/johannesalneberg/repos/BARM_web_server/data/real/tmp_file.csv
