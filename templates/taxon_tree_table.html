@@ -12,13 +12,52 @@
     </div>
   </div>
   <div class="col-md-9">
-   <div class="btn-group sampleset-select" data-toggle="buttons">
-      {% for sample_set, samples in sample_sets.items() %}
-        <label class="btn btn-primary active" id="toggle_btn_{{sample_set.name}}">
-          <input type="checkbox" autocomplete="off" checked>{{sample_set.name}}
-        </label>
-      {% endfor %}
-    </div> 
+    <div class="row">
+      <div class="col-md-9">
+        <div class="btn-group sampleset-select" data-toggle="buttons">
+          {% for sample_set, samples in sample_sets.items() %}
+            <label class="btn btn-primary active" id="toggle_btn_{{sample_set.name}}">
+              <input type="checkbox" autocomplete="off" checked>{{sample_set.name}}
+            </label>
+          {% endfor %}
+        </div> 
+      </div>
+      <div class="col-md-3">
+        <!-- Button trigger modal -->
+        <button type="button" class="btn btn-info" data-toggle="modal" data-target="#myModal">
+          <span class="glyphicon glyphicon-info-sign" aria-hidden="true"></span> Need Help?
+        </button>
+
+        <!-- Modal -->
+        <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+          <div class="modal-dialog" role="document">
+            <div class="modal-content">
+              <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="myModalLabel">Information</h4>
+              </div>
+              <div class="modal-body">
+                <p>
+                  This page contains abundance values per sample for different taxonomy values and levels. The abundance is represented by sum of tpm values for the individual genes assigned to the given taxonomy.
+                </p>
+                <h4>Varying levels of taxonomic assignments</h4>
+                <p>
+                  Genes that were not assigned to the species level (the lowest level represented in the database), but instead assigned to a higher ranking less precise level contribute to counts of their parent levels but also to their own taxonomic entity named as &ltunassigned x&gt. 
+                </p>
+                <p>
+                  As an example, the taxa Eukaryota contains the summed counts of all Eukaryotic taxa included but also the counts of the category '&ltunassigned Eukaryota&gt'
+                </p>
+                <h4>Sample Groups</h4>
+                <p>Samples are grouped in predefined sample groups. You can choose which of these sample groups to view through the buttons above the Diagram and Table tabs.
+              </div>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
     <ul class="nav nav-tabs" id="table_diagram_tabs">
       <li role="presentation" class="active" id="sparkline_tab_btn"><a href="#sparkline_tab" aria-controls="sparkline_tab" role="tab" data-toggle="tab">Diagram</a></li>
       <li role="presentation" id="table_tab_btn"><a href="#table_tab" aria-controls="table_tab" role="tab">Table</a></li>
