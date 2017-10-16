@@ -10,7 +10,7 @@ class FunctionClassFilterForm(Form):
       ('filter_with_type_identifiers', 'Filter by typing in individual annotation identifiers')],
       default='filter_with_type_identifiers')
     type_identifiers = FieldList(StringField(u'Type identifier'))
-    search_annotations = StringField('Search Annotations')
+    search_annotations = StringField('Search Annotations', default='Photosynth')
     select_sample_groups = SelectMultipleField(u'Sample Groups')
     submit_view = SubmitField(u'View Results')
     submit_download = SubmitField(u'Download')
