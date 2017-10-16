@@ -243,9 +243,10 @@ def taxon_table():
 @app.route('/functional_table', methods=['GET', 'POST'])
 def functional_table():
     form = FunctionClassFilterForm()
-    form.function_class.choices = [('cog', 'Cog'),
+    form.function_class.choices = [('ecnumber', 'EcNumber'),
                     ('pfam', 'Pfam'),
                     ('tigrfam', 'TigrFam'),
+                    ('eggnog', 'EggNOG'),
                     ('all', 'All')
                 ]
 
