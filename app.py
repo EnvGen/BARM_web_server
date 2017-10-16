@@ -242,6 +242,7 @@ def taxon_table():
 
 @app.route('/functional_table', methods=['GET', 'POST'])
 def functional_table():
+    DEFAULT_QUERY = 'Photosynth'
     form = FunctionClassFilterForm()
     form.function_class.choices = [('ecnumber', 'EcNumber'),
                     ('pfam', 'Pfam'),
@@ -250,7 +251,7 @@ def functional_table():
                     ('all', 'All')
                 ]
 
-    form.select_sample_groups.choices = [(sample_set.name, sample_set.name) for sample_set in  SampleSet.query.all()]
+    form.select_sample_groups.choices = [(sample_set.name, sample_set.name) for sample_set in  SampleSet.all_public()]
 
     type_identifiers = []
     if form.validate_on_submit():
@@ -273,12 +274,18 @@ def functional_table():
             if search_string.data != '':
                 q = _search_query(search_string.data)
                 type_identifiers = [a.type_identifier for a in q.all()]
+        if len(type_identifiers) == 0:
+            # A default set of type identifiers to avoid query the entire
+            # table
+            q = _search_query(DEFAULT_QUERY)
+            type_identifiers = [a.type_identifier for a in q.all()]
 
-
-        sample_sets = form.select_sample_groups.data
-        if len(sample_sets) > 0:
-            samples = [sample.scilifelab_code for sample in Sample.all_from_sample_sets(sample_sets)]
+        sample_set_names = form.select_sample_groups.data
+        if len(sample_set_names) > 0:
+            sample_sets = SampleSet.query.filter(SampleSet.name.in_(sample_set_names))
+            samples = [sample.scilifelab_code for sample in Sample.all_from_sample_sets(sample_set_names)]
         else:
+            sample_sets = SampleSet.all_public()
             samples = None
 
         download_action = False
@@ -290,6 +297,12 @@ def functional_table():
         limit=20
         samples = None
         download_action = False
+        # Using the most abundant annotations is very slow and not neccessarily interesting
+        q = _search_query(DEFAULT_QUERY)
+        type_identifiers = [a.type_identifier for a in q.all()]
+        sample_sets = SampleSet.all_public()
+        sample_set_names = [ss.name for ss in sample_sets]
+        samples = [sample.scilifelab_code for sample in Sample.all_from_sample_sets(sample_set_names)]
 
     if len(form.type_identifiers) == 0:
         form.type_identifiers.append_entry()
@@ -322,11 +335,25 @@ def functional_table():
             r.headers["Content-Disposition"] = "attachment; filename=annotation_counts.csv"
             r.headers["Content-Type"] = "text/csv"
             return r
+    else:
+        # Wait to prepare the json table until it's certain that it's necessary
+        json_table = {}
+        for annotation, sample_d in table.items():
+            json_table[annotation.type_identifier] = {}
+            for sample_set in sample_sets:
+                json_table_row = []
+                json_table_row = []
+                for sample in sample_set.samples:
+                    json_table_row.append({'y': sample_d[sample], 'sample': sample.scilifelab_code})
+                json_table[annotation.type_identifier][sample_set.name] = json_table_row
+
     return render_template('functional_table.html',
             table=table,
             samples=samples,
+            sample_sets=sample_sets,
             sample_scilifelab_codes = sample_scilifelab_codes,
-            form=form
+            form=form,
+            json_table=json_table
         )
 
 def _search_query(search_string):
