@@ -8,7 +8,7 @@ class FunctionClassFilterForm(Form):
     filter_alternative = RadioField(choices=[
       ('filter_with_search', 'Filter by a search term'),
       ('filter_with_type_identifiers', 'Filter by typing in individual annotation identifiers')],
-      default='filter_with_type_identifiers')
+      default='filter_with_search')
     type_identifiers = FieldList(StringField(u'Type identifier'))
     search_annotations = StringField('Search Annotations', default='Photosynth')
     select_sample_groups = SelectMultipleField(u'Sample Groups')

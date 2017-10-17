@@ -274,11 +274,6 @@ def functional_table():
             if search_string.data != '':
                 q = _search_query(search_string.data)
                 type_identifiers = [a.type_identifier for a in q.all()]
-        if len(type_identifiers) == 0:
-            # A default set of type identifiers to avoid query the entire
-            # table
-            q = _search_query(DEFAULT_QUERY)
-            type_identifiers = [a.type_identifier for a in q.all()]
 
         sample_set_names = form.select_sample_groups.data
         if len(sample_set_names) > 0:
@@ -292,27 +287,38 @@ def functional_table():
         if form.submit_download.data:
             download_action = True
             download_select = form.download_select.data
+        if len(type_identifiers) == 0:
+            msg = "Warning, the query was not performed since it did not result in any hit. Try writing a less specific query."
+            flash(msg, category="error")
+        elif len(type_identifiers) > 200:
+            msg = "Warning, the query was not performed since it resulted in more than 200 hits. Try writing a more specific query."
+            flash(msg, category="error")
+            type_identifiers = []
     else:
         function_class=None
         limit=20
         samples = None
         download_action = False
-        # Using the most abundant annotations is very slow and not neccessarily interesting
-        q = _search_query(DEFAULT_QUERY)
-        type_identifiers = [a.type_identifier for a in q.all()]
         sample_sets = SampleSet.all_public()
         sample_set_names = [ss.name for ss in sample_sets]
         samples = [sample.scilifelab_code for sample in Sample.all_from_sample_sets(sample_set_names)]
+
+        # A default set of type identifiers to avoid query the entire
+        # table
+        q = _search_query(DEFAULT_QUERY)
+        type_identifiers = [a.type_identifier for a in q.all()]
 
     if len(form.type_identifiers) == 0:
         form.type_identifiers.append_entry()
 
     if type_identifiers == []:
-        type_identifiers = None
-
-    samples, table = Annotation.rpkm_table(limit=limit, samples=samples, function_class=function_class, type_identifiers=type_identifiers)
+        samples = []
+        table = dict()
+    else:
+        samples, table = Annotation.rpkm_table(limit=limit, samples=samples, function_class=function_class, type_identifiers=type_identifiers)
     samples = sorted(samples, key=lambda x: x.scilifelab_code)
     sample_scilifelab_codes = [sample.scilifelab_code for sample in samples]
+
     if download_action:
         if download_select == 'Gene List':
             # Fetch all contributing genes for all the annotations in the table
@@ -344,7 +350,7 @@ def functional_table():
                 json_table_row = []
                 json_table_row = []
                 for sample in sample_set.samples:
-                    json_table_row.append({'y': sample_d[sample], 'sample': sample.scilifelab_code})
+                    json_table_row.append({'y': float(sample_d[sample]), 'sample': sample.scilifelab_code})
                 json_table[annotation.type_identifier][sample_set.name] = json_table_row
 
     return render_template('functional_table.html',

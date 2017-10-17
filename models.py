@@ -559,10 +559,10 @@ class Annotation(db.Model):
             samples.add(sample)
             fetched_annotations[annotation.id] = annotation
             if annotation in rows_unordered:
-                rows_unordered[annotation][sample] = rpkm_sum
+                rows_unordered[annotation][sample] = "{0:.4f}".format(rpkm_sum)
             else:
                 rows_unordered[annotation] = collections.OrderedDict()
-                rows_unordered[annotation][sample] = rpkm_sum
+                rows_unordered[annotation][sample] = "{0:.4f}".format(rpkm_sum)
 
         rows = collections.OrderedDict()
 

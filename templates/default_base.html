@@ -25,7 +25,11 @@
       {% if messages %}
         <ul class="flash">
         {% for category, message in messages %}
-        <li><p class="{{ category }}">{{ message }}</p></li>
+            {% if category == 'error' %}
+              <li><p class="alert alert-warning {{ category }}">{{ message }}</p></li>
+            {% else %}
+              <li><p class="{{ category }}">{{ message }}</p></li>
+            {% endif %}
         {% endfor %}
         </ul>
       {% endif %}

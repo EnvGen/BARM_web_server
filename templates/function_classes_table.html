@@ -21,7 +21,7 @@
       </td>
       <td class="hideable_annotation_description">{{annotation.short_description}}</td>
       {% for sample in samples %}
-        <td class="rpkm_value">{{sample_d[sample] | round(4)}}</td>
+        <td class="rpkm_value">{{sample_d[sample] }}</td>
       {% endfor %}
     </tr>
   {% endfor %}
