@@ -6,7 +6,7 @@
 <div class="row">
   <div class="col-md-3">
     <h3>Choose your taxa</h3>
-    <p>Click on plus-sign to expand and click on the name of the taxon to add or remove it to the analysis. Click on the same taxon again to remove it.</p>
+    <p>Click on the plus-signs to expand and minus signs to collapse. Click on the name of a taxon to add or remove it to the analysis.</p>
     <div id="expList">
       {% include 'taxon_tree_nodes_for_table.html' %}
     </div>
@@ -94,9 +94,9 @@
 
 <script type=text/javascript>
   /* Taxonomic tree functions */
-  function what_happens_when_clicking(i_tag) {
+  function clicking_taxon_tree_sign(i_tag) {
       var li_tag = $(i_tag).parent();
-      
+
       function get_new_node_list(ul_tag) {
         var node_taxonomy = $(i_tag).attr("full_taxonomy")
         var taxonomy_level = $(i_tag).attr("taxonomy_level")
@@ -104,19 +104,20 @@
           $(ul_tag).replaceWith(data);
           $(li_tag).children("ul").find("i").click(function() {
             var i_tag = this;
-            what_happens_when_clicking(i_tag)
+            clicking_taxon_tree_sign(i_tag)
           });
           $(li_tag).children("ul").find("a").click(function() {
             var a_tag = this;
             add_or_remove_table_row(a_tag);
           });
-        });
+          mark_tree_nodes_added();
+        })
       };
-      
+
       $(i_tag).toggleClass("glyphicon-plus");
       $(i_tag).toggleClass("glyphicon-minus");
       if (!$(li_tag).hasClass("expanded")) {
-        get_new_node_list($(li_tag).children("ul"));
+        get_new_node_list($(li_tag).children("ul"))
       } else {
         $(li_tag).children("ul").toggle("medium")
       }
@@ -126,13 +127,14 @@
   $(function() {
     $("#expList").find("li").find("i").unbind("click").click(function() {
       var i_tag = this;
-      what_happens_when_clicking(i_tag);
+      clicking_taxon_tree_sign(i_tag);
     });
   });
 
   /* Functions for adding and removing rows */
   function remove_row(taxonomy_id) {
     $('.rpkm_values_tbody').children('#' + taxonomy_id).remove();
+    unmark_tree_node(taxonomy_id);
   }
 
   function add_row(full_taxonomy, taxonomy_level) {
@@ -188,6 +190,8 @@
     } else {
       show_table_tab()
     }
+    /* Mark the added row on the taxon tree */
+    mark_tree_nodes_added();
   };
 
   $(function() {
@@ -239,6 +243,28 @@
     $('.sparkline_column').hide()
     $('.rpkm_value.sample_set_selected').show()
     $('.rpkm_value').not('.sample_set_selected').hide()
+  };
+
+  /* Mark tree nodes added */
+  function mark_tree_nodes_added() {
+    $('.rpkm_values_tbody').children().each( function() {
+        rpkm_taxa = $(this).attr('id');
+        $("#expList [full_taxonomy]").each(function() {
+          transformed_full_taxonomy = replace_chars_for_tax_id($(this).attr('full_taxonomy'));
+          if(transformed_full_taxonomy == rpkm_taxa) {
+            $(this).siblings('a').addClass('emph-tree-node');
+          }
+      });
+    });
+  };
+
+  function unmark_tree_node(rpkm_taxa) {
+    $("#expList [full_taxonomy]").each(function() {
+      transformed_full_taxonomy = replace_chars_for_tax_id($(this).attr('full_taxonomy'));
+      if(transformed_full_taxonomy == rpkm_taxa) {
+          $(this).siblings('a').removeClass('emph-tree-node');
+        }
+    });
   };
 
   /* General */
