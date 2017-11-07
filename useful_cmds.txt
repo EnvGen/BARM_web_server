@@ -1,36 +1,42 @@
+# Old, missing tigrfam
 time python populate_db.py --sample_info data/stage/lmo/sample_info.csv \
     --pfam_annotation_info data/stage/annotation_info/all_pfam_annotation_info.tsv \
     --eggnog_category_info data/stage/annotation_info/eggnog_categories.tsv \
     --eggnog_annotation_info data/stage/annotation_info/all_EggNOG_annotation_info.tsv \
     --ec_annotation_info data/stage/annotation_info/all_EC_annotation_info.tsv \
-    --dbcan_annotation_info data/stage/annotation_info/all_dbCAN_annotation_info.tsv \
     --annotation_source_info data/stage/annotation_source_info.csv \
     --gene_annotations_pfam data/stage/annotations/all.pfam.standardized.tsv \
     --gene_annotations_eggnog data/stage/annotations/all.EggNOG.standardized.tsv \
     --gene_annotations_ec data/stage/annotations/all.EC.standardized.tsv \
-    --gene_annotations_dbcan data/stage/all.dbCAN.standardized.tsv \
     --reference_assembly "megahit_coassembly.0" \
     --gene_counts data/stage/lmo/all_genes.tpm.tsv.gz \
     --metadata_reference data/stage/metadata_reference.tsv \
     --tmp_file /Users/johannesalneberg/repos/BARM_web_server/data/stage/tmp_file.csv \
     --taxonomy_per_gene ~/repos/BARM_web_server/data/stage/lca_megan.tsv
 
+# Old, missing tigrfam
 time python populate_db.py --sample_info data/real/lmo/sample_info.csv \
     --pfam_annotation_info data/real/annotation_info/all_pfam_annotation_info.tsv \
     --eggnog_category_info data/real/annotation_info/eggnog_categories.tsv \
     --eggnog_annotation_info data/real/annotation_info/all_EggNOG_annotation_info.tsv \
     --ec_annotation_info data/real/annotation_info/all_EC_annotation_info.tsv \
-    --dbcan_annotation_info data/real/annotation_info/all_dbCAN_annotation_info.tsv \
     --annotation_source_info data/real/annotation_source_info.csv \
     --gene_annotations_pfam data/real/annotations/all.pfam.standardized.tsv \
     --gene_annotations_eggnog data/real/annotations/all.EggNOG.standardized.tsv \
     --gene_annotations_ec data/real/annotations/all.EC.standardized.tsv \
-    --gene_annotations_dbcan data/real/all.dbCAN.standardized.tsv \
     --reference_assembly "megahit_coassembly.0" \
     --gene_counts data/real/lmo/all_genes.tpm.tsv.gz \
     --metadata_reference data/real/metadata_reference.tsv \
     --tmp_file /Users/johannesalneberg/repos/BARM_web_server/data/real/tmp_file.csv \
     --taxonomy_per_gene ~/repos/BARM_web_server/data/real/lca_script.tsv
+
+# Adding tigrfam to stage:
+time python add_annotation_to_db.py --annotation_source_info data/stage/annotation_source_info.csv \
+    --tigrfam_annotation_info data/stage/annotation_info/all_TIGRFAM_annotation_info.tsv \
+    --gene_annotations_tigrfam data/stage/annotations/all.TIGRFAM.standardized.tsv \
+    --tmp_file /Users/johannesalneberg/repos/BARM_web_server/data/real/tmp_file.csv \
+    --reference_assembly "megahit_coassembly.0"
+
 
 time python populate_db.py --sample_info data/test/lmo/sample_info.csv \
     --pfam_annotation_info data/test/annotation_info/all_pfam_annotation_info.tsv \
