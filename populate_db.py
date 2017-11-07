@@ -303,7 +303,6 @@ def main(args):
     if args.gene_annotations_ec:
         commited_genes = add_genes_with_annotation("EC", args.gene_annotations_ec, commited_genes, all_annotations, all_annotation_sources["EC"])
 
-
     logging.info("Processed {} genes in total, moving on to gene counts".format(len(commited_genes.keys())))
 
     # Fetch each gene from the gene count file and create the corresponding gene count
@@ -356,7 +355,6 @@ if __name__ == '__main__':
     parser.add_argument("--eggnog_annotation_info", help=("A tsv file with all the possible EggNOG annotations."))
     parser.add_argument("--eggnog_category_info", help=("A tsv file with all the possible eggnog categories."))
     parser.add_argument("--pfam_annotation_info", help=("A tsv file with all the possible pfam annotations."))
-    parser.add_argument("--dbcan_annotation_info", help=("A tsv file with all the possible dbCAN annotations."))
     parser.add_argument("--tigrfam_annotation_info", help=("A tsv file with all the possible tigrfam annotations."))
     parser.add_argument("--annotation_source_info", help="A csv file with all the annotation source info.")
     parser.add_argument("--gene_annotations_cog", help="A tsv file with all the gene annotations")
@@ -364,7 +362,6 @@ if __name__ == '__main__':
     parser.add_argument("--gene_annotations_tigrfam", help="A tsv file with all the tigrfam gene annotations")
     parser.add_argument("--gene_annotations_ec", help="A tsv file with all the ec gene annotations")
     parser.add_argument("--gene_annotations_eggnog", help="A tsv file with all the eggnog gene annotations")
-    parser.add_argument("--gene_annotations_dbcan", help="A tsv file with all the dbcan gene annotations")
     parser.add_argument("--reference_assembly", help="Name of the reference assembly that the genes belong to")
     parser.add_argument("--gene_counts", help="A tsv file with each sample as a column containing all the gene counts")
     parser.add_argument("--taxonomy_per_gene", help="A tsv file with taxonomic annotation per gene")
