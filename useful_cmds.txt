@@ -37,6 +37,13 @@ time python add_annotation_to_db.py --annotation_source_info data/stage/annotati
     --tmp_file /Users/johannesalneberg/repos/BARM_web_server/data/real/tmp_file.csv \
     --reference_assembly "megahit_coassembly.0"
 
+# Adding tigrfam to real:
+time python add_annotation_to_db.py --annotation_source_info data/real/annotation_source_info.csv \
+    --tigrfam_annotation_info data/real/annotation_info/all_TIGRFAM_annotation_info.tsv \
+    --gene_annotations_tigrfam data/real/annotations/all.TIGRFAM.standardized.tsv \
+    --tmp_file /Users/johannesalneberg/repos/BARM_web_server/data/real/tmp_file.csv \
+    --reference_assembly "megahit_coassembly.0"
+
 
 time python populate_db.py --sample_info data/test/lmo/sample_info.csv \
     --pfam_annotation_info data/test/annotation_info/all_pfam_annotation_info.tsv \
