@@ -20,6 +20,11 @@ def main(args):
 
     logging.info("Adding annotation information")
 
+    # find the reference assembly
+    ref_assemblies = ReferenceAssembly.query.filter_by(name=str(args.reference_assembly)).all()
+    assert len(ref_assemblies) == 1
+    ref_assembly = ref_assemblies[0]
+
     annotations = []
     if args.tigrfam_annotation_info:
         # Columns:Id,Name,Description
@@ -42,7 +47,7 @@ def main(args):
     row = annotation_source_info.loc['TigrFam']
     annotation_source = AnnotationSource('TigrFam', row.db_version, row.algorithm, row.algorithm_parameters)
 
-    session.add_all(list(all_annotation_sources.values()))
+    session.add(annotation_source)
 
     def add_genes_with_annotation(annotation_type, gene_annotation_arg, commited_genes, all_annotations, annotation_source):
         logging.info("Adding genes with {} annotations".format(annotation_type))
@@ -68,7 +73,6 @@ def main(args):
         gene_annotations['gene_id'] = gene_annotations['name'].apply(lambda x: commited_genes[x])
         gene_annotations['annotation_id'] = gene_annotations['type_identifier'].apply(lambda x: all_annotations[x].id)
 
-        annotation_source = all_annotation_sources[annotation_type]
         gene_annotations['annotation_source_id'] = annotation_source.id
 
         logging.info("Commiting all {} {} gene annotations".format(len(gene_annotations), annotation_type))
@@ -79,7 +83,7 @@ def main(args):
         return commited_genes
 
     commited_genes = dict( session.query(Gene.name, Gene.id).all() )
-    commited_genes = add_genes_with_annotation("TigrFam", args.gene_annotations_tigrfam, commited_genes, all_annotations, all_annotation_sources["TigrFam"])
+    commited_genes = add_genes_with_annotation("TigrFam", args.gene_annotations_tigrfam, commited_genes, all_annotations, annotation_source)
 
     logging.info("Commiting everything")
     session.commit()
@@ -93,6 +97,7 @@ if __name__ == '__main__':
     parser.add_argument("--annotation_source_info", help="A csv file with all the annotation source info.")
     parser.add_argument("--tigrfam_annotation_info", help=("A tsv file with all the possible tigrfam annotations."))
     parser.add_argument("--gene_annotations_tigrfam", help="A tsv file with all the tigrfam gene annotations")
+    parser.add_argument("--reference_assembly", help="Name of the reference assembly that the genes belong to")
     parser.add_argument("--tmp_file", help="A file that will be used to import gene counts to postgres")
     args = parser.parse_args()
 
