@@ -80,7 +80,7 @@ def main(args):
         ref_assembly = ReferenceAssembly(args.reference_assembly)
     else:
         assert len(ref_assemblies) == 1
-        ref_assembly = ref_assemlbies[0]
+        ref_assembly = ref_assemblies[0]
 
     session.add(ref_assembly)
 
