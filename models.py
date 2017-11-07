@@ -709,7 +709,7 @@ class TigrFam(Annotation):
     @property
     def external_link(self):
         if self.type_identifier[:4] != 'TIGR':
-            external_id = self.type_identifier.replace(self.type_identifier[:4], 'TIGR')
+            return "http://www.jcvi.org/cgi-bin/tigrfams/index.cgi"
         else:
             external_id = self.type_identifier
         return "http://www.jcvi.org/cgi-bin/tigrfams/HmmReportPage.cgi?acc={}".format(external_id)
