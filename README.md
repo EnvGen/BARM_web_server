@@ -1,6 +1,8 @@
 # BARM_web_server
 Baltic sea Reference Metagenome web server
 
+running at https://barm.scilifelab.se
+
 ## Dev note
 I always forget this, to log in to psql on local mac:
 
