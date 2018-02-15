@@ -16,14 +16,15 @@ before_install:
     - export PATH=/home/travis/miniconda3/bin:$PATH
     - conda update --yes conda
     - conda update --yes setuptools
-install:
-    - conda install --yes python=$TRAVIS_PYTHON_VERSION pandas Flask SQLAlchemy psycopg2 flask-wtf gunicorn mako werkzeug wheel
-    - pip install -r requirements.txt
     - wget -q https://github.com/gpertea/cdbfasta/archive/master.zip -O cdbfasta-master.zip
     - unzip cdbfasta-master.zip
     - cd cdbfasta-master && make
     - export PATH=/home/travis/cdbfasta-master:$PATH
+install:
+    - conda install --yes python=$TRAVIS_PYTHON_VERSION pandas Flask SQLAlchemy psycopg2 flask-wtf gunicorn mako werkzeug wheel
+    - pip install -r requirements.txt
 before_script:
+    - which cdbyank
     - createdb BARM_web_test -U postgres --echo
     - createdb BARM_web_stage -U postgres --echo
     - cd $TRAVIS_BUILD_DIR
