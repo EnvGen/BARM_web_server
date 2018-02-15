@@ -11,6 +11,7 @@ import json
 import os
 from collections import OrderedDict
 from urllib.parse import urlparse, urljoin
+import subprocess
 
 app = Flask(__name__)
 app.config.from_object(os.environ['APP_SETTINGS'])
@@ -37,6 +38,18 @@ if os.environ.get('BARM_GOOGLE_CLIENT_SECRET'):
     google_client_secret = os.environ['BARM_GOOGLE_CLIENT_SECRET']
 else:
     raise Exception('The variable BARM_GOOGLE_CLIENT_SECRET is not set')
+
+if os.environ.get('AA_SEQUENCES'):
+    AA_SEQUENCES = os.environ['AA_SEQUENCES']
+    assert(os.path.isfile(AA_SEQUENCES))
+else:
+    raise Exception('The variable AA_SEQUENCES is not set')
+
+if os.environ.get('NUC_SEQUENCES'):
+    NUC_SEQUENCES = os.environ['NUC_SEQUENCES']
+    assert(os.path.isfile(NUC_SEQUENCES))
+else:
+    raise Exception('The variable NUC_SEQUENCES is not set')
 
 blueprint = make_google_blueprint(
     client_id=google_client_id,
@@ -288,7 +301,7 @@ def functional_table():
             download_action = True
             download_select = form.download_select.data
         if len(type_identifiers) == 0:
-            msg = "Warning, the query was not performed since it did not result in any hit. Try writing a less specific query."
+            msg = "Warning, the query was not performed since it did not result in any hit. Try writing a more general query."
             flash(msg, category="error")
         elif len(type_identifiers) > 200:
             msg = "Warning, the query was not performed since it resulted in more than 200 hits. Try writing a more specific query."
@@ -319,6 +332,18 @@ def functional_table():
     samples = sorted(samples, key=lambda x: x.scilifelab_code)
     sample_scilifelab_codes = [sample.scilifelab_code for sample in samples]
 
+    def _prepare_json_table(table, sample_sets):
+        json_table = {}
+        for annotation, sample_d in table.items():
+            json_table[annotation.type_identifier] = {}
+            for sample_set in sample_sets:
+                json_table_row = []
+                json_table_row = []
+                for sample in sample_set.samples:
+                    json_table_row.append({'y': float(sample_d[sample]), 'sample': sample.scilifelab_code})
+                json_table[annotation.type_identifier][sample_set.name] = json_table_row
+        return json_table
+
     if download_action:
         if download_select == 'Gene List':
             # Fetch all contributing genes for all the annotations in the table
@@ -331,6 +356,7 @@ def functional_table():
             r.headers["Content-Disposition"] = "attachment; filename=gene_list.csv"
             r.headers["Content-Type"] = "text/csv"
             return r
+
         elif download_select == 'Annotation Counts':
             csv_output = 'annotation_id' + ',' + \
             ','.join([sample.scilifelab_code for sample in samples]) \
@@ -341,17 +367,43 @@ def functional_table():
             r.headers["Content-Disposition"] = "attachment; filename=annotation_counts.csv"
             r.headers["Content-Type"] = "text/csv"
             return r
+
+        elif download_select == 'Amino Acid Sequences':
+            annotations = [annotation for annotation, sample in table.items()]
+            all_gene_ids = set()
+            for annotation in annotations:
+                gene_ids = set([gene.name for gene in annotation.genes])
+                all_gene_ids |= gene_ids
+
+            seqs, msg = _extract_sequences(all_gene_ids, AA_SEQUENCES)
+            if seqs is None:
+                json_table = _prepare_json_table(table, sample_sets)
+                flash(msg, category="error")
+            else:
+                r = make_response(seqs)
+                r.headers["Content-Disposition"] = "attachment; filename=proteins_aa.fa"
+                r.headers["Content-Type"] = "text/plain"
+                return r
+
+        elif download_select == 'Nucleotide Sequences':
+            annotations = [annotation for annotation, sample in table.items()]
+            all_gene_ids = set()
+            for annotation in annotations:
+                gene_ids = set([gene.name for gene in annotation.genes])
+                all_gene_ids |= gene_ids
+
+            seqs, msg = _extract_sequences(all_gene_ids, NUC_SEQUENCES)
+            if seqs is None:
+                json_table = _prepare_json_table(table, sample_sets)
+                flash(msg, category="error")
+            else:
+                r = make_response(seqs)
+                r.headers["Content-Disposition"] = "attachment; filename=proteins_nuc.fa"
+                r.headers["Content-Type"] = "text/plain"
+                return r
     else:
         # Wait to prepare the json table until it's certain that it's necessary
-        json_table = {}
-        for annotation, sample_d in table.items():
-            json_table[annotation.type_identifier] = {}
-            for sample_set in sample_sets:
-                json_table_row = []
-                json_table_row = []
-                for sample in sample_set.samples:
-                    json_table_row.append({'y': float(sample_d[sample]), 'sample': sample.scilifelab_code})
-                json_table[annotation.type_identifier][sample_set.name] = json_table_row
+        json_table = _prepare_json_table(table, sample_sets)
 
     return render_template('functional_table.html',
             table=table,
@@ -361,6 +413,24 @@ def functional_table():
             form=form,
             json_table=json_table
         )
+
+def _extract_sequences(all_ids, sequence_file):
+    """ Will run cdbyank on the sequence file to extract 
+    all sequences in all_ids as fasta"""
+
+    index_file = sequence_file + '.cidx'
+
+    with subprocess.Popen(['cdbyank', index_file], stdout=subprocess.PIPE, 
+            stdin=subprocess.PIPE, stderr=subprocess.PIPE) as process:
+        cdbyank_stdout, stderr = process.communicate(input='\n'.join(all_ids).encode())
+    seqs = cdbyank_stdout.decode()
+    if len(seqs) == 0 or seqs[0] != '>':
+        msg = "Error! The sequence extraction was not possible. We're sorry for the inconvenience."
+        print("ERROR IN SEQUENCE EXTRACTION")
+        print(stderr.decode())
+        return None, msg
+    else:
+        return seqs, None
 
 def _search_query(search_string):
     """ adding % signs before and after will create a substring search
