@@ -16,8 +16,9 @@ before_install:
     - export PATH=/home/travis/miniconda3/bin:$PATH
     - conda update --yes conda
     - conda update --yes setuptools
-    - wget -q https://github.com/gpertea/cdbfasta/archive/master.zip -O cdbfasta-master.zip
+    - cd $HOME && wget -q https://github.com/gpertea/cdbfasta/archive/master.zip -O cdbfasta-master.zip
     - unzip cdbfasta-master.zip
+    - pwd
     - cd cdbfasta-master && make
     - cd $TRAVIS_BUILD_DIR
     - export PATH=/home/travis/cdbfasta-master:$PATH
