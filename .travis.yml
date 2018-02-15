@@ -19,8 +19,10 @@ before_install:
     - wget -q https://github.com/gpertea/cdbfasta/archive/master.zip -O cdbfasta-master.zip
     - unzip cdbfasta-master.zip
     - cd cdbfasta-master && make
+    - cd $TRAVIS_BUILD_DIR
     - export PATH=/home/travis/cdbfasta-master:$PATH
 install:
+    - which cdbyank
     - conda install --yes python=$TRAVIS_PYTHON_VERSION pandas Flask SQLAlchemy psycopg2 flask-wtf gunicorn mako werkzeug wheel
     - pip install -r requirements.txt
 before_script:
