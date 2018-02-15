@@ -20,7 +20,15 @@ def main(args):
     sample_info = pd.read_table(args.sample_info, sep=',', index_col=0)
 
     for sample_set_name, sample_set_df in sample_info.groupby('sample_set'):
-        assert len(SampleSet.query.filter_by(name=sample_set_name).all()) == 0
+        if len(SampleSet.query.filter_by(name=sample_set_name).all()) > 0:
+            ss = SampleSet.query.filter_by(name=sample_set_name).first()
+            if args.force:
+                for sample in ss.samples:
+                    session.delete(sample)
+                session.delete(ss)
+                session.commit()
+            else:
+                sys.exit(-1)
 
     for sample_id, row in sample_info.iterrows():
         samples_with_code = Sample.query.filter_by(scilifelab_code=sample_id).all()
@@ -129,6 +137,7 @@ if __name__ == '__main__':
     parser.add_argument("--gene_counts", help="A tsv file with each sample as a column containing all the gene counts")
     parser.add_argument("--metadata_reference", help="A tsv file with which metadata parameters that are supposed to be added")
     parser.add_argument("--tmp_file", help="A file that will be used to import gene counts to postgres")
+    parser.add_argument("--force", action="store_true", help="Remove any sample set and samples with the same names already existing in the database")
     args = parser.parse_args()
 
     main(args)

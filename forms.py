@@ -8,13 +8,13 @@ class FunctionClassFilterForm(Form):
     filter_alternative = RadioField(choices=[
       ('filter_with_search', 'Filter by a search term'),
       ('filter_with_type_identifiers', 'Filter by typing in individual annotation identifiers')],
-      default='filter_with_type_identifiers')
+      default='filter_with_search')
     type_identifiers = FieldList(StringField(u'Type identifier'))
-    search_annotations = StringField('Search Annotations')
+    search_annotations = StringField('Search Annotations', default='Photosynth')
     select_sample_groups = SelectMultipleField(u'Sample Groups')
     submit_view = SubmitField(u'View Results')
     submit_download = SubmitField(u'Download')
-    download_select = SelectField(u'What to download', choices=[('Gene List', 'Gene List'), ('Annotation Counts', 'Annotation Counts')], default='Gene List')
+    download_select = SelectField(u'What to download', choices=[('Gene List', 'Gene List'), ('Annotation Counts', 'Annotation Counts'), ('Amino Acid Sequences', 'Amino Acid Sequences'), ('Nucleotide Sequences', 'Nucleotide Sequences')], default='Gene List')
 
 class TaxonomyTableFilterForm(Form):
     taxonomy_levels = [("superkingdom", "superkingdom"), ("phylum", "phylum"), ("taxclass", "taxclass"), ("order", "order"), ("family", "family"), ("genus", "genus"), ("species", "species")]

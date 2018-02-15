@@ -57,7 +57,7 @@ function generate_sparkline() {
                     shadow: false,
                     useHTML: true,
                     hideDelay: 0,
-                    shared: true,
+                    shared: false,
                     padding: 0,
                     positioner: function (w, h, point) {
                         return { x: point.plotX - w / 2, y: point.plotY - h };
@@ -114,19 +114,18 @@ function generate_sparkline() {
             stringdata,
             arr,
             data,
-            chart,
-            sample_name;
+            chart;
 
         for (i = 0; i < len; i += 1) {
             $td = $($tds[i]);
-            stringdata = $td.data('sparkline');
-            arr = stringdata.split('; ');
-            data = $.map(arr[0].split(', '), parseFloat);
+            data = $td.data('sparkline');
             chart = {};
 
-            if (arr[1]) {
+            // Code used to swhich to e.g. column chart as in the example
+            /*if (arr[1]) {
                 chart.type = arr[1];
-            }
+            } */
+
             $td.highcharts('SparkLine', {
                 series: [{
                     data: data,
@@ -134,9 +133,7 @@ function generate_sparkline() {
                 }],
                 tooltip: {
                   formatter: function() {
-                    x_coordinate = parseInt(this.x) - 1;
-                    sample_name = $("#sparkline_diagram").data('sample_names')[x_coordinate];
-                    return '<span style="font-size: 10px"><b> Sample: ' + sample_name + '<br/>' + this.y + '</b></span>';
+                    return '<span style="font-size: 10px"><b> Sample: ' + this.point.sample + '<br/>' + this.y + '</b></span>';
                   }
                 },
                 chart: chart

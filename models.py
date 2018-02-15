@@ -146,6 +146,7 @@ class Sample(db.Model):
 
         return q.all()
 
+
 class SampleProperty(db.Model):
     __tablename__ = 'sample_property'
 
@@ -352,8 +353,11 @@ class Taxon(db.Model):
                         filter(getattr(Taxon, filter_level) == parent_value).\
                         distinct().all()
                 children_names_and_values = [(child_t[0].split(';')[-1], child_t[0]) for child_t in children]
-
                 children_names_and_values.sort(key=lambda x: x[0].lower())
+                # First one is always exactly classified to the actual level
+                first_val = children_names_and_values[0]
+                new_first_val = ("<unassigned {}>".format(parent_value), first_val[1])
+                children_names_and_values[0] = new_first_val
                 return child_level, children_names_and_values
         else:
             raise ValueError
@@ -361,7 +365,7 @@ class Taxon(db.Model):
     @classmethod
     def rpkm_table_row(self, level="superkingdom", complete_taxonomy=None):
         filter_level = "up_to_" + level
-        q_first = db.session.query(Sample.scilifelab_code, sqlalchemy.func.sum(TaxonRpkmTable.rpkm)).\
+        q_first = db.session.query(Sample, sqlalchemy.func.sum(TaxonRpkmTable.rpkm)).\
                 filter(TaxonRpkmTable.taxon_id == Taxon.id).\
                 group_by(getattr(Taxon, filter_level)).\
                 group_by(Sample.id).\
@@ -369,12 +373,8 @@ class Taxon(db.Model):
                 filter(getattr(Taxon, filter_level) == complete_taxonomy)
 
         table_row = dict(q_first.all())
+        return table_row
 
-        samples = sorted(table_row.keys())
-        complete_val_to_val = {}
-        level_val = complete_taxonomy.split(';')[-1]
-        complete_val_to_val[complete_taxonomy] = level_val
-        return samples, table_row, complete_val_to_val
 
     @classmethod
     def rpkm_table(self, level="superkingdom", top_level_complete_values=None, top_level=None, samples=None, limit=20):
@@ -559,10 +559,10 @@ class Annotation(db.Model):
             samples.add(sample)
             fetched_annotations[annotation.id] = annotation
             if annotation in rows_unordered:
-                rows_unordered[annotation][sample] = rpkm_sum
+                rows_unordered[annotation][sample] = "{0:.4f}".format(rpkm_sum)
             else:
                 rows_unordered[annotation] = collections.OrderedDict()
-                rows_unordered[annotation][sample] = rpkm_sum
+                rows_unordered[annotation][sample] = "{0:.4f}".format(rpkm_sum)
 
         rows = collections.OrderedDict()
 
@@ -709,7 +709,7 @@ class TigrFam(Annotation):
     @property
     def external_link(self):
         if self.type_identifier[:4] != 'TIGR':
-            external_id = self.type_identifier.replace(self.type_identifier[:4], 'TIGR')
+            return "http://www.jcvi.org/cgi-bin/tigrfams/index.cgi"
         else:
             external_id = self.type_identifier
         return "http://www.jcvi.org/cgi-bin/tigrfams/HmmReportPage.cgi?acc={}".format(external_id)
