@@ -12,6 +12,7 @@ import os
 from collections import OrderedDict
 from urllib.parse import urlparse, urljoin
 import subprocess
+import shutil
 
 app = Flask(__name__)
 app.config.from_object(os.environ['APP_SETTINGS'])
@@ -50,6 +51,8 @@ if os.environ.get('NUC_SEQUENCES'):
     assert(os.path.isfile(NUC_SEQUENCES))
 else:
     raise Exception('The variable NUC_SEQUENCES is not set')
+
+assert(shutil.which('cdbyank') is not None)
 
 blueprint = make_google_blueprint(
     client_id=google_client_id,
@@ -344,7 +347,8 @@ def functional_table():
                 json_table[annotation.type_identifier][sample_set.name] = json_table_row
         return json_table
 
-    if download_action:
+    # This section is not independent from the section above
+    if len(type_identifiers) > 0 and download_action:
         if download_select == 'Gene List':
             # Fetch all contributing genes for all the annotations in the table
             annotation_ids = [annotation.id for annotation, sample in table.items()]
@@ -362,7 +366,7 @@ def functional_table():
             ','.join([sample.scilifelab_code for sample in samples]) \
             + '\n'
             csv_output += '\n'.join(
-                    [annotation.type_identifier + ',' + ','.join(["{:0.2f}".format(sample_d[sample]) for sample in samples]) for annotation, sample_d in table.items()])
+                    [annotation.type_identifier + ',' + ','.join([sample_d[sample] for sample in samples]) for annotation, sample_d in table.items()])
             r = make_response(csv_output)
             r.headers["Content-Disposition"] = "attachment; filename=annotation_counts.csv"
             r.headers["Content-Type"] = "text/csv"
