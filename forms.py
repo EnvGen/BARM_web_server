@@ -2,13 +2,16 @@ from flask.ext.wtf import Form
 from wtforms import SelectField, SelectMultipleField, StringField, FieldList, RadioField, SubmitField, IntegerField, TextAreaField, ValidationError
 
 def fasta_length_check(form, field):
-    print("Checking submitted text with len: {}".format(len(field.data)))
     if len(field.data) < 1:
         raise ValidationError('Please submit an input sequence')
     if len(field.data) > 15000:
         raise ValidationError('Input sequence must be less than 15000 characters')
     if field.data[0] != '>':
         raise ValidationError('Input sequence must be in fasta format')
+    # Count number of fasta headers:
+    all_headers = [line for line in field.data.split('\n') if line[0] == '>']
+    if len(all_headers) != 1:
+        raise ValidationError('Only one input sequence at a time is allowed')
 
 def e_val_exponent_check(form, field):
     # Check max value, min value
