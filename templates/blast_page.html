@@ -1,0 +1,185 @@
+{% extends "default_base.html" %}
+{% block body %}
+<div class="container">
+  <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
+    <div class="panel panel-default">
+      <div class="panel-heading" role="tab" id="headingOne">
+        <h4 class="panel-title">
+          <a role="button" id="filter_accordion" data-toggle="collapse" data-parent="#accordion" href="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+            BLAST Filtering Options
+          </a>
+        </h4>
+      </div>
+      <div id="collapseOne" class="panel-collapse" role="tabpanel" aria-labelledby="headingOne">
+        <div class="panel-body">
+
+          <form action="" method="post" id='filter_form' name="filter" class="filter_function">
+            {{ form.hidden_tag() }}
+            <div class="row">
+              <div class="col-md-4">
+				{% if form.sequence.errors %}
+				  <div class="form-group has-error">
+				{% else %}
+				  <div class="form-group">
+				{% endif %}
+					<label for="sequence" class='control-label'>Sequence</label>
+					<span id='sequence_count'>47</span>/15000 characters
+					{{ form.sequence(id='sequence_textarea', rows=7, cols=81, maxlength="15000", class='form-control') }}
+					<span id="helpBlock2" class="help-block">
+					{% for error in form.sequence.errors %}
+						{{ error }}
+					{% endfor %}
+					</span>
+				</div>
+              </div>
+              <div class="col-md-2">
+                <label for="algorithm"><h4>Algorithm</h4></label>
+                  {{ form.blast_algorithm() }}
+              </div>
+			  <div class="col-md-4">
+			  <h4>Maximum E-value: <span><span id="e_value_factor_display">1</span>x10<sup><span id="e_value_exponent_display">1</span></sup></span></h4>
+			  {% if form.e_value_exponent.errors %}
+				<div class="form-group has-error">
+		      {% else %}
+		        <div class="form-group">
+			  {% endif %}
+                <label for="e_value_exponent">exponent</label>
+                  {{ form.e_value_exponent(id="e_value_exponent_input", class="form-control", type="number") }}
+				<span class="help-block">
+				  {% for error in form.e_value_exponent.errors %}
+				    {{ error }}
+				  {% endfor %}
+				</span>
+                </div>
+			  {% if form.e_value_factor.errors %}
+				<div class="form-group has-error">
+		      {% else %}
+		        <div class="form-group">
+			  {% endif %}
+                <label for="e_value_factor">factor</label>
+                  {{ form.e_value_factor(id="e_value_factor_input", maxlength='1', class="form-control", type="number") }}
+				<span class="help-block">
+				  {% for error in form.e_value_factor.errors %}
+				    {{ error }}
+				  {% endfor %}
+				</span>
+                </div>
+			  </div>
+            </div>
+            <div class="row">
+              <div class="sample_filtering">
+
+                <div class="col-md-6">
+                  <h4>Choose sample group</h4>
+                  <div class="form-group">
+                    <label for="sample_groups">Sample Group</label>
+				    <span class="help-block">Select sample groups from which counts will be displayed for matching genes. Selecting none is equivalent to selecting all.</span>
+                    {{ form.select_sample_groups(class="form-control") }}
+                  </div>
+                </div>
+                <div class="col-md-6">
+                </div>
+              </div>
+              <div class="col-md-11">
+                <div id="search_result_annotations">
+                </div>
+              </div>
+              <div class="col-md-1">
+              </div>
+            </div>
+            <div class="col-md-8">
+              {{ form.submit_view(class='btn btn-default') }}
+            </div>
+            <div class="col-md-4">
+              <div class="input-group">
+                {{ form.download_select(class="form-control") }}
+                <span class="input-group-btn">
+                  {{ form.submit_download(class='btn btn-default') }}
+                </span>
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script type=text/javascript>
+  $(document).ready(function () {
+      $('#table_diagram_tabs a').click(function (e) {
+          e.preventDefault()
+          $(this).tab('show')
+      });
+
+      $('#filter_function_classes_alternative_radio .radio label input').click(function(event) {
+        selector_to_disable = $("fieldset:not([disabled])")
+        selector_to_enable = $("fieldset.".concat($(this).val()));
+        disable_form_element(selector_to_disable, selector_to_enable);
+      });
+
+	  $("#sequence_textarea").bind('input', function(){
+  		$("#sequence_count").text($(this).val().length);
+	  });
+
+	  $("#e_value_factor_input").bind('input', function(){
+  		$("#e_value_factor_display").text($(this).val());
+	  });
+
+	  $("#e_value_exponent_input").bind('input', function(){
+  		$("#e_value_exponent_display").text($(this).val());
+	  });
+
+      disable_form_element(selector_to_disable, selector_to_enable);
+      enable_tooltip();
+      hide_description_column();
+      $('#toggle_description_column').click(function(event) {
+        if ($(this).attr('value') == 'show') {
+           $(this).text("Hide Annotation Description");
+           $(this).attr('value', 'hide');
+           show_description_column();
+        } else {
+           $(this).text("Show Annotation Description");
+           $(this).attr('value', 'show');
+           hide_description_column();
+        }
+      });
+
+      hide_sample_information();
+      $('#toggle_sample_description').click(function(event) {
+        if ($(this).attr('value') == 'show') {
+           $(this).text("Hide Sample Information");
+           $(this).attr('value', 'hide');
+           show_sample_information();
+        } else {
+           $(this).text("Show Sample Information");
+           $(this).attr('value', 'show');
+           hide_sample_information();
+        }
+      });
+  });
+
+  function enable_tooltip() {
+    $('[data-toggle="tooltip"]').tooltip();
+  }
+
+  function show_description_column(){
+    $('thead .hideable_annotation_description').show();
+    $('tbody .hideable_annotation_description').show();
+  }
+
+  function hide_description_column(){
+    $('thead .hideable_annotation_description').hide();
+    $('tbody .hideable_annotation_description').hide();
+  }
+
+  function show_sample_information(){
+    $('#function_classes_table thead .sample_description_in_table').show();
+  }
+
+  function hide_sample_information(){
+    $('#function_classes_table thead .sample_description_in_table').hide();
+  }
+
+</script>
+{% endblock body %}
