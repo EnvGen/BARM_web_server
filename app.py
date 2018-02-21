@@ -4,7 +4,7 @@ from flask_dance.contrib.google import make_google_blueprint, google
 from flask_dance.consumer.backend.sqla import SQLAlchemyBackend
 from flask_dance.consumer import oauth_authorized, oauth_error
 from flask_login import current_user, LoginManager, login_user, logout_user, login_required
-from forms import FunctionClassFilterForm, TaxonomyTableFilterForm
+from forms import FunctionClassFilterForm, TaxonomyTableFilterForm, BlastFilterForm
 import sqlalchemy
 import config
 import json
@@ -13,6 +13,8 @@ from collections import OrderedDict
 from urllib.parse import urlparse, urljoin
 import subprocess
 import shutil
+import pandas as pd
+import io
 
 app = Flask(__name__)
 app.config.from_object(os.environ['APP_SETTINGS'])
@@ -140,7 +142,7 @@ def taxon_tree_table_row(level, complete_taxonomy):
     if complete_val == '':
         complete_val = '<unassigned {}>'.format(complete_taxonomy.split(';')[-2])
     complete_val_to_val[complete_taxonomy] = complete_val
-    
+
     sample_sets = OrderedDict()
     for sample_set in sorted(SampleSet.all_public(), key=lambda ss: ss.name):
         sample_sets[sample_set] = sample_set.samples
@@ -214,6 +216,60 @@ def taxonomy_tree_table():
             sample_scilifelab_codes=sample_scilifelab_codes,
             complete_val_to_val=complete_val_to_val,
             json_table=json_table)
+
+@app.route('/blast_search_table', methods=['GET', 'POST'])
+def blast_page():
+    form = BlastFilterForm()
+    form.select_sample_groups.choices = [(sample_set.name, sample_set.name) for sample_set in  SampleSet.all_public()]
+    if form.validate_on_submit():
+        cmd = [form.blast_algorithm.data]
+
+        e_val = int(form.e_value_factor.data) * 10**int(form.e_value_exponent.data)
+        cmd += ["-evalue", str(e_val)]
+
+        if form.blast_algorithm.data == 'blastp':
+            blast_db = AA_SEQUENCES
+        else:
+            blast_db = NUC_SEQUENCES
+        cmd += ['-db', blast_db]
+        names = ['qacc', 'sacc', 'pident', 'length', 'qstart', 'qend', 'sstart', 'send', 'evalue', 'bitscore']
+        cmd += ['-outfmt', '6 {}'.format(" ".join(names))]
+
+
+        with subprocess.Popen(cmd, stdin=subprocess.PIPE, stdout=subprocess.PIPE,\
+                stderr=subprocess.PIPE) as process:
+            blast_stdout, stderr = process.communicate(input=form.sequence.data.encode())
+            returncode = process.returncode
+
+        if returncode == 0:
+            with io.StringIO(blast_stdout.decode()) as stdout_buf:
+                df = pd.read_csv(stdout_buf, sep='\t', index_col=1, header=None, names=names)
+
+            # Filter on identity and alignment length
+            df = df[df['pident'] >= form.min_identity.data]
+
+            df = df[df['length'] >= form.min_aln_length.data]
+
+            print(df)
+            # Fetch counts for the matching genes
+            return render_template('blast_page.html',
+                form=form)
+
+        msg = "Error, the {} query was not successful.".format(form.blast_algorithm.data)
+        flash(msg, category="error")
+
+        # Logging the error
+        print("BLAST ERROR, cmd: {}".format(cmd))
+        print("BLAST ERROR, returncode: {}".format(returncode))
+        print("BLAST ERROR, output: {}".format(blast_stdout))
+        print("BLAST ERROR, stderr: {}".format(stderr))
+
+        flash
+    # else: commented out since also returncode != 0 leads here
+    return render_template('blast_page.html',
+        form=form)
+
+
 
 @app.route('/taxonomy_table', methods=['GET'])
 def taxon_table():
