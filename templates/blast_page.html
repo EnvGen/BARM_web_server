@@ -16,7 +16,11 @@
           <form action="" method="post" id='filter_form' name="filter" class="filter_function">
             {{ form.hidden_tag() }}
             <div class="row">
-              <div class="col-md-4">
+              <div class="col-md-3">
+                <label for="algorithm"><h4>Algorithm</h4></label>
+                  {{ form.blast_algorithm() }}
+              </div>
+              <div class="col-md-6 col-md-offset-1">
 				{% if form.sequence.errors %}
 				  <div class="form-group has-error">
 				{% else %}
@@ -32,11 +36,9 @@
 					</span>
 				</div>
               </div>
-              <div class="col-md-2">
-                <label for="algorithm"><h4>Algorithm</h4></label>
-                  {{ form.blast_algorithm() }}
               </div>
-			  <div class="col-md-4">
+              <div class="row">
+			  <div class="col-md-3">
 			  <h4>Maximum E-value: <span><span id="e_value_factor_display">1</span>x10<sup><span id="e_value_exponent_display">1</span></sup></span></h4>
 			  {% if form.e_value_exponent.errors %}
 				<div class="form-group has-error">
@@ -65,6 +67,36 @@
 				</span>
                 </div>
 			  </div>
+			  <div class="col-md-3 col-md-offset-1">
+			  <h4>Minimum identity (%):</h4>
+			  {% if form.min_identity.errors %}
+				<div class="form-group has-error">
+		      {% else %}
+		        <div class="form-group">
+			  {% endif %}
+                  {{ form.min_identity(id="min_identity_input", class="form-control", type="number") }}
+				<span class="help-block">
+				  {% for error in form.min_identity.errors %}
+				    {{ error }}
+				  {% endfor %}
+				</span>
+                </div>
+              </div>
+			  <div class="col-md-3">
+			  <h4>Minimal alignment length:</h4>
+			  {% if form.min_aln_length.errors %}
+				<div class="form-group has-error">
+		      {% else %}
+		        <div class="form-group">
+			  {% endif %}
+                  {{ form.min_aln_length(id="min_aln_length_input", class="form-control", type="number") }}
+				<span class="help-block">
+				  {% for error in form.min_aln_length.errors %}
+				    {{ error }}
+				  {% endfor %}
+				</span>
+                </div>
+              </div>
             </div>
             <div class="row">
               <div class="sample_filtering">
