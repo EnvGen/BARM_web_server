@@ -254,8 +254,14 @@ def blast_page():
             hits_after_length = len(df)
 
             # Fetch counts for the matching genes
-            if len(df) > 0:
-                samples, table = Gene.rpkm_table(list(df.index))
+            if len(df) == 0:
+                msg = "No hits were found in the BLAST search"
+                flash(msg, category="error")
+                return render_template('blast_page.html',
+                        form=form,
+                        table = {})
+
+            samples, table = Gene.rpkm_table(list(df.index))
 
             sample_set_names = form.select_sample_groups.data
             if len(sample_set_names) > 0:
