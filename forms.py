@@ -9,7 +9,7 @@ def fasta_length_check(form, field):
     if field.data[0] != '>':
         raise ValidationError('Input sequence must be in fasta format')
     # Count number of fasta headers:
-    all_headers = [line for line in field.data.split('\n') if line[0] == '>']
+    all_headers = [line for line in field.data.split('\n') if (not len(line)==0) and (line[0] == '>')]
     if len(all_headers) != 1:
         raise ValidationError('Only one input sequence at a time is allowed')
 
