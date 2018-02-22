@@ -23,7 +23,7 @@ config.check_oauth_variables(os.environ['APP_SETTINGS'])
 
 db = SQLAlchemy(app)
 
-from models import Sample, SampleSet, TimePlace, SampleProperty, Annotation, Taxon, OAuth, User
+from models import Sample, SampleSet, TimePlace, SampleProperty, Annotation, Taxon, OAuth, User, Gene
 
 
 def is_safe_url(target):
@@ -244,16 +244,49 @@ def blast_page():
         if returncode == 0:
             with io.StringIO(blast_stdout.decode()) as stdout_buf:
                 df = pd.read_csv(stdout_buf, sep='\t', index_col=1, header=None, names=names)
-
+            total_hits = len(df)
             # Filter on identity and alignment length
             df = df[df['pident'] >= form.min_identity.data]
 
+            hits_after_pident = len(df)
             df = df[df['length'] >= form.min_aln_length.data]
 
-            print(df)
+            hits_after_length = len(df)
+
             # Fetch counts for the matching genes
+            if len(df) > 0:
+                samples, table = Gene.rpkm_table(list(df.index))
+
+            sample_set_names = form.select_sample_groups.data
+            if len(sample_set_names) > 0:
+                sample_sets = SampleSet.query.filter(SampleSet.name.in_(sample_set_names))
+                samples = Sample.all_from_sample_sets(sample_set_names)
+            else:
+                sample_sets = SampleSet.all_public()
+                sample_set_names = [s.name for s in sample_sets]
+                samples = Sample.all_from_sample_sets(sample_set_names)
+
+            def _prepare_json_table(table, sample_sets):
+                json_table = {}
+                for gene, sample_d in table.items():
+                    json_table[gene.name] = {}
+                    for sample_set in sample_sets:
+                        json_table_row = []
+                        for sample in sample_set.samples:
+                            json_table_row.append({'y': float(sample_d[sample]), 'sample': sample.scilifelab_code})
+                        json_table[gene.name][sample_set.name] = json_table_row
+
+                return json_table
+
+            json_table = _prepare_json_table(table, sample_sets)
+
             return render_template('blast_page.html',
-                form=form)
+                form=form,
+                samples=samples,
+                table=table,
+                sample_scilifelab_codes = [s.scilifelab_code for s in samples],
+                sample_sets=sample_set_names,
+                json_table=json_table)
 
         msg = "Error, the {} query was not successful.".format(form.blast_algorithm.data)
         flash(msg, category="error")
@@ -267,7 +300,10 @@ def blast_page():
         flash
     # else: commented out since also returncode != 0 leads here
     return render_template('blast_page.html',
-        form=form)
+        form=form,
+        samples=[],
+        table={},
+        sample_scilifelab_codes=[])
 
 
 

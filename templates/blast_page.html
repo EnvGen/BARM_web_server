@@ -135,6 +135,18 @@
       </div>
     </div>
   </div>
+  <ul class="nav nav-tabs" id="table_diagram_tabs">
+      <li role="presentation" class="active"><a href="#sparkline_tab" aria-controls="sparkline_tab" role="tab" data-toggle="tab">Diagram</a></li>
+      <li role="presentation"><a href="#table_tab" aria-controls="table_tab" role="tab">Table</a></li>
+  </ul>
+  <div class="tab-content">
+    <div role="tabpanel" class="tab-pane active" id="sparkline_tab">
+      {% include 'blast_table_diagram.html' %}
+    </div>
+    <div role="tabpanel" class="tab-pane" id="table_tab">
+      {% include 'blast_table_part.html' %}
+    </div>
+  </div>
 </div>
 
 <script type=text/javascript>
@@ -142,12 +154,6 @@
       $('#table_diagram_tabs a').click(function (e) {
           e.preventDefault()
           $(this).tab('show')
-      });
-
-      $('#filter_function_classes_alternative_radio .radio label input').click(function(event) {
-        selector_to_disable = $("fieldset:not([disabled])")
-        selector_to_enable = $("fieldset.".concat($(this).val()));
-        disable_form_element(selector_to_disable, selector_to_enable);
       });
 
 	  $("#sequence_textarea").bind('input', function(){
@@ -162,7 +168,6 @@
   		$("#e_value_exponent_display").text($(this).val());
 	  });
 
-      disable_form_element(selector_to_disable, selector_to_enable);
       enable_tooltip();
       hide_description_column();
       $('#toggle_description_column').click(function(event) {
@@ -206,11 +211,11 @@
   }
 
   function show_sample_information(){
-    $('#function_classes_table thead .sample_description_in_table').show();
+    $('#gene_counts_table thead .sample_description_in_table').show();
   }
 
   function hide_sample_information(){
-    $('#function_classes_table thead .sample_description_in_table').hide();
+    $('#gene_counts_table thead .sample_description_in_table').hide();
   }
 
 </script>
