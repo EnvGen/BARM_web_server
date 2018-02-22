@@ -277,7 +277,6 @@ class Gene(db.Model):
         for gene_name in gene_name_list:
             if gene_name in gene_name_to_gene:
                 gene = gene_name_to_gene[gene_name]
-                print(unsorted_table[gene])
                 table[gene] = unsorted_table[gene]
 
         return samples, table
