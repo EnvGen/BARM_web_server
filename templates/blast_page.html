@@ -135,6 +135,7 @@
       </div>
     </div>
   </div>
+  {% if table %}
   <ul class="nav nav-tabs" id="table_diagram_tabs">
       <li role="presentation" class="active"><a href="#sparkline_tab" aria-controls="sparkline_tab" role="tab" data-toggle="tab">Diagram</a></li>
       <li role="presentation"><a href="#table_tab" aria-controls="table_tab" role="tab">Table</a></li>
@@ -147,6 +148,7 @@
       {% include 'blast_table_part.html' %}
     </div>
   </div>
+  {% endif %}
 </div>
 
 <script type=text/javascript>
