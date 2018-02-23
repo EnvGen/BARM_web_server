@@ -243,6 +243,44 @@ class Gene(db.Model):
                 filter_by(gene = self).\
                 filter_by(annotation = annotation).first()
 
+    @classmethod
+    def get_genes(self, gene_id_list):
+        genes = db.session.query(Gene.name).\
+                filter(Gene.name.in_(gene_id_list)).all()
+        return genes
+
+    @classmethod
+    def rpkm_table(self, gene_name_list, samples=None):
+        q = db.session.query(Gene.name, Gene, Sample, GeneCount.rpkm).\
+                join(GeneCount).\
+                filter(Sample.id == GeneCount.sample_id).\
+                join(Sample).\
+                filter(Gene.name.in_(gene_name_list)).\
+                filter(GeneCount.gene_id == Gene.id).\
+                order_by(Gene.name, Sample.scilifelab_code)
+
+        table_items = q.all()
+
+        samples = set()
+        unsorted_table = {}
+        gene_name_to_gene = {} # Translate name to database object
+        for gene_name, gene, sample, count in table_items:
+            if gene not in unsorted_table:
+                unsorted_table[gene] = {}
+                gene_name_to_gene[gene_name] = gene
+            unsorted_table[gene][sample] = "{0:.4f}".format(count)
+            samples.add(sample)
+
+        samples = sorted(list(samples), key=lambda x: x.scilifelab_code)
+
+        table = collections.OrderedDict()
+        for gene_name in gene_name_list:
+            if gene_name in gene_name_to_gene:
+                gene = gene_name_to_gene[gene_name]
+                table[gene] = unsorted_table[gene]
+
+        return samples, table
+
 class GeneCount(db.Model):
     __tablename__ = 'gene_count'
     __table_args__ = (

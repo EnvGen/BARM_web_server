@@ -1,0 +1,32 @@
+<div class="container-fluid">
+<button class="btn btn-default" id="toggle_sample_description" value='show'>Show Sample Information</button>
+<table class="table" id=gene_counts_table>
+  <thead>
+    <tr>
+      <th>Gene name</th>
+      <th>E-value</th>
+      <th>Identity (%)</th>
+      <th>Alignment length</th>
+      {% for sample in samples %}
+      <th>
+        <a href="#" data-toggle="tooltip" data-title="{% include 'sample_info_tooltip.html' %}" data-html="true">{{sample.scilifelab_code}}</a>
+        <span class='sample_description_in_table'>{% include 'sample_info_tooltip.html' %}</span>
+      </th>
+      {% endfor %}
+    </tr>
+  </thead>
+  <tbody class='rpkm_values_tbody'>
+  {% for gene, sample_d in table.items() %}
+    <tr>
+      <td><a href="#" data-toggle="tooltip" title="{{gene.name}}" data-placement="top">{{gene.name}}</a></td>
+      <td>{{ sample_d['e_value'] }}</td>
+      <td>{{ sample_d['identity'] }}</td>
+      <td>{{ sample_d['alignment_length'] }}</td>
+      {% for sample in samples %}
+        <td class="rpkm_value">{{sample_d[sample] }}</td>
+      {% endfor %}
+    </tr>
+  {% endfor %}
+  </tbody>
+</table>
+</div>
