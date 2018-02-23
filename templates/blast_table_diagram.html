@@ -3,6 +3,9 @@
   <thead>
     <tr>
       <th>Gene</th>
+      <th>E-value</th>
+      <th>Identity (%)</th>
+      <th>Alignment length</th>
       {% for sample_set in sample_sets %}
       <td>{{sample_set.name}}</td>
       {% endfor %}
@@ -11,8 +14,10 @@
     <tbody class='rpkm_values_tbody'>
     {% for gene, sample_set_d in table.items() %}
       <tr>
-      <td><a href="#" data-toggle="tooltip" title="{{gene.name}}" data-placement="top">{{gene.name}}</a>
-      </td>
+      <td><a href="#" data-toggle="tooltip" title="{{gene.name}}" data-placement="top">{{gene.name}}</a></td>
+      <td>{{ sample_set_d['e_value'] }}</td>
+      <td>{{ sample_set_d['identity'] }}</td>
+      <td>{{ sample_set_d['alignment_length'] }}</td>
       {% for sample_set in sample_sets %}
         <td data-sparkline='{{json_table[gene.name][sample_set] | tojson}}'></td>
     {% endfor %}

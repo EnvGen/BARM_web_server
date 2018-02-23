@@ -286,6 +286,12 @@ def blast_page():
 
             json_table = _prepare_json_table(table, sample_sets)
 
+            # Update table with blast info
+            for gene, sample_d in table.items():
+                table[gene]['e_value'] = df.loc[gene.name]['evalue']
+                table[gene]['identity'] = df.loc[gene.name]['pident']
+                table[gene]['alignment_length'] = df.loc[gene.name]['length']
+
             return render_template('blast_page.html',
                 form=form,
                 samples=samples,
