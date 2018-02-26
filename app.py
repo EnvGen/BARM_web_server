@@ -4,7 +4,7 @@ from flask_dance.contrib.google import make_google_blueprint, google
 from flask_dance.consumer.backend.sqla import SQLAlchemyBackend
 from flask_dance.consumer import oauth_authorized, oauth_error
 from flask_login import current_user, LoginManager, login_user, logout_user, login_required
-from forms import FunctionClassFilterForm, TaxonomyTableFilterForm
+from forms import FunctionClassFilterForm, TaxonomyTableFilterForm, BlastFilterForm
 import sqlalchemy
 import config
 import json
@@ -13,6 +13,8 @@ from collections import OrderedDict
 from urllib.parse import urlparse, urljoin
 import subprocess
 import shutil
+import pandas as pd
+import io
 
 app = Flask(__name__)
 app.config.from_object(os.environ['APP_SETTINGS'])
@@ -21,7 +23,7 @@ config.check_oauth_variables(os.environ['APP_SETTINGS'])
 
 db = SQLAlchemy(app)
 
-from models import Sample, SampleSet, TimePlace, SampleProperty, Annotation, Taxon, OAuth, User
+from models import Sample, SampleSet, TimePlace, SampleProperty, Annotation, Taxon, OAuth, User, Gene
 
 
 def is_safe_url(target):
@@ -140,7 +142,7 @@ def taxon_tree_table_row(level, complete_taxonomy):
     if complete_val == '':
         complete_val = '<unassigned {}>'.format(complete_taxonomy.split(';')[-2])
     complete_val_to_val[complete_taxonomy] = complete_val
-    
+
     sample_sets = OrderedDict()
     for sample_set in sorted(SampleSet.all_public(), key=lambda ss: ss.name):
         sample_sets[sample_set] = sample_set.samples
@@ -214,6 +216,108 @@ def taxonomy_tree_table():
             sample_scilifelab_codes=sample_scilifelab_codes,
             complete_val_to_val=complete_val_to_val,
             json_table=json_table)
+
+@app.route('/blast_search_table', methods=['GET', 'POST'])
+def blast_page():
+    form = BlastFilterForm()
+    form.select_sample_groups.choices = [(sample_set.name, sample_set.name) for sample_set in  SampleSet.all_public()]
+    if form.validate_on_submit():
+        cmd = [form.blast_algorithm.data]
+
+        e_val = int(form.e_value_factor.data) * 10**int(form.e_value_exponent.data)
+        cmd += ["-evalue", str(e_val)]
+
+        if form.blast_algorithm.data == 'blastp':
+            blast_db = AA_SEQUENCES
+        else:
+            blast_db = NUC_SEQUENCES
+        cmd += ['-db', blast_db]
+        names = ['qacc', 'sacc', 'pident', 'length', 'qstart', 'qend', 'sstart', 'send', 'evalue', 'bitscore']
+        cmd += ['-outfmt', '6 {}'.format(" ".join(names))]
+
+
+        with subprocess.Popen(cmd, stdin=subprocess.PIPE, stdout=subprocess.PIPE,\
+                stderr=subprocess.PIPE) as process:
+            blast_stdout, stderr = process.communicate(input=form.sequence.data.encode())
+            returncode = process.returncode
+
+        if returncode == 0:
+            with io.StringIO(blast_stdout.decode()) as stdout_buf:
+                df = pd.read_csv(stdout_buf, sep='\t', index_col=1, header=None, names=names)
+            total_hits = len(df)
+            # Filter on identity and alignment length
+            df = df[df['pident'] >= form.min_identity.data]
+
+            hits_after_pident = len(df)
+            df = df[df['length'] >= form.min_aln_length.data]
+
+            hits_after_length = len(df)
+
+            # Fetch counts for the matching genes
+            if len(df) == 0:
+                msg = "No hits were found in the BLAST search"
+                flash(msg, category="error")
+                return render_template('blast_page.html',
+                        form=form,
+                        table = {})
+
+            samples, table = Gene.rpkm_table(list(df.index))
+
+            sample_set_names = form.select_sample_groups.data
+            if len(sample_set_names) > 0:
+                sample_sets = SampleSet.query.filter(SampleSet.name.in_(sample_set_names))
+                samples = Sample.all_from_sample_sets(sample_set_names)
+            else:
+                sample_sets = SampleSet.all_public()
+                sample_set_names = [s.name for s in sample_sets]
+                samples = Sample.all_from_sample_sets(sample_set_names)
+
+            def _prepare_json_table(table, sample_sets):
+                json_table = {}
+                for gene, sample_d in table.items():
+                    json_table[gene.name] = {}
+                    for sample_set in sample_sets:
+                        json_table_row = []
+                        for sample in sample_set.samples:
+                            json_table_row.append({'y': float(sample_d[sample]), 'sample': sample.scilifelab_code})
+                        json_table[gene.name][sample_set.name] = json_table_row
+
+                return json_table
+
+            json_table = _prepare_json_table(table, sample_sets)
+
+            # Update table with blast info
+            for gene, sample_d in table.items():
+                table[gene]['e_value'] = df.loc[gene.name]['evalue']
+                table[gene]['identity'] = df.loc[gene.name]['pident']
+                table[gene]['alignment_length'] = df.loc[gene.name]['length']
+
+            return render_template('blast_page.html',
+                form=form,
+                samples=samples,
+                table=table,
+                sample_scilifelab_codes = [s.scilifelab_code for s in samples],
+                sample_sets=sample_set_names,
+                json_table=json_table)
+
+        msg = "Error, the {} query was not successful.".format(form.blast_algorithm.data)
+        flash(msg, category="error")
+
+        # Logging the error
+        print("BLAST ERROR, cmd: {}".format(cmd))
+        print("BLAST ERROR, returncode: {}".format(returncode))
+        print("BLAST ERROR, output: {}".format(blast_stdout))
+        print("BLAST ERROR, stderr: {}".format(stderr))
+
+        flash
+    # else: commented out since also returncode != 0 leads here
+    return render_template('blast_page.html',
+        form=form,
+        samples=[],
+        table={},
+        sample_scilifelab_codes=[])
+
+
 
 @app.route('/taxonomy_table', methods=['GET'])
 def taxon_table():
