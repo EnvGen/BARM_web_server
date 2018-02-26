@@ -3,6 +3,7 @@
   <thead>
     <tr>
       <th>Gene</th>
+      <th>Annotations</th>
       <th>E-value</th>
       <th>Identity (%)</th>
       <th>Alignment length</th>
@@ -15,6 +16,13 @@
     {% for gene, sample_set_d in table.items() %}
       <tr>
       <td><a href="#" data-toggle="tooltip" title="{{gene.name}}" data-placement="top">{{gene.name}}</a></td>
+      <td>
+        {% for annotation_type, annotation_l in sample_set_d['annotations'].items() %}
+          {% for annotation in annotation_l %}
+          <a href="{{annotation.external_link}}" data-toggle="tooltip" title="{{annotation_type}}: {{annotation.description}}" data-placement="top">{{annotation.type_identifier}}</a>
+          {% endfor %}
+        {% endfor %}
+      </td>
       <td>{{ sample_set_d['e_value'] }}</td>
       <td>{{ sample_set_d['identity'] }}</td>
       <td>{{ sample_set_d['alignment_length'] }}</td>
