@@ -128,6 +128,13 @@
     </div>
   </div>
   {% if table %}
+  <div class="container">
+    <div id="buttons_above_table" class="row">
+      <button class="btn btn-default" id="toggle_table_annotations" value='hide'>Hide annotations</button>
+      <button class="btn btn-default" id="toggle_table_taxonomy" value='hide'>Hide taxonomy</button>
+      <button class="btn btn-default" id="toggle_sample_description" value='show'>Show Sample Information</button>
+    </div>
+  </div>
   <ul class="nav nav-tabs" id="table_diagram_tabs">
       <li role="presentation" class="active"><a href="#sparkline_tab" aria-controls="sparkline_tab" role="tab" data-toggle="tab">Diagram</a></li>
       <li role="presentation"><a href="#table_tab" aria-controls="table_tab" role="tab">Table</a></li>
@@ -199,6 +206,17 @@
            hide_table_annotations();
         }
       });
+      $('#toggle_table_taxonomy').click(function(event) {
+        if ($(this).attr('value') == 'show') {
+           $(this).text("Hide Taxonomy");
+           $(this).attr('value', 'hide');
+           show_table_taxonomy();
+        } else {
+           $(this).text("Show Taxonomy");
+           $(this).attr('value', 'show');
+           hide_table_taxonomy();
+        }
+      });
   });
 
   function enable_tooltip() {
@@ -226,12 +244,29 @@
   function show_table_annotations(){
     $('#gene_counts_table thead .annotations_in_table').show();
     $('#gene_counts_table tbody .annotations_in_table').show();
+    $('#gene_counts_diagram_table thead .annotations_in_table').show();
+    $('#gene_counts_diagram_table tbody .annotations_in_table').show();
   }
 
   function hide_table_annotations(){
     $('#gene_counts_table thead .annotations_in_table').hide();
     $('#gene_counts_table tbody .annotations_in_table').hide();
+    $('#gene_counts_diagram_table thead .annotations_in_table').hide();
+    $('#gene_counts_diagram_table tbody .annotations_in_table').hide();
   }
 
+  function show_table_taxonomy(){
+    $('#gene_counts_table thead .taxonomy_in_table').show();
+    $('#gene_counts_table tbody .taxonomy_in_table').show();
+    $('#gene_counts_diagram_table thead .taxonomy_in_table').show();
+    $('#gene_counts_diagram_table tbody .taxonomy_in_table').show();
+  }
+
+  function hide_table_taxonomy(){
+    $('#gene_counts_table thead .taxonomy_in_table').hide();
+    $('#gene_counts_table tbody .taxonomy_in_table').hide();
+    $('#gene_counts_diagram_table thead .taxonomy_in_table').hide();
+    $('#gene_counts_diagram_table tbody .taxonomy_in_table').hide();
+  }
 </script>
 {% endblock body %}

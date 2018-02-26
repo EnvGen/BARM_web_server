@@ -284,6 +284,14 @@ class Gene(db.Model):
                     unsorted_table[gene]['annotations'] = collections.defaultdict(list)
                 unsorted_table[gene]['annotations'][annotation.pretty_name].append(annotation)
 
+        taxon_items = db.session.query(Gene, Taxon).\
+                filter(Taxon.id == Gene.taxon_id).\
+                filter(Gene.name.in_(gene_name_list)).all()
+
+        for gene, taxon in taxon_items:
+            if gene in unsorted_table:
+                unsorted_table[gene]['taxonomy'] = taxon.full_taxonomy
+
         samples = sorted(list(samples), key=lambda x: x.scilifelab_code)
 
         table = collections.OrderedDict()
