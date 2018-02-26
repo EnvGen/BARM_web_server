@@ -23,8 +23,8 @@ body {
   margin-top: 15px;
 }
 
-#toggle_sample_description {
-  margin-top: 15px;
+#buttons_above_table {
+    margin-top: 15px;
 }
 
 #expList ul, li {

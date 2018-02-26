@@ -188,6 +188,17 @@
            hide_sample_information();
         }
       });
+      $('#toggle_table_annotations').click(function(event) {
+        if ($(this).attr('value') == 'show') {
+           $(this).text("Hide Annotations");
+           $(this).attr('value', 'hide');
+           show_table_annotations();
+        } else {
+           $(this).text("Show Annotations");
+           $(this).attr('value', 'show');
+           hide_table_annotations();
+        }
+      });
   });
 
   function enable_tooltip() {
@@ -210,6 +221,16 @@
 
   function hide_sample_information(){
     $('#gene_counts_table thead .sample_description_in_table').hide();
+  }
+
+  function show_table_annotations(){
+    $('#gene_counts_table thead .annotations_in_table').show();
+    $('#gene_counts_table tbody .annotations_in_table').show();
+  }
+
+  function hide_table_annotations(){
+    $('#gene_counts_table thead .annotations_in_table').hide();
+    $('#gene_counts_table tbody .annotations_in_table').hide();
   }
 
 </script>
