@@ -1,8 +1,10 @@
 <div id="sparkline_diagram" class="container-fluid" data-sample_names='{{ sample_scilifelab_codes|tojson|safe }}'>
-  <table class="table" id="function_classes_diagram_table" current_taxon_level="{{current_level}}">
+  <table class="table" id="gene_counts_diagram_table" current_taxon_level="{{current_level}}">
   <thead>
     <tr>
       <th>Gene</th>
+      <th class="annotations_in_table">Annotations</th>
+      <th class="taxonomy_in_table">Taxonomy</th>
       <th>E-value</th>
       <th>Identity (%)</th>
       <th>Alignment length</th>
@@ -14,7 +16,20 @@
     <tbody class='rpkm_values_tbody'>
     {% for gene, sample_set_d in table.items() %}
       <tr>
-      <td><a href="#" data-toggle="tooltip" title="{{gene.name}}" data-placement="top">{{gene.name}}</a></td>
+      <td><a href="#" data-toggle="tooltip" title="Annotations: 
+        {% for annotation_type, annotation_l in sample_set_d['annotations'].items() %}
+          {% for annotation in annotation_l %}
+          {{annotation.type_identifier}}
+          {% endfor %}
+        {% endfor %}" data-placement="top">{{gene.name}}</a></td>
+      <td class="annotations_in_table">
+        {% for annotation_type, annotation_l in sample_set_d['annotations'].items() %}
+          {% for annotation in annotation_l %}
+          <a href="{{annotation.external_link}}" data-toggle="tooltip" title="{{annotation_type}}: {{annotation.description}}" data-placement="top">{{annotation.type_identifier}}</a>
+          {% endfor %}
+        {% endfor %}
+      </td>
+      <td class="taxonomy_in_table">{{ sample_set_d['taxonomy'] }}</td>
       <td>{{ sample_set_d['e_value'] }}</td>
       <td>{{ sample_set_d['identity'] }}</td>
       <td>{{ sample_set_d['alignment_length'] }}</td>

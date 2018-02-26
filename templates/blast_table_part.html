@@ -1,9 +1,10 @@
 <div class="container-fluid">
-<button class="btn btn-default" id="toggle_sample_description" value='show'>Show Sample Information</button>
 <table class="table" id=gene_counts_table>
   <thead>
     <tr>
       <th>Gene name</th>
+      <th class="annotations_in_table">Annotations</th>
+      <th class="taxonomy_in_table">Taxonomy</th>
       <th>E-value</th>
       <th>Identity (%)</th>
       <th>Alignment length</th>
@@ -18,7 +19,20 @@
   <tbody class='rpkm_values_tbody'>
   {% for gene, sample_d in table.items() %}
     <tr>
-      <td><a href="#" data-toggle="tooltip" title="{{gene.name}}" data-placement="top">{{gene.name}}</a></td>
+      <td><a href="#" data-toggle="tooltip" title="Annotations:
+        {% for annotation_type, annotation_l in sample_d['annotations'].items() %}
+          {% for annotation in annotation_l %}
+          {{annotation.type_identifier}}
+          {% endfor %}
+        {% endfor %}" data-placement="top">{{gene.name}}</a></td>
+      <td class="annotations_in_table">
+        {% for annotation_type, annotation_l in sample_d['annotations'].items() %}
+          {% for annotation in annotation_l %}
+          <a href="{{annotation.external_link}}" data-toggle="tooltip" title="{{annotation_type}}: {{annotation.description}}" data-placement="top">{{annotation.type_identifier}}</a>
+          {% endfor %}
+        {% endfor %}
+      </td>
+      <td class="taxonomy_in_table">{{ sample_d['taxonomy'] }}</td>
       <td>{{ sample_d['e_value'] }}</td>
       <td>{{ sample_d['identity'] }}</td>
       <td>{{ sample_d['alignment_length'] }}</td>
