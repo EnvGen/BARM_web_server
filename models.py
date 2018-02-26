@@ -271,6 +271,27 @@ class Gene(db.Model):
             unsorted_table[gene][sample] = "{0:.4f}".format(count)
             samples.add(sample)
 
+
+        annotation_items = db.session.query(Gene, Annotation).\
+                join(GeneAnnotation).\
+                filter(Annotation.id == GeneAnnotation.annotation_id).\
+                filter(Gene.id == GeneAnnotation.gene_id).\
+                filter(Gene.name.in_(gene_name_list)).all()
+
+        for gene, annotation in annotation_items:
+            if gene in unsorted_table:
+                if 'annotations' not in unsorted_table[gene]:
+                    unsorted_table[gene]['annotations'] = collections.defaultdict(list)
+                unsorted_table[gene]['annotations'][annotation.pretty_name].append(annotation)
+
+        taxon_items = db.session.query(Gene, Taxon).\
+                filter(Taxon.id == Gene.taxon_id).\
+                filter(Gene.name.in_(gene_name_list)).all()
+
+        for gene, taxon in taxon_items:
+            if gene in unsorted_table:
+                unsorted_table[gene]['taxonomy'] = taxon.full_taxonomy
+
         samples = sorted(list(samples), key=lambda x: x.scilifelab_code)
 
         table = collections.OrderedDict()
@@ -703,6 +724,10 @@ class EggNOG(Annotation):
     def external_link(self):
         return "http://eggnogdb.embl.de/#/app/home"
 
+    @property
+    def pretty_name(self):
+        return "EggNOG"
+
 class Cog(Annotation):
     __tablename__ = 'cog'
     id = db.Column(db.Integer, db.ForeignKey("annotation.id"),
@@ -721,6 +746,11 @@ class Cog(Annotation):
     def external_link(self):
         return "http://www.ncbi.nlm.nih.gov/Structure/cdd/cddsrv.cgi?uid={}".format(self.type_identifier)
 
+    @property
+    def pretty_name(self):
+        return "COG"
+
+
 class Pfam(Annotation):
     __tablename__ = 'pfam'
     id = db.Column(db.Integer, db.ForeignKey("annotation.id"),
@@ -734,6 +764,11 @@ class Pfam(Annotation):
     def external_link(self):
         external_id = self.type_identifier.replace("pfam", "PF").replace("PFAM", "PF")
         return "http://pfam.xfam.org/family/{}".format(external_id)
+
+    @property
+    def pretty_name(self):
+        return "Pfam"
+
 
 class TigrFam(Annotation):
     __tablename__ = 'tigrfam'
@@ -751,6 +786,11 @@ class TigrFam(Annotation):
         else:
             external_id = self.type_identifier
         return "http://www.jcvi.org/cgi-bin/tigrfams/HmmReportPage.cgi?acc={}".format(external_id)
+
+    @property
+    def pretty_name(self):
+        return "TIGRFAM"
+
 
 class EcNumber(Annotation):
     __tablename__ = 'ecnumber'
@@ -785,4 +825,8 @@ class EcNumber(Annotation):
     @property
     def external_link(self):
         return "http://enzyme.expasy.org/"
+
+    @property
+    def pretty_name(self):
+        return "EC-number"
 
