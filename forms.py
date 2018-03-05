@@ -1,6 +1,9 @@
 from flask.ext.wtf import Form
 from wtforms import SelectField, SelectMultipleField, StringField, FieldList, RadioField, SubmitField, IntegerField, TextAreaField, ValidationError
 
+DEFAULT_BLAST_GENE=""">IMG reference gene:2504129627
+MTNITPQSIKEELHKALGQLDSFESCALLNYPDYLNFGDHLIWLGTVIYLTDVLKTKIKYASSIADFSPTIMEDKIGKAPIFLQGGGNLGDLWRVDQQFREQIIAKYQDRPIIILPQSIFFAKLDNLQKTANIFNSHPNLTIFVRDDRSYKIAEESFNKCRVIKSPDMAFQLLNLPGISTNHNSKSSILYHCRKDKELNPEFSIDTVKIPNLVVQDWVSFEWVLGVRHRGIKRFATQAVREVWQRGLMTPVEWIYRQKWQYFYSNTDKFNQMYNPFMHKLLWSFLHSGIYQLQQHQLVITNRLHGHILCILLGIPHVFLPNAYYKNESFYETWTKNVSFCRFVKDINQIESVVKELLEISKSGKINV"""
+
 def fasta_length_check(form, field):
     if len(field.data) < 1:
         raise ValidationError('Please submit an input sequence')
@@ -65,9 +68,9 @@ def aln_length_check(form, field):
             raise ValidationError('Minimum alignment length is required to be smaller than 100000')
 
 class BlastFilterForm(Form):
-    sequence = TextAreaField('Sequence', [fasta_length_check], default=">Test sequence1\nATGTCGCGTCTTCAAAATCTTCCATATCAGC")
+    sequence = TextAreaField('Sequence', [fasta_length_check], default=DEFAULT_BLAST_GENE)
     blast_algorithm = RadioField(u'Algorithm', choices=[('blastp','blastp'), ('blastn','blastn')], default='blastp')
-    e_value_exponent = IntegerField(u'e_value_exponent', [e_val_exponent_check], default=1)
+    e_value_exponent = IntegerField(u'e_value_exponent', [e_val_exponent_check], default=-5)
     e_value_factor = IntegerField(u'e_value_factor', [e_val_factor_check], default=1)
     min_identity = IntegerField(u'min_identity', [identity_check], default=0)
     min_aln_length = IntegerField(u'min_aln_length', [aln_length_check], default=0)
@@ -96,3 +99,5 @@ class TaxonomyTableFilterForm(Form):
     view_level = SelectField(u'Taxon Levels',
         choices=taxonomy_levels, default='superkingdom')
     submit_update = SubmitField(u'Update')
+
+
