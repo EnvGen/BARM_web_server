@@ -49,6 +49,11 @@ footer img.vertical-centered {
   color: Tomato;
 }
 
-.emph-tree-node {
+.node_name {
   color: Tomato;
+
+}
+
+.emph-tree-node {
+  color: DarkGreen;
 }
