@@ -480,10 +480,6 @@ def functional_table():
         if form.submit_download.data:
             download_action = True
             download_select = form.download_select.data
-            if download_select == 'Gene Counts' and len(type_identifiers) > 200:
-                msg = "Warning, the download was not performed since it resulted in more than 20 annotations. Try writing a more specific query."
-                flash(msg, category="error")
-                type_identifiers = []
 
         if len(type_identifiers) == 0:
             msg = "Warning, the query was not performed since it did not result in any hit. Try writing a more general query."
@@ -492,6 +488,11 @@ def functional_table():
             msg = "Warning, the query was not performed since it resulted in more than 200 hits. Try writing a more specific query."
             flash(msg, category="error")
             type_identifiers = []
+        elif len(type_identifiers) > 20 and download_action and download_select == 'Gene Counts':
+            msg = "Warning, the Gene Counts download was not performed since it resulted in more than 20 annotations. Try writing a more specific query."
+            flash(msg, category="error")
+            type_identifiers = []
+
     else:
         function_class=None
         limit=20
