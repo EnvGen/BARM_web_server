@@ -69,7 +69,9 @@
           <th></th>
           <th>Taxonomy</th>
           {% for sample_set, samples in sample_sets.items() %}
+            <th></th>
             <th class="sparkline_column sample_group_{{sample_set.name}} sample_set_selected">{{sample_set.name}}</th>
+            <th></th>
             {% for sample in samples %}
             <th class="rpkm_value sample_group_{{sample_set.name}} sample_set_selected">
               <a href="#" data-toggle="tooltip" data-title="{% include 'sample_info_tooltip.html' %}" data-html="true">{{sample.scilifelab_code}}</a>
