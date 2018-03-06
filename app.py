@@ -465,7 +465,7 @@ def functional_table():
         elif filter_alternative == 'filter_with_search':
             search_string = form.search_annotations
             if search_string.data != '':
-                q = _search_query(search_string.data)
+                q = _search_query(search_string.data, 'all')
                 type_identifiers = [a.type_identifier for a in q.all()]
 
         sample_set_names = form.select_sample_groups.data
