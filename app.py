@@ -465,7 +465,7 @@ def functional_table():
         elif filter_alternative == 'filter_with_search':
             search_string = form.search_annotations
             if search_string.data != '':
-                q = _search_query(search_string.data)
+                q = _search_query(search_string.data, 'all')
                 type_identifiers = [a.type_identifier for a in q.all()]
 
         sample_set_names = form.select_sample_groups.data
@@ -504,7 +504,7 @@ def functional_table():
 
         # A default set of type identifiers to avoid query the entire
         # table
-        q = _search_query(DEFAULT_QUERY)
+        q = _search_query(DEFAULT_QUERY, 'all')
         type_identifiers = [a.type_identifier for a in q.all()]
 
     if len(form.type_identifiers) == 0:
@@ -636,7 +636,7 @@ def _extract_sequences(all_ids, sequence_file):
     else:
         return seqs, None
 
-def _search_query(search_string):
+def _search_query(search_string, function_class):
     """ adding % signs before and after will create a substring search
 
     It will be case insensitive but will only match exactly whats in search_string
@@ -648,15 +648,19 @@ def _search_query(search_string):
                 Annotation.description.ilike(search_string)
             )
         )
+    if function_class != 'all':
+        q = q.filter(Annotation.annotation_type == function_class)
+
     return q
 
 @app.route('/ajax/search_annotations', methods=['GET'])
 def suggestions():
     text_input = request.args.get('text_input', '')
+    function_class = request.args.get('function_class', '')
     annotations = []
     nr_annotations_total = 0
     if text_input != '':
-        q = _search_query(text_input)
+        q = _search_query(text_input, function_class)
         nr_annotations_total = q.count()
         annotations = q.limit(10).all()
     return render_template('search_annotations.html', annotations=annotations, nr_annotations_total=nr_annotations_total, nr_annotations_shown = len(annotations))

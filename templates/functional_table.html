@@ -245,9 +245,14 @@
     fetch_search_result()
   });
 
+  $('#function_class').on('input', function(e){
+    fetch_search_result()
+  });
+
   function fetch_search_result() {
     var current_input = $('#search_annotations').val();
-    $.get( "ajax/search_annotations", { text_input: current_input }, function(data){
+    var function_class = $('#function_class').val();
+    $.get( "ajax/search_annotations", { text_input: current_input, function_class: function_class }, function(data){
       $('#search_result_annotations').replaceWith(data);
     });
   };
