@@ -1,6 +1,13 @@
 {% extends "default_base.html" %}
 {% block body %}
 <div class="container">
+  <div id='spinner_div' style="display:none">
+    <div class="row">
+      <div class="col-md-4 col-md-offset-3"><h2>Please wait while the query finishes</h2></div>
+      <div class="col-md-3"><img src="{{ url_for('static', filename='images/loader.gif') }}" id="loading-indicator" style="display:none" />
+      </div>
+    </div>
+  </div>
   <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
     <div class="panel panel-default">
       <div class="panel-heading" role="tab" id="headingOne">
@@ -164,6 +171,23 @@
            $(this).attr('value', 'show');
            hide_sample_information();
         }
+      });
+
+      $('#submit_view').click(function() {
+        $('#spinner_div').show();
+        $('#loading-indicator').show();
+        return true;
+      });
+
+      $('#submit_download').click(function() {
+        $('#spinner_div').show();
+        $('#loading-indicator').show();
+        $('.flash').hide();
+        setTimeout(function() {
+          $('#spinner_div').hide();
+          $('#loading-indicator').hide();
+        }, 20000);
+        return true;
       });
   });
 

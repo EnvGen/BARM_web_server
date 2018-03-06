@@ -91,7 +91,7 @@ class FunctionClassFilterForm(Form):
     select_sample_groups = SelectMultipleField(u'Sample Groups')
     submit_view = SubmitField(u'View Results')
     submit_download = SubmitField(u'Download')
-    download_select = SelectField(u'What to download', choices=[('Gene List', 'Gene List'), ('Annotation Counts', 'Annotation Counts'), ('Amino Acid Sequences', 'Amino Acid Sequences'), ('Nucleotide Sequences', 'Nucleotide Sequences')], default='Gene List')
+    download_select = SelectField(u'What to download', choices=[('Gene Counts', 'Gene Counts'), ('Gene List', 'Gene List'), ('Annotation Counts', 'Annotation Counts'), ('Amino Acid Sequences', 'Amino Acid Sequences'), ('Nucleotide Sequences', 'Nucleotide Sequences')], default='Gene List')
 
 class TaxonomyTableFilterForm(Form):
     taxonomy_levels = [("superkingdom", "superkingdom"), ("phylum", "phylum"), ("taxclass", "taxclass"), ("order", "order"), ("family", "family"), ("genus", "genus"), ("species", "species")]
