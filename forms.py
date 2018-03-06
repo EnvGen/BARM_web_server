@@ -77,7 +77,7 @@ class BlastFilterForm(Form):
     select_sample_groups = SelectMultipleField(u'Sample Groups')
     submit_view = SubmitField(u'View Results')
     submit_download = SubmitField(u'Download')
-    download_select = SelectField(u'What to download', choices=[('Gene List', 'Gene List'), ('Annotation Counts', 'Annotation Counts'), ('Amino Acid Sequences', 'Amino Acid Sequences'), ('Nucleotide Sequences', 'Nucleotide Sequences')], default='Gene List')
+    download_select = SelectField(u'What to download', choices=[('Gene Counts', 'Gene Counts with BLAST statistics'), ('BLAST tabular', 'BLAST result details (no gene counts)'), ('Amino Acid Sequences', 'Matching sequences (Amino Acids)'), ('Nucleotide Sequences', 'Matching sequences (Nucleotides)')], default='Gene Counts')
 
 class FunctionClassFilterForm(Form):
     function_class = SelectField(u'Function Classes', default='all')

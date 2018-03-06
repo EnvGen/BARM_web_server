@@ -261,44 +261,113 @@ def blast_page():
                         form=form,
                         table = {})
 
-            samples, table = Gene.rpkm_table(list(df.index))
-
-            sample_set_names = form.select_sample_groups.data
-            if len(sample_set_names) > 0:
-                sample_sets = SampleSet.query.filter(SampleSet.name.in_(sample_set_names))
-                samples = Sample.all_from_sample_sets(sample_set_names)
-            else:
-                sample_sets = SampleSet.all_public()
-                sample_set_names = [s.name for s in sample_sets]
-                samples = Sample.all_from_sample_sets(sample_set_names)
-
-            def _prepare_json_table(table, sample_sets):
-                json_table = {}
+            def table_to_csv(table, samples):
+                first_row = ','.join(['gene_id', 'annotations', 'taxonomy', \
+                        'e_value', 'identity', 'alignment_length'])
+                first_row += ',' + ','.join(sample.scilifelab_code for sample in samples)
+                csv_output = [first_row]
                 for gene, sample_d in table.items():
-                    json_table[gene.name] = {}
-                    for sample_set in sample_sets:
-                        json_table_row = []
-                        for sample in sample_set.samples:
-                            json_table_row.append({'y': float(sample_d[sample]), 'sample': sample.scilifelab_code})
-                        json_table[gene.name][sample_set.name] = json_table_row
+                    row = [gene.name]
+                    annotations_combined = []
+                    for annotation_type, annotation_l in sample_d['annotations'].items():
+                        for annotation in annotation_l:
+                            annotations_combined.append(annotation.type_identifier)
+                    row.append('|'.join(annotations_combined))
 
-                return json_table
+                    try:
+                        row.append(sample_d['taxonomy'])
+                    except KeyError:
+                        row.append('')
+                    row.append("{0:.2f}".format(sample_d['e_value']))
+                    row.append("{0:.2f}".format(sample_d['identity']))
+                    row.append("{}".format(sample_d['alignment_length']))
+                    for sample in samples:
+                        row.append(sample_d[sample])
+                    csv_output.append(','.join(row))
 
-            json_table = _prepare_json_table(table, sample_sets)
+                csv_str = '\n'.join(csv_output)
 
-            # Update table with blast info
-            for gene, sample_d in table.items():
-                table[gene]['e_value'] = df.loc[gene.name]['evalue']
-                table[gene]['identity'] = df.loc[gene.name]['pident']
-                table[gene]['alignment_length'] = df.loc[gene.name]['length']
+                return csv_str
 
-            return render_template('blast_page.html',
-                form=form,
-                samples=samples,
-                table=table,
-                sample_scilifelab_codes = [s.scilifelab_code for s in samples],
-                sample_sets=sample_set_names,
-                json_table=json_table)
+            # If gene counts are requested
+            if not form.submit_download.data or form.download_select.data == 'Gene Counts':
+                samples, table = Gene.rpkm_table(list(df.index))
+
+                sample_set_names = form.select_sample_groups.data
+                if len(sample_set_names) > 0:
+                    sample_sets = SampleSet.query.filter(SampleSet.name.in_(sample_set_names))
+                    samples = Sample.all_from_sample_sets(sample_set_names)
+                else:
+                    sample_sets = SampleSet.all_public()
+                    sample_set_names = [s.name for s in sample_sets]
+                    samples = Sample.all_from_sample_sets(sample_set_names)
+
+                def _prepare_json_table(table, sample_sets):
+                    json_table = {}
+                    for gene, sample_d in table.items():
+                        json_table[gene.name] = {}
+                        for sample_set in sample_sets:
+                            json_table_row = []
+                            for sample in sample_set.samples:
+                                json_table_row.append({'y': float(sample_d[sample]), 'sample': sample.scilifelab_code})
+                            json_table[gene.name][sample_set.name] = json_table_row
+
+                    return json_table
+
+                json_table = _prepare_json_table(table, sample_sets)
+
+                # Update table with blast info
+                for gene, sample_d in table.items():
+                    table[gene]['e_value'] = df.loc[gene.name]['evalue']
+                    table[gene]['identity'] = df.loc[gene.name]['pident']
+                    table[gene]['alignment_length'] = df.loc[gene.name]['length']
+
+                if form.submit_download.data:
+                    r = make_response(table_to_csv(table, samples))
+                    r.headers["Content-Disposition"] = "attachment; filename=gene_counts.csv"
+                    r.headers["Content-Type"] = "text/plain"
+                    return r
+                else:
+                    return render_template('blast_page.html',
+                        form=form,
+                        samples=samples,
+                        table=table,
+                        sample_scilifelab_codes = [s.scilifelab_code for s in samples],
+                        sample_sets=sample_set_names,
+                        json_table=json_table)
+
+            # No gene counts are needed
+            elif form.download_select.data in ['Amino Acid Sequences', 'Nucleotide Sequences']:
+                # Fetch gene ids
+                all_ids = list(df.index)
+
+                if form.download_select.data == 'Amino Acid Sequences':
+                    seqs, msg = _extract_sequences(all_ids, AA_SEQUENCES)
+                else:
+                    seqs, msg = _extract_sequences(all_ids, NUC_SEQUENCES)
+
+                if seqs is None:
+                    json_table = _prepare_json_table(table, sample_sets)
+                    flash(msg, category="error")
+                    return render_template('blast_page.html',
+                        form=form,
+                        samples=[],
+                        table={},
+                        sample_scilifelab_codes=[])
+                else:
+                    r = make_response(seqs)
+                    r.headers["Content-Disposition"] = "attachment; filename=blast_hits.fa"
+                    r.headers["Content-Type"] = "text/plain"
+                    return r
+
+            elif form.download_select.data == 'BLAST tabular':
+                r = make_response(df.to_csv(sep='\t'))
+                if form.blast_algorithm.data == 'blastp':
+                    r.headers["content-disposition"] = "attachment; filename=blastp_hits.tsv"
+                else:
+                    r.headers["content-disposition"] = "attachment; filename=blastn_hits.tsv"
+                r.headers["Content-Type"] = "text/plain"
+                return r
 
         msg = "Error, the {} query was not successful.".format(form.blast_algorithm.data)
         flash(msg, category="error")
@@ -309,7 +378,6 @@ def blast_page():
         print("BLAST ERROR, output: {}".format(blast_stdout))
         print("BLAST ERROR, stderr: {}".format(stderr))
 
-        flash
     # else: commented out since also returncode != 0 leads here
     return render_template('blast_page.html',
         form=form,

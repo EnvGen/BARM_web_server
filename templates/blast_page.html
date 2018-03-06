@@ -46,7 +46,7 @@
               </div>
               <div class="row">
 			  <div class="col-md-3">
-			  <h4>Maximum E-value: <span><span id="e_value_factor_display">1</span>x10<sup><span id="e_value_exponent_display">1</span></sup></span></h4>
+			  <h4>Maximum E-value: <span><span id="e_value_factor_display">1</span>x10<sup><span id="e_value_exponent_display">-5</span></sup></span></h4>
 			  {% if form.e_value_exponent.errors %}
 				<div class="form-group has-error">
 		      {% else %}
@@ -126,8 +126,16 @@
               <div class="col-md-1">
               </div>
             </div>
-            <div class="col-md-8">
+            <div class="col-md-7">
               {{ form.submit_view(class='btn btn-default') }}
+            </div>
+            <div class="col-md-5">
+              <div class="input-group">
+                {{ form.download_select(class="form-control") }}
+                <span class="input-group-btn">
+                  {{ form.submit_download(class='btn btn-default') }}
+                </span>
+              </div>
             </div>
           </form>
         </div>
@@ -224,9 +232,20 @@
            hide_table_taxonomy();
         }
       });
-    $('#filter_form').submit(function() {
+    $('#submit_view').click(function() {
       $('#spinner_div').show();
       $('#loading-indicator').show();
+      return true;
+    });
+
+    $('#submit_download').click(function() {
+      $('#spinner_div').show();
+      $('#loading-indicator').show();
+      $('.flash').hide();
+      setTimeout(function() {
+        $('#spinner_div').hide();
+        $('#loading-indicator').hide();
+      }, 20000);
       return true;
     });
   });
