@@ -217,6 +217,38 @@ def taxonomy_tree_table():
             complete_val_to_val=complete_val_to_val,
             json_table=json_table)
 
+def table_to_csv(table, samples, blast=True):
+    first_row = ','.join(['gene_id', 'functions', 'taxonomy'])
+
+    if blast:
+        first_row += ',' + ','.join(['e_value', 'identity', 'alignment_length'])
+
+    first_row += ',' + ','.join(sample.scilifelab_code for sample in samples)
+    csv_output = [first_row]
+    for gene, sample_d in table.items():
+        row = [gene.name]
+        annotations_combined = []
+        for annotation_type, annotation_l in sample_d['annotations'].items():
+            for annotation in annotation_l:
+                annotations_combined.append(annotation.type_identifier)
+        row.append('|'.join(annotations_combined))
+
+        try:
+            row.append(sample_d['taxonomy'])
+        except KeyError:
+            row.append('')
+        if blast:
+            row.append("{0:.2f}".format(sample_d['e_value']))
+            row.append("{0:.2f}".format(sample_d['identity']))
+            row.append("{}".format(sample_d['alignment_length']))
+        for sample in samples:
+            row.append(sample_d[sample])
+        csv_output.append(','.join(row))
+
+    csv_str = '\n'.join(csv_output)
+
+    return csv_str
+
 @app.route('/blast_search_table', methods=['GET', 'POST'])
 def blast_page():
     form = BlastFilterForm()
@@ -261,33 +293,6 @@ def blast_page():
                         form=form,
                         table = {})
 
-            def table_to_csv(table, samples):
-                first_row = ','.join(['gene_id', 'annotations', 'taxonomy', \
-                        'e_value', 'identity', 'alignment_length'])
-                first_row += ',' + ','.join(sample.scilifelab_code for sample in samples)
-                csv_output = [first_row]
-                for gene, sample_d in table.items():
-                    row = [gene.name]
-                    annotations_combined = []
-                    for annotation_type, annotation_l in sample_d['annotations'].items():
-                        for annotation in annotation_l:
-                            annotations_combined.append(annotation.type_identifier)
-                    row.append('|'.join(annotations_combined))
-
-                    try:
-                        row.append(sample_d['taxonomy'])
-                    except KeyError:
-                        row.append('')
-                    row.append("{0:.2f}".format(sample_d['e_value']))
-                    row.append("{0:.2f}".format(sample_d['identity']))
-                    row.append("{}".format(sample_d['alignment_length']))
-                    for sample in samples:
-                        row.append(sample_d[sample])
-                    csv_output.append(','.join(row))
-
-                csv_str = '\n'.join(csv_output)
-
-                return csv_str
 
             # If gene counts are requested
             if not form.submit_download.data or form.download_select.data == 'Gene Counts':
@@ -475,6 +480,11 @@ def functional_table():
         if form.submit_download.data:
             download_action = True
             download_select = form.download_select.data
+            if download_select == 'Gene Counts' and len(type_identifiers) > 200:
+                msg = "Warning, the download was not performed since it resulted in more than 20 annotations. Try writing a more specific query."
+                flash(msg, category="error")
+                type_identifiers = []
+
         if len(type_identifiers) == 0:
             msg = "Warning, the query was not performed since it did not result in any hit. Try writing a more general query."
             flash(msg, category="error")
@@ -530,6 +540,23 @@ def functional_table():
                             for gene, annotation in genes_per_annotation])
             r = make_response(csv_output)
             r.headers["Content-Disposition"] = "attachment; filename=gene_list.csv"
+            r.headers["Content-Type"] = "text/csv"
+            return r
+
+        elif download_select == 'Gene Counts':
+            annotation_ids = [annotation.id for annotation, sample in table.items()]
+            genes_per_annotation = Annotation.genes_per_annotation(annotation_ids)
+
+            all_gene_names = []
+            for gene, annotation in genes_per_annotation:
+                all_gene_names.append(gene.name)
+                #[gene.name for gene in genes]
+
+            samples, table = Gene.rpkm_table(all_gene_names)
+            csv_output = table_to_csv(table, samples, blast=False)
+
+            r = make_response(csv_output)
+            r.headers["Content-Disposition"] = "attachment; filename=gene_counts.csv"
             r.headers["Content-Type"] = "text/csv"
             return r
 
