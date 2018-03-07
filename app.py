@@ -321,11 +321,17 @@ def blast_page():
                     json_table = {}
                     for gene, sample_d in table.items():
                         json_table[gene.name] = {}
+                        json_table[gene.name]['highcharts_max_val'] = {}
                         for sample_set in sample_sets:
                             json_table_row = []
+                            ymax = 0
                             for sample in sample_set.samples:
-                                json_table_row.append({'y': float(sample_d[sample]), 'sample': sample.scilifelab_code})
+                                yval = float(sample_d[sample])
+                                json_table_row.append({'y': yval, 'sample': sample.scilifelab_code})
+                                if yval > ymax:
+                                    ymax = yval
                             json_table[gene.name][sample_set.name] = json_table_row
+                            json_table[gene.name]['highcharts_max_val'][sample_set.name] = "{0:.1E}".format(ymax)
 
                     return json_table
 
