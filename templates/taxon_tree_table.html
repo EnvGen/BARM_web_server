@@ -13,7 +13,7 @@
   </div>
   <div class="col-md-9">
     <div class="row">
-      <div class="col-md-9">
+      <div class="col-md-6">
         <div class="btn-group sampleset-select" data-toggle="buttons">
           {% for sample_set, samples in sample_sets.items() %}
             <label class="btn btn-primary active" id="toggle_btn_{{sample_set.name}}">
@@ -22,6 +22,19 @@
           {% endfor %}
         </div> 
       </div>
+
+      <div class="col-md-3">
+        <form class="form-inline" id="search_form">
+          <div class="form-group">
+            <label class="sr-only" for="taxon_search_input">Search term</label>
+            <div class="input-group">
+              <input class="form-control" type="search" id="taxon_search_input" placeholder="Search Taxa">
+            </div>
+            <button type="button" id="search_btn" class="btn btn-primary">Search</button>
+          </div>
+        </form>
+      </div>
+
       <div class="col-md-3">
         <!-- Button trigger modal -->
         <button type="button" class="btn btn-info" data-toggle="modal" data-target="#myModal">
@@ -58,6 +71,16 @@
         </div>
       </div>
     </div>
+
+    <!-- Search results -->
+    <div class="row">
+      <div class="col-md-12" id="taxa_search_result_div">
+        {% include 'search_taxonomy.html' %}
+      </div>
+    </div>
+
+
+    <!-- Results -->
     <ul class="nav nav-tabs" id="table_diagram_tabs">
       <li role="presentation" class="active" id="sparkline_tab_btn"><a href="#sparkline_tab" aria-controls="sparkline_tab" role="tab" data-toggle="tab">Diagram</a></li>
       <li role="presentation" id="table_tab_btn"><a href="#table_tab" aria-controls="table_tab" role="tab">Table</a></li>
@@ -270,6 +293,22 @@
       if(transformed_full_taxonomy == rpkm_taxa) {
           $(this).siblings('a').removeClass('emph-tree-node');
         }
+    });
+  };
+
+  $('#search_btn').on('click', function(e) {
+      fetch_search_result()
+  });
+
+  $('#search_form').submit( function(e) {
+    fetch_search_result();
+    return false;
+  });
+
+  function fetch_search_result() {
+    var current_input = $('#taxon_search_input').val();
+    $.get( "ajax/search_taxonomy", { text_input: current_input }, function(data){
+      $('#search_result_taxons').replaceWith(data);
     });
   };
 

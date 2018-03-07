@@ -686,5 +686,30 @@ def suggestions():
         annotations = q.limit(10).all()
     return render_template('search_annotations.html', annotations=annotations, nr_annotations_total=nr_annotations_total, nr_annotations_shown = len(annotations))
 
+
+def _search_query_taxon(search_string):
+    """ adding % signs before and after will create a substring search
+
+    It will be case insensitive but will only match exactly whats in search_string
+    """
+    search_string = '%'+search_string+'%'
+    q = Taxon.query.filter(
+                Taxon.full_taxonomy.ilike(search_string)
+        )
+
+    return q
+
+@app.route('/ajax/search_taxonomy', methods=['GET'])
+def taxon_suggestions():
+    text_input = request.args.get('text_input', '')
+    taxons = []
+    nr_taxons_total = 0
+    if text_input != '':
+        print(text_input)
+        q = _search_query_taxon(text_input)
+        nr_taxons_total = q.count()
+        taxons = q.limit(20).all()
+    return render_template('search_taxonomy.html', taxons=taxons, nr_taxons_total=nr_taxons_total, nr_taxons_shown = len(taxons))
+
 if __name__ == '__main__':
     app.run()

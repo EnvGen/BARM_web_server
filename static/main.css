@@ -58,6 +58,10 @@ footer img.vertical-centered {
   color: #337ab7;
 }
 
+.taxon_search_result_row {
+  font-weight: bold;
+}
+
 .highcharts_left_max {
   text-align: right;
 }
