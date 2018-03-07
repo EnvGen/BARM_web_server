@@ -57,3 +57,7 @@ footer img.vertical-centered {
 .emph-tree-node {
   color: #337ab7;
 }
+
+.taxon_search_result_row {
+  font-weight: bold;
+}
