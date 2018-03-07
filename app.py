@@ -149,13 +149,18 @@ def taxon_tree_table_row(level, complete_taxonomy):
 
     rpkm_row = Taxon.rpkm_table_row(level, complete_taxonomy)
     rpkm_row['complete_taxonomy_id'] = complete_taxonomy.replace(';','-').replace(' ', '_').replace('.','_')
+    rpkm_row['highcharts_max_val'] = {}
 
     json_table = {}
     json_table[complete_taxonomy] = {}
     for sample_set, samples in sample_sets.items():
         json_table_row = []
+        ymax = 0
         for sample in samples:
             json_table_row.append({'y': rpkm_row[sample], 'sample': sample.scilifelab_code})
+            if rpkm_row[sample] > ymax:
+                ymax = rpkm_row[sample]
+        rpkm_row['highcharts_max_val'][sample_set.name] = "{0:.1E}".format(ymax)
         json_table[complete_taxonomy][sample_set.name] = json_table_row
 
     return render_template('taxon_tree_table_row.html',
@@ -198,10 +203,15 @@ def taxonomy_tree_table():
         complete_val_to_val[complete_taxonomy] = taxa_name
 
         table_row = Taxon.rpkm_table_row(complete_taxonomy=complete_taxonomy)
+        table_row['highcharts_max_val'] = {}
         for sample_set, samples in sample_sets.items():
             json_table_row = []
+            ymax = 0
             for sample in samples:
                 json_table_row.append({'y': table_row[sample], 'sample': sample.scilifelab_code})
+                if table_row[sample] > ymax:
+                    ymax = table_row[sample]
+            table_row['highcharts_max_val'][sample_set.name] = "{0:.1E}".format(ymax)
             json_table[complete_taxonomy][sample_set.name] = json_table_row
 
         table_row['complete_taxonomy_id'] = complete_taxonomy.replace(';','-').replace(' ', '_').replace('.','_')
@@ -311,11 +321,17 @@ def blast_page():
                     json_table = {}
                     for gene, sample_d in table.items():
                         json_table[gene.name] = {}
+                        json_table[gene.name]['highcharts_max_val'] = {}
                         for sample_set in sample_sets:
                             json_table_row = []
+                            ymax = 0
                             for sample in sample_set.samples:
-                                json_table_row.append({'y': float(sample_d[sample]), 'sample': sample.scilifelab_code})
+                                yval = float(sample_d[sample])
+                                json_table_row.append({'y': yval, 'sample': sample.scilifelab_code})
+                                if yval > ymax:
+                                    ymax = yval
                             json_table[gene.name][sample_set.name] = json_table_row
+                            json_table[gene.name]['highcharts_max_val'][sample_set.name] = "{0:.1E}".format(ymax)
 
                     return json_table
 
@@ -522,12 +538,17 @@ def functional_table():
         json_table = {}
         for annotation, sample_d in table.items():
             json_table[annotation.type_identifier] = {}
+            json_table[annotation.type_identifier]['highcharts_max_val'] = {}
             for sample_set in sample_sets:
                 json_table_row = []
-                json_table_row = []
+                ymax = 0
                 for sample in sample_set.samples:
-                    json_table_row.append({'y': float(sample_d[sample]), 'sample': sample.scilifelab_code})
+                    yval = float(sample_d[sample])
+                    json_table_row.append({'y': yval, 'sample': sample.scilifelab_code})
+                    if yval > ymax:
+                        ymax = yval
                 json_table[annotation.type_identifier][sample_set.name] = json_table_row
+                json_table[annotation.type_identifier]['highcharts_max_val'][sample_set.name] = "{0:.1E}".format(ymax)
         return json_table
 
     # This section is not independent from the section above

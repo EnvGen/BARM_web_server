@@ -10,7 +10,9 @@
     </nobr>
   </td>
   {% for sample_set, samples in sample_sets.items() %}
+  <td class="highcharts_left_max"><nobr>{{table_row['highcharts_max_val'][sample_set.name]}}</nobr></td>
     <td class='sparkline_column sample_group_{{sample_set.name}} sample_set_selected' data-sample_group="{{sample_set.name}}" data-sparkline='{{json_table[complete_taxon][sample_set.name] | tojson }}'></td>
+    <td class="highcharts_right_max"><nobr>{{table_row['highcharts_max_val'][sample_set.name]}}</span></td>
   {% endfor %}
   {% for sample_set, samples in sample_sets.items() %}
     {% for sample in samples %}

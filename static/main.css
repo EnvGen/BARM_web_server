@@ -61,3 +61,11 @@ footer img.vertical-centered {
 .taxon_search_result_row {
   font-weight: bold;
 }
+
+.highcharts_left_max {
+  text-align: right;
+}
+
+.highcharts_right_max {
+  text-align: left;
+}
