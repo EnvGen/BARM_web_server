@@ -532,12 +532,17 @@ def functional_table():
         json_table = {}
         for annotation, sample_d in table.items():
             json_table[annotation.type_identifier] = {}
+            json_table[annotation.type_identifier]['highcharts_max_val'] = {}
             for sample_set in sample_sets:
                 json_table_row = []
-                json_table_row = []
+                ymax = 0
                 for sample in sample_set.samples:
-                    json_table_row.append({'y': float(sample_d[sample]), 'sample': sample.scilifelab_code})
+                    yval = float(sample_d[sample])
+                    json_table_row.append({'y': yval, 'sample': sample.scilifelab_code})
+                    if yval > ymax:
+                        ymax = yval
                 json_table[annotation.type_identifier][sample_set.name] = json_table_row
+                json_table[annotation.type_identifier]['highcharts_max_val'][sample_set.name] = "{0:.1E}".format(ymax)
         return json_table
 
     # This section is not independent from the section above
