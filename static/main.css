@@ -57,3 +57,11 @@ footer img.vertical-centered {
 .emph-tree-node {
   color: #337ab7;
 }
+
+.highcharts_left_max {
+  text-align: right;
+}
+
+.highcharts_right_max {
+  text-align: left;
+}

@@ -5,19 +5,23 @@
       <th>Type identifier</th>
       <th class="hideable_annotation_description">Annotation Description</th>
       {% for sample_set in sample_sets %}
-      <td>{{sample_set.name}}</td>
+      <th class="highcharts_left_max"></th>
+      <th>{{sample_set.name}}</th>
+      <th class="highcharts_right_max"></th>
       {% endfor %}
     </tr>
   </thead>
     <tbody class='rpkm_values_tbody'>
-    {% for annotation, sample_set_d in table.items() %}
+    {% for annotation, sample_d in table.items() %}
     <tr>
     <td><a href="#" data-toggle="tooltip" title="{{annotation.description}}" data-placement="top">{{annotation.type_identifier}}</a>
         </br> <nobr><a class="external_link_annotation" href="{{annotation.external_link}}" target="_blank">external link</a></nobr>
     </td>
     <td class="hideable_annotation_description">{{annotation.short_description}}</td>
     {% for sample_set in sample_sets %}
+      <td class="highcharts_left_max">{{json_table[annotation.type_identifier]['highcharts_max_val'][sample_set.name]}}</td>
       <td data-sparkline='{{json_table[annotation.type_identifier][sample_set.name]|tojson}}'></td>
+      <td class="highcharts_right_max">{{json_table[annotation.type_identifier]['highcharts_max_val'][sample_set.name]}}</td>
     {% endfor %}
     </tr>
   {% endfor %}
