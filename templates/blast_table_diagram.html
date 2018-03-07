@@ -9,7 +9,9 @@
       <th>Identity (%)</th>
       <th>Alignment length</th>
       {% for sample_set in sample_sets %}
+      <td></td>
       <td>{{sample_set.name}}</td>
+      <td></td>
       {% endfor %}
     </tr>
   </thead>
@@ -34,7 +36,9 @@
       <td>{{ sample_set_d['identity'] }}</td>
       <td>{{ sample_set_d['alignment_length'] }}</td>
       {% for sample_set in sample_sets %}
+        <td class="highcharts_left_max">{{json_table[gene.name]['highcharts_max_val'][sample_set]}}</td>
         <td data-sparkline='{{json_table[gene.name][sample_set] | tojson}}'></td>
+        <td class="highcharts_right_max">{{json_table[gene.name]['highcharts_max_val'][sample_set]}}</td>
     {% endfor %}
     </tr>
   {% endfor %}
