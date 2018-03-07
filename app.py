@@ -160,7 +160,7 @@ def taxon_tree_table_row(level, complete_taxonomy):
             json_table_row.append({'y': rpkm_row[sample], 'sample': sample.scilifelab_code})
             if rpkm_row[sample] > ymax:
                 ymax = rpkm_row[sample]
-        rpkm_row['highcharts_max_val'][sample_set.name] = "{0:.2E}".format(ymax)
+        rpkm_row['highcharts_max_val'][sample_set.name] = "{0:.1E}".format(ymax)
         json_table[complete_taxonomy][sample_set.name] = json_table_row
 
     return render_template('taxon_tree_table_row.html',
@@ -211,7 +211,7 @@ def taxonomy_tree_table():
                 json_table_row.append({'y': table_row[sample], 'sample': sample.scilifelab_code})
                 if table_row[sample] > ymax:
                     ymax = table_row[sample]
-            table_row['highcharts_max_val'][sample_set.name] = "{0:.2E}".format(ymax)
+            table_row['highcharts_max_val'][sample_set.name] = "{0:.1E}".format(ymax)
             json_table[complete_taxonomy][sample_set.name] = json_table_row
 
         table_row['complete_taxonomy_id'] = complete_taxonomy.replace(';','-').replace(' ', '_').replace('.','_')
