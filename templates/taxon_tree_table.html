@@ -92,9 +92,9 @@
           <th></th>
           <th>Taxonomy</th>
           {% for sample_set, samples in sample_sets.items() %}
-            <th class="highcharts_left_max"></th>
+            <th class="highcharts_left_max sparkline_column sample_group_{{sample_set.name}} sample_set_selected"></th>
             <th class="sparkline_column sample_group_{{sample_set.name}} sample_set_selected">{{sample_set.name}}</th>
-            <th class="highcharts_right_max"></th>
+            <th class="highcharts_right_max sparkline_column sample_group_{{sample_set.name}} sample_set_selected"></th>
             {% for sample in samples %}
             <th class="rpkm_value sample_group_{{sample_set.name}} sample_set_selected">
               <a href="#" data-toggle="tooltip" data-title="{% include 'sample_info_tooltip.html' %}" data-html="true">{{sample.scilifelab_code}}</a>
@@ -207,6 +207,10 @@
         $('.sparkline_column.' + sample_set_class).removeClass('sample_set_selected');
         $('.rpkm_value.' + sample_set_class).hide();
         $('.rpkm_value.' + sample_set_class).removeClass('sample_set_selected');
+        $('.highcharts_left_max.' + sample_set_class).hide();
+        $('.highcharts_left_max.' + sample_set_class).removeClass('sample_set_selected');
+        $('.highcharts_right_max.' + sample_set_class).hide();
+        $('.highcharts_right_max.' + sample_set_class).removeClass('sample_set_selected');
       };
     });
     /* Check which tab is active to decide which ones to hide */
@@ -259,8 +263,10 @@
   };
 
   function show_sparkline_tab() {
-    $('.highcharts_left_max').show()
-    $('.highcharts_right_max').show()
+    $('.highcharts_left_max.sample_set_selected').show()
+    $('.highcharts_right_max.sample_set_selected').show()
+    $('.highcharts_left_max').not('.sample_set_selected').hide()
+    $('.highcharts_right_max').not('.sample_set_selected').hide()
     $('.sparkline_column.sample_set_selected').show()
     $('.sparkline_column').not('.sample_set_selected').hide()
     $('.rpkm_value').hide()
