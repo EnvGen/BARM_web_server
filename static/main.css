@@ -17,6 +17,11 @@ body {
 
 #function_classes_table > tbody > tr > .rpkm_value {
   vertical-align:middle;
+  text-align:center;
+}
+
+#function_classes_table > thead > tr > th {
+  text-align:center;
 }
 
 #table_diagram_tabs {

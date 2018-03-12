@@ -25,6 +25,43 @@ db = SQLAlchemy(app)
 
 from models import Sample, SampleSet, TimePlace, SampleProperty, Annotation, Taxon, OAuth, User, Gene
 
+## Currently NaN for all samples:
+# Misspellings are in database, so need to fix there first
+PROPERTIES_TO_SKIP = ['Microzooplankotn', 'Mesozooplankton', \
+        'Sample name', 'Organism', 'Rates', 'DOP', 'DOM', \
+        'Other ions and small molecules', 'DON']
+
+def collect_property_names():
+    general_info_properties = ['Sample Title', 'Environmental Feature', 'Sampling Basin', \
+            'Sampling Station', 'Library Type', 'Geolocation Name', 'Environmental Material', \
+            'Environmental Biome', 'Molecule']
+
+    general_information_property_names = []
+    measured_parameters_property_names = []
+    idable_to_unit = {}
+
+    for property_t in db.session.query(SampleProperty.name.distinct(), SampleProperty.unit).all():
+        if property_t[0] in PROPERTIES_TO_SKIP:
+            continue
+        idable = SampleProperty.idable_property_name_(property_t[0])
+        readable = SampleProperty.readable_property_name_(property_t[0])
+        if readable in general_info_properties:
+            general_information_property_names.append((readable, idable))
+        else:
+            measured_parameters_property_names.append((readable, idable))
+
+        unit = property_t[1]
+        idable_to_unit[idable] = unit
+
+    general_information_property_names.sort()
+    measured_parameters_property_names.sort(key=lambda x: x[0].lower())
+
+
+
+    return general_information_property_names, measured_parameters_property_names, idable_to_unit
+
+
+GENERAL_INFORMATION_PROPERTY_NAMES, MEASURED_PARAMETERS_PROPERTY_NAMES, IDABLE_PROPERTY_TO_UNIT = collect_property_names()
 
 def is_safe_url(target):
     ref_url = urlparse(request.host_url)
@@ -636,6 +673,10 @@ def functional_table():
             sample_sets=sample_sets,
             sample_scilifelab_codes = sample_scilifelab_codes,
             form=form,
+            general_information_property_names=GENERAL_INFORMATION_PROPERTY_NAMES,
+            measured_parameters_property_names=MEASURED_PARAMETERS_PROPERTY_NAMES,
+            idable_property_to_unit=IDABLE_PROPERTY_TO_UNIT,
+            properties_to_skip=PROPERTIES_TO_SKIP,
             json_table=json_table
         )
 
@@ -705,7 +746,6 @@ def taxon_suggestions():
     taxons = []
     nr_taxons_total = 0
     if text_input != '':
-        print(text_input)
         q = _search_query_taxon(text_input)
         nr_taxons_total = q.count()
         taxons = q.limit(20).all()

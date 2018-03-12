@@ -1,0 +1,22 @@
+<dl class='dl-horizontal'>
+  <span class='table_sample_property_date'>
+    <dt>Date</dt>
+    <dd>{{sample.timeplace.date_formatted()}}</dd>
+  </span>
+  <span class='table_sample_property_latitude'>
+    <dt>Latitude</dt>
+    <dd>{{sample.timeplace.latitude | round(6) }}</dd>
+  </span>
+  <span class='table_sample_property_longitude'>
+    <dt>Longitude</dt>
+    <dd>{{sample.timeplace.longitude | round(6)}}</dd>
+  </span>
+  {% for property in sample.properties %}
+    {% if property.name not in properties_to_skip %}
+      <span class='table_sample_property_{{property.idable_property_name}}'>
+        <dt>{{property.readable_property_name}}</dt>
+        <dd>{{property.value}}</dd>
+      </span>
+    {% endif %}
+  {% endfor %}
+</dl>
