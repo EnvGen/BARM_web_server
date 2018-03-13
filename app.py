@@ -581,7 +581,15 @@ def functional_table():
                 ymax = 0
                 for sample in sample_set.samples:
                     yval = float(sample_d[sample])
-                    json_table_row.append({'y': yval, 'sample': sample.scilifelab_code})
+                    json_sample_d = {'y': yval, 'sample': sample.scilifelab_code,
+                            'date': sample.timeplace.date_formatted(),
+                            'latitude': "{0:.6f}".format(sample.timeplace.latitude),
+                            'longitude': "{0:.6f}".format(sample.timeplace.longitude)}
+                    for prop in sample.properties:
+                        if prop.name not in PROPERTIES_TO_SKIP:
+                            idable = SampleProperty.idable_property_name_(prop.name)
+                            json_sample_d[idable] = prop.value
+                    json_table_row.append(json_sample_d)
                     if yval > ymax:
                         ymax = yval
                 json_table[annotation.type_identifier][sample_set.name] = json_table_row

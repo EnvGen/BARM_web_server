@@ -115,31 +115,34 @@
       <div id="collapseTwo" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingTwo">
         <div class="panel-body">
           <form action="" id='sample_info_form' name="sample_info">
-            <h3>Choose parameters to show for samples</h3>
-            <h4>Choose maximum 5 parameters</h4>
-
+            <div class="row">
+              <div class="col-md-7">
+                <h3>Choose parameters to show for samples</h3>
+                <p>Sample information is shown in a hover box for each sample in the diagrams and optionally in the header of the table. Not all measurements were taken for all samples.</p>
+              </div>
+            </div>
             <div class="row">
                 <div class="col-md-4">
                     <h4>General Parameters</h4>
                     <div class="checkbox">
                       <label>
-                        <input id='date' type="checkbox" checked> Date [YYYY-MM-DD]
+                        <input id='date' data-label="Date" type="checkbox" checked> Date [YYYY-MM-DD]
                       </label>
                     </div>
                     <div class="checkbox">
                       <label>
-                        <input id='latitude' type="checkbox" checked> Latitude [Decimal Degrees]
+                        <input id='latitude' data-label="Latitude" type="checkbox" checked> Latitude [Decimal Degrees]
                       </label>
                     </div>
                     <div class="checkbox">
                       <label>
-                        <input id='longitude' type="checkbox" checked> Longitude [Decimal Degrees]
+                        <input id='longitude' data-label="Longitude" type="checkbox" checked> Longitude [Decimal Degrees]
                       </label>
                     </div>
                     {% for sample_p_name, sample_p_id in general_information_property_names %}
                     <div class="checkbox">
                       <label>
-                        <input id={{sample_p_id}} type="checkbox"> {{sample_p_name}} ({{idable_property_to_unit[sample_p_id]}})
+                        <input id={{sample_p_id}} data-label="{{sample_p_name}}" type="checkbox"> {{sample_p_name}} ({{idable_property_to_unit[sample_p_id]}})
                       </label>
                     </div>
                     {% endfor %}
@@ -149,14 +152,14 @@
                     {% for sample_p_name, sample_p_id in measured_parameters_property_names %}
                     <div class="checkbox">
                       <label>
-                        <input id={{sample_p_id}} type="checkbox"> {{sample_p_name}} ({{idable_property_to_unit[sample_p_id]}})</span>
+                        <input id={{sample_p_id}} data-label="{{sample_p_name}}" type="checkbox"> {{sample_p_name}} ({{idable_property_to_unit[sample_p_id]}})</span>
                       </label>
                     </div>
                     {% endfor %}
                   </div>
                 </div>
+                <button class="btn btn-primary" id="update_sample_info_btn">Update Properties Shown</button>
               </div>
-
             </div>
           </form>
         </div>
@@ -189,6 +192,14 @@
           e.preventDefault()
           $(this).tab('show')
       });
+    
+      update_sample_information();
+
+      $('#update_sample_info_btn').click(function (e) {
+          e.preventDefault()
+          update_sample_information() 
+      });
+
       $('#AddAnotherTypeIdentifier').click(function () {
           clone_field_list('.form-group#type_identifiers li:last');
       });
@@ -275,6 +286,15 @@
 	$('#sample_info_form input:checkbox:checked').each( function() {
        $('.table_sample_property_' + $(this).attr('id')).show();
 	});
+  }
+
+  function update_sample_information(){
+    var properties = new Array();
+	$('#sample_info_form input:checkbox:checked').each( function() {
+      properties.push([$(this).attr('id'), $(this).attr('data-label')])
+      $('.table_sample_property_' + $(this).attr('id')).show();
+	});
+    generate_sparkline(properties)
   }
 
   function hide_sample_information(){

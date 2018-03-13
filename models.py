@@ -175,6 +175,7 @@ class SampleProperty(db.Model):
                 something that can be used as an html id"""
         property_name = property_name.replace(' ','_')
         property_name = property_name.replace('+','')
+        property_name = property_name.replace('-','')
 
         return(property_name)
 
