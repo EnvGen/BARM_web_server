@@ -1,4 +1,18 @@
-function generate_sparkline() {
+function enable_tooltip() {
+  $('[data-toggle="tooltip"]').tooltip();
+}
+
+function update_sample_information(){
+  var properties = new Array();
+  $('#sample_info_form input:checkbox:checked').each( function() {
+    properties.push([$(this).attr('id'), $(this).attr('data-label')])
+    $('.table_sample_property_' + $(this).attr('id')).show();
+  });
+  generate_sparkline(properties)
+}
+
+
+function generate_sparkline(sample_properties) {
     /**
      * Create a constructor for sparklines that takes some sensible defaults and merges in the individual
      * chart options. This function is also available from the jQuery plugin as $(element).highcharts('SparkLine').
@@ -106,7 +120,7 @@ function generate_sparkline() {
     // Creating 153 sparkline charts is quite fast in modern browsers, but IE8 and mobile
     // can take some seconds, so we split the input into chunks and apply them in timeouts
     // in order avoid locking up the browser process and allow interaction.
-    function doChunk() {
+    function doChunk(sample_properties) {
         var time = +new Date(),
             i,
             len = $tds.length,
@@ -133,7 +147,17 @@ function generate_sparkline() {
                 }],
                 tooltip: {
                   formatter: function() {
-                    return '<span style="font-size: 10px"><b> Sample: ' + this.point.sample + '<br/>' + this.y + '</b></span>';
+                    if(typeof sample_properties === "undefined") {
+                        return '<span style="font-size: 10px"><b> Sample: ' + this.point.sample + '<br/>TPM: ' + this.y + '</b></span>';
+                    } else {
+                        var text = '<span style="font-size: 10px"><b> Sample: ' + this.point.sample;
+                        for (i=0, len = sample_properties.length; i < len; i++) {
+                            idable = sample_properties[i][0]
+                            label = sample_properties[i][1]
+                            text += '<br/>' + label + ': ' + $(this.point).attr(idable);
+                        }
+                        return text + '<br/>TPM: ' + this.y +'</b></span>';
+                    };
                   }
                 },
                 chart: chart
@@ -149,6 +173,6 @@ function generate_sparkline() {
             }
         }
     }
-    doChunk();
+    doChunk(sample_properties);
 
 };
