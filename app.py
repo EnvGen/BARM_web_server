@@ -33,12 +33,12 @@ from models import Sample, SampleSet, TimePlace, SampleProperty, Annotation, Tax
 # Misspellings are in database, so need to fix there first
 PROPERTIES_TO_SKIP = ['Microzooplankotn', 'Mesozooplankton', \
         'Sample name', 'Organism', 'Rates', 'DOP', 'DOM', \
-        'Other ions and small molecules', 'DON']
+        'Other ions and small molecules', 'DON', 'Turbidity']
 
 def collect_property_names():
     general_info_properties = ['Sample Title', 'Environmental Feature', 'Sampling Basin', \
             'Sampling Station', 'Library Type', 'Geolocation Name', 'Environmental Material', \
-            'Environmental Biome', 'Molecule']
+            'Environmental Biome', 'Molecule', 'Sampling Depth']
 
     general_information_property_names = []
     measured_parameters_property_names = []
@@ -54,7 +54,7 @@ def collect_property_names():
         else:
             measured_parameters_property_names.append((readable, idable))
 
-        unit = property_t[1]
+        unit = property_t[1].rstrip()
         idable_to_unit[idable] = unit
 
     general_information_property_names.sort()
