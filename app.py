@@ -38,7 +38,7 @@ PROPERTIES_TO_SKIP = ['Microzooplankotn', 'Mesozooplankton', \
 def collect_property_names():
     general_info_properties = ['Sample Title', 'Environmental Feature', 'Sampling Basin', \
             'Sampling Station', 'Library Type', 'Geolocation Name', 'Environmental Material', \
-            'Environmental Biome', 'Molecule']
+            'Environmental Biome', 'Molecule', 'Sampling Depth']
 
     general_information_property_names = []
     measured_parameters_property_names = []
