@@ -1,3 +1,17 @@
+function enable_tooltip() {
+  $('[data-toggle="tooltip"]').tooltip();
+}
+
+function update_sample_information(){
+  var properties = new Array();
+  $('#sample_info_form input:checkbox:checked').each( function() {
+    properties.push([$(this).attr('id'), $(this).attr('data-label')])
+    $('.table_sample_property_' + $(this).attr('id')).show();
+  });
+  generate_sparkline(properties)
+}
+
+
 function generate_sparkline(sample_properties) {
     /**
      * Create a constructor for sparklines that takes some sensible defaults and merges in the individual

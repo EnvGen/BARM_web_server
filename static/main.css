@@ -63,6 +63,10 @@ footer img.vertical-centered {
   color: #337ab7;
 }
 
+#taxonomy_accordion {
+  padding-top: 25px;
+}
+
 .taxon_search_result_row {
   font-weight: bold;
 }

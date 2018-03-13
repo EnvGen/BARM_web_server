@@ -264,9 +264,6 @@
       });
   });
 
-  function enable_tooltip() {
-    $('[data-toggle="tooltip"]').tooltip();
-  }
 
   function show_description_column(){
     $('thead .hideable_annotation_description').show();
@@ -286,15 +283,6 @@
 	$('#sample_info_form input:checkbox:checked').each( function() {
        $('.table_sample_property_' + $(this).attr('id')).show();
 	});
-  }
-
-  function update_sample_information(){
-    var properties = new Array();
-	$('#sample_info_form input:checkbox:checked').each( function() {
-      properties.push([$(this).attr('id'), $(this).attr('data-label')])
-      $('.table_sample_property_' + $(this).attr('id')).show();
-	});
-    generate_sparkline(properties)
   }
 
   function hide_sample_information(){

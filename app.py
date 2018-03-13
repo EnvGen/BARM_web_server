@@ -25,6 +25,10 @@ db = SQLAlchemy(app)
 
 from models import Sample, SampleSet, TimePlace, SampleProperty, Annotation, Taxon, OAuth, User, Gene
 
+##########################
+## Some Helper Methods
+##########################
+
 ## Currently NaN for all samples:
 # Misspellings are in database, so need to fix there first
 PROPERTIES_TO_SKIP = ['Microzooplankotn', 'Mesozooplankton', \
@@ -63,11 +67,39 @@ def collect_property_names():
 
 GENERAL_INFORMATION_PROPERTY_NAMES, MEASURED_PARAMETERS_PROPERTY_NAMES, IDABLE_PROPERTY_TO_UNIT = collect_property_names()
 
+def _prepare_json_table_row(sample_to_rpkm, sample_sets, taxonomy=False):
+    row = {}
+    row['highcharts_max_val'] = {}
+    for sample_set in sample_sets:
+        json_table_row = []
+        ymax = 0
+        for sample in sample_set.samples:
+            yval = float("{0:.4f}".format(float(sample_to_rpkm[sample]))) # HAHA!
+            json_sample_d = {'y': yval, 'sample': sample.scilifelab_code,
+                    'date': sample.timeplace.date_formatted(),
+                    'latitude': "{0:.6f}".format(sample.timeplace.latitude),
+                    'longitude': "{0:.6f}".format(sample.timeplace.longitude)}
+
+            for prop in sample.properties:
+                if prop.name not in PROPERTIES_TO_SKIP:
+                    idable = SampleProperty.idable_property_name_(prop.name)
+                    json_sample_d[idable] = prop.value
+            json_table_row.append(json_sample_d)
+            if yval > ymax:
+                ymax = yval
+        row[sample_set.name] = json_table_row
+        row['highcharts_max_val'][sample_set.name] = "{0:.1E}".format(ymax)
+    return row
+
 def is_safe_url(target):
     ref_url = urlparse(request.host_url)
     test_url = urlparse(urljoin(request.host_url, target))
     return test_url.scheme in ('http', 'https') and \
            ref_url.netloc == test_url.netloc
+
+#############################
+## Checks run on module load
+#############################
 
 if os.environ.get('BARM_GOOGLE_CLIENT_ID'):
     google_client_id = os.environ['BARM_GOOGLE_CLIENT_ID']
@@ -108,6 +140,10 @@ login_manager = LoginManager()
 login_manager.login_view = 'google.login'
 login_manager.init_app(app)
 
+###########################
+## User login/logout routes
+###########################
+
 @login_manager.user_loader
 def load_user(user_id):
     email = user_id
@@ -147,9 +183,11 @@ def logout():
     flash("You have logged out")
     return redirect(url_for("index"))
 
-@app.route('/highcharts')
-def highcharts():
-    return render_template('highcharts.html')
+
+
+###########################
+## Main routes
+###########################
 
 @app.route('/')
 def index():
@@ -172,6 +210,7 @@ def taxon_tree_nodes_for_table(parent_level, parent_value):
                     node_level=child_level,
                     node_values=child_values)
 
+
 @app.route('/ajax/taxon_tree_table_row/<string:level>/<string:complete_taxonomy>')
 def taxon_tree_table_row(level, complete_taxonomy):
     complete_val_to_val = {}
@@ -189,16 +228,7 @@ def taxon_tree_table_row(level, complete_taxonomy):
     rpkm_row['highcharts_max_val'] = {}
 
     json_table = {}
-    json_table[complete_taxonomy] = {}
-    for sample_set, samples in sample_sets.items():
-        json_table_row = []
-        ymax = 0
-        for sample in samples:
-            json_table_row.append({'y': rpkm_row[sample], 'sample': sample.scilifelab_code})
-            if rpkm_row[sample] > ymax:
-                ymax = rpkm_row[sample]
-        rpkm_row['highcharts_max_val'][sample_set.name] = "{0:.1E}".format(ymax)
-        json_table[complete_taxonomy][sample_set.name] = json_table_row
+    json_table[complete_taxonomy] = _prepare_json_table_row(rpkm_row, sample_sets)
 
     return render_template('taxon_tree_table_row.html',
             complete_taxon = complete_taxonomy,
@@ -236,20 +266,12 @@ def taxonomy_tree_table():
     table = OrderedDict()
     json_table = {}
     for taxa_name, complete_taxonomy in node_values:
-        json_table[complete_taxonomy] = {}
         complete_val_to_val[complete_taxonomy] = taxa_name
 
         table_row = Taxon.rpkm_table_row(complete_taxonomy=complete_taxonomy)
         table_row['highcharts_max_val'] = {}
-        for sample_set, samples in sample_sets.items():
-            json_table_row = []
-            ymax = 0
-            for sample in samples:
-                json_table_row.append({'y': table_row[sample], 'sample': sample.scilifelab_code})
-                if table_row[sample] > ymax:
-                    ymax = table_row[sample]
-            table_row['highcharts_max_val'][sample_set.name] = "{0:.1E}".format(ymax)
-            json_table[complete_taxonomy][sample_set.name] = json_table_row
+
+        json_table[complete_taxonomy] = _prepare_json_table_row(table_row, sample_sets)
 
         table_row['complete_taxonomy_id'] = complete_taxonomy.replace(';','-').replace(' ', '_').replace('.','_')
         table[complete_taxonomy] = table_row
@@ -262,6 +284,10 @@ def taxonomy_tree_table():
             sample_sets=sample_sets,
             sample_scilifelab_codes=sample_scilifelab_codes,
             complete_val_to_val=complete_val_to_val,
+            general_information_property_names=GENERAL_INFORMATION_PROPERTY_NAMES,
+            measured_parameters_property_names=MEASURED_PARAMETERS_PROPERTY_NAMES,
+            idable_property_to_unit=IDABLE_PROPERTY_TO_UNIT,
+            properties_to_skip=PROPERTIES_TO_SKIP,
             json_table=json_table)
 
 def table_to_csv(table, samples, blast=True):
@@ -444,48 +470,6 @@ def blast_page():
         sample_scilifelab_codes=[])
 
 
-
-@app.route('/taxonomy_table', methods=['GET'])
-def taxon_table():
-    taxonomy_levels = Taxon.level_order
-
-    taxon_level = request.args.get('taxon_level', 'superkingdom')
-    parent_values = request.args.getlist('parent_values[]', None)
-    parent_level = request.args.get('parent_level', None)
-    row_limit = request.args.get('row_limit', 20)
-
-    if taxon_level not in taxonomy_levels:
-        taxon_level = 'superkingdom'
-    if parent_level not in taxonomy_levels:
-        parent_values = None
-    if row_limit not in ['20', '50', '100', 'all']:
-        row_limit = 20
-
-    # Translate to model language
-    if row_limit == 'all':
-        limit = None
-    else:
-        limit = row_limit
-    sample_scilifelab_codes = [s.scilifelab_code for s in Sample.query.all()]
-    samples, table, complete_val_to_val = Taxon.rpkm_table(level=taxon_level, top_level_complete_values=parent_values, top_level=parent_level, limit=limit)
-    sorted_table = OrderedDict()
-    for complete_taxon, sample_d in table.items():
-        new_sample_data = []
-        for sample in samples:
-            new_sample_data.append(sample_d[sample])
-        sorted_table[complete_taxon] = new_sample_data
-
-    return render_template('taxon_table.html',
-            table=table,
-            samples=samples,
-            sorted_table=sorted_table,
-            sample_scilifelab_codes = sample_scilifelab_codes,
-            complete_val_to_val=complete_val_to_val,
-            taxonomy_levels=taxonomy_levels,
-            current_level=taxon_level,
-            row_limit=row_limit
-        )
-
 @app.route('/functional_table', methods=['GET', 'POST'])
 def functional_table():
     DEFAULT_QUERY = 'Photosynth'
@@ -571,29 +555,11 @@ def functional_table():
     samples = sorted(samples, key=lambda x: x.scilifelab_code)
     sample_scilifelab_codes = [sample.scilifelab_code for sample in samples]
 
+
     def _prepare_json_table(table, sample_sets):
         json_table = {}
         for annotation, sample_d in table.items():
-            json_table[annotation.type_identifier] = {}
-            json_table[annotation.type_identifier]['highcharts_max_val'] = {}
-            for sample_set in sample_sets:
-                json_table_row = []
-                ymax = 0
-                for sample in sample_set.samples:
-                    yval = float(sample_d[sample])
-                    json_sample_d = {'y': yval, 'sample': sample.scilifelab_code,
-                            'date': sample.timeplace.date_formatted(),
-                            'latitude': "{0:.6f}".format(sample.timeplace.latitude),
-                            'longitude': "{0:.6f}".format(sample.timeplace.longitude)}
-                    for prop in sample.properties:
-                        if prop.name not in PROPERTIES_TO_SKIP:
-                            idable = SampleProperty.idable_property_name_(prop.name)
-                            json_sample_d[idable] = prop.value
-                    json_table_row.append(json_sample_d)
-                    if yval > ymax:
-                        ymax = yval
-                json_table[annotation.type_identifier][sample_set.name] = json_table_row
-                json_table[annotation.type_identifier]['highcharts_max_val'][sample_set.name] = "{0:.1E}".format(ymax)
+            json_table[annotation.type_identifier] = _prepare_json_table_row(sample_d, sample_sets)
         return json_table
 
     # This section is not independent from the section above
