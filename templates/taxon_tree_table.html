@@ -262,7 +262,7 @@
       remove_row(taxonomy_id);
     });
     enable_tooltip();
-    generate_sparkline();
+    update_sample_information(); /* Includes generate sparkline */
     /* Check which sample sets are active and hide the others */
     $(".sampleset-select label").each(function() {
       if(!$(this).hasClass('active')) {

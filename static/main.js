@@ -148,7 +148,7 @@ function generate_sparkline(sample_properties) {
                 tooltip: {
                   formatter: function() {
                     if(typeof sample_properties === "undefined") {
-                        return '<span style="font-size: 10px"><b> Sample: ' + this.point.sample + '<br/>' + this.y + '</b></span>';
+                        return '<span style="font-size: 10px"><b> Sample: ' + this.point.sample + '<br/>TPM: ' + this.y + '</b></span>';
                     } else {
                         var text = '<span style="font-size: 10px"><b> Sample: ' + this.point.sample;
                         for (i=0, len = sample_properties.length; i < len; i++) {
@@ -156,7 +156,7 @@ function generate_sparkline(sample_properties) {
                             label = sample_properties[i][1]
                             text += '<br/>' + label + ': ' + $(this.point).attr(idable);
                         }
-                        return text + '<br/>' + this.y +'</b></span>';
+                        return text + '<br/>TPM: ' + this.y +'</b></span>';
                     };
                   }
                 },

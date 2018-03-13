@@ -383,18 +383,7 @@ def blast_page():
                 def _prepare_json_table(table, sample_sets):
                     json_table = {}
                     for gene, sample_d in table.items():
-                        json_table[gene.name] = {}
-                        json_table[gene.name]['highcharts_max_val'] = {}
-                        for sample_set in sample_sets:
-                            json_table_row = []
-                            ymax = 0
-                            for sample in sample_set.samples:
-                                yval = float(sample_d[sample])
-                                json_table_row.append({'y': yval, 'sample': sample.scilifelab_code})
-                                if yval > ymax:
-                                    ymax = yval
-                            json_table[gene.name][sample_set.name] = json_table_row
-                            json_table[gene.name]['highcharts_max_val'][sample_set.name] = "{0:.1E}".format(ymax)
+                        json_table[gene.name] = _prepare_json_table_row(sample_d, sample_sets)
 
                     return json_table
 
@@ -418,6 +407,10 @@ def blast_page():
                         table=table,
                         sample_scilifelab_codes = [s.scilifelab_code for s in samples],
                         sample_sets=sample_set_names,
+                        general_information_property_names=GENERAL_INFORMATION_PROPERTY_NAMES,
+                        measured_parameters_property_names=MEASURED_PARAMETERS_PROPERTY_NAMES,
+                        idable_property_to_unit=IDABLE_PROPERTY_TO_UNIT,
+                        properties_to_skip=PROPERTIES_TO_SKIP,
                         json_table=json_table)
 
             # No gene counts are needed
@@ -467,6 +460,10 @@ def blast_page():
         form=form,
         samples=[],
         table={},
+        general_information_property_names=GENERAL_INFORMATION_PROPERTY_NAMES,
+        measured_parameters_property_names=MEASURED_PARAMETERS_PROPERTY_NAMES,
+        idable_property_to_unit=IDABLE_PROPERTY_TO_UNIT,
+        properties_to_skip=PROPERTIES_TO_SKIP,
         sample_scilifelab_codes=[])
 
 
