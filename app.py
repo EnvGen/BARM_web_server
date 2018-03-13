@@ -225,10 +225,10 @@ def taxon_tree_table_row(level, complete_taxonomy):
 
     rpkm_row = Taxon.rpkm_table_row(level, complete_taxonomy)
     rpkm_row['complete_taxonomy_id'] = complete_taxonomy.replace(';','-').replace(' ', '_').replace('.','_')
-    rpkm_row['highcharts_max_val'] = {}
 
     json_table = {}
     json_table[complete_taxonomy] = _prepare_json_table_row(rpkm_row, sample_sets)
+    rpkm_row['highcharts_max_val'] = json_table[complete_taxonomy]['highcharts_max_val']
 
     return render_template('taxon_tree_table_row.html',
             complete_taxon = complete_taxonomy,
@@ -269,9 +269,9 @@ def taxonomy_tree_table():
         complete_val_to_val[complete_taxonomy] = taxa_name
 
         table_row = Taxon.rpkm_table_row(complete_taxonomy=complete_taxonomy)
-        table_row['highcharts_max_val'] = {}
 
         json_table[complete_taxonomy] = _prepare_json_table_row(table_row, sample_sets)
+        table_row['highcharts_max_val'] = json_table[complete_taxonomy]['highcharts_max_val']
 
         table_row['complete_taxonomy_id'] = complete_taxonomy.replace(';','-').replace(' ', '_').replace('.','_')
         table[complete_taxonomy] = table_row
