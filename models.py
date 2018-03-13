@@ -169,6 +169,37 @@ class SampleProperty(db.Model):
     def __repr__(self):
         return '<SampleProperty {}>'.format(self.id)
 
+    @classmethod
+    def idable_property_name_(self, property_name):
+        """A function to transform property name to \
+                something that can be used as an html id"""
+        property_name = property_name.replace(' ','_')
+        property_name = property_name.replace('+','')
+        property_name = property_name.replace('-','')
+
+        return(property_name)
+
+    @property
+    def idable_property_name(self):
+        return SampleProperty.idable_property_name_(self.name)
+
+    @classmethod
+    def readable_property_name_(self, property_name):
+        property_name = property_name.replace('_', ' ')
+        if len(property_name) > 6:
+            new_name = []
+            for word in property_name.split(' '):
+                if word != "pH":
+                    word = word.capitalize()
+                new_name.append(word)
+
+            property_name = " ".join(new_name)
+        return(property_name)
+
+    @property
+    def readable_property_name(self):
+        return SampleProperty.readable_property_name_(self.name)
+
 class ReferenceAssembly(db.Model):
     __tablename__ = 'reference_assembly'
 

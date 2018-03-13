@@ -17,6 +17,11 @@ body {
 
 #function_classes_table > tbody > tr > .rpkm_value {
   vertical-align:middle;
+  text-align:center;
+}
+
+#function_classes_table > thead > tr > th {
+  text-align:center;
 }
 
 #table_diagram_tabs {
@@ -56,6 +61,10 @@ footer img.vertical-centered {
 
 .emph-tree-node {
   color: #337ab7;
+}
+
+#taxonomy_accordion {
+  padding-top: 25px;
 }
 
 .taxon_search_result_row {

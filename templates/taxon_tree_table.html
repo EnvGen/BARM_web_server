@@ -13,7 +13,7 @@
   </div>
   <div class="col-md-9">
     <div class="row">
-      <div class="col-md-6">
+      <div class="col-md-5">
         <div class="btn-group sampleset-select" data-toggle="buttons">
           {% for sample_set, samples in sample_sets.items() %}
             <label class="btn btn-primary active" id="toggle_btn_{{sample_set.name}}">
@@ -23,7 +23,7 @@
         </div> 
       </div>
 
-      <div class="col-md-3">
+      <div class="col-md-4">
         <form class="form-inline" id="search_form">
           <div class="form-group">
             <label class="sr-only" for="taxon_search_input">Search term</label>
@@ -51,7 +51,7 @@
               </div>
               <div class="modal-body">
                 <p>
-                  This page contains abundance values per sample for different taxonomy values and levels. The abundance is represented by sum of tpm values for the individual genes assigned to the given taxonomy.
+                  This page contains abundance values per sample for different taxonomy values and levels. The abundance is represented by sum of tpm values for the individual genes assigned to the given taxonomy. The taxonomy follows the NCBI nomenclature.
                 </p>
                 <h4>Varying levels of taxonomic assignments</h4>
                 <p>
@@ -65,6 +65,73 @@
               </div>
               <div class="modal-footer">
                 <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Sample Information Accordion -->
+    <div class="row">
+      <div class="col-md-9" id="taxonomy_accordion" >
+        <div class="panel-group" role="tablist" aria-multiselectable="true">
+          <div class="panel panel-default">
+            <div class="panel-heading" role="tab" id="headingTwo">
+              <h4 class="panel-title">
+                <a role="button" id="filter_accordion" data-toggle="collapse" data-parent="#accordion" href="#collapseTwo" aria-expanded="true" aria-controls="collapseTwo">
+                  Sample Information Shown
+                </a>
+              </h4>
+            </div>
+            <div id="collapseTwo" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingTwo">
+              <div class="panel-body">
+                <form action="" id='sample_info_form' name="sample_info">
+                  <div class="row">
+                    <div class="col-md-7">
+                      <h3>Choose parameters to show for samples</h3>
+                      <p>Sample information is shown in a hover box for each sample in the diagrams. Not all measurements were taken for all samples.</p>
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="col-md-4">
+                      <h4>General Parameters</h4>
+                      <div class="checkbox">
+                        <label>
+                          <input id='date' data-label="Date" type="checkbox" checked> Date [YYYY-MM-DD]
+                        </label>
+                      </div>
+                      <div class="checkbox">
+                        <label>
+                          <input id='latitude' data-label="Latitude" type="checkbox" checked> Latitude [Decimal Degrees]
+                        </label>
+                      </div>
+                      <div class="checkbox">
+                        <label>
+                          <input id='longitude' data-label="Longitude" type="checkbox" checked> Longitude [Decimal Degrees]
+                        </label>
+                      </div>
+                      {% for sample_p_name, sample_p_id in general_information_property_names %}
+                      <div class="checkbox">
+                        <label>
+                          <input id={{sample_p_id}} data-label="{{sample_p_name}}" type="checkbox"> {{sample_p_name}} ({{idable_property_to_unit[sample_p_id]}})
+                        </label>
+                      </div>
+                      {% endfor %}
+                    </div>
+                    <div class="col-md-4">
+                      <h4>Measured Parameters</h4>
+                      {% for sample_p_name, sample_p_id in measured_parameters_property_names %}
+                      <div class="checkbox">
+                        <label>
+                          <input id={{sample_p_id}} data-label="{{sample_p_name}}" type="checkbox"> {{sample_p_name}} ({{idable_property_to_unit[sample_p_id]}})</span>
+                        </label>
+                      </div>
+                      {% endfor %}
+                    </div>
+                  </div>
+                  <button class="btn btn-primary" id="update_sample_info_btn">Update Properties Shown</button>
+                </form>
               </div>
             </div>
           </div>
@@ -92,9 +159,9 @@
           <th></th>
           <th>Taxonomy</th>
           {% for sample_set, samples in sample_sets.items() %}
-            <th class="highcharts_left_max"></th>
+            <th class="highcharts_left_max sparkline_column sample_group_{{sample_set.name}} sample_set_selected"></th>
             <th class="sparkline_column sample_group_{{sample_set.name}} sample_set_selected">{{sample_set.name}}</th>
-            <th class="highcharts_right_max"></th>
+            <th class="highcharts_right_max sparkline_column sample_group_{{sample_set.name}} sample_set_selected"></th>
             {% for sample in samples %}
             <th class="rpkm_value sample_group_{{sample_set.name}} sample_set_selected">
               <a href="#" data-toggle="tooltip" data-title="{% include 'sample_info_tooltip.html' %}" data-html="true">{{sample.scilifelab_code}}</a>
@@ -111,9 +178,6 @@
     </table>
     <div id="result"></div>
     </div>
-    <script>
-      generate_sparkline();
-    </script>
   </div>
 </div>
 
@@ -198,7 +262,7 @@
       remove_row(taxonomy_id);
     });
     enable_tooltip();
-    generate_sparkline();
+    update_sample_information(); /* Includes generate sparkline */
     /* Check which sample sets are active and hide the others */
     $(".sampleset-select label").each(function() {
       if(!$(this).hasClass('active')) {
@@ -207,6 +271,10 @@
         $('.sparkline_column.' + sample_set_class).removeClass('sample_set_selected');
         $('.rpkm_value.' + sample_set_class).hide();
         $('.rpkm_value.' + sample_set_class).removeClass('sample_set_selected');
+        $('.highcharts_left_max.' + sample_set_class).hide();
+        $('.highcharts_left_max.' + sample_set_class).removeClass('sample_set_selected');
+        $('.highcharts_right_max.' + sample_set_class).hide();
+        $('.highcharts_right_max.' + sample_set_class).removeClass('sample_set_selected');
       };
     });
     /* Check which tab is active to decide which ones to hide */
@@ -259,8 +327,10 @@
   };
 
   function show_sparkline_tab() {
-    $('.highcharts_left_max').show()
-    $('.highcharts_right_max').show()
+    $('.highcharts_left_max.sample_set_selected').show()
+    $('.highcharts_right_max.sample_set_selected').show()
+    $('.highcharts_left_max').not('.sample_set_selected').hide()
+    $('.highcharts_right_max').not('.sample_set_selected').hide()
     $('.sparkline_column.sample_set_selected').show()
     $('.sparkline_column').not('.sample_set_selected').hide()
     $('.rpkm_value').hide()
@@ -321,6 +391,13 @@
       new_table_row_added();
       init_tabs();
       show_sparkline_tab();
+      update_sample_information();
+
+      $('#update_sample_info_btn').click(function (e) {
+          e.preventDefault()
+          update_sample_information() 
+      });
+
   });
 </script>
 {% endblock body %}
