@@ -96,8 +96,16 @@ class TimePlace(db.Model):
     def __repr__(self):
         return '<TimePlace {}>'.format(self.id)
 
-    def date_formatted(self):
-        return self.time.strftime('%Y-%m-%d')
+    def date_formatted(self, sample):
+        if sample.scilifelab_code[0:5] == 'P1994':
+            date = self.time.strftime('%Y-%m-%d')
+            wrong_year = date.split('-')[0]
+            month = date.split('-')[1]
+            wrong_day = date.split('-')[2]
+
+            return "20{}-{}-{}".format(wrong_day, month, wrong_year[2:4])
+        else:
+            return self.time.strftime('%Y-%m-%d')
 
 class Sample(db.Model):
     __tablename__ = 'sample'

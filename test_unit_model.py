@@ -195,7 +195,7 @@ class SampleTestCase(unittest.TestCase):
 
         assert sample3.timeplace.time < sample2.timeplace.time
 
-        assert sample3.timeplace.date_formatted() == '1999-03-21'
+        assert sample3.timeplace.date_formatted(sample) == '1999-03-21'
 
 
     def test_sample_sample_property(self):

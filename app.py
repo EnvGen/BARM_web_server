@@ -81,7 +81,7 @@ def _prepare_json_table_row(sample_to_rpkm, sample_sets, taxonomy=False):
         for sample in sample_set.samples:
             yval = float("{0:.4f}".format(float(sample_to_rpkm[sample]))) # HAHA!
             json_sample_d = {'y': yval, 'sample': sample.scilifelab_code,
-                    'date': sample.timeplace.date_formatted(),
+                    'date': sample.timeplace.date_formatted(sample),
                     'latitude': "{0:.6f}".format(sample.timeplace.latitude),
                     'longitude': "{0:.6f}".format(sample.timeplace.longitude)}
 
