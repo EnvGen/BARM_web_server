@@ -35,6 +35,11 @@ PROPERTIES_TO_SKIP = ['Microzooplankotn', 'Mesozooplankton', \
         'Sample name', 'Organism', 'Rates', 'DOP', 'DOM', \
         'Other ions and small molecules', 'DON', 'Turbidity']
 
+# Global sample set descriptions
+SAMPLE_SET_DESCRIPTIONS = {'lmo': '2012 Time series from Linnaeus Microbial Observatory',
+        'redoxcline': 'Samples targeting the redoxcline in two separate stations',
+        'transect': '2014 Spatial transect with three depths each from ten stations from across the Baltic Sea'}
+
 def collect_property_names():
     general_info_properties = ['Sample Title', 'Environmental Feature', 'Sampling Basin', \
             'Sampling Station', 'Library Type', 'Geolocation Name', 'Environmental Material', \
@@ -288,6 +293,7 @@ def taxonomy_tree_table():
             measured_parameters_property_names=MEASURED_PARAMETERS_PROPERTY_NAMES,
             idable_property_to_unit=IDABLE_PROPERTY_TO_UNIT,
             properties_to_skip=PROPERTIES_TO_SKIP,
+            sample_set_descriptions=SAMPLE_SET_DESCRIPTIONS,
             json_table=json_table)
 
 def table_to_csv(table, samples, blast=True):
@@ -411,6 +417,7 @@ def blast_page():
                         measured_parameters_property_names=MEASURED_PARAMETERS_PROPERTY_NAMES,
                         idable_property_to_unit=IDABLE_PROPERTY_TO_UNIT,
                         properties_to_skip=PROPERTIES_TO_SKIP,
+                        sample_set_descriptions=SAMPLE_SET_DESCRIPTIONS,
                         json_table=json_table)
 
             # No gene counts are needed
@@ -464,6 +471,7 @@ def blast_page():
         measured_parameters_property_names=MEASURED_PARAMETERS_PROPERTY_NAMES,
         idable_property_to_unit=IDABLE_PROPERTY_TO_UNIT,
         properties_to_skip=PROPERTIES_TO_SKIP,
+        sample_set_descriptions=SAMPLE_SET_DESCRIPTIONS,
         sample_scilifelab_codes=[])
 
 
@@ -648,6 +656,7 @@ def functional_table():
             measured_parameters_property_names=MEASURED_PARAMETERS_PROPERTY_NAMES,
             idable_property_to_unit=IDABLE_PROPERTY_TO_UNIT,
             properties_to_skip=PROPERTIES_TO_SKIP,
+            sample_set_descriptions=SAMPLE_SET_DESCRIPTIONS,
             json_table=json_table
         )
 

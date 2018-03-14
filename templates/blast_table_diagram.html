@@ -9,9 +9,9 @@
       <th>Identity (%)</th>
       <th>Alignment length</th>
       {% for sample_set in sample_sets %}
-      <td></td>
-      <td>{{sample_set.name}}</td>
-      <td></td>
+      <th></th>
+      <th>{{sample_set}} - {{sample_set_descriptions[sample_set]}}</th>
+      <th></th>
       {% endfor %}
     </tr>
   </thead>

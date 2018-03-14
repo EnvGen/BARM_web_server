@@ -6,7 +6,7 @@
       <th class="hideable_annotation_description">Annotation Description</th>
       {% for sample_set in sample_sets %}
       <th class="highcharts_left_max"></th>
-      <th>{{sample_set.name}}</th>
+      <th>{{sample_set.name}} - {{sample_set_descriptions[sample_set.name]}}</th>
       <th class="highcharts_right_max"></th>
       {% endfor %}
     </tr>

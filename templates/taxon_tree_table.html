@@ -160,7 +160,7 @@
           <th>Taxonomy</th>
           {% for sample_set, samples in sample_sets.items() %}
             <th class="highcharts_left_max sparkline_column sample_group_{{sample_set.name}} sample_set_selected"></th>
-            <th class="sparkline_column sample_group_{{sample_set.name}} sample_set_selected">{{sample_set.name}}</th>
+            <th class="sparkline_column sample_group_{{sample_set.name}} sample_set_selected">{{sample_set.name}} - {{sample_set_descriptions[sample_set.name]}}</th>
             <th class="highcharts_right_max sparkline_column sample_group_{{sample_set.name}} sample_set_selected"></th>
             {% for sample in samples %}
             <th class="rpkm_value sample_group_{{sample_set.name}} sample_set_selected">
