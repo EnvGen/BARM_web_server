@@ -7,6 +7,17 @@ body {
   padding: 40px 15px;
 }
 
+.jumbotron {
+  height: 450px;
+  background-image: url("images/index_bg.jpg");
+  background-position: -900px -0px;
+}
+
+#index_spacer {
+  width: 100%;
+  height: 80px;
+}
+
 .panel-group {
   box-shadow: 5px 5px 8px #888888;
 }
