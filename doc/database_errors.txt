@@ -1,0 +1,5 @@
+There are several metadata values missing for transect samples
+The dates are inverted for the transect samples.
+ - Currently fixed programmatically for each sample property request
+
+Fixed: All Lmo samples should have 2.0m depth and not 0.5
