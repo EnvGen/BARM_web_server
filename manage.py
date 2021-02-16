@@ -1,5 +1,5 @@
-from flask.ext.script import Manager, Command, Option
-from flask.ext.migrate import Migrate, MigrateCommand
+from flask_script import Manager, Command, Option
+from flask_migrate import Migrate, MigrateCommand
 import os
 from subprocess import check_call
 

@@ -1,5 +1,5 @@
 from flask import Flask, render_template, request, make_response, jsonify, redirect, url_for, flash
-from flask.ext.sqlalchemy import SQLAlchemy
+from flask_sqlalchemy import SQLAlchemy
 from flask_dance.contrib.google import make_google_blueprint, google
 from flask_dance.consumer.backend.sqla import SQLAlchemyBackend
 from flask_dance.consumer import oauth_authorized, oauth_error
@@ -652,12 +652,12 @@ def functional_table():
         )
 
 def _extract_sequences(all_ids, sequence_file):
-    """ Will run cdbyank on the sequence file to extract 
+    """ Will run cdbyank on the sequence file to extract
     all sequences in all_ids as fasta"""
 
     index_file = sequence_file + '.cidx'
 
-    with subprocess.Popen(['cdbyank', index_file], stdout=subprocess.PIPE, 
+    with subprocess.Popen(['cdbyank', index_file], stdout=subprocess.PIPE,
             stdin=subprocess.PIPE, stderr=subprocess.PIPE) as process:
         cdbyank_stdout, stderr = process.communicate(input='\n'.join(all_ids).encode())
     seqs = cdbyank_stdout.decode()

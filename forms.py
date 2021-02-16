@@ -1,4 +1,4 @@
-from flask.ext.wtf import Form
+from flask_wtf import Form
 from wtforms import SelectField, SelectMultipleField, StringField, FieldList, RadioField, SubmitField, IntegerField, TextAreaField, ValidationError
 
 DEFAULT_BLAST_GENE=""">IMG reference gene:2504129627
@@ -99,5 +99,3 @@ class TaxonomyTableFilterForm(Form):
     view_level = SelectField(u'Taxon Levels',
         choices=taxonomy_levels, default='superkingdom')
     submit_update = SubmitField(u'Update')
-
-
