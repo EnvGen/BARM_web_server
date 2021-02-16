@@ -3,6 +3,17 @@ Baltic sea Reference Metagenome web server
 
 running at https://barm.scilifelab.se
 
+## Installation instructions
+
+```
+conda create -n barm_run_env python=3
+conda activate barm_run_env
+git clone https://github.com/EnvGen/BARM_web_server.git
+cd BARM_web_server/
+conda install psycopg2
+pip install -r requirements.txt
+```
+
 ## Dev note
 I always forget this, to log in to psql on local mac:
 
@@ -58,4 +69,3 @@ Shutdown current process:
 Start running the server manually:
 
     bash /home/<user>/starta_barm.sh  >>  /var/log/barm.log  2>&1 &
-
