@@ -4,7 +4,7 @@ from sqlalchemy import not_, inspect
 from materialized_view_factory import MaterializedView, create_mat_view
 import collections
 import re
-from flask_dance.consumer.backend.sqla import OAuthConsumerMixin
+from flask_dance.consumer.storage.sqla import OAuthConsumerMixin
 
 user_to_sampleset = db.Table('user_to_sampleset',
     db.Column('user_id', db.Integer, db.ForeignKey('user.id')),
@@ -34,7 +34,7 @@ class User(db.Model):
     @property
     def is_active(self):
         # All users are active at the moment
-        return True 
+        return True
 
     @property
     def is_anonymous(self):
@@ -860,4 +860,3 @@ class EcNumber(Annotation):
     @property
     def pretty_name(self):
         return "EC-number"
-

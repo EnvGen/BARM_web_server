@@ -1,7 +1,7 @@
 from flask import Flask, render_template, request, make_response, jsonify, redirect, url_for, flash
 from flask_sqlalchemy import SQLAlchemy
 from flask_dance.contrib.google import make_google_blueprint, google
-from flask_dance.consumer.backend.sqla import SQLAlchemyBackend
+from flask_dance.consumer.storage.sqla import SQLAlchemyStorage
 from flask_dance.consumer import oauth_authorized, oauth_error
 from flask_login import current_user, LoginManager, login_user, logout_user, login_required
 from forms import FunctionClassFilterForm, TaxonomyTableFilterForm, BlastFilterForm
@@ -18,6 +18,12 @@ import io
 
 app = Flask(__name__)
 app.config.from_object(os.environ['APP_SETTINGS'])
+
+
+BARM_PROPERTIES_SET = False
+GENERAL_INFORMATION_PROPERTY_NAMES = None
+MEASURED_PARAMETERS_PROPERTY_NAMES = None
+IDABLE_PROPERTY_TO_UNIT = None
 
 config.check_oauth_variables(os.environ['APP_SETTINGS'])
 
@@ -36,6 +42,7 @@ PROPERTIES_TO_SKIP = ['Microzooplankotn', 'Mesozooplankton', \
         'Other ions and small molecules', 'DON', 'Turbidity']
 
 def collect_property_names():
+    """Caching some information from the database and store it in global variables. """
     general_info_properties = ['Sample Title', 'Environmental Feature', 'Sampling Basin', \
             'Sampling Station', 'Library Type', 'Geolocation Name', 'Environmental Material', \
             'Environmental Biome', 'Molecule', 'Sampling Depth']
@@ -60,12 +67,14 @@ def collect_property_names():
     general_information_property_names.sort()
     measured_parameters_property_names.sort(key=lambda x: x[0].lower())
 
-
-
-    return general_information_property_names, measured_parameters_property_names, idable_to_unit
-
-
-GENERAL_INFORMATION_PROPERTY_NAMES, MEASURED_PARAMETERS_PROPERTY_NAMES, IDABLE_PROPERTY_TO_UNIT = collect_property_names()
+    global BARM_PROPERTIES_SET
+    global GENERAL_INFORMATION_PROPERTY_NAMES
+    global MEASURED_PARAMETERS_PROPERTY_NAMES
+    global IDABLE_PROPERTY_TO_UNIT
+    GENERAL_INFORMATION_PROPERTY_NAMES = general_information_property_names
+    MEASURED_PARAMETERS_PROPERTY_NAMES = measured_parameters_property_names
+    IDABLE_PROPERTY_TO_UNIT = idable_to_unit
+    BARM_PROPERTIES_SET = True
 
 def _prepare_json_table_row(sample_to_rpkm, sample_sets, taxonomy=False):
     row = {}
@@ -134,7 +143,7 @@ blueprint = make_google_blueprint(
 )
 app.register_blueprint(blueprint, url_prefix="/login")
 
-blueprint.backend = SQLAlchemyBackend(OAuth, db.session, user=current_user)
+blueprint.backend = SQLAlchemyStorage(OAuth, db.session, user=current_user)
 
 login_manager = LoginManager()
 login_manager.login_view = 'google.login'
@@ -276,6 +285,8 @@ def taxonomy_tree_table():
         table_row['complete_taxonomy_id'] = complete_taxonomy.replace(';','-').replace(' ', '_').replace('.','_')
         table[complete_taxonomy] = table_row
 
+    if not BARM_PROPERTIES_SET:
+        collect_property_names()
 
     return render_template('taxon_tree_table.html',
             node_level = node_level,
@@ -340,6 +351,8 @@ def blast_page():
         names = ['qacc', 'sacc', 'pident', 'length', 'qstart', 'qend', 'sstart', 'send', 'evalue', 'bitscore']
         cmd += ['-outfmt', '6 {}'.format(" ".join(names))]
 
+        if not BARM_PROPERTIES_SET:
+            collect_property_names()
 
         with subprocess.Popen(cmd, stdin=subprocess.PIPE, stdout=subprocess.PIPE,\
                 stderr=subprocess.PIPE) as process:
@@ -637,6 +650,9 @@ def functional_table():
     else:
         # Wait to prepare the json table until it's certain that it's necessary
         json_table = _prepare_json_table(table, sample_sets)
+
+    if not BARM_PROPERTIES_SET:
+        collect_property_names()
 
     return render_template('functional_table.html',
             table=table,
