@@ -1,9 +1,9 @@
 language: python
 python:
-    - 3.6
+    - 3.9
 sudo: false
 addons:
-    postgresql: "9.4"
+    postgresql: "13"
     sauce_connect: true # Credentials are set at travis-ci.com
 services:
     - postgresql
