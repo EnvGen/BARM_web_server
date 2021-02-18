@@ -24,7 +24,7 @@ before_install:
     - export PATH=/home/travis/cdbfasta-master:$PATH
 install:
     - which cdbyank
-    - conda install --yes python=$TRAVIS_PYTHON_VERSION pandas Flask SQLAlchemy psycopg2 flask-wtf gunicorn mako werkzeug wheel
+    - conda install --yes python=$TRAVIS_PYTHON_VERSION psycopg2
     - pip install -r requirements.txt
 before_script:
     - which cdbyank
