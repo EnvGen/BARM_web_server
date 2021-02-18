@@ -3,7 +3,6 @@ python:
     - 3.9
 sudo: false
 addons:
-    postgresql: "13"
     sauce_connect: true # Credentials are set at travis-ci.com
 services:
     - postgresql
