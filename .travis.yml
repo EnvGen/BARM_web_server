@@ -28,7 +28,7 @@ install:
     - pip install -r requirements.txt
 before_script:
     - which cdbyank
-    - createdb BARM_web_test -U postgres --echo
+    - psql -c 'create database BARM_web_test;' -U postgres
     - cd $TRAVIS_BUILD_DIR
     - python manage.py db upgrade
     - export DATABASE_URL="postgresql://postgres:@localhost/BARM_web_test"
