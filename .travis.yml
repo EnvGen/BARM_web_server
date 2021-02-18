@@ -29,7 +29,7 @@ install:
 before_script:
     - which cdbyank
     - which psql
-    - psql -c 'create database BARM_web_test;' -U postgres
+    - psql -c 'create database "BARM_web_test";' -U postgres
     - psql -c 'SELECT * FROM pg_database WHERE datistemplate = false;' -U postgres
     - cd $TRAVIS_BUILD_DIR
     - python manage.py db upgrade
