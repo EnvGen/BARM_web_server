@@ -6,6 +6,8 @@ data/*/tmp_file.csv
 data/bp_presentation/*
 data/sequences/*
 
+local_variables.prod.sh
+
 # Vim temporary files
 *.swp
 

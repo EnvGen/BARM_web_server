@@ -4,7 +4,7 @@ from sqlalchemy import not_, inspect
 from materialized_view_factory import MaterializedView, create_mat_view
 import collections
 import re
-from flask_dance.consumer.backend.sqla import OAuthConsumerMixin
+from flask_dance.consumer.storage.sqla import OAuthConsumerMixin
 
 user_to_sampleset = db.Table('user_to_sampleset',
     db.Column('user_id', db.Integer, db.ForeignKey('user.id')),
@@ -34,7 +34,7 @@ class User(db.Model):
     @property
     def is_active(self):
         # All users are active at the moment
-        return True 
+        return True
 
     @property
     def is_anonymous(self):
@@ -584,7 +584,7 @@ class Annotation(db.Model):
 
     annotation_type = db.Column(db.String)
 
-    gene_annotations = db.relationship('GeneAnnotation')
+    gene_annotations = db.relationship('GeneAnnotation', foreign_keys='GeneAnnotation.annotation_id')
 
     type_identifier = db.Column(db.String, nullable=False, unique=True)
 
@@ -597,8 +597,8 @@ class Annotation(db.Model):
     @classmethod
     def genes_per_annotation(self, annotation_ids):
         q = db.session.query(Gene, Annotation).\
-                join(GeneAnnotation).\
-                join(Annotation).\
+                join(GeneAnnotation.gene).\
+                join(GeneAnnotation.annotation).\
                 filter(GeneAnnotation.annotation_id.in_(annotation_ids))
         return q.all()
 
@@ -860,4 +860,3 @@ class EcNumber(Annotation):
     @property
     def pretty_name(self):
         return "EC-number"
-

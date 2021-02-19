@@ -196,7 +196,7 @@ def main(args):
             first = True
             rev_new_taxonomy = []
             for tax_val in reversed(full_taxonomy.split(';')):
-                if tax_val is "":
+                if tax_val == "":
                     if first:
                         tax_val = None
                     else:

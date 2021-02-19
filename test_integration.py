@@ -25,9 +25,9 @@ class SampleTestCase(unittest.TestCase):
             command_executor = "http://{}:{}@ondemand.saucelabs.com:80/wd/hub".format(username, access_key)
             capabilities = {}
             capabilities["tunnel-identifier"] = os.environ["TRAVIS_JOB_NUMBER"]
-            capabilities["platform"] = "Mac OS X 10.9"
+            capabilities["platform"] = "Mac OS X 10.15"
             capabilities["browserName"] = "chrome"
-            capabilities["version"] = "48"
+            capabilities["version"] = "88"
             self.driver = webdriver.Remote(desired_capabilities=capabilities, command_executor=command_executor)
             self.action_chains = ActionChains(self.driver)
         else:
@@ -339,4 +339,3 @@ class SampleTestCase(unittest.TestCase):
 
             rpkm_tbody = self.driver.find_elements(by=By.CLASS_NAME, value='rpkm_values_tbody')[0]
             assert len(rpkm_tbody.find_elements(by=By.TAG_NAME, value= 'tr')) == result # showing all allowed by the row limit
-

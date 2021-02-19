@@ -1,5 +1,5 @@
-from flask.ext.script import Manager, Command, Option
-from flask.ext.migrate import Migrate, MigrateCommand
+from flask_script import Manager, Command, Option
+from flask_migrate import Migrate, MigrateCommand
 import os
 from subprocess import check_call
 
@@ -11,7 +11,25 @@ manager = Manager(app)
 
 manager.add_command('db', MigrateCommand)
 
-class CreateDB(Command):
+
+def _drop_and_recreate_db(db):
+    print("Drop db")
+    check_call(["sudo", "-u", "postgres", "psql", "-c", "DROP DATABASE IF EXISTS {};".format(db)], env=os.environ)
+    print("Create db")
+    check_call(["sudo", "-u", "postgres", "createdb", "-U", os.environ["USER"], "--locale=en_US.utf-8", "-E", "utf-8", "-O", os.environ["USER"], db, "-T", "template0"])
+
+
+class CreateEmpty(Command):
+    "Creates an empty db from scratch"
+    option_list = (
+            Option('--db', dest='db', help='Database name'),
+            )
+
+    def run(self, db):
+        _drop_and_recreate_db(db)
+
+
+class CreateAndPopulateDB(Command):
     "Creates and populates a db from scratch"
 
     option_list = (
@@ -23,10 +41,7 @@ class CreateDB(Command):
 
     def run(self, db, data, sample_set, root_path):
         assert os.environ['DATABASE_URL'].endswith(db)
-        print("Drop db")
-        check_call(["sudo", "-u", "postgres", "/Library/PostgreSQL/9.4/bin/psql", "-c", "DROP DATABASE {};".format(db)])
-        print("Create db")
-        check_call(["sudo", "-u", "postgres", "/Library/PostgreSQL/9.4/bin/createdb", "-U", os.environ["USER"], "--locale=en_US.utf-8", "-E", "utf-8", "-O", os.environ["USER"], db, "-T", "template0"])
+        _drop_and_recreate_db(db)
         print("Upgrade")
         check_call(["python", "manage.py", "db", "upgrade"])
         print("Migrate")
@@ -40,19 +55,17 @@ class CreateDB(Command):
             "--eggnog_category_info", "data/{}/annotation_info/eggnog_categories.tsv".format(data), \
             "--eggnog_annotation_info", "data/{}/annotation_info/all_EggNOG_annotation_info.tsv".format(data), \
             "--ec_annotation_info",  "data/{}/annotation_info/all_EC_annotation_info.tsv".format(data), \
-            "--dbcan_annotation_info", "data/{}/annotation_info/all_dbCAN_annotation_info.tsv".format(data), \
             "--tigrfam_annotation_info", "data/{}/annotation_info/all_TIGRFAM_annotation_info.tsv".format(data), \
             "--annotation_source_info", "data/{}/annotation_source_info.csv".format(data), \
             "--gene_annotations_pfam", "data/{}/annotations/all.pfam.standardized.tsv".format(data), \
             "--gene_annotations_eggnog", "data/{}/annotations/all.EggNOG.standardized.tsv".format(data), \
             "--gene_annotations_ec", "data/{}/annotations/all.EC.standardized.tsv".format(data), \
-            "--gene_annotations_dbcan", "data/{}/annotations/all.dbCAN.standardized.tsv".format(data), \
             "--gene_annotations_tigrfam", "data/{0}/annotations/all.TIGRFAM.standardized.tsv".format(data), \
             "--gene_counts", "data/{}/{}/all_genes.tpm.tsv.gz".format(data, sample_set), \
             "--metadata_reference", "data/{}/metadata_reference.tsv".format(data), \
             "--reference_assembly", "megahit_coassembly.0", \
             "--tmp_file", "{}/data/{}/tmp_file.csv".format(root_path, data), \
-            "--taxonomy_per_gene", "{}/data/{}/lca_script.tsv".format(root_path, data)])
+            "--taxonomy_per_gene", "{}/data/{}/lca_megan.tsv".format(root_path, data)])
 
 class AddSampleSetCounts(Command):
     "Populates a db with new sample set counts"
@@ -74,7 +87,8 @@ class AddSampleSetCounts(Command):
             "--metadata_reference", "data/{}/metadata_reference.tsv".format(data), \
             "--tmp_file", "{}/data/{}/tmp_file.csv".format(root_path, data)])
 
-manager.add_command('create_db', CreateDB)
+manager.add_command('create_db', CreateAndPopulateDB)
+manager.add_command('create_empty', CreateEmpty)
 manager.add_command('add_sample_set_counts', AddSampleSetCounts)
 
 if __name__ == '__main__':

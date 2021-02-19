@@ -1,14 +1,18 @@
 language: python
 python:
-    - 3.6
+    - 3.9
 sudo: false
 addons:
-    postgresql: "9.4"
     sauce_connect: true # Credentials are set at travis-ci.com
 services:
     - postgresql
 env:
-    - BARM_SECRET_KEY="yeahthisiswhatweuseinproduction" DATABASE_URL="postgresql://postgres:@localhost/BARM_web_stage" APP_SETTINGS="config.DevelopmentConfig" AA_SEQUENCES="data/test/sequences/proteins_clean.small.faa" NUC_SEQUENCES="data/test/sequences/proteins_clean.small.ffn"
+    global:
+        - BARM_SECRET_KEY="yeahthisiswhatweuseinproduction"
+        - DATABASE_URL="postgresql://postgres:@localhost/barm_web_stage"
+        - APP_SETTINGS="config.TestingConfig"
+        - AA_SEQUENCES="data/test/sequences/proteins_clean.small.faa"
+        - NUC_SEQUENCES="data/test/sequences/proteins_clean.small.ffn"
 before_install:
     - wget -q https://repo.continuum.io/miniconda/Miniconda3-latest-Linux-x86_64.sh -O miniconda.sh
     - chmod +x miniconda.sh
@@ -24,16 +28,17 @@ before_install:
     - export PATH=/home/travis/cdbfasta-master:$PATH
 install:
     - which cdbyank
-    - conda install --yes python=$TRAVIS_PYTHON_VERSION pandas Flask SQLAlchemy psycopg2 flask-wtf gunicorn mako werkzeug wheel
+    - conda install --yes python=$TRAVIS_PYTHON_VERSION psycopg2
     - pip install -r requirements.txt
 before_script:
     - which cdbyank
-    - createdb BARM_web_test -U postgres --echo
+    - which psql
+    - psql -c 'create database "barm_web_stage";' -U postgres
     - cd $TRAVIS_BUILD_DIR
     - python manage.py db upgrade
-    - export DATABASE_URL="postgresql://postgres:@localhost/BARM_web_test"
     - bash setup_test_database.sh
+    - psql -c 'create database "barm_web_test";' -U postgres
     - python manage.py runserver &
     - sleep 3 # Give the server some time to start up
 script:
-    - python run_test.py --db "postgresql://postgres:@localhost/BARM_web_test"
+    - python run_test.py --db "postgresql://postgres:@localhost/barm_web_test" unit
