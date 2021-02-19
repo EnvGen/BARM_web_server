@@ -8,7 +8,11 @@ services:
     - postgresql
 env:
     global:
-        - BARM_SECRET_KEY="yeahthisiswhatweuseinproduction" DATABASE_URL="postgresql://postgres:@localhost/BARM_web_test" APP_SETTINGS="config.TestingConfig" AA_SEQUENCES="data/test/sequences/proteins_clean.small.faa" NUC_SEQUENCES="data/test/sequences/proteins_clean.small.ffn"
+        - BARM_SECRET_KEY="yeahthisiswhatweuseinproduction"
+        - DATABASE_URL="postgresql://postgres:@localhost/barm_web_stage"
+        - APP_SETTINGS="config.TestingConfig"
+        - AA_SEQUENCES="data/test/sequences/proteins_clean.small.faa"
+        - NUC_SEQUENCES="data/test/sequences/proteins_clean.small.ffn"
 before_install:
     - wget -q https://repo.continuum.io/miniconda/Miniconda3-latest-Linux-x86_64.sh -O miniconda.sh
     - chmod +x miniconda.sh
@@ -29,11 +33,12 @@ install:
 before_script:
     - which cdbyank
     - which psql
-    - psql -c 'create database "BARM_web_test";' -U postgres
+    - psql -c 'create database "barm_web_stage";' -U postgres
     - cd $TRAVIS_BUILD_DIR
     - python manage.py db upgrade
     - bash setup_test_database.sh
+    - psql -c 'create database "barm_web_test";' -U postgres
     - python manage.py runserver &
     - sleep 3 # Give the server some time to start up
 script:
-    - python run_test.py --db "postgresql://postgres:@localhost/BARM_web_test"
+    - python run_test.py --db "postgresql://postgres:@localhost/barm_web_test"
