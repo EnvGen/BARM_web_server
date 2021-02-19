@@ -365,7 +365,8 @@ class SampleTestCase(unittest.TestCase):
         assert samples == [sample1, sample2]
         assert [complete_val_to_val[complete_level_val] for complete_level_val in rpkm_table.keys()] == ["Bacteria", "Eukaryota"] # Sorted by summed rpkm
         assert rpkm_table[("Bacteria")] == {sample1: 1.001, sample2: 0.2}
-        assert rpkm_table[("Eukaryota")] == {sample2: 0.103}
+        assert list(rpkm_table[("Eukaryota")].keys())[0] == sample2
+        assert (list(rpkm_table[("Eukaryota")].values())[0] - 0.103) < 0.00000001 # Should never test on floats
 
         samples, rpkm_table, complete_val_to_val= Taxon.rpkm_table(level='phylum')
         assert samples == [sample1, sample2]
@@ -617,7 +618,7 @@ class SampleTestCase(unittest.TestCase):
         genes_for_annotation = Annotation.genes_per_annotation([annotation.id])
         assert len(genes_for_annotation) == 2
         assert (gene, annotation) in genes_for_annotation
-        assert (gene2, annotation)  in genes_for_annotation
+        assert (gene2, annotation) in genes_for_annotation
 
         # Add the second annotation
         self.session.add(annotation2)
@@ -939,11 +940,11 @@ class SampleTestCase(unittest.TestCase):
         # and the rpkm values should be summed over all genes for that annotation
         # there should be roughly equal numbers of the three different counts
         for i, row in enumerate(rpkms[:67]):
-            assert row == [0.003, 0.03]
+            assert row == ['0.0030', '0.0300']
         for row in rpkms[69:130]:
-            assert row == [0.002, 0.02]
+            assert row == ['0.0020', '0.0200']
         for row in rpkms[150:200]:
-            assert row == [0.001, 0.01]
+            assert row == ['0.0010', '0.0100']
 
         # possible to filter on function classes
         for annotation_type, type_d in annotation_types:
@@ -964,18 +965,18 @@ class SampleTestCase(unittest.TestCase):
             rpkms = [[rpkm for sample, rpkm in sample_d.items()] for annotation, sample_d in rows.items()]
             if sample.scilifelab_code == "P1993_101":
                 for i, row in enumerate(rpkms[:65]):
-                    assert row == [0.003]
+                    assert row == ['0.0030']
                 for row in rpkms[69:130]:
-                    assert row == [0.002]
+                    assert row == ['0.0020']
                 for row in rpkms[150:200]:
-                    assert row == [0.001]
+                    assert row == ['0.0010']
             else:
                 for row in rpkms[:67]:
-                    assert row == [0.03]
+                    assert row == ['0.0300']
                 for row in rpkms[69:130]:
-                    assert row == [0.02]
+                    assert row == ['0.0200']
                 for row in rpkms[150:200]:
-                    assert row == [0.01]
+                    assert row == ['0.0100']
 
         # possible to filter on sample and function class at the same time
         for annotation_type, type_d in annotation_types:
@@ -993,18 +994,18 @@ class SampleTestCase(unittest.TestCase):
                 rpkms = [[rpkm for sample, rpkm in sample_d.items()] for annotation, sample_d in rows.items()]
                 if sample.scilifelab_code == "P1993_101":
                     for row in rpkms[:9]:
-                        assert row == [0.003]
+                        assert row == ['0.0030']
                     for row in rpkms[19:29]:
-                        assert row == [0.002]
+                        assert row == ['0.0020']
                     for row in rpkms[39:]:
-                        assert row == [0.001]
+                        assert row == ['0.0010']
                 else:
                     for row in rpkms[:9]:
-                        assert row == [0.03]
+                        assert row == ['0.0300']
                     for row in rpkms[19:29]:
-                        assert row == [0.02]
+                        assert row == ['0.0200']
                     for row in rpkms[39:]:
-                        assert row == [0.01]
+                        assert row == ['0.0100']
 
         # possible to filter on individual annotations
         annotation_ids = ["COG0001", "TIGRFAM0004", "COG0003", "PFAM0002", "0.0.2.26"]
