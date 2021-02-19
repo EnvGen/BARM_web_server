@@ -584,7 +584,7 @@ class Annotation(db.Model):
 
     annotation_type = db.Column(db.String)
 
-    gene_annotations = db.relationship('GeneAnnotation')
+    gene_annotations = db.relationship('GeneAnnotation', foreign_keys='GeneAnnotation.annotation_id')
 
     type_identifier = db.Column(db.String, nullable=False, unique=True)
 
@@ -597,8 +597,8 @@ class Annotation(db.Model):
     @classmethod
     def genes_per_annotation(self, annotation_ids):
         q = db.session.query(Gene, Annotation).\
-                join(GeneAnnotation).\
-                join(Annotation).\
+                join(GeneAnnotation.gene).\
+                join(GeneAnnotation.annotation).\
                 filter(GeneAnnotation.annotation_id.in_(annotation_ids))
         return q.all()
 

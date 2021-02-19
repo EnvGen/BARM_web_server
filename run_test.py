@@ -18,7 +18,7 @@ def run_tests(args):
     run_integration_tests(args)
 
 if __name__ == "__main__":
-    parser = argparse.ArgumentParser(description="Run tests", add_help=False)
+    parser = argparse.ArgumentParser(description="Run tests, by default all.", add_help=False)
     parser.set_defaults(func=run_tests)
     parser.add_argument("--db", help="Overrule the default database url")
     parser.add_argument('--test', help="Specific test")
@@ -39,7 +39,7 @@ if __name__ == "__main__":
     try:
         os.environ["APP_SETTINGS"]="config.TestingConfig"
         if args.db is None:
-            os.environ["DATABASE_URL"]="postgresql://{}:local_dev_pass@localhost/BARM_web_test".format(USER)
+            os.environ["DATABASE_URL"]="postgresql://{}:local_dev_pass@localhost/barm_web_test".format(USER)
         else:
             os.environ["DATABASE_URL"]=args.db
         args.func(args)
@@ -49,3 +49,6 @@ if __name__ == "__main__":
         if OLD_DATABASE_URL:
             os.environ["DATABASE_URL"] = OLD_DATABASE_URL
         raise
+
+    os.environ["APP_SETTINGS"] = OLD_APP_SETTINGS
+    os.environ["DATABASE_URL"] = OLD_DATABASE_URL
