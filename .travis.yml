@@ -41,4 +41,4 @@ before_script:
     - python manage.py runserver &
     - sleep 3 # Give the server some time to start up
 script:
-    - python run_test.py --db "postgresql://postgres:@localhost/barm_web_test"
+    - python run_test.py --db "postgresql://postgres:@localhost/barm_web_test" unit
