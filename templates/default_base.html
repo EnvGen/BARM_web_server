@@ -1,17 +1,20 @@
 <!doctype html>
 <html lang="en">
+
 <head>
   <title>BalticMicrobeDB</title>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <link href="https://fonts.googleapis.com/css?family=Roboto:400,700,400italic|Source+Code+Pro:400,700" rel="stylesheet" type="text/css">
-  <link rel="stylesheet"href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
+  <link href="https://fonts.googleapis.com/css?family=Roboto:400,700,400italic|Source+Code+Pro:400,700" rel="stylesheet"
+    type="text/css">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
   <link rel="stylesheet" href="{{ url_for('static', filename='main.css') }}?v=0.2">
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.2/jquery.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
   <script src="https://code.highcharts.com/highcharts.js"></script>
   <script src="{{ url_for('static', filename='main.js') }}?v=0.2"></script>
 </head>
+
 <body>
   <nav class="navbar navbar-inverse navbar-fixed-top">
     <div class="container">
@@ -22,41 +25,50 @@
   </nav>
   <div class="main-content">
     {% with messages = get_flashed_messages(with_categories=true) %}
-      {% if messages %}
-        <ul class="flash">
-        {% for category, message in messages %}
-            {% if category == 'error' %}
-              <li><p class="alert alert-warning {{ category }}">{{ message }}</p></li>
-            {% else %}
-              <li><p class="{{ category }}">{{ message }}</p></li>
-            {% endif %}
-        {% endfor %}
-        </ul>
+    {% if messages %}
+    <ul class="flash">
+      {% for category, message in messages %}
+      {% if category == 'error' %}
+      <li>
+        <p class="alert alert-warning {{ category }}">{{ message }}</p>
+      </li>
+      {% else %}
+      <li>
+        <p class="{{ category }}">{{ message }}</p>
+      </li>
       {% endif %}
+      {% endfor %}
+    </ul>
+    {% endif %}
     {% endwith %}
     {% block body %}
     {% endblock body %}
   </div>
 
   <div class="container">
-  <hr>
+    <hr>
 
-  <footer>
-    <p>
+    <footer>
+      <p>
       <div class="row">
         <div class="col-md-5">
-          <p>&copy; 2016-2017 Johannes Alneberg, Anders F. Andersson and the <a href="http://blueprint-project.org/">BONUS BLUEPRINT Project</a></p>
-          <p>The BONUS BLUEPRINT project has received funding from BONUS (Art 185), funded jointly by the EU and the national funding institutions of Denmark, Sweden, Germany, Finland, and Estonia.</p>
+          <p>&copy; 2016-2017 Johannes Alneberg, Anders F. Andersson and the <a
+              href="http://blueprint-project.org/">BONUS BLUEPRINT Project</a></p>
+          <p>This tool/service is part of the Swedish Biodioversity Data Infrastructure (https://biodiversitydata.se),
+            funded by its partner organizations and the Swedish Research Council through Grant No 2019-00242</p>
         </div>
         <div class="col-md-6 col-md-offset-1">
           <img src="{{ url_for('static', filename='images/eu.png') }}" class="additional-logo">
           <img src="{{ url_for('static', filename='images/bonus.png') }}" class="additional-logo">
           <img src="{{ url_for('static', filename='images/kth.png') }}" class="additional-logo">
-          <img src="{{ url_for('static', filename='images/scilifelab_2.png') }}" class="additional-logo vertical-centered">
+          <img src="{{ url_for('static', filename='images/SBDI-rgb.png') }}" class="additional-logo">
+          <img src="{{ url_for('static', filename='images/scilifelab_2.png') }}"
+            class="additional-logo vertical-centered">
         </div>
       </div>
-    </p>
-  </footer>
+      </p>
+    </footer>
   </div>
 </body>
+
 </html>
